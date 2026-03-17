@@ -69,6 +69,29 @@ export default function HeroSection() {
         }}
       />
 
+      {/* Large Logo Display - Top Right */}
+      <div
+        style={{
+          position: "absolute",
+          top: "4rem",
+          right: "2rem",
+          zIndex: 15,
+          opacity: subVisible ? 1 : 0,
+          transform: subVisible ? "translateY(0)" : "translateY(-30px)",
+          transition: "opacity 0.8s ease 0.3s, transform 0.8s ease 0.3s",
+        }}
+      >
+        <img
+          src="https://d2xsxph8kpxj0f.cloudfront.net/310519663449035187/5G96cC5HiLZMXbLbP234aP/DomusRelocationsLogo_506fe4bc.png"
+          alt="DOMUS Relocations"
+          style={{
+            height: "140px",
+            width: "auto",
+            filter: "drop-shadow(0 4px 12px rgba(0,0,0,0.3))",
+          }}
+        />
+      </div>
+
       {/* Content */}
       <div className="container" style={{ position: "relative", zIndex: 10, paddingBottom: "8rem", width: "100%" }}>
         <div style={{ maxWidth: "900px" }}>
