@@ -133,9 +133,17 @@ export default function MilanSection() {
 
           {/* Text */}
           <div ref={rightRef} className="fade-up">
-            <span className="section-label" style={{ display: "block", marginBottom: "1rem" }}>
-              Milano
-            </span>
+            <div style={{ display: "flex", alignItems: "center", gap: "1.5rem", marginBottom: "2rem" }}>
+              <img
+                src="https://d2xsxph8kpxj0f.cloudfront.net/310519663449035187/5G96cC5HiLZMXbLbP234aP/DomusRelocationsLogo_506fe4bc.png"
+                alt="DOMUS Relocations"
+                style={{ height: "56px", width: "auto" }}
+              />
+              <div style={{ height: "40px", width: "1px", background: "var(--domus-gold)", opacity: 0.3 }} />
+              <span className="section-label" style={{ display: "block" }}>
+                Milano
+              </span>
+            </div>
             <span className="gold-rule" style={{ display: "block", marginBottom: "2rem" }} />
 
             <h2

@@ -52,11 +52,17 @@ export default function AboutSection() {
       }}
     >
       <div className="container">
-        {/* Section label */}
-        <div ref={labelRef} className="fade-up" style={{ marginBottom: "5rem" }}>
+        {/* Logo + Section label */}
+        <div ref={labelRef} className="fade-up" style={{ marginBottom: "3rem", display: "flex", alignItems: "center", gap: "1.5rem" }}>
+          <img
+            src="https://d2xsxph8kpxj0f.cloudfront.net/310519663449035187/5G96cC5HiLZMXbLbP234aP/DomusRelocationsLogo_506fe4bc.png"
+            alt="DOMUS Relocations"
+            style={{ height: "56px", width: "auto" }}
+          />
+          <div style={{ height: "40px", width: "1px", background: "var(--domus-gold)", opacity: 0.3 }} />
           <span className="section-label">Our Story</span>
-          <span className="gold-rule" style={{ display: "block", marginTop: "1rem" }} />
         </div>
+        <span className="gold-rule" style={{ display: "block", marginBottom: "4rem" }} />
 
         {/* Main grid */}
         <div

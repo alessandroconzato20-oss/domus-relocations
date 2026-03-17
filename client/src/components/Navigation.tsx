@@ -66,7 +66,7 @@ export default function Navigation({ onQuizOpen }: NavigationProps) {
             <img
               src={LOGO_URL}
               alt="DOMUS Relocations"
-              style={{ height: "52px", width: "auto" }}
+              style={{ height: "72px", width: "auto", opacity: 0.95 }}
             />
           </button>
 
