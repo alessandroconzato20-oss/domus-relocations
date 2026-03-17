@@ -1,3 +1,11 @@
+/*
+ * DOMUS Relocations — Milanese Atelier Design System
+ * Philosophy: Restrained Opulence — Italian Rationalism meets contemporary luxury editorial
+ * Palette: Warm ivory #F5F0E8 | Deep charcoal #1A1814 | Gold #C9A84C | Mid-grey #8A8070
+ * Typography: Cormorant Garamond (display) + Jost (body)
+ * Layout: Asymmetric editorial, vast breathing room, gold as punctuation
+ */
+
 @import "tailwindcss";
 @import "tw-animate-css";
 
@@ -23,94 +31,39 @@
   --color-accent: var(--accent);
   --color-accent-foreground: var(--accent-foreground);
   --color-destructive: var(--destructive);
-  --color-destructive-foreground: var(--destructive-foreground);
   --color-border: var(--border);
   --color-input: var(--input);
   --color-ring: var(--ring);
-  --color-chart-1: var(--chart-1);
-  --color-chart-2: var(--chart-2);
-  --color-chart-3: var(--chart-3);
-  --color-chart-4: var(--chart-4);
-  --color-chart-5: var(--chart-5);
-  --color-sidebar: var(--sidebar);
-  --color-sidebar-foreground: var(--sidebar-foreground);
-  --color-sidebar-primary: var(--sidebar-primary);
-  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
-  --color-sidebar-accent: var(--sidebar-accent);
-  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
-  --color-sidebar-border: var(--sidebar-border);
-  --color-sidebar-ring: var(--sidebar-ring);
 }
 
 :root {
-  --primary: var(--color-blue-700);
-  --primary-foreground: var(--color-blue-50);
-  --sidebar-primary: var(--color-blue-600);
-  --sidebar-primary-foreground: var(--color-blue-50);
-  --chart-1: var(--color-blue-300);
-  --chart-2: var(--color-blue-500);
-  --chart-3: var(--color-blue-600);
-  --chart-4: var(--color-blue-700);
-  --chart-5: var(--color-blue-800);
-  --radius: 0.65rem;
-  --background: oklch(1 0 0);
-  --foreground: oklch(0.235 0.015 65);
-  --card: oklch(1 0 0);
-  --card-foreground: oklch(0.235 0.015 65);
-  --popover: oklch(1 0 0);
-  --popover-foreground: oklch(0.235 0.015 65);
-  --secondary: oklch(0.98 0.001 286.375);
-  --secondary-foreground: oklch(0.4 0.015 65);
-  --muted: oklch(0.967 0.001 286.375);
-  --muted-foreground: oklch(0.552 0.016 285.938);
-  --accent: oklch(0.967 0.001 286.375);
-  --accent-foreground: oklch(0.141 0.005 285.823);
+  --radius: 0;
+  --background: oklch(0.97 0.008 85);
+  --foreground: oklch(0.14 0.01 60);
+  --card: oklch(0.97 0.008 85);
+  --card-foreground: oklch(0.14 0.01 60);
+  --popover: oklch(0.97 0.008 85);
+  --popover-foreground: oklch(0.14 0.01 60);
+  --primary: oklch(0.68 0.09 78);
+  --primary-foreground: oklch(0.14 0.01 60);
+  --secondary: oklch(0.93 0.01 85);
+  --secondary-foreground: oklch(0.14 0.01 60);
+  --muted: oklch(0.93 0.01 85);
+  --muted-foreground: oklch(0.52 0.02 75);
+  --accent: oklch(0.68 0.09 78);
+  --accent-foreground: oklch(0.97 0.008 85);
   --destructive: oklch(0.577 0.245 27.325);
-  --destructive-foreground: oklch(0.985 0 0);
-  --border: oklch(0.92 0.004 286.32);
-  --input: oklch(0.92 0.004 286.32);
-  --ring: oklch(0.623 0.214 259.815);
-  --sidebar: oklch(0.985 0 0);
-  --sidebar-foreground: oklch(0.235 0.015 65);
-  --sidebar-accent: oklch(0.967 0.001 286.375);
-  --sidebar-accent-foreground: oklch(0.141 0.005 285.823);
-  --sidebar-border: oklch(0.92 0.004 286.32);
-  --sidebar-ring: oklch(0.623 0.214 259.815);
-}
+  --border: oklch(0.88 0.012 80);
+  --input: oklch(0.88 0.012 80);
+  --ring: oklch(0.68 0.09 78);
 
-.dark {
-  --primary: var(--color-blue-700);
-  --primary-foreground: var(--color-blue-50);
-  --sidebar-primary: var(--color-blue-500);
-  --sidebar-primary-foreground: var(--color-blue-50);
-  --background: oklch(0.141 0.005 285.823);
-  --foreground: oklch(0.85 0.005 65);
-  --card: oklch(0.21 0.006 285.885);
-  --card-foreground: oklch(0.85 0.005 65);
-  --popover: oklch(0.21 0.006 285.885);
-  --popover-foreground: oklch(0.85 0.005 65);
-  --secondary: oklch(0.24 0.006 286.033);
-  --secondary-foreground: oklch(0.7 0.005 65);
-  --muted: oklch(0.274 0.006 286.033);
-  --muted-foreground: oklch(0.705 0.015 286.067);
-  --accent: oklch(0.274 0.006 286.033);
-  --accent-foreground:  oklch(0.92 0.005 65);
-  --destructive: oklch(0.704 0.191 22.216);
-  --destructive-foreground: oklch(0.985 0 0);
-  --border: oklch(1 0 0 / 10%);
-  --input: oklch(1 0 0 / 15%);
-  --ring: oklch(0.488 0.243 264.376);
-  --chart-1: var(--color-blue-300);
-  --chart-2: var(--color-blue-500);
-  --chart-3: var(--color-blue-600);
-  --chart-4: var(--color-blue-700);
-  --chart-5: var(--color-blue-800);
-  --sidebar: oklch(0.21 0.006 285.885);
-  --sidebar-foreground: oklch(0.85 0.005 65);
-  --sidebar-accent: oklch(0.274 0.006 286.033);
-  --sidebar-accent-foreground:  oklch(0.985 0 0);
-  --sidebar-border: oklch(1 0 0 / 10%);
-  --sidebar-ring: oklch(0.488 0.243 264.376);
+  /* Custom DOMUS tokens */
+  --domus-ivory: #F5F0E8;
+  --domus-charcoal: #1A1814;
+  --domus-gold: #C9A84C;
+  --domus-gold-light: #E8D5A3;
+  --domus-grey: #8A8070;
+  --domus-dark: #0F0D0B;
 }
 
 @layer base {
@@ -119,40 +72,30 @@
   }
   body {
     @apply bg-background text-foreground;
+    background-color: var(--domus-ivory);
+    color: var(--domus-charcoal);
+    font-family: 'Jost', sans-serif;
+    font-weight: 300;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
   }
   button:not(:disabled),
   [role="button"]:not([aria-disabled="true"]),
-  [type="button"]:not(:disabled),
-  [type="submit"]:not(:disabled),
-  [type="reset"]:not(:disabled),
-  a[href],
-  select:not(:disabled),
-  input[type="checkbox"]:not(:disabled),
-  input[type="radio"]:not(:disabled) {
+  a[href] {
     @apply cursor-pointer;
+  }
+  h1, h2, h3, h4 {
+    font-family: 'Cormorant Garamond', serif;
   }
 }
 
 @layer components {
-  /**
-   * Custom container utility that centers content and adds responsive padding.
-   *
-   * This overrides Tailwind's default container behavior to:
-   * - Auto-center content (mx-auto)
-   * - Add responsive horizontal padding
-   * - Set max-width for large screens
-   *
-   * Usage: <div className="container">...</div>
-   *
-   * For custom widths, use max-w-* utilities directly:
-   * <div className="max-w-6xl mx-auto px-4">...</div>
-   */
   .container {
     width: 100%;
     margin-left: auto;
     margin-right: auto;
-    padding-left: 1rem; /* 16px - mobile padding */
-    padding-right: 1rem;
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
   }
 
   .flex {
@@ -162,16 +105,232 @@
 
   @media (min-width: 640px) {
     .container {
-      padding-left: 1.5rem; /* 24px - tablet padding */
-      padding-right: 1.5rem;
+      padding-left: 2rem;
+      padding-right: 2rem;
     }
   }
 
   @media (min-width: 1024px) {
     .container {
-      padding-left: 2rem; /* 32px - desktop padding */
-      padding-right: 2rem;
-      max-width: 1280px; /* Standard content width */
+      padding-left: 4rem;
+      padding-right: 4rem;
+      max-width: 1440px;
     }
+  }
+
+  /* Gold rule divider */
+  .gold-rule {
+    width: 60px;
+    height: 1px;
+    background-color: var(--domus-gold);
+    display: block;
+  }
+
+  /* Gold rule long */
+  .gold-rule-full {
+    width: 100%;
+    height: 1px;
+    background-color: var(--domus-gold);
+    opacity: 0.3;
+    display: block;
+  }
+
+  /* Section label */
+  .section-label {
+    font-family: 'Jost', sans-serif;
+    font-weight: 500;
+    font-size: 0.7rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--domus-gold);
+  }
+
+  /* Display heading */
+  .display-heading {
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 300;
+    font-style: italic;
+    line-height: 1.1;
+    color: var(--domus-charcoal);
+  }
+
+  /* Body text */
+  .body-text {
+    font-family: 'Jost', sans-serif;
+    font-weight: 300;
+    font-size: 1rem;
+    line-height: 1.8;
+    color: var(--domus-grey);
+  }
+
+  /* Ghost numeral */
+  .ghost-numeral {
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 300;
+    font-size: 8rem;
+    line-height: 1;
+    color: var(--domus-gold);
+    opacity: 0.12;
+    position: absolute;
+    top: -1rem;
+    left: -1rem;
+    pointer-events: none;
+    user-select: none;
+  }
+
+  /* Luxury button */
+  .btn-luxury {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.875rem 2.5rem;
+    background: transparent;
+    border: 1px solid var(--domus-gold);
+    color: var(--domus-charcoal);
+    font-family: 'Jost', sans-serif;
+    font-weight: 500;
+    font-size: 0.75rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    transition: all 0.4s ease;
+    cursor: pointer;
+    text-decoration: none;
+  }
+
+  .btn-luxury:hover {
+    background: var(--domus-gold);
+    color: var(--domus-ivory);
+  }
+
+  /* Luxury button dark variant */
+  .btn-luxury-dark {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.875rem 2.5rem;
+    background: var(--domus-gold);
+    border: 1px solid var(--domus-gold);
+    color: var(--domus-charcoal);
+    font-family: 'Jost', sans-serif;
+    font-weight: 500;
+    font-size: 0.75rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    transition: all 0.4s ease;
+    cursor: pointer;
+    text-decoration: none;
+  }
+
+  .btn-luxury-dark:hover {
+    background: transparent;
+    color: var(--domus-gold);
+  }
+
+  /* Scroll animation base */
+  .fade-up {
+    opacity: 0;
+    transform: translateY(40px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+
+  .fade-up.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* Quiz option */
+  .quiz-option {
+    display: flex;
+    align-items: flex-start;
+    gap: 1rem;
+    padding: 1.25rem 1.5rem;
+    border: 1px solid oklch(0.88 0.012 80);
+    cursor: pointer;
+    transition: all 0.3s ease;
+    background: transparent;
+    text-align: left;
+    width: 100%;
+  }
+
+  .quiz-option:hover {
+    border-color: var(--domus-gold);
+    background: rgba(201, 168, 76, 0.04);
+  }
+
+  .quiz-option.selected {
+    border-color: var(--domus-gold);
+    background: rgba(201, 168, 76, 0.08);
+  }
+
+  /* Nav link */
+  .nav-link {
+    font-family: 'Jost', sans-serif;
+    font-weight: 400;
+    font-size: 0.75rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--domus-charcoal);
+    text-decoration: none;
+    transition: color 0.3s ease;
+    position: relative;
+  }
+
+  .nav-link::after {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    width: 0;
+    height: 1px;
+    background: var(--domus-gold);
+    transition: width 0.3s ease;
+  }
+
+  .nav-link:hover {
+    color: var(--domus-gold);
+  }
+
+  .nav-link:hover::after {
+    width: 100%;
+  }
+
+  /* Service card */
+  .service-card {
+    position: relative;
+    padding: 3rem 2.5rem 3rem 4rem;
+    border-bottom: 1px solid oklch(0.88 0.012 80 / 0.5);
+    transition: background 0.4s ease;
+    overflow: hidden;
+  }
+
+  .service-card:first-child {
+    border-top: 1px solid oklch(0.88 0.012 80 / 0.5);
+  }
+
+  .service-card:hover {
+    background: rgba(201, 168, 76, 0.03);
+  }
+
+  /* Parallax overlay */
+  .parallax-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      to bottom,
+      rgba(15, 13, 11, 0.55) 0%,
+      rgba(15, 13, 11, 0.3) 40%,
+      rgba(15, 13, 11, 0.65) 100%
+    );
+  }
+
+  /* Grain texture overlay */
+  .grain-overlay::after {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 9999;
+    opacity: 0.4;
   }
 }
