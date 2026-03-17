@@ -57,17 +57,14 @@ export default function Navigation({ onQuizOpen }: NavigationProps) {
     >
       <div className="container">
         <nav style={{ display: "flex", alignItems: "center", justifyContent: "space-between", padding: "1.25rem 0" }}>
-          {/* Logo */}
+          {/* Home button */}
           <button
             onClick={() => scrollTo("hero")}
-            style={{ background: "none", border: "none", padding: 0, cursor: "pointer" }}
+            className="nav-link"
+            style={{ background: "none", border: "none", fontFamily: "'Jost', sans-serif", fontWeight: 500, fontSize: "0.75rem", letterSpacing: "0.15em", textTransform: "uppercase", color: "var(--domus-charcoal)", cursor: "pointer" }}
             aria-label="DOMUS Relocations home"
           >
-            <img
-              src={LOGO_URL}
-              alt="DOMUS Relocations"
-              style={{ height: "72px", width: "auto", opacity: 0.95 }}
-            />
+            DOMUS
           </button>
 
           {/* Desktop Links */}
