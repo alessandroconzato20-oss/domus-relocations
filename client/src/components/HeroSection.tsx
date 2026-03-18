@@ -118,10 +118,11 @@ export default function HeroSection() {
           {/* Tagline */}
           <p
             style={{
-              fontFamily: "'Jost', sans-serif",
-              fontWeight: 400,
-              fontSize: "clamp(1.05rem, 1.8vw, 1.3rem)",
-              lineHeight: 1.5,
+              fontFamily: "'Cormorant Garamond', serif",
+              fontWeight: 300,
+              fontStyle: "italic",
+              fontSize: "clamp(1.25rem, 2.2vw, 1.65rem)",
+              lineHeight: 1.4,
               color: "rgba(245, 240, 232, 0.9)",
               maxWidth: "600px",
               marginBottom: "2rem",
