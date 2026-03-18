@@ -113,13 +113,13 @@ export default function HeroSection() {
           <h1
             style={{
               fontFamily: "'Cormorant Garamond', serif",
-              fontWeight: 300,
+              fontWeight: 400,
               fontStyle: "italic",
-              fontSize: "clamp(3rem, 7vw, 6.5rem)",
-              lineHeight: 1.05,
+              fontSize: "clamp(3.5rem, 8vw, 7.5rem)",
+              lineHeight: 0.95,
               color: "#F5F0E8",
-              marginBottom: "2rem",
-              letterSpacing: "-0.01em",
+              marginBottom: "1.5rem",
+              letterSpacing: "-0.02em",
             }}
           >
             {headlineWords.map((word, i) => (
@@ -127,7 +127,7 @@ export default function HeroSection() {
                 key={i}
                 style={{
                   display: "inline-block",
-                  marginRight: "0.3em",
+                  marginRight: "0.25em",
                   opacity: wordsVisible[i] ? 1 : 0,
                   transform: wordsVisible[i] ? "translateY(0)" : "translateY(30px)",
                   transition: "opacity 0.6s ease, transform 0.6s ease",
@@ -138,6 +138,24 @@ export default function HeroSection() {
             ))}
           </h1>
 
+          {/* Tagline */}
+          <p
+            style={{
+              fontFamily: "'Jost', sans-serif",
+              fontWeight: 400,
+              fontSize: "clamp(1.05rem, 1.8vw, 1.3rem)",
+              lineHeight: 1.5,
+              color: "rgba(245, 240, 232, 0.9)",
+              maxWidth: "600px",
+              marginBottom: "2rem",
+              opacity: subVisible ? 1 : 0,
+              transform: subVisible ? "translateY(0)" : "translateY(20px)",
+              transition: "opacity 0.7s ease 0.1s, transform 0.7s ease 0.1s",
+            }}
+          >
+            A discreet relocation partner for internationally mobile clients
+          </p>
+
           {/* Subheadline */}
           <p
             style={{
@@ -145,12 +163,12 @@ export default function HeroSection() {
               fontWeight: 300,
               fontSize: "clamp(0.95rem, 1.5vw, 1.1rem)",
               lineHeight: 1.8,
-              color: "rgba(245, 240, 232, 0.8)",
+              color: "rgba(245, 240, 232, 0.75)",
               maxWidth: "520px",
               marginBottom: "2.5rem",
               opacity: subVisible ? 1 : 0,
               transform: subVisible ? "translateY(0)" : "translateY(20px)",
-              transition: "opacity 0.7s ease 0.1s, transform 0.7s ease 0.1s",
+              transition: "opacity 0.7s ease 0.2s, transform 0.7s ease 0.2s",
             }}
           >
             A private relocation advisory for those who expect more than efficiency — 
@@ -174,8 +192,9 @@ export default function HeroSection() {
                 if (el) el.scrollIntoView({ behavior: "smooth" });
               }}
               className="btn-luxury-dark"
+              style={{ background: "var(--domus-ivory)", color: "var(--domus-charcoal)", border: "1px solid var(--domus-ivory)" }}
             >
-              Discover Our Services
+              Begin Your Private Relocation
             </button>
             <button
               onClick={scrollToAbout}
