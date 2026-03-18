@@ -289,18 +289,10 @@ export default function ServicesSection() {
       <div className="container" style={{ position: "relative", zIndex: 1 }}>
         {/* Header */}
         <div ref={headerRef} className="fade-up" style={{ marginBottom: "5rem" }}>
-          <div style={{ display: "flex", alignItems: "center", gap: "1.5rem", marginBottom: "2rem" }}>
-            <img
-              src="https://d2xsxph8kpxj0f.cloudfront.net/310519663449035187/5G96cC5HiLZMXbLbP234aP/DomusRelocationsLogo_506fe4bc.png"
-              alt="DOMUS Relocations"
-              style={{ height: "56px", width: "auto" }}
-            />
-            <div style={{ height: "40px", width: "1px", background: "var(--domus-gold)", opacity: 0.3 }} />
-            <span className="section-label" style={{ color: "var(--domus-gold)" }}>
-              Our Services
-            </span>
-          </div>
-          <span className="gold-rule" style={{ display: "block", marginTop: "1rem", marginBottom: "2rem" }} />
+          <span className="section-label" style={{ color: "var(--domus-gold)", marginBottom: "1rem", display: "block" }}>
+            Our Services
+          </span>
+          <span className="gold-rule" style={{ display: "block", marginBottom: "2rem" }} />
           <h2
             style={{
               fontFamily: "'Cormorant Garamond', serif",

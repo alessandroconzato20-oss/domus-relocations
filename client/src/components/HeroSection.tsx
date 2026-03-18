@@ -46,7 +46,7 @@ export default function HeroSection() {
         alignItems: "flex-end",
       }}
     >
-      {/* Background image */}
+      {/* Background image with DOMUS logo overlay */}
       <div
         style={{
           position: "absolute",
@@ -60,37 +60,37 @@ export default function HeroSection() {
         className="hero-bg"
       />
 
-      {/* Gradient overlay — dark at bottom, lighter at top */}
+      {/* DOMUS Logo as background element - centered behind church */}
       <div
         style={{
           position: "absolute",
-          inset: 0,
-          background: "linear-gradient(to bottom, rgba(15,13,11,0.25) 0%, rgba(15,13,11,0.15) 40%, rgba(15,13,11,0.75) 100%)",
-        }}
-      />
-
-      {/* Large Logo Display - Top Right */}
-      <div
-        style={{
-          position: "absolute",
-          top: "4rem",
-          right: "2rem",
-          zIndex: 15,
-          opacity: subVisible ? 1 : 0,
-          transform: subVisible ? "translateY(0)" : "translateY(-30px)",
-          transition: "opacity 0.8s ease 0.3s, transform 0.8s ease 0.3s",
+          top: "50%",
+          left: "50%",
+          transform: "translate(-50%, -50%)",
+          zIndex: 5,
+          opacity: 0.15,
         }}
       >
         <img
           src="https://d2xsxph8kpxj0f.cloudfront.net/310519663449035187/5G96cC5HiLZMXbLbP234aP/DomusRelocationsLogo_506fe4bc.png"
           alt="DOMUS Relocations"
           style={{
-            height: "140px",
+            height: "600px",
             width: "auto",
-            filter: "drop-shadow(0 4px 12px rgba(0,0,0,0.3))",
+            filter: "brightness(0.8)",
           }}
         />
       </div>
+
+      {/* Gradient overlay — dark at bottom, lighter at top */}
+      <div
+        style={{
+          position: "absolute",
+          inset: 0,
+          background: "linear-gradient(to bottom, rgba(15,13,11,0.25) 0%, rgba(15,13,11,0.15) 40%, rgba(15,13,11,0.75) 100%)",
+          zIndex: 8,
+        }}
+      />
 
       {/* Content */}
       <div className="container" style={{ position: "relative", zIndex: 10, paddingBottom: "8rem", width: "100%" }}>

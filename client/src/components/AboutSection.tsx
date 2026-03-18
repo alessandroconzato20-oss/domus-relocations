@@ -52,22 +52,10 @@ export default function AboutSection() {
       }}
     >
       <div className="container">
-        {/* Large Logo Display */}
-        <div ref={labelRef} className="fade-up" style={{ marginBottom: "6rem", display: "grid", gridTemplateColumns: "1fr 1fr", gap: "4rem", alignItems: "start" }}>
-          <div style={{ display: "flex", justifyContent: "center", alignItems: "flex-start" }}>
-            <img
-              src="https://d2xsxph8kpxj0f.cloudfront.net/310519663449035187/5G96cC5HiLZMXbLbP234aP/DomusRelocationsLogo_506fe4bc.png"
-              alt="DOMUS Relocations"
-              style={{ height: "280px", width: "auto", filter: "drop-shadow(0 8px 24px rgba(0,0,0,0.08))" }}
-            />
-          </div>
-          <div style={{ display: "flex", flexDirection: "column", justifyContent: "flex-start", gap: "1.5rem" }}>
-            <span className="section-label" style={{ fontSize: "0.85rem" }}>Our Story</span>
-            <span className="gold-rule" style={{ display: "block", width: "60px" }} />
-            <p style={{ fontFamily: "'Jost', sans-serif", fontWeight: 300, fontSize: "0.95rem", lineHeight: 1.8, color: "rgba(45, 41, 38, 0.7)", maxWidth: "400px" }}>
-              The DOMUS philosophy: discretion, precision, and a seamless transition into Milanese life, crafted by a family who knows relocation by heart.
-            </p>
-          </div>
+        {/* Section header */}
+        <div ref={labelRef} className="fade-up" style={{ marginBottom: "4rem" }}>
+          <span className="section-label" style={{ fontSize: "0.85rem" }}>Our Story</span>
+          <span className="gold-rule" style={{ display: "block", marginTop: "1.5rem", marginBottom: "2rem" }} />
         </div>
 
         {/* Main grid */}
