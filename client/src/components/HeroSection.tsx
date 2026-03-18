@@ -123,7 +123,7 @@ export default function HeroSection() {
               fontStyle: "italic",
               fontSize: "clamp(1.25rem, 2.2vw, 1.65rem)",
               lineHeight: 1.4,
-              color: "rgba(245, 240, 232, 0.9)",
+              color: "rgba(245, 240, 232, 0.98)",
               maxWidth: "600px",
               marginBottom: "2rem",
               opacity: subVisible ? 1 : 0,

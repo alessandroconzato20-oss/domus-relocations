@@ -58,7 +58,7 @@ export default function AboutSection() {
             <img
               src="https://d2xsxph8kpxj0f.cloudfront.net/310519663449035187/5G96cC5HiLZMXbLbP234aP/DomusRelocationsLogo_506fe4bc.png"
               alt="DOMUS Relocations"
-              style={{ height: "200px", width: "auto", filter: "drop-shadow(0 4px 16px rgba(0,0,0,0.08))" }}
+              style={{ height: "280px", width: "auto", filter: "drop-shadow(0 4px 16px rgba(0,0,0,0.08))" }}
             />
           </div>
           <div>
