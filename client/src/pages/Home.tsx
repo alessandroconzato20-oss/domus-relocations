@@ -8,6 +8,7 @@
 import { useState } from "react";
 import AboutSection from "@/components/AboutSection";
 import ContactSection from "@/components/ContactSection";
+import CoreValuesSection from "@/components/CoreValuesSection";
 import HeroSection from "@/components/HeroSection";
 import MilanSection from "@/components/MilanSection";
 import Navigation from "@/components/Navigation";
@@ -26,6 +27,7 @@ export default function Home() {
       {/* Page sections */}
       <main>
         <HeroSection />
+        <CoreValuesSection />
         <AboutSection />
         <ServicesSection />
         <QuizCTABanner onQuizOpen={() => setQuizOpen(true)} />

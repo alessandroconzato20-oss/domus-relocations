@@ -30,16 +30,16 @@ function useScrollReveal(threshold = 0.15) {
 
 const qualities = [
   {
-    title: "Discretion",
-    text: "Every engagement is conducted with absolute confidentiality. Your privacy is not a feature — it is a foundation.",
+    title: "Proficiency",
+    text: "We bring a deep, hands-on understanding of international relocation shaped by years of personal experience. Every detail is handled with expertise, ensuring a seamless and efficient transition at every stage.",
   },
   {
-    title: "Precision",
-    text: "We do not offer generic solutions. Every recommendation, introduction, and decision is made with your specific circumstances in mind.",
+    title: "Fidelity",
+    text: "Trust is at the core of everything we do, guided by discretion, integrity, and complete transparency. We are committed to representing our clients' best interests with unwavering loyalty and care.",
   },
   {
-    title: "Continuity",
-    text: "Our relationship does not end when you arrive. We remain available throughout your first months, ensuring nothing is left to chance.",
+    title: "Care",
+    text: "We approach every relocation with genuine attention to the people behind the move, not just the process itself. Our role is to provide reassurance, continuity, and a sense of ease during moments of change.",
   },
 ];
 
@@ -173,86 +173,7 @@ export default function MilanSection() {
           </div>
         </div>
 
-        {/* Divider */}
-        <span className="gold-rule-full" style={{ display: "block", marginBottom: "7rem" }} />
 
-        {/* Three qualities */}
-        <div ref={qualitiesRef} className="fade-up">
-          {/* Section title */}
-          <div style={{ marginBottom: "4rem", textAlign: "center" }}>
-            <h3
-              style={{
-                fontFamily: "'Cormorant Garamond', serif",
-                fontWeight: 300,
-                fontStyle: "italic",
-                fontSize: "clamp(1.75rem, 2.5vw, 2.25rem)",
-                color: "var(--domus-charcoal)",
-                marginBottom: "1.5rem",
-              }}
-            >
-              Our Core Values For You
-            </h3>
-            <div
-              style={{
-                width: "60px",
-                height: "1px",
-                background: "var(--domus-gold)",
-                margin: "0 auto",
-              }}
-            />
-          </div>
-
-          <div
-            style={{
-              display: "grid",
-              gridTemplateColumns: "1fr",
-              gap: "0",
-            }}
-            className="qualities-grid"
-          >
-            {qualities.map((q, i) => (
-              <div
-                key={i}
-                style={{
-                  padding: "3rem 2.5rem",
-                  borderLeft: i > 0 ? "1px solid rgba(201, 168, 76, 0.2)" : "none",
-                  borderTop: "1px solid rgba(201, 168, 76, 0.2)",
-                  borderBottom: "1px solid rgba(201, 168, 76, 0.2)",
-                  borderRight: i === qualities.length - 1 ? "none" : "none",
-                }}
-              >
-                <span
-                  style={{
-                    fontFamily: "'Jost', sans-serif",
-                    fontWeight: 500,
-                    fontSize: "0.65rem",
-                    letterSpacing: "0.25em",
-                    textTransform: "uppercase",
-                    color: "var(--domus-gold)",
-                    display: "block",
-                    marginBottom: "1.25rem",
-                  }}
-                >
-                  0{i + 1}
-                </span>
-                <h3
-                  style={{
-                    fontFamily: "'Cormorant Garamond', serif",
-                    fontWeight: 400,
-                    fontSize: "1.75rem",
-                    color: "var(--domus-charcoal)",
-                    marginBottom: "1rem",
-                  }}
-                >
-                  {q.title}
-                </h3>
-                <p className="body-text" style={{ fontSize: "0.9rem" }}>
-                  {q.text}
-                </p>
-              </div>
-            ))}
-          </div>
-        </div>
       </div>
 
       <style>{`
