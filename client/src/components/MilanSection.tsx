@@ -178,6 +178,30 @@ export default function MilanSection() {
 
         {/* Three qualities */}
         <div ref={qualitiesRef} className="fade-up">
+          {/* Section title */}
+          <div style={{ marginBottom: "4rem", textAlign: "center" }}>
+            <h3
+              style={{
+                fontFamily: "'Cormorant Garamond', serif",
+                fontWeight: 300,
+                fontStyle: "italic",
+                fontSize: "clamp(1.75rem, 2.5vw, 2.25rem)",
+                color: "var(--domus-charcoal)",
+                marginBottom: "1.5rem",
+              }}
+            >
+              Our Core Values For You
+            </h3>
+            <div
+              style={{
+                width: "60px",
+                height: "1px",
+                background: "var(--domus-gold)",
+                margin: "0 auto",
+              }}
+            />
+          </div>
+
           <div
             style={{
               display: "grid",
