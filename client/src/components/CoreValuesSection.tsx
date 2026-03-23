@@ -67,7 +67,7 @@ export default function CoreValuesSection() {
                 marginBottom: "1.5rem",
               }}
             >
-              Our Core Values For You
+              Our Core Values
             </h2>
             <div
               style={{
