@@ -6,6 +6,7 @@
  */
 
 import { useState } from "react";
+import { useAuth } from "@/_core/hooks/useAuth";
 import AboutSection from "@/components/AboutSection";
 import ContactSection from "@/components/ContactSection";
 import CoreValuesSection from "@/components/CoreValuesSection";
@@ -17,6 +18,10 @@ import ServicesSection from "@/components/ServicesSection";
 import TestimonialSection from "@/components/TestimonialSection";
 
 export default function Home() {
+  // The userAuth hooks provides authentication state
+  // To implement login/logout functionality, simply call logout() or redirect to getLoginUrl()
+  let { user, loading, error, isAuthenticated, logout } = useAuth();
+
   const [quizOpen, setQuizOpen] = useState(false);
 
   return (

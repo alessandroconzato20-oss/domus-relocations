@@ -1,0 +1,90 @@
+import { COOKIE_NAME } from "@shared/const";
+import { getSessionCookieOptions } from "./_core/cookies";
+import { systemRouter } from "./_core/systemRouter";
+import { publicProcedure, router } from "./_core/trpc";
+import { z } from "zod";
+import { saveQuizResponse, getQuizResponses, saveContactSubmission, getContactSubmissions } from "./db";
+
+export const appRouter = router({
+  // if you need to use socket.io, read and register route in server/_core/index.ts, all api should start with '/api/' so that the gateway can route correctly
+  system: systemRouter,
+  auth: router({
+    me: publicProcedure.query(opts => opts.ctx.user),
+    logout: publicProcedure.mutation(({ ctx }) => {
+      const cookieOptions = getSessionCookieOptions(ctx.req);
+      ctx.res.clearCookie(COOKIE_NAME, { ...cookieOptions, maxAge: -1 });
+      return {
+        success: true,
+      } as const;
+    }),
+  }),
+
+  // Quiz and contact submissions
+  submissions: router({
+    submitQuiz: publicProcedure
+      .input(z.object({
+        email: z.string().email(),
+        fullName: z.string().min(1),
+        answers: z.record(z.string(), z.string()),
+        persona: z.string(),
+      }))
+      .mutation(async (opts) => {
+        const { input } = opts;
+        try {
+          await saveQuizResponse({
+            email: input.email,
+            fullName: input.fullName,
+            answers: JSON.stringify(input.answers),
+            persona: input.persona,
+          });
+          return { success: true, message: "Quiz response saved successfully" };
+        } catch (error) {
+          console.error("Failed to save quiz response:", error);
+          return { success: false, message: "Failed to save quiz response" };
+        }
+      }),
+
+    submitContact: publicProcedure
+      .input(z.object({
+        fullName: z.string().min(1),
+        email: z.string().email(),
+        message: z.string().min(1),
+      }))
+      .mutation(async (opts) => {
+        const { input } = opts;
+        try {
+          await saveContactSubmission({
+            fullName: input.fullName,
+            email: input.email,
+            message: input.message,
+          });
+          return { success: true, message: "Contact submission saved successfully" };
+        } catch (error) {
+          console.error("Failed to save contact submission:", error);
+          return { success: false, message: "Failed to save contact submission" };
+        }
+      }),
+
+    getQuizResponses: publicProcedure.query(async () => {
+      try {
+        const responses = await getQuizResponses();
+        return responses;
+      } catch (error) {
+        console.error("Failed to get quiz responses:", error);
+        return [];
+      }
+    }),
+
+    getContactSubmissions: publicProcedure.query(async () => {
+      try {
+        const submissions = await getContactSubmissions();
+        return submissions;
+      } catch (error) {
+        console.error("Failed to get contact submissions:", error);
+        return [];
+      }
+    }),
+  }),
+});
+
+export type AppRouter = typeof appRouter;
