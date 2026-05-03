@@ -65,7 +65,7 @@ export default function AboutSection() {
             <span className="section-label" style={{ fontSize: "0.85rem", display: "block", marginBottom: "1rem" }}>Our Story</span>
             <span className="gold-rule" style={{ display: "block", marginBottom: "1rem", width: "60px" }} />
             <p style={{ fontFamily: "'Jost', sans-serif", fontWeight: 300, fontSize: "0.95rem", lineHeight: 1.8, color: "rgba(45, 41, 38, 0.7)", maxWidth: "300px" }}>
-              The DOMUS philosophy: proficiency in every detail, fidelity to your interests, and genuine care for the people behind the move — crafted by a family who knows relocation by heart.
+              The DOMUS philosophy: proficiency in every detail, fidelity to your interests, and genuine care for the people behind the move. Crafted by a family who knows relocation by heart.
             </p>
           </div>
         </div>
