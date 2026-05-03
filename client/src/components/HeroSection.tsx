@@ -149,8 +149,7 @@ export default function HeroSection() {
               transition: "opacity 0.7s ease 0.2s, transform 0.7s ease 0.2s",
             }}
           >
-            A private relocation advisory for those who expect more than efficiency — 
-            discretion, precision, and a seamless transition into Milanese life.
+            A private relocation advisory rooted in discretion, precision, and a seamless transition into Milanese life. We expect more than efficiency.
           </p>
 
           {/* CTA */}
