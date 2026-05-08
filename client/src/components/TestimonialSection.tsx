@@ -82,7 +82,7 @@ export default function TestimonialSection() {
               border: "none",
             }}
           >
-            "We had moved many times before, but Milan was different. DOMUS didn't just help us find a home — they helped us find our life here. Within weeks, our children were settled in the right school, we had a doctor we trusted, and we felt genuinely at home in a city that can take years to open up."
+            "We had moved many times before, but Milan was different. DOMUS didn't just help us find a home; they helped us find our life here. Within weeks, our children were settled in the right school, we had a doctor we trusted, and we felt genuinely at home in a city that can take years to open up."
           </blockquote>
 
           {/* Gold rule */}

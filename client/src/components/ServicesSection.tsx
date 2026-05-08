@@ -15,7 +15,7 @@ const services = [
     label: "Private Relocation Advisory",
     title: "A strategy as unique as your family.",
     description:
-      "We begin where others end — with a deeply personal understanding of who you are and what you need. Our private relocation advisory provides a personalised relocation strategy tailored to your lifestyle, coordinating with selected real estate agents to guide you in choosing the right neighbourhood. We remain by your side throughout the first months in Milan, ensuring every transition is handled with the precision and discretion you deserve.",
+      "We begin where others end: with a deeply personal understanding of who you are and what you need. Our private relocation advisory provides a personalised relocation strategy tailored to your lifestyle, coordinating with selected real estate agents to guide you in choosing the right neighbourhood. We remain by your side throughout the first months in Milan, ensuring every transition is handled with the precision and discretion you deserve.",
     details: [
       "Personalised relocation strategy",
       "Neighbourhood selection guidance",
@@ -28,7 +28,7 @@ const services = [
     label: "School Advisory",
     title: "The right school, chosen with certainty.",
     description:
-      "Choosing the right school for your children is one of the most consequential decisions of any relocation. We begin with a thorough assessment of your family's needs, then provide curated introductions to selected international schools in Milan. We guide you through the entire application and admission process — and offer something truly rare: a 1-to-1 insider student conversation, giving you the unfiltered truth of a school's environment in a single conversation, rather than having to discover it the hard way.",
+      "Choosing the right school for your children is one of the most consequential decisions of any relocation. We begin with a thorough assessment of your family's needs, then provide curated introductions to selected international schools in Milan. We guide you through the entire application and admission process and offer something truly rare: a 1-to-1 insider student conversation, giving you the unfiltered truth of a school's environment in a single conversation, rather than having to discover it the hard way.",
     details: [
       "Assessment of family needs and educational priorities",
       "Introductions to selected international schools",
@@ -41,7 +41,7 @@ const services = [
     label: "Milan Integration",
     title: "Become part of the city, not just a resident.",
     description:
-      "Moving to a new city is more than finding an address. It is about building a life. We facilitate introductions to international communities, exclusive clubs, sports facilities, cultural institutions, and trusted lifestyle services — so that from your very first weeks, Milan feels like home. Our network ensures you are surrounded by the right people, in the right places, from the very beginning.",
+      "Moving to a new city is more than finding an address. It is about building a life. We facilitate introductions to international communities, exclusive clubs, sports facilities, cultural institutions, and trusted lifestyle services so that from your very first weeks, Milan feels like home. Our network ensures you are surrounded by the right people, in the right places, from the very beginning.",
     details: [
       "Introductions to international communities",
       "Access to clubs and sports facilities",
@@ -54,7 +54,7 @@ const services = [
     label: "Trusted Network Access",
     title: "The people you need, before you know you need them.",
     description:
-      "In a new city, you don't yet have a trusted doctor, a reliable lawyer, or a cleaner you can count on. We provide access to a carefully vetted network of professionals — architects, interior designers, legal experts, medical specialists, and private service providers — built over years of living in Milan at the highest level. Every contact in our network has been personally verified and is held to the same standards of excellence we apply to everything we do.",
+      "In a new city, you don't yet have a trusted doctor, a reliable lawyer, or a cleaner you can count on. We provide access to a carefully vetted network of professionals including architects, interior designers, legal experts, medical specialists, and private service providers, built over years of living in Milan at the highest level. Every contact in our network has been personally verified and is held to the same standards of excellence we apply to everything we do.",
     details: [
       "Vetted medical and legal professionals",
       "Architects and interior designers",

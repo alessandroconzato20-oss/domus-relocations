@@ -61,7 +61,7 @@ const questions: QuizQuestion[] = [
   {
     id: "neighbourhood",
     question: "What kind of environment are you drawn to?",
-    subtitle: "Milan has many distinct characters — we want to find yours.",
+    subtitle: "Milan has many distinct characters; we want to find yours.",
     options: [
       { id: "central", label: "Central & cosmopolitan", description: "Brera, Porta Nuova, Duomo" },
       { id: "residential", label: "Elegant & residential", description: "Porta Venezia, Navigli" },
@@ -97,7 +97,7 @@ const personaMap: Record<string, { title: string; description: string; services:
   family: {
     title: "The Discerning Family",
     description:
-      "Your priority is a seamless, complete transition for your entire family — from finding the perfect home in the right neighbourhood to ensuring your children thrive in a world-class school. DOMUS is built for families like yours.",
+      "Your priority is a seamless, complete transition for your entire family: from finding the perfect home in the right neighbourhood to ensuring your children thrive in a world-class school. DOMUS is built for families like yours.",
     services: ["Private Relocation Advisory", "School Advisory", "Milan Integration"],
   },
   solo: {
@@ -109,7 +109,7 @@ const personaMap: Record<string, { title: string; description: string; services:
   community: {
     title: "The Social Architect",
     description:
-      "For you, a city is only as good as the life you build within it. You want to be introduced to the right communities, the right clubs, and the right people — and we know exactly where to take you.",
+      "For you, a city is only as good as the life you build within it. You want to be introduced to the right communities, the right clubs, and the right people, and we know exactly where to take you.",
     services: ["Milan Integration", "Trusted Network Access", "Private Relocation Advisory"],
   },
 };

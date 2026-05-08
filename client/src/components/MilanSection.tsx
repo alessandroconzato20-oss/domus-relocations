@@ -154,7 +154,7 @@ export default function MilanSection() {
             </h2>
 
             <p className="body-text" style={{ marginBottom: "1.5rem" }}>
-              Milan is not a city that reveals itself easily. Behind its composed façade lies a world of extraordinary quality — in its neighbourhoods, its schools, its social fabric, and its private life. To access it fully, you need someone who already lives inside it.
+              Milan is not a city that reveals itself easily. Behind its composed façade lies a world of extraordinary quality: in its neighbourhoods, its schools, its social fabric, and its private life. To access it fully, you need someone who already lives inside it.
             </p>
 
             <p className="body-text" style={{ marginBottom: "2.5rem" }}>

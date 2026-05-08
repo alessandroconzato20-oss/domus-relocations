@@ -102,15 +102,15 @@ export default function AboutSection() {
               </p>
 
               <p className="body-text" style={{ marginBottom: "1.5rem" }}>
-                As a family of four, we lived for years across Asia — over six years in Tokyo, three in Hong Kong, and three in Shanghai — before choosing Milano in 2022. Throughout these years, we experienced relocation at a high level, navigating international schools, premium housing, and the expectations that come with a global, fast-paced lifestyle.
+                As a family of four, we lived for years across Asia: over six years in Tokyo, three in Hong Kong, and three in Shanghai, before choosing Milano in 2022. Throughout these years, we experienced relocation at a high level, navigating international schools, premium housing, and the expectations that come with a global, fast-paced lifestyle.
               </p>
 
               <p className="body-text" style={{ marginBottom: "1.5rem" }}>
-                With every move, we came to understand that true relocation is not just about efficiency — it is about discretion, precision, and a seamless transition where every detail is handled with care. We learned how important it is to feel supported, understood, and guided when entering a new environment, especially when standards and expectations are high.
+                With every move, we came to understand that true relocation is not just about efficiency; it is about discretion, precision, and a seamless transition where every detail is handled with care. We learned how important it is to feel supported, understood, and guided when entering a new environment, especially when standards and expectations are high.
               </p>
 
               <p className="body-text" style={{ marginBottom: "2.5rem" }}>
-                DOMUS Relocations was created to reflect exactly that. We offer a highly personalised, discreet, and detail-oriented approach designed for clients who value excellence and peace of mind. For us, relocation isn't just a service — it's a story we know by heart.
+                DOMUS Relocations was created to reflect exactly that. We offer a highly personalised, discreet, and detail-oriented approach designed for clients who value excellence and peace of mind. For us, relocation isn't just a service: it's a story we know by heart.
               </p>
 
               <span className="gold-rule" />
@@ -216,7 +216,7 @@ export default function AboutSection() {
                       margin: 0,
                     }}
                   >
-                    "For us, relocation isn't just a service — it's a story we know by heart."
+                    "For us, relocation isn't just a service: it's a story we know by heart."
                   </p>
                 </div>
               </div>

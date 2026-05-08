@@ -111,7 +111,7 @@ function QuizCTABanner({ onQuizOpen }: { onQuizOpen: () => void }) {
               margin: "0 auto",
             }}
           >
-            Answer six questions and we will build your personalised DOMUS profile — revealing which services are most relevant to your move to Milan.
+            Answer six questions and we will build your personalised DOMUS profile, revealing which services are most relevant to your move to Milan.
           </p>
 
           <button
