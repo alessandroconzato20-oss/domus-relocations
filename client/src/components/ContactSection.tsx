@@ -121,7 +121,7 @@ export default function ContactSection({ onQuizOpen }: ContactSectionProps) {
                     Email
                   </span>
                   <a
-                    href="mailto:hello@domusrelocations.com"
+                    href="mailto:milano@domusrelocations.com"
                     style={{
                       fontFamily: "'Jost', sans-serif",
                       fontWeight: 300,
@@ -131,7 +131,7 @@ export default function ContactSection({ onQuizOpen }: ContactSectionProps) {
                       transition: "color 0.3s ease",
                     }}
                   >
-                    hello@domusrelocations.com
+                    milano@domusrelocations.com
                   </a>
                 </div>
                 <div>
