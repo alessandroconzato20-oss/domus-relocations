@@ -114,7 +114,7 @@ export default function MilanSection() {
                   marginBottom: "0.25rem",
                 }}
               >
-                15+
+                13
               </div>
               <div
                 style={{
