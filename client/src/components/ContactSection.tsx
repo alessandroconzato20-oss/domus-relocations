@@ -5,6 +5,8 @@
  */
 
 import { useEffect, useRef, useState } from "react";
+import { trpc } from "@/lib/trpc";
+import { toast } from "sonner";
 
 const LOGO_URL = "https://d2xsxph8kpxj0f.cloudfront.net/310519663449035187/5G96cC5HiLZMXbLbP234aP/DomusRelocationsLogo_506fe4bc.png";
 
@@ -37,10 +39,38 @@ export default function ContactSection({ onQuizOpen }: ContactSectionProps) {
   const formRef = useScrollReveal(0.1);
   const [submitted, setSubmitted] = useState(false);
   const [formData, setFormData] = useState({ name: "", email: "", message: "" });
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const submitContactMutation = trpc.submissions.submitContact.useMutation();
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setSubmitted(true);
+    
+    if (!formData.name || !formData.email || !formData.message) {
+      toast.error("Please fill in all fields");
+      return;
+    }
+    
+    setIsSubmitting(true);
+    try {
+      const result = await submitContactMutation.mutateAsync({
+        fullName: formData.name,
+        email: formData.email,
+        message: formData.message,
+      });
+      
+      if (result.success) {
+        toast.success("Your enquiry has been received. We'll be in touch within 24 hours!");
+        setSubmitted(true);
+        setFormData({ name: "", email: "", message: "" });
+      } else {
+        toast.error(result.message || "Failed to send your enquiry");
+      }
+    } catch (error) {
+      console.error("Failed to submit contact form:", error);
+      toast.error("An error occurred. Please try again.");
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -284,8 +314,8 @@ export default function ContactSection({ onQuizOpen }: ContactSectionProps) {
                     />
                   </div>
 
-                  <button type="submit" className="btn-luxury-dark" style={{ alignSelf: "flex-start" }}>
-                    Send Enquiry
+                  <button type="submit" className="btn-luxury-dark" style={{ alignSelf: "flex-start" }} disabled={isSubmitting}>
+                    {isSubmitting ? "Sending..." : "Send Enquiry"}
                   </button>
 
                   <p

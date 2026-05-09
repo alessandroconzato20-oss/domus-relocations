@@ -2,6 +2,7 @@ import { COOKIE_NAME } from "@shared/const";
 import { getSessionCookieOptions } from "./_core/cookies";
 import { systemRouter } from "./_core/systemRouter";
 import { publicProcedure, router } from "./_core/trpc";
+import { notifyOwner } from "./_core/notification";
 import { z } from "zod";
 import { saveQuizResponse, getQuizResponses, saveContactSubmission, getContactSubmissions } from "./db";
 
@@ -37,6 +38,13 @@ export const appRouter = router({
             answers: JSON.stringify(input.answers),
             persona: input.persona,
           });
+          
+          // Notify owner of new quiz submission
+          await notifyOwner({
+            title: "New Persona Quiz Submission",
+            content: `${input.fullName} (${input.email}) has completed the persona quiz and identified as: ${input.persona}. You can review their responses in the admin dashboard.`,
+          });
+          
           return { success: true, message: "Quiz response saved successfully" };
         } catch (error) {
           console.error("Failed to save quiz response:", error);
@@ -58,6 +66,14 @@ export const appRouter = router({
             email: input.email,
             message: input.message,
           });
+          
+          // Notify owner of new contact submission
+          const messagePreview = input.message.substring(0, 100) + (input.message.length > 100 ? "..." : "");
+          await notifyOwner({
+            title: "New Contact Inquiry",
+            content: `${input.fullName} (${input.email}) has sent a new inquiry: "${messagePreview}"`,
+          });
+          
           return { success: true, message: "Contact submission saved successfully" };
         } catch (error) {
           console.error("Failed to save contact submission:", error);

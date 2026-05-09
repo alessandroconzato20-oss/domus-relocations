@@ -6,6 +6,8 @@
  */
 
 import { useEffect, useRef, useState } from "react";
+import { trpc } from "@/lib/trpc";
+import { toast } from "sonner";
 
 const QUIZ_BG = "https://d2xsxph8kpxj0f.cloudfront.net/310519663449035187/5G96cC5HiLZMXbLbP234aP/domus-quiz-bg-Z5cU3DfFa2EAhLAnDd5BTY.webp";
 
@@ -119,6 +121,11 @@ interface PersonaQuizProps {
   onClose: () => void;
 }
 
+interface UserInfo {
+  email: string;
+  fullName: string;
+}
+
 export default function PersonaQuiz({ isOpen, onClose }: PersonaQuizProps) {
   const [currentStep, setCurrentStep] = useState(0);
   const [answers, setAnswers] = useState<Record<string, string | string[]>>({});
@@ -126,7 +133,11 @@ export default function PersonaQuiz({ isOpen, onClose }: PersonaQuizProps) {
   const [animating, setAnimating] = useState(false);
   const [completed, setCompleted] = useState(false);
   const [persona, setPersona] = useState<typeof personaMap[string] | null>(null);
+  const [userInfo, setUserInfo] = useState<UserInfo>({ email: "", fullName: "" });
+  const [showUserForm, setShowUserForm] = useState(false);
   const overlayRef = useRef<HTMLDivElement>(null);
+  const submitQuizMutation = trpc.submissions.submitQuiz.useMutation();
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   useEffect(() => {
     if (isOpen) {
@@ -190,6 +201,7 @@ export default function PersonaQuiz({ isOpen, onClose }: PersonaQuizProps) {
       }
       setPersona(p);
       setCompleted(true);
+      setShowUserForm(true);
       return;
     }
     setDirection("forward");
@@ -198,6 +210,37 @@ export default function PersonaQuiz({ isOpen, onClose }: PersonaQuizProps) {
       setCurrentStep((s) => s + 1);
       setAnimating(false);
     }, 300);
+  };
+
+  const handleSubmitQuiz = async () => {
+    if (!userInfo.email || !userInfo.fullName) {
+      toast.error("Please enter your name and email");
+      return;
+    }
+    
+    setIsSubmitting(true);
+    try {
+      const result = await submitQuizMutation.mutateAsync({
+        email: userInfo.email,
+        fullName: userInfo.fullName,
+        answers: answers as Record<string, string>,
+        persona: persona?.title || "Unknown",
+      });
+      
+      if (result.success) {
+        toast.success("Your profile has been saved. We'll be in touch soon!");
+        setTimeout(() => {
+          onClose();
+        }, 1500);
+      } else {
+        toast.error(result.message || "Failed to save your profile");
+      }
+    } catch (error) {
+      console.error("Failed to submit quiz:", error);
+      toast.error("An error occurred. Please try again.");
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const goBack = () => {
@@ -585,27 +628,103 @@ export default function PersonaQuiz({ isOpen, onClose }: PersonaQuizProps) {
               </div>
             </div>
 
+            {/* User info form */}
+            {showUserForm ? (
+              <div style={{ marginTop: "2rem", paddingTop: "2rem", borderTop: "1px solid rgba(201, 168, 76, 0.2)" }}>
+                <p
+                  style={{
+                    fontFamily: "'Jost', sans-serif",
+                    fontWeight: 300,
+                    fontSize: "0.9rem",
+                    color: "rgba(245, 240, 232, 0.6)",
+                    marginBottom: "1.5rem",
+                  }}
+                >
+                  To complete your profile, please share your contact information.
+                </p>
+                <div style={{ display: "flex", flexDirection: "column", gap: "1rem" }}>
+                  <input
+                    type="text"
+                    placeholder="Your Full Name"
+                    value={userInfo.fullName}
+                    onChange={(e) => setUserInfo({ ...userInfo, fullName: e.target.value })}
+                    style={{
+                      padding: "0.75rem 1rem",
+                      background: "rgba(245, 240, 232, 0.05)",
+                      border: "1px solid rgba(245, 240, 232, 0.15)",
+                      color: "#F5F0E8",
+                      fontFamily: "'Jost', sans-serif",
+                      fontSize: "0.9rem",
+                      outline: "none",
+                      boxSizing: "border-box",
+                    }}
+                  />
+                  <input
+                    type="email"
+                    placeholder="your@email.com"
+                    value={userInfo.email}
+                    onChange={(e) => setUserInfo({ ...userInfo, email: e.target.value })}
+                    style={{
+                      padding: "0.75rem 1rem",
+                      background: "rgba(245, 240, 232, 0.05)",
+                      border: "1px solid rgba(245, 240, 232, 0.15)",
+                      color: "#F5F0E8",
+                      fontFamily: "'Jost', sans-serif",
+                      fontSize: "0.9rem",
+                      outline: "none",
+                      boxSizing: "border-box",
+                    }}
+                  />
+                </div>
+              </div>
+            ) : null}
+
             {/* CTA */}
-            <div style={{ display: "flex", gap: "1rem", flexWrap: "wrap" }}>
-              <button
-                onClick={() => {
-                  onClose();
-                  setTimeout(() => {
-                    const el = document.getElementById("contact");
-                    if (el) el.scrollIntoView({ behavior: "smooth" });
-                  }, 300);
-                }}
-                className="btn-luxury-dark"
-              >
-                Request a Private Consultation
-              </button>
-              <button
-                onClick={onClose}
-                className="btn-luxury"
-                style={{ borderColor: "rgba(245, 240, 232, 0.3)", color: "rgba(245, 240, 232, 0.7)" }}
-              >
-                Close
-              </button>
+            <div style={{ display: "flex", gap: "1rem", flexWrap: "wrap", marginTop: showUserForm ? "1.5rem" : "0" }}>
+              {showUserForm ? (
+                <>
+                  <button
+                    onClick={handleSubmitQuiz}
+                    disabled={isSubmitting || !userInfo.email || !userInfo.fullName}
+                    className="btn-luxury-dark"
+                    style={{
+                      opacity: isSubmitting || !userInfo.email || !userInfo.fullName ? 0.5 : 1,
+                      cursor: isSubmitting || !userInfo.email || !userInfo.fullName ? "not-allowed" : "pointer",
+                    }}
+                  >
+                    {isSubmitting ? "Saving..." : "Save My Profile"}
+                  </button>
+                  <button
+                    onClick={onClose}
+                    className="btn-luxury"
+                    style={{ borderColor: "rgba(245, 240, 232, 0.3)", color: "rgba(245, 240, 232, 0.7)" }}
+                  >
+                    Close
+                  </button>
+                </>
+              ) : (
+                <>
+                  <button
+                    onClick={() => {
+                      onClose();
+                      setTimeout(() => {
+                        const el = document.getElementById("contact");
+                        if (el) el.scrollIntoView({ behavior: "smooth" });
+                      }, 300);
+                    }}
+                    className="btn-luxury-dark"
+                  >
+                    Request a Private Consultation
+                  </button>
+                  <button
+                    onClick={onClose}
+                    className="btn-luxury"
+                    style={{ borderColor: "rgba(245, 240, 232, 0.3)", color: "rgba(245, 240, 232, 0.7)" }}
+                  >
+                    Close
+                  </button>
+                </>
+              )}
             </div>
           </div>
         )}
