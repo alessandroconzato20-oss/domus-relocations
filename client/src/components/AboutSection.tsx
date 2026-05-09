@@ -1,6 +1,6 @@
 /*
  * DOMUS Relocations — About Section
- * Design: Asymmetric layout — text left, image right bleeding off edge
+ * Design: Asymmetric layout — large logo left, title and text right
  * Family story, editorial feel, gold rule accents
  */
 
@@ -52,27 +52,47 @@ export default function AboutSection() {
       }}
     >
       <div className="container">
-        {/* Section header with logo */}
+        {/* Asymmetric header: logo left, title + text right */}
         <style>{`
+          .about-header-asymmetric {
+            display: grid;
+            grid-template-columns: 1fr 1.2fr;
+            gap: 4rem;
+            align-items: flex-start;
+            margin-bottom: 5rem;
+          }
+          
           @media (max-width: 768px) {
-            .about-header {
-              flex-direction: column !important;
-              align-items: flex-start !important;
+            .about-header-asymmetric {
+              grid-template-columns: 1fr;
+              gap: 2rem;
             }
           }
         `}</style>
-        <div ref={labelRef} className="fade-up about-header" style={{ marginBottom: "5rem", display: "flex", alignItems: "center", gap: "3rem", flexWrap: "wrap" }}>
-          <div style={{ flex: "0 0 auto" }}>
+        
+        <div ref={labelRef} className="fade-up about-header-asymmetric">
+          {/* Left: Large logo in container */}
+          <div style={{ 
+            display: "flex", 
+            alignItems: "center", 
+            justifyContent: "center",
+            padding: "2rem",
+            background: "rgba(201, 168, 76, 0.04)",
+            border: "1px solid rgba(201, 168, 76, 0.15)",
+            minHeight: "400px"
+          }}>
             <img
               src="https://d2xsxph8kpxj0f.cloudfront.net/310519663449035187/5G96cC5HiLZMXbLbP234aP/DomusRelocationsLogo_506fe4bc.png"
               alt="DOMUS Relocations"
-              style={{ height: "clamp(120px, 30vw, 280px)", width: "auto", filter: "drop-shadow(0 4px 16px rgba(0,0,0,0.08))" }}
+              style={{ height: "clamp(150px, 25vw, 300px)", width: "auto", filter: "drop-shadow(0 4px 16px rgba(0,0,0,0.08))" }}
             />
           </div>
-          <div>
+
+          {/* Right: Title and philosophy text */}
+          <div style={{ paddingTop: "1rem" }}>
             <span className="section-label" style={{ fontSize: "0.85rem", display: "block", marginBottom: "1rem" }}>Our Story</span>
-            <span className="gold-rule" style={{ display: "block", marginBottom: "1rem", width: "60px" }} />
-            <p style={{ fontFamily: "'Jost', sans-serif", fontWeight: 300, fontSize: "0.95rem", lineHeight: 1.8, color: "rgba(45, 41, 38, 0.7)", maxWidth: "300px" }}>
+            <span className="gold-rule" style={{ display: "block", marginBottom: "1.5rem", width: "60px" }} />
+            <p style={{ fontFamily: "'Jost', sans-serif", fontWeight: 300, fontSize: "0.95rem", lineHeight: 1.8, color: "rgba(45, 41, 38, 0.7)", maxWidth: "400px" }}>
               The DOMUS philosophy: proficiency in every detail, fidelity to your interests, and genuine care for the people behind the move. Crafted by a family who knows relocation by heart.
             </p>
           </div>
