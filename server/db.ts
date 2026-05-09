@@ -316,3 +316,20 @@ export async function updateUserPasswordByUserId(userId: number, passwordHash: s
     throw error;
   }
 }
+
+
+export async function getQuizResponsesByEmail(email: string) {
+  const db = await getDb();
+  if (!db) {
+    console.warn("[Database] Cannot get quiz responses: database not available");
+    return [];
+  }
+
+  try {
+    const result = await db.select().from(quizResponses).where(eq(quizResponses.email, email)).orderBy(quizResponses.createdAt);
+    return result;
+  } catch (error) {
+    console.error("[Database] Failed to get quiz responses by email:", error);
+    throw error;
+  }
+}

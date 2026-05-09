@@ -5,6 +5,7 @@
  */
 
 import { useEffect, useState } from "react";
+import { useLocation } from "wouter";
 
 const LOGO_URL = "https://d2xsxph8kpxj0f.cloudfront.net/310519663449035187/5G96cC5HiLZMXbLbP234aP/DomusRelocationsLogo_506fe4bc.png";
 
@@ -13,6 +14,7 @@ interface NavigationProps {
 }
 
 export default function Navigation({ onQuizOpen }: NavigationProps) {
+  const [, setLocation] = useLocation();
   const [visible, setVisible] = useState(true);
   const [lastScrollY, setLastScrollY] = useState(0);
   const [atTop, setAtTop] = useState(true);
@@ -67,6 +69,13 @@ export default function Navigation({ onQuizOpen }: NavigationProps) {
             </button>
             <button onClick={() => scrollTo("milan")} className="nav-link" style={{ background: "none", border: "none" }}>
               Living In Milano
+            </button>
+            <button
+              onClick={() => setLocation("/account")}
+              className="nav-link"
+              style={{ background: "none", border: "none" }}
+            >
+              My Account
             </button>
             <button
               onClick={onQuizOpen}

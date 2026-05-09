@@ -4,7 +4,7 @@ import { systemRouter } from "./_core/systemRouter";
 import { publicProcedure, router } from "./_core/trpc";
 import { notifyOwner } from "./_core/notification";
 import { z } from "zod";
-import { saveQuizResponse, getQuizResponses, saveContactSubmission, getContactSubmissions, getUserByEmail, createLocalUser, getDb, createPasswordResetToken, validatePasswordResetToken, deletePasswordResetToken, updateUserPasswordByUserId } from "./db";
+import { saveQuizResponse, getQuizResponses, saveContactSubmission, getContactSubmissions, getUserByEmail, createLocalUser, getDb, createPasswordResetToken, validatePasswordResetToken, deletePasswordResetToken, updateUserPasswordByUserId, getQuizResponsesByEmail } from "./db";
 import * as bcrypt from "bcryptjs";
 import { users } from "../drizzle/schema";
 import { eq } from "drizzle-orm";
@@ -210,6 +210,21 @@ export const appRouter = router({
         return [];
       }
     }),
+
+    getUserQuizzes: publicProcedure
+      .input(z.object({
+        email: z.string().email(),
+      }))
+      .query(async (opts) => {
+        const { input } = opts;
+        try {
+          const responses = await getQuizResponsesByEmail(input.email);
+          return responses;
+        } catch (error) {
+          console.error("Failed to get user quizzes:", error);
+          return [];
+        }
+      }),
   }),
 });
 
