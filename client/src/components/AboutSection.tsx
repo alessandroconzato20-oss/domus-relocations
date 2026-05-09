@@ -58,7 +58,7 @@ export default function AboutSection() {
             display: grid;
             grid-template-columns: 1fr 1.2fr;
             gap: 4rem;
-            align-items: flex-start;
+            align-items: center;
             margin-bottom: 5rem;
           }
           
@@ -84,14 +84,14 @@ export default function AboutSection() {
             <img
               src="https://d2xsxph8kpxj0f.cloudfront.net/310519663449035187/5G96cC5HiLZMXbLbP234aP/DomusRelocationsLogo_506fe4bc.png"
               alt="DOMUS Relocations"
-              style={{ height: "clamp(150px, 25vw, 300px)", width: "auto", filter: "drop-shadow(0 4px 16px rgba(0,0,0,0.08))" }}
+              style={{ height: "clamp(200px, 35vw, 380px)", width: "auto", filter: "drop-shadow(0 4px 16px rgba(0,0,0,0.08))" }}
             />
           </div>
 
           {/* Right: Title and philosophy text */}
           <div style={{ paddingTop: "1rem" }}>
-            <span className="section-label" style={{ fontSize: "0.85rem", display: "block", marginBottom: "1rem" }}>Our Story</span>
-            <span className="gold-rule" style={{ display: "block", marginBottom: "1.5rem", width: "60px" }} />
+            <span className="section-label" style={{ fontSize: "0.85rem", display: "block", marginBottom: "1rem", textAlign: "center" }}>Our Story</span>
+            <span className="gold-rule" style={{ display: "block", marginBottom: "3rem", width: "60px", margin: "1rem auto 3rem auto" }} />
             <p style={{ fontFamily: "'Jost', sans-serif", fontWeight: 300, fontSize: "0.95rem", lineHeight: 1.8, color: "rgba(45, 41, 38, 0.7)", maxWidth: "400px" }}>
               The DOMUS philosophy: proficiency in every detail, fidelity to your interests, and genuine care for the people behind the move. Crafted by a family who knows relocation by heart.
             </p>
