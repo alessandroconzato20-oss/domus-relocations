@@ -13,9 +13,11 @@ export default function AdminDashboard() {
   const [, setLocation] = useLocation();
   const [activeTab, setActiveTab] = useState<"quiz" | "contact">("quiz");
 
-  // Redirect if not admin using useEffect
+  // Redirect if not authenticated or not admin using useEffect
   useEffect(() => {
-    if (!loading && (!user || user.role !== "admin")) {
+    if (!loading && !user) {
+      setLocation("/login");
+    } else if (!loading && user && user.role !== "admin") {
       setLocation("/");
     }
   }, [user, loading, setLocation]);
@@ -28,8 +30,12 @@ export default function AdminDashboard() {
     );
   }
 
-  // Don't render content if not admin
-  if (!user || user.role !== "admin") {
+  // Don't render content if not authenticated or not admin
+  if (!user) {
+    return null;
+  }
+
+  if (user.role !== "admin") {
     return null;
   }
 

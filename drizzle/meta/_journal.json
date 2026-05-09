@@ -15,6 +15,13 @@
       "when": 1777405672211,
       "tag": "0001_overconfident_omega_flight",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "5",
+      "when": 1778329802861,
+      "tag": "0002_red_anita_blake",
+      "breakpoints": true
     }
   ]
 }

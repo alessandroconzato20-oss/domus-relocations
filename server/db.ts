@@ -154,3 +154,73 @@ export async function getContactSubmissions() {
     throw error;
   }
 }
+
+
+// Local authentication helpers
+export async function getUserByEmail(email: string) {
+  const db = await getDb();
+  if (!db) {
+    console.warn("[Database] Cannot get user: database not available");
+    return undefined;
+  }
+
+  try {
+    const result = await db.select().from(users).where(eq(users.email, email)).limit(1);
+    return result.length > 0 ? result[0] : undefined;
+  } catch (error) {
+    console.error("[Database] Failed to get user by email:", error);
+    throw error;
+  }
+}
+
+export async function createLocalUser(email: string, name: string, passwordHash: string) {
+  const db = await getDb();
+  if (!db) {
+    console.warn("[Database] Cannot create user: database not available");
+    throw new Error("Database not available");
+  }
+
+  try {
+    // Generate a unique openId for local users
+    const openId = `local_${email}_${Date.now()}`;
+    
+    await db.insert(users).values({
+      openId,
+      email,
+      name,
+      passwordHash,
+      loginMethod: "local",
+      role: email === "milano@domusrelocations.com" ? "admin" : "user",
+    });
+
+    return {
+      openId,
+      email,
+      name,
+      passwordHash,
+      loginMethod: "local",
+      role: email === "milano@domusrelocations.com" ? "admin" : "user",
+    };
+  } catch (error) {
+    console.error("[Database] Failed to create local user:", error);
+    throw error;
+  }
+}
+
+export async function updateUserPassword(userId: number, passwordHash: string) {
+  const db = await getDb();
+  if (!db) {
+    console.warn("[Database] Cannot update user: database not available");
+    throw new Error("Database not available");
+  }
+
+  try {
+    // Note: We need to add a password field to the schema for this to work
+    // For now, we'll store it in a separate table or use a different approach
+    console.warn("[Database] Password update not yet implemented");
+    return true;
+  } catch (error) {
+    console.error("[Database] Failed to update user password:", error);
+    throw error;
+  }
+}

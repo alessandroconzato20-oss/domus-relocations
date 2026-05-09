@@ -4,7 +4,10 @@ import { systemRouter } from "./_core/systemRouter";
 import { publicProcedure, router } from "./_core/trpc";
 import { notifyOwner } from "./_core/notification";
 import { z } from "zod";
-import { saveQuizResponse, getQuizResponses, saveContactSubmission, getContactSubmissions } from "./db";
+import { saveQuizResponse, getQuizResponses, saveContactSubmission, getContactSubmissions, getUserByEmail, createLocalUser, getDb } from "./db";
+import * as bcrypt from "bcryptjs";
+import { users } from "../drizzle/schema";
+import { eq } from "drizzle-orm";
 
 export const appRouter = router({
   // if you need to use socket.io, read and register route in server/_core/index.ts, all api should start with '/api/' so that the gateway can route correctly
@@ -18,6 +21,68 @@ export const appRouter = router({
         success: true,
       } as const;
     }),
+    signup: publicProcedure
+      .input(z.object({
+        email: z.string().email(),
+        name: z.string().min(1),
+        password: z.string().min(8),
+      }))
+      .mutation(async (opts) => {
+        const { input, ctx } = opts;
+        try {
+          const existingUser = await getUserByEmail(input.email);
+          if (existingUser) {
+            return { success: false, message: "Email already registered" };
+          }
+
+          const passwordHash = await bcrypt.hash(input.password, 10);
+          const newUser = await createLocalUser(input.email, input.name, passwordHash);
+
+          const cookieOptions = getSessionCookieOptions(ctx.req);
+          ctx.res.cookie(COOKIE_NAME, newUser.openId, cookieOptions);
+
+          return { success: true, message: "Account created successfully", user: newUser };
+        } catch (error) {
+          console.error("Failed to sign up:", error);
+          return { success: false, message: "Failed to create account" };
+        }
+      }),
+    login: publicProcedure
+      .input(z.object({
+        email: z.string().email(),
+        password: z.string().min(1),
+      }))
+      .mutation(async (opts) => {
+        const { input, ctx } = opts;
+        try {
+          const user = await getUserByEmail(input.email);
+          if (!user) {
+            return { success: false, message: "Invalid email or password" };
+          }
+
+          if (!user.passwordHash) {
+            return { success: false, message: "Invalid email or password" };
+          }
+
+          const passwordMatch = await bcrypt.compare(input.password, user.passwordHash);
+          if (!passwordMatch) {
+            return { success: false, message: "Invalid email or password" };
+          }
+
+          const db = await getDb();
+          if (db) {
+            await db.update(users).set({ lastSignedIn: new Date() }).where(eq(users.id, user.id));
+          }
+
+          const cookieOptions = getSessionCookieOptions(ctx.req);
+          ctx.res.cookie(COOKIE_NAME, user.openId, cookieOptions);
+
+          return { success: true, message: "Logged in successfully", user };
+        } catch (error) {
+          console.error("Failed to log in:", error);
+          return { success: false, message: "Failed to log in" };
+        }
+      }),
   }),
 
   // Quiz and contact submissions
