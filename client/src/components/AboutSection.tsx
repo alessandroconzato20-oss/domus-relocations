@@ -58,7 +58,7 @@ export default function AboutSection() {
             display: grid;
             grid-template-columns: 1fr 1.2fr;
             gap: 4rem;
-            align-items: center;
+            align-items: flex-start;
             margin-bottom: 5rem;
           }
           
@@ -89,9 +89,9 @@ export default function AboutSection() {
           </div>
 
           {/* Right: Title and philosophy text */}
-          <div style={{ paddingTop: "1rem" }}>
-            <span className="section-label" style={{ fontSize: "0.85rem", display: "block", marginBottom: "1rem", textAlign: "center" }}>Our Story</span>
-            <span className="gold-rule" style={{ display: "block", marginBottom: "3rem", width: "60px", margin: "1rem auto 3rem auto" }} />
+          <div style={{ paddingTop: "0" }}>
+            <span className="section-label" style={{ fontSize: "0.85rem", display: "block", marginBottom: "0.75rem", textAlign: "left", letterSpacing: "0.15em", color: "#C9A84C" }}>Our Story</span>
+            <span className="gold-rule" style={{ display: "block", width: "60px", height: "2px", background: "#C9A84C", marginBottom: "2rem" }} />
             <p style={{ fontFamily: "'Jost', sans-serif", fontWeight: 300, fontSize: "0.95rem", lineHeight: 1.8, color: "rgba(45, 41, 38, 0.7)", maxWidth: "400px" }}>
               The DOMUS philosophy: proficiency in every detail, fidelity to your interests, and genuine care for the people behind the move. Crafted by a family who knows relocation by heart.
             </p>
