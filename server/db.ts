@@ -224,3 +224,95 @@ export async function updateUserPassword(userId: number, passwordHash: string) {
     throw error;
   }
 }
+
+
+// Password reset token functions
+export async function createPasswordResetToken(userId: number, expiresInHours: number = 1) {
+  const db = await getDb();
+  if (!db) {
+    console.warn("[Database] Cannot create reset token: database not available");
+    throw new Error("Database not available");
+  }
+
+  try {
+    // Generate a random token
+    const token = Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);
+    const expiresAt = new Date(Date.now() + expiresInHours * 60 * 60 * 1000);
+
+    const { passwordResetTokens } = await import("../drizzle/schema");
+    await db.insert(passwordResetTokens).values({
+      userId,
+      token,
+      expiresAt,
+    });
+
+    return token;
+  } catch (error) {
+    console.error("[Database] Failed to create reset token:", error);
+    throw error;
+  }
+}
+
+export async function validatePasswordResetToken(token: string) {
+  const db = await getDb();
+  if (!db) {
+    console.warn("[Database] Cannot validate reset token: database not available");
+    return null;
+  }
+
+  try {
+    const { passwordResetTokens } = await import("../drizzle/schema");
+    const result = await db
+      .select()
+      .from(passwordResetTokens)
+      .where(eq(passwordResetTokens.token, token))
+      .limit(1);
+
+    if (result.length === 0) {
+      return null;
+    }
+
+    const tokenRecord = result[0];
+
+    // Check if token has expired
+    if (new Date() > tokenRecord.expiresAt) {
+      return null;
+    }
+
+    return tokenRecord;
+  } catch (error) {
+    console.error("[Database] Failed to validate reset token:", error);
+    throw error;
+  }
+}
+
+export async function deletePasswordResetToken(tokenId: number) {
+  const db = await getDb();
+  if (!db) {
+    console.warn("[Database] Cannot delete reset token: database not available");
+    throw new Error("Database not available");
+  }
+
+  try {
+    const { passwordResetTokens } = await import("../drizzle/schema");
+    await db.delete(passwordResetTokens).where(eq(passwordResetTokens.id, tokenId));
+  } catch (error) {
+    console.error("[Database] Failed to delete reset token:", error);
+    throw error;
+  }
+}
+
+export async function updateUserPasswordByUserId(userId: number, passwordHash: string) {
+  const db = await getDb();
+  if (!db) {
+    console.warn("[Database] Cannot update password: database not available");
+    throw new Error("Database not available");
+  }
+
+  try {
+    await db.update(users).set({ passwordHash }).where(eq(users.id, userId));
+  } catch (error) {
+    console.error("[Database] Failed to update password:", error);
+    throw error;
+  }
+}

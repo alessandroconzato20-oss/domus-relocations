@@ -4,7 +4,7 @@ import { systemRouter } from "./_core/systemRouter";
 import { publicProcedure, router } from "./_core/trpc";
 import { notifyOwner } from "./_core/notification";
 import { z } from "zod";
-import { saveQuizResponse, getQuizResponses, saveContactSubmission, getContactSubmissions, getUserByEmail, createLocalUser, getDb } from "./db";
+import { saveQuizResponse, getQuizResponses, saveContactSubmission, getContactSubmissions, getUserByEmail, createLocalUser, getDb, createPasswordResetToken, validatePasswordResetToken, deletePasswordResetToken, updateUserPasswordByUserId } from "./db";
 import * as bcrypt from "bcryptjs";
 import { users } from "../drizzle/schema";
 import { eq } from "drizzle-orm";
@@ -81,6 +81,51 @@ export const appRouter = router({
         } catch (error) {
           console.error("Failed to log in:", error);
           return { success: false, message: "Failed to log in" };
+        }
+      }),
+    requestPasswordReset: publicProcedure
+      .input(z.object({
+        email: z.string().email(),
+      }))
+      .mutation(async (opts) => {
+        const { input } = opts;
+        try {
+          const user = await getUserByEmail(input.email);
+          if (!user || !user.id) {
+            return { success: true, message: "If an account exists, a reset link has been sent to your email" };
+          }
+
+          const token = await createPasswordResetToken(user.id, 1);
+          console.log(`[Password Reset] Token for ${input.email}: ${token}`);
+          console.log(`Reset link: /reset-password?token=${token}`);
+
+          return { success: true, message: "If an account exists, a reset link has been sent to your email" };
+        } catch (error) {
+          console.error("Failed to request password reset:", error);
+          return { success: false, message: "Failed to process request" };
+        }
+      }),
+    resetPassword: publicProcedure
+      .input(z.object({
+        token: z.string(),
+        newPassword: z.string().min(8),
+      }))
+      .mutation(async (opts) => {
+        const { input } = opts;
+        try {
+          const tokenRecord = await validatePasswordResetToken(input.token);
+          if (!tokenRecord) {
+            return { success: false, message: "Invalid or expired reset link" };
+          }
+
+          const passwordHash = await bcrypt.hash(input.newPassword, 10);
+          await updateUserPasswordByUserId(tokenRecord.userId, passwordHash);
+          await deletePasswordResetToken(tokenRecord.id);
+
+          return { success: true, message: "Password reset successfully" };
+        } catch (error) {
+          console.error("Failed to reset password:", error);
+          return { success: false, message: "Failed to reset password" };
         }
       }),
   }),

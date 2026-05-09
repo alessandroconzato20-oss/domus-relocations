@@ -161,6 +161,26 @@ export default function Login() {
             />
           </div>
 
+          {/* Forgot Password Link */}
+          <div style={{ textAlign: "right", marginBottom: "1rem" }}>
+            <button
+              onClick={() => setLocation("/forgot-password")}
+              style={{
+                background: "none",
+                border: "none",
+                color: "var(--domus-gold)",
+                fontFamily: "'Jost', sans-serif",
+                fontSize: "0.8rem",
+                fontWeight: 600,
+                cursor: "pointer",
+                textDecoration: "none",
+                padding: 0,
+              }}
+            >
+              Forgot password?
+            </button>
+          </div>
+
           {/* Submit Button */}
           <button
             type="submit"
