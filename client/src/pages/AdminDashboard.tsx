@@ -5,7 +5,7 @@
 
 import { useAuth } from "@/_core/hooks/useAuth";
 import { trpc } from "@/lib/trpc";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useLocation } from "wouter";
 
 export default function AdminDashboard() {
@@ -13,11 +13,12 @@ export default function AdminDashboard() {
   const [, setLocation] = useLocation();
   const [activeTab, setActiveTab] = useState<"quiz" | "contact">("quiz");
 
-  // Redirect if not admin
-  if (!loading && (!user || user.role !== "admin")) {
-    setLocation("/");
-    return null;
-  }
+  // Redirect if not admin using useEffect
+  useEffect(() => {
+    if (!loading && (!user || user.role !== "admin")) {
+      setLocation("/");
+    }
+  }, [user, loading, setLocation]);
 
   if (loading) {
     return (
@@ -25,6 +26,11 @@ export default function AdminDashboard() {
         <p>Loading...</p>
       </div>
     );
+  }
+
+  // Don't render content if not admin
+  if (!user || user.role !== "admin") {
+    return null;
   }
 
   return (
