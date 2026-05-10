@@ -269,6 +269,94 @@ export default function Signup() {
           </button>
         </form>
 
+        {/* Social Login Divider */}
+        <div
+          style={{
+            display: "flex",
+            alignItems: "center",
+            gap: "1rem",
+            margin: "2rem 0",
+          }}
+        >
+          <div style={{ flex: 1, height: "1px", background: "rgba(45, 41, 38, 0.1)" }} />
+          <span
+            style={{
+              fontFamily: "'Jost', sans-serif",
+              fontSize: "0.75rem",
+              color: "rgba(45, 41, 38, 0.5)",
+              textTransform: "uppercase",
+              letterSpacing: "0.5px",
+            }}
+          >
+            Or
+          </span>
+          <div style={{ flex: 1, height: "1px", background: "rgba(45, 41, 38, 0.1)" }} />
+        </div>
+
+        {/* Social Login Buttons */}
+        <div style={{ display: "flex", flexDirection: "column", gap: "0.75rem" }}>
+          <button
+            onClick={() => {
+              toast.info("Google signup coming soon");
+            }}
+            style={{
+              padding: "0.75rem 1.5rem",
+              background: "white",
+              border: "1px solid rgba(45, 41, 38, 0.15)",
+              color: "var(--domus-charcoal)",
+              fontFamily: "'Jost', sans-serif",
+              fontSize: "0.9rem",
+              fontWeight: 600,
+              cursor: "pointer",
+              transition: "all 0.3s ease",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              gap: "0.75rem",
+            }}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.background = "rgba(45, 41, 38, 0.02)";
+              e.currentTarget.style.borderColor = "var(--domus-gold)";
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.background = "white";
+              e.currentTarget.style.borderColor = "rgba(45, 41, 38, 0.15)";
+            }}
+          >
+            <span>🔵</span> Continue with Google
+          </button>
+          <button
+            onClick={() => {
+              toast.info("Apple signup coming soon");
+            }}
+            style={{
+              padding: "0.75rem 1.5rem",
+              background: "white",
+              border: "1px solid rgba(45, 41, 38, 0.15)",
+              color: "var(--domus-charcoal)",
+              fontFamily: "'Jost', sans-serif",
+              fontSize: "0.9rem",
+              fontWeight: 600,
+              cursor: "pointer",
+              transition: "all 0.3s ease",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              gap: "0.75rem",
+            }}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.background = "rgba(45, 41, 38, 0.02)";
+              e.currentTarget.style.borderColor = "var(--domus-gold)";
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.background = "white";
+              e.currentTarget.style.borderColor = "rgba(45, 41, 38, 0.15)";
+            }}
+          >
+            <span>🍎</span> Continue with Apple
+          </button>
+        </div>
+
         {/* Footer */}
         <div
           style={{

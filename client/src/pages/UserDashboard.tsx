@@ -7,6 +7,7 @@ import { useState, useEffect } from "react";
 import { useLocation } from "wouter";
 import { trpc } from "@/lib/trpc";
 import { toast } from "sonner";
+import { exportQuizToPDF } from "@/lib/pdfExport";
 
 export default function UserDashboard() {
   const [, setLocation] = useLocation();
@@ -404,6 +405,41 @@ export default function UserDashboard() {
                             {quiz.persona}
                           </p>
                         </div>
+
+                        {/* Export Button */}
+                        <button
+                          onClick={async () => {
+                            try {
+                              await exportQuizToPDF(
+                                index + 1,
+                                quiz.persona,
+                                answers,
+                                email,
+                                createdDate
+                              );
+                              toast.success('PDF downloaded successfully!');
+                            } catch (error) {
+                              console.error('Export error:', error);
+                              toast.error('Failed to export PDF');
+                            }
+                          }}
+                          style={{
+                            padding: '0.75rem 1.5rem',
+                            background: 'var(--domus-charcoal)',
+                            color: 'white',
+                            border: 'none',
+                            fontFamily: "'Jost', sans-serif",
+                            fontSize: '0.9rem',
+                            fontWeight: 600,
+                            cursor: 'pointer',
+                            transition: 'opacity 0.3s ease',
+                            marginTop: '1.5rem',
+                          }}
+                          onMouseEnter={(e) => (e.currentTarget.style.opacity = '0.8')}
+                          onMouseLeave={(e) => (e.currentTarget.style.opacity = '1')}
+                        >
+                          📥 Download as PDF
+                        </button>
                       </div>
                     )}
                   </div>
