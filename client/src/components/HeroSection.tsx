@@ -5,12 +5,14 @@
  */
 
 import { useEffect, useRef, useState } from "react";
+import { useLocation } from "wouter";
 
 const HERO_IMAGE = "https://d2xsxph8kpxj0f.cloudfront.net/310519663449035187/5G96cC5HiLZMXbLbP234aP/domus-hero-milan-8KAoKuZsmiaC2PDXN6NmGS.webp";
 
 const headlineWords = ["Your", "Life", "in", "Milan,", "Curated", "Before", "You", "Arrive."];
 
 export default function HeroSection() {
+  const [, setLocation] = useLocation();
   const [wordsVisible, setWordsVisible] = useState<boolean[]>(new Array(headlineWords.length).fill(false));
   const [subVisible, setSubVisible] = useState(false);
   const [ctaVisible, setCtaVisible] = useState(false);
@@ -158,6 +160,7 @@ export default function HeroSection() {
               display: "flex",
               gap: "1rem",
               flexWrap: "wrap",
+              alignItems: "center",
               opacity: ctaVisible ? 1 : 0,
               transform: ctaVisible ? "translateY(0)" : "translateY(20px)",
               transition: "opacity 0.7s ease, transform 0.7s ease",
@@ -180,6 +183,66 @@ export default function HeroSection() {
             >
               Our Story
             </button>
+
+            {/* Auth buttons — subtle and integrated */}
+            <div
+              style={{
+                display: "flex",
+                gap: "0.75rem",
+                marginLeft: "auto",
+              }}
+            >
+              <button
+                onClick={() => setLocation("/login")}
+                style={{
+                  padding: "0.5rem 1rem",
+                  background: "transparent",
+                  border: "1px solid rgba(245, 240, 232, 0.4)",
+                  color: "rgba(245, 240, 232, 0.85)",
+                  fontFamily: "'Jost', sans-serif",
+                  fontSize: "0.8rem",
+                  fontWeight: 500,
+                  cursor: "pointer",
+                  transition: "all 0.3s ease",
+                  letterSpacing: "0.3px",
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.borderColor = "var(--domus-gold)";
+                  e.currentTarget.style.color = "var(--domus-gold)";
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.borderColor = "rgba(245, 240, 232, 0.4)";
+                  e.currentTarget.style.color = "rgba(245, 240, 232, 0.85)";
+                }}
+              >
+                Log In
+              </button>
+              <button
+                onClick={() => setLocation("/signup")}
+                style={{
+                  padding: "0.5rem 1rem",
+                  background: "rgba(214, 175, 98, 0.15)",
+                  border: "1px solid rgba(214, 175, 98, 0.4)",
+                  color: "var(--domus-gold)",
+                  fontFamily: "'Jost', sans-serif",
+                  fontSize: "0.8rem",
+                  fontWeight: 500,
+                  cursor: "pointer",
+                  transition: "all 0.3s ease",
+                  letterSpacing: "0.3px",
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.background = "rgba(214, 175, 98, 0.25)";
+                  e.currentTarget.style.borderColor = "var(--domus-gold)";
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.background = "rgba(214, 175, 98, 0.15)";
+                  e.currentTarget.style.borderColor = "rgba(214, 175, 98, 0.4)";
+                }}
+              >
+                Sign Up
+              </button>
+            </div>
           </div>
         </div>
       </div>
