@@ -17,6 +17,7 @@ import Signup from "./pages/Signup";
 import ForgotPassword from "./pages/ForgotPassword";
 import ResetPassword from "./pages/ResetPassword";
 import UserDashboard from "./pages/UserDashboard";
+import FamilyDashboard from "./pages/FamilyDashboard";
 
 function Router() {
   // make sure to consider if you need authentication for certain routes
@@ -29,6 +30,7 @@ function Router() {
       <Route path={"/reset-password"} component={ResetPassword} />
       <Route path={"/account"} component={UserDashboard} />
       <Route path={"/dashboard"} component={ClientDashboard} />
+      <Route path={"/family-dashboard"} component={FamilyDashboard} />
       <Route path={"/admin"} component={AdminDashboard} />
       <Route path={"/404"} component={NotFound} />
       <Route component={NotFound} />

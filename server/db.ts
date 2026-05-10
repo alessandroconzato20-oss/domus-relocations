@@ -1,4 +1,4 @@
-import { eq } from "drizzle-orm";
+import { eq, and } from "drizzle-orm";
 import { drizzle } from "drizzle-orm/mysql2";
 import { InsertUser, users, quizResponses, InsertQuizResponse, contactSubmissions, InsertContactSubmission } from "../drizzle/schema";
 import { ENV } from './_core/env';
@@ -331,5 +331,158 @@ export async function getQuizResponsesByEmail(email: string) {
   } catch (error) {
     console.error("[Database] Failed to get quiz responses by email:", error);
     throw error;
+  }
+}
+
+
+// Family dashboard functions
+export async function getOrCreateFamily(userId: number, familyName: string) {
+  const db = await getDb();
+  if (!db) {
+    throw new Error("Database not available");
+  }
+
+  try {
+    const { families } = await import("../drizzle/schema");
+    
+    // Check if family already exists
+    const existing = await db.select().from(families).where(eq(families.userId, userId)).limit(1);
+    
+    if (existing.length > 0) {
+      return existing[0];
+    }
+    
+    // Create new family
+    const result = await db.insert(families).values({
+      userId,
+      familyName,
+      serviceTier: "standard",
+    });
+    
+    const newFamily = await db.select().from(families).where(eq(families.userId, userId)).limit(1);
+    return newFamily[0];
+  } catch (error) {
+    console.error("[Database] Failed to get or create family:", error);
+    throw error;
+  }
+}
+
+export async function getFamilyTasks(familyId: number) {
+  const db = await getDb();
+  if (!db) {
+    return [];
+  }
+
+  try {
+    const { familyTasks } = await import("../drizzle/schema");
+    const result = await db
+      .select()
+      .from(familyTasks)
+      .where(eq(familyTasks.familyId, familyId))
+      .orderBy(familyTasks.dueDate);
+    return result;
+  } catch (error) {
+    console.error("[Database] Failed to get family tasks:", error);
+    return [];
+  }
+}
+
+export async function getFamilySchools(familyId: number) {
+  const db = await getDb();
+  if (!db) {
+    return [];
+  }
+
+  try {
+    const { familySchools } = await import("../drizzle/schema");
+    const result = await db
+      .select()
+      .from(familySchools)
+      .where(eq(familySchools.familyId, familyId))
+      .orderBy(familySchools.createdAt);
+    return result;
+  } catch (error) {
+    console.error("[Database] Failed to get family schools:", error);
+    return [];
+  }
+}
+
+export async function getFamilyMessages(familyId: number, limit: number = 3) {
+  const db = await getDb();
+  if (!db) {
+    return [];
+  }
+
+  try {
+    const { familyMessages } = await import("../drizzle/schema");
+    const result = await db
+      .select()
+      .from(familyMessages)
+      .where(eq(familyMessages.familyId, familyId))
+      .orderBy(familyMessages.createdAt)
+      .limit(limit);
+    return result;
+  } catch (error) {
+    console.error("[Database] Failed to get family messages:", error);
+    return [];
+  }
+}
+
+export async function getFamilyDocuments(familyId: number) {
+  const db = await getDb();
+  if (!db) {
+    return [];
+  }
+
+  try {
+    const { familyDocuments } = await import("../drizzle/schema");
+    const result = await db
+      .select()
+      .from(familyDocuments)
+      .where(eq(familyDocuments.familyId, familyId))
+      .orderBy(familyDocuments.createdAt);
+    return result;
+  } catch (error) {
+    console.error("[Database] Failed to get family documents:", error);
+    return [];
+  }
+}
+
+export async function getFamilyAppointments(familyId: number) {
+  const db = await getDb();
+  if (!db) {
+    return [];
+  }
+
+  try {
+    const { familyAppointments } = await import("../drizzle/schema");
+    const result = await db
+      .select()
+      .from(familyAppointments)
+      .where(eq(familyAppointments.familyId, familyId))
+      .orderBy(familyAppointments.appointmentDate);
+    return result;
+  } catch (error) {
+    console.error("[Database] Failed to get family appointments:", error);
+    return [];
+  }
+}
+
+export async function getUnreadMessageCount(familyId: number) {
+  const db = await getDb();
+  if (!db) {
+    return 0;
+  }
+
+  try {
+    const { familyMessages } = await import("../drizzle/schema");
+    const result = await db
+      .select()
+      .from(familyMessages)
+      .where(and(eq(familyMessages.familyId, familyId), eq(familyMessages.isRead, 1)));
+    return result.length;
+  } catch (error) {
+    console.error("[Database] Failed to get unread message count:", error);
+    return 0;
   }
 }
