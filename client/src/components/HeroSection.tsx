@@ -158,38 +158,46 @@ export default function HeroSection() {
           <div
             style={{
               display: "flex",
+              flexDirection: "column",
               gap: "1rem",
-              flexWrap: "wrap",
-              alignItems: "center",
               opacity: ctaVisible ? 1 : 0,
               transform: ctaVisible ? "translateY(0)" : "translateY(20px)",
               transition: "opacity 0.7s ease, transform 0.7s ease",
             }}
           >
-            <button
-              onClick={() => {
-                const el = document.getElementById("services");
-                if (el) el.scrollIntoView({ behavior: "smooth" });
+            {/* Primary CTAs */}
+            <div
+              style={{
+                display: "flex",
+                gap: "1rem",
+                flexWrap: "wrap",
               }}
-              className="btn-luxury-dark"
-              style={{ background: "var(--domus-ivory)", color: "var(--domus-charcoal)", border: "1px solid var(--domus-ivory)" }}
             >
-              Begin Your Private Relocation
-            </button>
-            <button
-              onClick={scrollToAbout}
-              className="btn-luxury"
-              style={{ borderColor: "rgba(245, 240, 232, 0.5)", color: "#F5F0E8" }}
-            >
-              Our Story
-            </button>
+              <button
+                onClick={() => {
+                  const el = document.getElementById("services");
+                  if (el) el.scrollIntoView({ behavior: "smooth" });
+                }}
+                className="btn-luxury-dark"
+                style={{ background: "var(--domus-ivory)", color: "var(--domus-charcoal)", border: "1px solid var(--domus-ivory)" }}
+              >
+                Begin Your Private Relocation
+              </button>
+              <button
+                onClick={scrollToAbout}
+                className="btn-luxury"
+                style={{ borderColor: "rgba(245, 240, 232, 0.5)", color: "#F5F0E8" }}
+              >
+                Our Story
+              </button>
+            </div>
 
-            {/* Auth buttons — subtle and integrated */}
+            {/* Auth buttons — below and centered */}
             <div
               style={{
                 display: "flex",
                 gap: "0.75rem",
-                marginLeft: "auto",
+                justifyContent: "center",
               }}
             >
               <button
