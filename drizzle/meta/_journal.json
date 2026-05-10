@@ -29,13 +29,6 @@
       "when": 1778330144096,
       "tag": "0003_free_meggan",
       "breakpoints": true
-    },
-    {
-      "idx": 4,
-      "version": "5",
-      "when": 1778444151207,
-      "tag": "0004_condemned_jackal",
-      "breakpoints": true
     }
   ]
 }

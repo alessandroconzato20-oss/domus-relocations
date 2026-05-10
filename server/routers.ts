@@ -3,7 +3,6 @@ import { getSessionCookieOptions } from "./_core/cookies";
 import { systemRouter } from "./_core/systemRouter";
 import { publicProcedure, router } from "./_core/trpc";
 import { notifyOwner } from "./_core/notification";
-import { sendEmail, formatQuizAnswersForEmail, formatContactInquiryForEmail } from "./_core/emailService";
 import { z } from "zod";
 import { saveQuizResponse, getQuizResponses, saveContactSubmission, getContactSubmissions, getUserByEmail, createLocalUser, getDb, createPasswordResetToken, validatePasswordResetToken, deletePasswordResetToken, updateUserPasswordByUserId, getQuizResponsesByEmail } from "./db";
 import * as bcrypt from "bcryptjs";
@@ -150,21 +149,6 @@ export const appRouter = router({
             persona: input.persona,
           });
           
-          // Send formatted email to admin with quiz answers
-          const emailHtml = formatQuizAnswersForEmail(
-            input.answers,
-            input.persona,
-            input.fullName,
-            input.email,
-            new Date()
-          );
-          
-          await sendEmail({
-            to: "milano@domusrelocations.com",
-            subject: `New Persona Quiz Submission - ${input.fullName}`,
-            htmlContent: emailHtml,
-          });
-          
           // Notify owner of new quiz submission
           await notifyOwner({
             title: "New Persona Quiz Submission",
@@ -191,20 +175,6 @@ export const appRouter = router({
             fullName: input.fullName,
             email: input.email,
             message: input.message,
-          });
-          
-          // Send formatted email to admin with contact inquiry
-          const emailHtml = formatContactInquiryForEmail(
-            input.fullName,
-            input.email,
-            input.message,
-            new Date()
-          );
-          
-          await sendEmail({
-            to: "milano@domusrelocations.com",
-            subject: `New Contact Inquiry - ${input.fullName}`,
-            htmlContent: emailHtml,
           });
           
           // Notify owner of new contact submission
