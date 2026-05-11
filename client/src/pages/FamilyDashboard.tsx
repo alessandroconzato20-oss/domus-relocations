@@ -6,6 +6,8 @@ import { useLocation } from "wouter";
 import DocumentsCard from "@/components/FamilyDashboard/DocumentsCard";
 import AppointmentsCard from "@/components/FamilyDashboard/AppointmentsCard";
 import ProfileCard from "@/components/FamilyDashboard/ProfileCard";
+import PriorityActionsCard from "@/components/FamilyDashboard/PriorityActionsCard";
+import SchoolShortlistCard from "@/components/FamilyDashboard/SchoolShortlistCard";
 
 export default function FamilyDashboard() {
   const { user, logout } = useAuth();
@@ -118,17 +120,8 @@ export default function FamilyDashboard() {
 
           {/* Main grid */}
           <div className="grid grid-cols-3 gap-6 mb-6">
-            {/* Priority actions and School shortlist would go here */}
-            <div className="bg-white border border-[#E3DED5] rounded-lg p-6 col-span-1">
-              <h3 className="font-serif text-lg text-[#1C1C1A] mb-4">Priority actions</h3>
-              <p className="text-sm text-[#8A8880]">Coming soon</p>
-            </div>
-            
-            <div className="bg-white border border-[#E3DED5] rounded-lg p-6 col-span-1">
-              <h3 className="font-serif text-lg text-[#1C1C1A] mb-4">School shortlist</h3>
-              <p className="text-sm text-[#8A8880]">Coming soon</p>
-            </div>
-
+            <PriorityActionsCard />
+            <SchoolShortlistCard />
             <DocumentsCard />
           </div>
 
