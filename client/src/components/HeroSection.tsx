@@ -81,7 +81,8 @@ export default function HeroSection() {
               opacity: subVisible ? 1 : 0,
               transform: subVisible ? "translateY(0)" : "translateY(20px)",
               transition: "opacity 0.7s ease, transform 0.7s ease",
-              marginBottom: "1.5rem",
+              marginBottom: "3rem",
+              marginLeft: "-2rem",
             }}
           >
             <span className="section-label" style={{ color: "var(--domus-gold-light)" }}>
