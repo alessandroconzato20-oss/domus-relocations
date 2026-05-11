@@ -11,6 +11,7 @@ import ErrorBoundary from "./components/ErrorBoundary";
 import { ThemeProvider } from "./contexts/ThemeContext";
 import Home from "./pages/Home";
 import AdminDashboard from "./pages/AdminDashboard";
+import AdminClientDashboard from "./pages/AdminClientDashboard";
 import Login from "./pages/Login";
 import Signup from "./pages/Signup";
 import ForgotPassword from "./pages/ForgotPassword";
@@ -30,6 +31,7 @@ function Router() {
       <Route path={"/reset-password"} component={ResetPassword} />
       <Route path={"/account"} component={UserDashboard} />
       <Route path={"/admin"} component={AdminDashboard} />
+      <Route path={"/admin/clients"} component={AdminClientDashboard} />
       <Route path={"/family-dashboard"} component={FamilyDashboard} />
       <Route path={"/dashboard"} component={FamilyDashboard} />
       <Route path={"/dashboard/network"} component={TrustedNetwork} />

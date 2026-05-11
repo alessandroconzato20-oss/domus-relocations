@@ -379,3 +379,45 @@ export async function getTrustedNetworkContactsByCategory(category: string) {
     throw error;
   }
 }
+
+
+// Admin client management
+export async function getAllClients() {
+  const db = await getDb();
+  if (!db) {
+    console.warn("[Database] Cannot get all clients: database not available");
+    return [];
+  }
+  try {
+    const result = await db
+      .select()
+      .from(users)
+      .orderBy(users.name);
+    return result;
+  } catch (error) {
+    console.error("[Database] Failed to get all clients:", error);
+    throw error;
+  }
+}
+
+export async function getClientWithData(userId: number) {
+  const db = await getDb();
+  if (!db) {
+    console.warn("[Database] Cannot get client data: database not available");
+    return null;
+  }
+  try {
+    const user = await db
+      .select()
+      .from(users)
+      .where(eq(users.id as any, userId))
+      .limit(1);
+    
+    if (!user.length) return null;
+    
+    return user[0];
+  } catch (error) {
+    console.error("[Database] Failed to get client data:", error);
+    throw error;
+  }
+}

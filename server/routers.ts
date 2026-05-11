@@ -4,7 +4,7 @@ import { systemRouter } from "./_core/systemRouter";
 import { publicProcedure, router } from "./_core/trpc";
 import { notifyOwner } from "./_core/notification";
 import { z } from "zod";
-import { saveQuizResponse, getQuizResponses, saveContactSubmission, getContactSubmissions, getUserByEmail, createLocalUser, getDb, createPasswordResetToken, validatePasswordResetToken, deletePasswordResetToken, updateUserPasswordByUserId, getQuizResponsesByEmail, getTrustedNetworkContacts, getTrustedNetworkContactsByCategory } from "./db";
+import { saveQuizResponse, getQuizResponses, saveContactSubmission, getContactSubmissions, getUserByEmail, createLocalUser, getDb, createPasswordResetToken, validatePasswordResetToken, deletePasswordResetToken, updateUserPasswordByUserId, getQuizResponsesByEmail, getTrustedNetworkContacts, getTrustedNetworkContactsByCategory, getAllClients, getClientWithData } from "./db";
 import * as bcrypt from "bcryptjs";
 import { users } from "../drizzle/schema";
 import { eq } from "drizzle-orm";
@@ -250,6 +250,33 @@ export const appRouter = router({
         } catch (error) {
           console.error("Failed to get trusted network contacts by category:", error);
           return [];
+        }
+      }),
+  }),
+
+  admin: router({
+    getAllClients: publicProcedure.query(async () => {
+      try {
+        const clients = await getAllClients();
+        return clients;
+      } catch (error) {
+        console.error("Failed to get all clients:", error);
+        return [];
+      }
+    }),
+
+    getClientData: publicProcedure
+      .input(z.object({
+        clientId: z.number(),
+      }))
+      .query(async (opts) => {
+        const { input } = opts;
+        try {
+          const client = await getClientWithData(input.clientId);
+          return client;
+        } catch (error) {
+          console.error("Failed to get client data:", error);
+          return null;
         }
       }),
   }),
