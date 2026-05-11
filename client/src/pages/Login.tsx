@@ -29,7 +29,12 @@ export default function Login() {
 
       if (result.success) {
         toast.success("Logged in successfully!");
-        setLocation("/admin");
+        // Check if this is the admin account
+        if (email === "milano@domusrelocations.com" && password === "Newlifemilano26") {
+          setLocation("/admin");
+        } else {
+          setLocation("/dashboard");
+        }
       } else {
         toast.error(result.message || "Login failed");
       }
@@ -73,7 +78,7 @@ export default function Login() {
             textAlign: "center",
           }}
         >
-          Admin Login
+          Log In
         </h1>
         <p
           style={{
@@ -84,7 +89,7 @@ export default function Login() {
             marginBottom: "2rem",
           }}
         >
-          Access the admin dashboard
+          Access your account
         </p>
 
         {/* Form */}
