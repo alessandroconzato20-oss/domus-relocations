@@ -4,7 +4,7 @@ import { systemRouter } from "./_core/systemRouter";
 import { publicProcedure, router } from "./_core/trpc";
 import { notifyOwner } from "./_core/notification";
 import { z } from "zod";
-import { saveQuizResponse, getQuizResponses, saveContactSubmission, getContactSubmissions, getUserByEmail, createLocalUser, getDb, createPasswordResetToken, validatePasswordResetToken, deletePasswordResetToken, updateUserPasswordByUserId, getQuizResponsesByEmail, getTrustedNetworkContacts, getTrustedNetworkContactsByCategory, getAllClients, getClientWithData } from "./db";
+import { saveQuizResponse, getQuizResponses, saveContactSubmission, getContactSubmissions, getUserByEmail, createLocalUser, getDb, createPasswordResetToken, validatePasswordResetToken, deletePasswordResetToken, updateUserPasswordByUserId, getQuizResponsesByEmail, getTrustedNetworkContacts, getTrustedNetworkContactsByCategory, getAllClients, getClientWithData, createTotpSecret, getTotpSecretByUserId, enableTotpSecret, disableTotpSecret, validateBackupCode } from "./db";
 import * as bcrypt from "bcryptjs";
 import { users } from "../drizzle/schema";
 import { eq } from "drizzle-orm";
@@ -225,6 +225,97 @@ export const appRouter = router({
           return [];
         }
       }),
+  }),
+
+  twoFactor: router({
+    setupTotp: publicProcedure.mutation(async (opts) => {
+      const { ctx } = opts;
+      if (!ctx.user) {
+        return { success: false, message: "Not authenticated" };
+      }
+
+      try {
+        const speakeasy = await import("speakeasy");
+        const qrcode = await import("qrcode");
+
+        const secret = speakeasy.generateSecret({
+          name: `DOMUS (${ctx.user.email})`,
+          issuer: "DOMUS",
+          length: 32,
+        });
+
+        const backupCodes = Array.from({ length: 10 }, () =>
+          Math.random().toString(36).substring(2, 10).toUpperCase()
+        );
+
+        await createTotpSecret(ctx.user.id, secret.base32, backupCodes);
+
+        const qrCodeUrl = await qrcode.toDataURL(secret.otpauth_url!);
+
+        return {
+          success: true,
+          secret: secret.base32,
+          qrCode: qrCodeUrl,
+          backupCodes,
+        };
+      } catch (error) {
+        console.error("Failed to setup TOTP:", error);
+        return { success: false, message: "Failed to setup 2FA" };
+      }
+    }),
+
+    verifyTotp: publicProcedure
+      .input(z.object({
+        code: z.string().length(6),
+      }))
+      .mutation(async (opts) => {
+        const { input, ctx } = opts;
+        if (!ctx.user) {
+          return { success: false, message: "Not authenticated" };
+        }
+
+        try {
+          const speakeasy = await import("speakeasy");
+          const totp = await getTotpSecretByUserId(ctx.user.id);
+
+          if (!totp) {
+            return { success: false, message: "2FA not set up" };
+          }
+
+          const verified = speakeasy.totp.verify({
+            secret: totp.secret,
+            encoding: "base32",
+            token: input.code,
+            window: 2,
+          });
+
+          if (!verified) {
+            return { success: false, message: "Invalid code" };
+          }
+
+          await enableTotpSecret(totp.id);
+
+          return { success: true, message: "2FA enabled successfully" };
+        } catch (error) {
+          console.error("Failed to verify TOTP:", error);
+          return { success: false, message: "Failed to verify code" };
+        }
+      }),
+
+    disableTotp: publicProcedure.mutation(async (opts) => {
+      const { ctx } = opts;
+      if (!ctx.user) {
+        return { success: false, message: "Not authenticated" };
+      }
+
+      try {
+        await disableTotpSecret(ctx.user.id);
+        return { success: true, message: "2FA disabled successfully" };
+      } catch (error) {
+        console.error("Failed to disable TOTP:", error);
+        return { success: false, message: "Failed to disable 2FA" };
+      }
+    }),
   }),
 
   trustedNetwork: router({

@@ -421,3 +421,91 @@ export async function getClientWithData(userId: number) {
     throw error;
   }
 }
+
+
+// TOTP 2FA functions
+export async function createTotpSecret(userId: number, secret: string, backupCodes: string[]) {
+  try {
+    const db = await getDb();
+    if (!db) throw new Error("Database connection failed");
+    
+    const { totpSecrets } = await import("../drizzle/schema");
+    const result = await db.insert(totpSecrets).values({
+      userId,
+      secret,
+      backupCodes: JSON.stringify(backupCodes),
+      isEnabled: 0,
+    });
+    
+    return result;
+  } catch (error) {
+    console.error("Failed to create TOTP secret:", error);
+    throw error;
+  }
+}
+
+export async function getTotpSecretByUserId(userId: number) {
+  try {
+    const db = await getDb();
+    if (!db) throw new Error("Database connection failed");
+    
+    const { totpSecrets } = await import("../drizzle/schema");
+    const result = await db.select().from(totpSecrets).where(eq(totpSecrets.userId, userId)).limit(1);
+    return result[0] || null;
+  } catch (error) {
+    console.error("Failed to get TOTP secret:", error);
+    throw error;
+  }
+}
+
+export async function enableTotpSecret(totpId: number) {
+  try {
+    const db = await getDb();
+    if (!db) throw new Error("Database connection failed");
+    
+    const { totpSecrets } = await import("../drizzle/schema");
+    await db.update(totpSecrets).set({ isEnabled: 1, enabledAt: new Date() }).where(eq(totpSecrets.id, totpId));
+  } catch (error) {
+    console.error("Failed to enable TOTP secret:", error);
+    throw error;
+  }
+}
+
+export async function disableTotpSecret(userId: number) {
+  try {
+    const db = await getDb();
+    if (!db) throw new Error("Database connection failed");
+    
+    const { totpSecrets } = await import("../drizzle/schema");
+    await db.delete(totpSecrets).where(eq(totpSecrets.userId, userId));
+  } catch (error) {
+    console.error("Failed to disable TOTP secret:", error);
+    throw error;
+  }
+}
+
+export async function validateBackupCode(userId: number, code: string) {
+  try {
+    const totp = await getTotpSecretByUserId(userId);
+    if (!totp) return false;
+    
+    const codes = JSON.parse(totp.backupCodes) as string[];
+    const index = codes.indexOf(code);
+    
+    if (index === -1) return false;
+    
+    // Remove used backup code
+    codes.splice(index, 1);
+    
+    const db = await getDb();
+    if (!db) throw new Error("Database connection failed");
+    
+    const { totpSecrets } = await import("../drizzle/schema");
+    await db.update(totpSecrets).set({ backupCodes: JSON.stringify(codes) }).where(eq(totpSecrets.id, totp.id));
+    
+    return true;
+  } catch (error) {
+    console.error("Failed to validate backup code:", error);
+    return false;
+  }
+}

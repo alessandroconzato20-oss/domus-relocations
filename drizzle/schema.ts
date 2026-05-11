@@ -89,3 +89,17 @@ export const trustedNetworkContacts = mysqlTable("trustedNetworkContacts", {
 
 export type TrustedNetworkContact = typeof trustedNetworkContacts.$inferSelect;
 export type InsertTrustedNetworkContact = typeof trustedNetworkContacts.$inferInsert;
+
+// TOTP 2FA table for admin accounts
+export const totpSecrets = mysqlTable("totpSecrets", {
+  id: int("id").autoincrement().primaryKey(),
+  userId: int("userId").notNull().references(() => users.id, { onDelete: "cascade" }),
+  secret: varchar("secret", { length: 255 }).notNull(), // Base32 encoded secret
+  backupCodes: text("backupCodes").notNull(), // JSON array of backup codes
+  isEnabled: tinyint("isEnabled").default(0).notNull(),
+  createdAt: timestamp("createdAt").defaultNow().notNull(),
+  enabledAt: timestamp("enabledAt"),
+});
+
+export type TotpSecret = typeof totpSecrets.$inferSelect;
+export type InsertTotpSecret = typeof totpSecrets.$inferInsert;
