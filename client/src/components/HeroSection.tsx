@@ -45,7 +45,8 @@ export default function HeroSection() {
         minHeight: "700px",
         overflow: "hidden",
         display: "flex",
-        alignItems: "flex-end",
+        alignItems: "center",
+        justifyContent: "center",
       }}
     >
       {/* Background image */}
@@ -72,7 +73,7 @@ export default function HeroSection() {
       />
 
       {/* Content */}
-      <div className="container" style={{ position: "relative", zIndex: 10, paddingBottom: "8rem", width: "100%" }}>
+      <div className="container" style={{ position: "relative", zIndex: 10, width: "100%", maxWidth: "900px" }}>
         <div style={{ maxWidth: "900px" }}>
           {/* Label */}
           <div
