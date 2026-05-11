@@ -55,7 +55,7 @@ export default function FamilyDashboard() {
           </div>
 
           <NavItem icon={<FileText className="w-5 h-5" />} label="My documents" />
-          <NavItem icon={<User className="w-5 h-5" />} label="Trusted network" />
+          <NavItem icon={<User className="w-5 h-5" />} label="Trusted network" onClick={() => setLocation('/dashboard/network')} />
           <NavItem icon={<FileText className="w-5 h-5" />} label="Milan guides" />
 
           <div className="text-xs font-semibold text-[#8A8880] uppercase tracking-widest px-4 py-2 mt-6 mb-4">
@@ -145,9 +145,9 @@ export default function FamilyDashboard() {
   );
 }
 
-function NavItem({ icon, label, active = false, badge }: { icon: React.ReactNode; label: string; active?: boolean; badge?: string }) {
+function NavItem({ icon, label, active = false, badge, onClick }: { icon: React.ReactNode; label: string; active?: boolean; badge?: string; onClick?: () => void }) {
   return (
-    <button className={`w-full flex items-center gap-3 px-4 py-2 rounded-lg transition-colors ${active ? "bg-[#F0EDE6] text-[#1C1C1A]" : "text-[#8A8880] hover:bg-[#F0EDE6]"}`}>
+    <button onClick={onClick} className={`w-full flex items-center gap-3 px-4 py-2 rounded-lg transition-colors ${active ? "bg-[#F0EDE6] text-[#1C1C1A]" : "text-[#8A8880] hover:bg-[#F0EDE6]"}`}>
       {icon}
       <span className="text-sm">{label}</span>
       {badge && <span className="ml-auto text-xs bg-[#C9A96E] text-white px-2 py-1 rounded-full">{badge}</span>}

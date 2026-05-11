@@ -1,4 +1,4 @@
-import { int, mysqlEnum, mysqlTable, text, timestamp, varchar } from "drizzle-orm/mysql-core";
+import { int, mysqlEnum, mysqlTable, text, timestamp, varchar, tinyint } from "drizzle-orm/mysql-core";
 
 /**
  * Core user table backing auth flow.
@@ -64,3 +64,28 @@ export const passwordResetTokens = mysqlTable("passwordResetTokens", {
 
 export type PasswordResetToken = typeof passwordResetTokens.$inferSelect;
 export type InsertPasswordResetToken = typeof passwordResetTokens.$inferInsert;
+
+// Trusted network contacts table
+export const trustedNetworkContacts = mysqlTable("trustedNetworkContacts", {
+  id: int("id").autoincrement().primaryKey(),
+  name: varchar("name", { length: 255 }).notNull(),
+  role: varchar("role", { length: 255 }).notNull(), // e.g., "Pediatrician", "Tax Advisor"
+  category: mysqlEnum("category", [
+    "Medical",
+    "Legal & Tax",
+    "Education",
+    "Property",
+    "Lifestyle & Home",
+    "Social & Community",
+  ]).notNull(),
+  endorsement: text("endorsement").notNull(), // One-line DOMUS endorsement
+  contactMethod: mysqlEnum("contactMethod", ["email", "phone"]).notNull(),
+  contactValue: varchar("contactValue", { length: 255 }).notNull(), // Email or phone number
+  imageUrl: varchar("imageUrl", { length: 512 }), // Optional profile image
+  isActive: tinyint("isActive").default(1).notNull(),
+  createdAt: timestamp("createdAt").defaultNow().notNull(),
+  updatedAt: timestamp("updatedAt").defaultNow().onUpdateNow().notNull(),
+});
+
+export type TrustedNetworkContact = typeof trustedNetworkContacts.$inferSelect;
+export type InsertTrustedNetworkContact = typeof trustedNetworkContacts.$inferInsert;

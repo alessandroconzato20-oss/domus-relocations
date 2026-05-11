@@ -43,6 +43,13 @@
       "when": 1778445244216,
       "tag": "0005_parched_bastion",
       "breakpoints": true
+    },
+    {
+      "idx": 6,
+      "version": "5",
+      "when": 1778522504107,
+      "tag": "0006_open_turbo",
+      "breakpoints": true
     }
   ]
 }

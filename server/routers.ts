@@ -4,7 +4,7 @@ import { systemRouter } from "./_core/systemRouter";
 import { publicProcedure, router } from "./_core/trpc";
 import { notifyOwner } from "./_core/notification";
 import { z } from "zod";
-import { saveQuizResponse, getQuizResponses, saveContactSubmission, getContactSubmissions, getUserByEmail, createLocalUser, getDb, createPasswordResetToken, validatePasswordResetToken, deletePasswordResetToken, updateUserPasswordByUserId, getQuizResponsesByEmail } from "./db";
+import { saveQuizResponse, getQuizResponses, saveContactSubmission, getContactSubmissions, getUserByEmail, createLocalUser, getDb, createPasswordResetToken, validatePasswordResetToken, deletePasswordResetToken, updateUserPasswordByUserId, getQuizResponsesByEmail, getTrustedNetworkContacts, getTrustedNetworkContactsByCategory } from "./db";
 import * as bcrypt from "bcryptjs";
 import { users } from "../drizzle/schema";
 import { eq } from "drizzle-orm";
@@ -222,6 +222,33 @@ export const appRouter = router({
           return responses;
         } catch (error) {
           console.error("Failed to get user quizzes:", error);
+          return [];
+        }
+      }),
+  }),
+
+  trustedNetwork: router({
+    getAll: publicProcedure.query(async () => {
+      try {
+        const contacts = await getTrustedNetworkContacts();
+        return contacts;
+      } catch (error) {
+        console.error("Failed to get trusted network contacts:", error);
+        return [];
+      }
+    }),
+
+    getByCategory: publicProcedure
+      .input(z.object({
+        category: z.string(),
+      }))
+      .query(async (opts) => {
+        const { input } = opts;
+        try {
+          const contacts = await getTrustedNetworkContactsByCategory(input.category);
+          return contacts;
+        } catch (error) {
+          console.error("Failed to get trusted network contacts by category:", error);
           return [];
         }
       }),

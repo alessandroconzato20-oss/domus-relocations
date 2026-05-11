@@ -1,6 +1,6 @@
-import { eq } from "drizzle-orm";
+import { eq, and } from "drizzle-orm";
 import { drizzle } from "drizzle-orm/mysql2";
-import { InsertUser, users, quizResponses, InsertQuizResponse, contactSubmissions, InsertContactSubmission } from "../drizzle/schema";
+import { InsertUser, users, quizResponses, InsertQuizResponse, contactSubmissions, InsertContactSubmission, trustedNetworkContacts } from "../drizzle/schema";
 import { ENV } from './_core/env';
 
 let _db: ReturnType<typeof drizzle> | null = null;
@@ -330,6 +330,52 @@ export async function getQuizResponsesByEmail(email: string) {
     return result;
   } catch (error) {
     console.error("[Database] Failed to get quiz responses by email:", error);
+    throw error;
+  }
+}
+
+
+// Trusted network contacts
+export async function getTrustedNetworkContacts() {
+  const db = await getDb();
+  if (!db) {
+    console.warn("[Database] Cannot get trusted network contacts: database not available");
+    return [];
+  }
+
+  try {
+    const result = await db
+      .select()
+      .from(trustedNetworkContacts)
+      .where(eq(trustedNetworkContacts.isActive, 1))
+      .orderBy(trustedNetworkContacts.category);
+    return result;
+  } catch (error) {
+    console.error("[Database] Failed to get trusted network contacts:", error);
+    throw error;
+  }
+}
+
+export async function getTrustedNetworkContactsByCategory(category: string) {
+  const db = await getDb();
+  if (!db) {
+    console.warn("[Database] Cannot get trusted network contacts: database not available");
+    return [];
+  }
+
+  try {
+    const result = await db
+      .select()
+      .from(trustedNetworkContacts)
+      .where(
+        and(
+          eq(trustedNetworkContacts.category as any, category),
+          eq(trustedNetworkContacts.isActive as any, 1)
+        )
+      );
+    return result;
+  } catch (error) {
+    console.error("[Database] Failed to get trusted network contacts by category:", error);
     throw error;
   }
 }
