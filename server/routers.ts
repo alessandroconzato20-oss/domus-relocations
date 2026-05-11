@@ -92,14 +92,14 @@ export const appRouter = router({
         try {
           const user = await getUserByEmail(input.email);
           if (!user || !user.id) {
-            return { success: true, message: "If an account exists, a reset link has been sent to your email" };
+            return { success: false, message: "No account found with this email address" };
           }
 
           const token = await createPasswordResetToken(user.id, 1);
           console.log(`[Password Reset] Token for ${input.email}: ${token}`);
           console.log(`Reset link: /reset-password?token=${token}`);
 
-          return { success: true, message: "If an account exists, a reset link has been sent to your email" };
+          return { success: true, message: "Check your email for password reset instructions" };
         } catch (error) {
           console.error("Failed to request password reset:", error);
           return { success: false, message: "Failed to process request" };
