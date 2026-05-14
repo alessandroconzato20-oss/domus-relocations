@@ -54,8 +54,10 @@ export const appRouter = router({
       }))
       .mutation(async (opts) => {
         const { input, ctx } = opts;
+        console.log(`[Auth] Login attempt for email: ${input.email}`);
         try {
           const user = await getUserByEmail(input.email);
+          console.log(`[Auth] User found: ${user ? user.email : 'not found'}`);
           if (!user) {
             return { success: false, message: "Invalid email or password" };
           }
@@ -75,7 +77,10 @@ export const appRouter = router({
           }
 
           const cookieOptions = getSessionCookieOptions(ctx.req);
-          ctx.res.cookie(COOKIE_NAME, user.openId, cookieOptions);
+          // Manually set the Set-Cookie header instead of using ctx.res.cookie()
+          const cookieString = `${COOKIE_NAME}=${user.openId}; Path=${cookieOptions.path}; HttpOnly; SameSite=${cookieOptions.sameSite}${cookieOptions.secure ? '; Secure' : ''}`;
+          ctx.res.setHeader('Set-Cookie', cookieString);
+          console.log(`[Auth] Set-Cookie header: ${cookieString}`);
 
           return { success: true, message: "Logged in successfully", user };
         } catch (error) {

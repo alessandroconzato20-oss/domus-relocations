@@ -25,3 +25,12 @@
 - [x] Write and run vitest tests for backend procedures
 - [x] Test all features in browser
 - [x] Save checkpoint with all features complete
+
+
+## In Progress
+- [x] Replace Login/Signup buttons on homepage with single Inquire button (mailto link)
+- [ ] Debug and fix login authentication flow (session cookie not being set properly)
+- [ ] Enforce 2FA in login flow (prompt for TOTP code after password verification for admin accounts with 2FA enabled)
+- [ ] Admin Task CRUD UI (create, edit, delete tasks for specific clients)
+- [ ] Real data integration for dashboard cards (Schools, Appointments, Documents)
+- [ ] Email service integration (SendGrid or similar for password resets and notifications)

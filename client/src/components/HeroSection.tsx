@@ -194,64 +194,40 @@ export default function HeroSection() {
               </button>
             </div>
 
-            {/* Auth buttons — below and centered */}
+            {/* Inquire button */}
             <div
               style={{
                 display: "flex",
-                gap: "0.75rem",
                 justifyContent: "center",
               }}
             >
-              <button
-                onClick={() => setLocation("/login")}
+              <a
+                href="mailto:milano@domusrelocations.com"
                 style={{
-                  padding: "0.5rem 1rem",
-                  background: "transparent",
-                  border: "1px solid rgba(245, 240, 232, 0.4)",
-                  color: "rgba(245, 240, 232, 0.85)",
-                  fontFamily: "'Jost', sans-serif",
-                  fontSize: "0.8rem",
-                  fontWeight: 500,
-                  cursor: "pointer",
-                  transition: "all 0.3s ease",
-                  letterSpacing: "0.3px",
-                }}
-                onMouseEnter={(e) => {
-                  e.currentTarget.style.borderColor = "var(--domus-gold)";
-                  e.currentTarget.style.color = "var(--domus-gold)";
-                }}
-                onMouseLeave={(e) => {
-                  e.currentTarget.style.borderColor = "rgba(245, 240, 232, 0.4)";
-                  e.currentTarget.style.color = "rgba(245, 240, 232, 0.85)";
-                }}
-              >
-                Log In
-              </button>
-              <button
-                onClick={() => setLocation("/signup")}
-                style={{
-                  padding: "0.5rem 1rem",
-                  background: "rgba(214, 175, 98, 0.15)",
-                  border: "1px solid rgba(214, 175, 98, 0.4)",
+                  padding: "0.75rem 2rem",
+                  background: "rgba(214, 175, 98, 0.2)",
+                  border: "1px solid var(--domus-gold)",
                   color: "var(--domus-gold)",
                   fontFamily: "'Jost', sans-serif",
-                  fontSize: "0.8rem",
+                  fontSize: "0.9rem",
                   fontWeight: 500,
                   cursor: "pointer",
                   transition: "all 0.3s ease",
                   letterSpacing: "0.3px",
+                  textDecoration: "none",
+                  display: "inline-block",
                 }}
                 onMouseEnter={(e) => {
-                  e.currentTarget.style.background = "rgba(214, 175, 98, 0.25)";
-                  e.currentTarget.style.borderColor = "var(--domus-gold)";
+                  e.currentTarget.style.background = "rgba(214, 175, 98, 0.35)";
+                  e.currentTarget.style.color = "#F5F0E8";
                 }}
                 onMouseLeave={(e) => {
-                  e.currentTarget.style.background = "rgba(214, 175, 98, 0.15)";
-                  e.currentTarget.style.borderColor = "rgba(214, 175, 98, 0.4)";
+                  e.currentTarget.style.background = "rgba(214, 175, 98, 0.2)";
+                  e.currentTarget.style.color = "var(--domus-gold)";
                 }}
               >
-                Sign Up
-              </button>
+                Inquire
+              </a>
             </div>
           </div>
         </div>
