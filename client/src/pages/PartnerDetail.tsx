@@ -4,11 +4,11 @@ import { ArrowLeft } from "lucide-react";
 // Partner data - should match DomusNetworkSection
 const partnersData: Record<string, any> = {
   academie: {
-    name: "Lumom Privee",
+    name: "Lumo Privee",
     logo: "🎓",
     category: "EDUCATION",
     description: "A leading private school advisory and tutoring firm operating across Milan and the broader Italian education landscape.",
-    fullDescription: "Lumom Privee specializes in helping international families navigate the Italian and international school landscape. With over 15 years of experience, they provide personalized school placement services, academic tutoring, and curriculum guidance.",
+    fullDescription: "Lumo Privee specializes in helping international families navigate the Italian and international school landscape. With over 15 years of experience, they provide personalized school placement services, academic tutoring, and curriculum guidance.",
     quote: "Our preferred school placement partner for families seeking IB, British, and bilingual Italian programmes in Milan.",
     website: "https://academie.example.com",
     contact: "hello@academie.example.com",

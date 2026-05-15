@@ -17,7 +17,7 @@ const activePartners: Partner[] = [
   // Education & School Advisory
   {
     id: "academie",
-    name: "Lumom Privee",
+    name: "Lumo Privee",
     logo: "🎓",
     description: "A leading private school advisory and tutoring firm operating across Milan and the broader Italian education landscape.",
     category: "EDUCATION",
