@@ -214,7 +214,7 @@ export default function DomusNetworkSection() {
               >
                 {activePartners[0].id === "academie" ? (
                   <img
-                    src="/manus-storage/Screenshot2026-05-15at20.23.45_e733e195.png"
+                    src="/manus-storage/pasted_file_lHAIrR_image_3737daae.png"
                     alt="Lumo Privee Logo"
                     style={{
                       maxHeight: "100px",
