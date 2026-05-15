@@ -13,6 +13,7 @@ import CoreValuesSection from "@/components/CoreValuesSection";
 import HeroSection from "@/components/HeroSection";
 import MilanSection from "@/components/MilanSection";
 import Navigation from "@/components/Navigation";
+import OurPartnersSection from "@/components/OurPartnersSection";
 import PersonaQuiz from "@/components/PersonaQuiz";
 import ServicesSection from "@/components/ServicesSection";
 import TestimonialSection from "@/components/TestimonialSection";
@@ -34,6 +35,7 @@ export default function Home() {
         <HeroSection />
         <CoreValuesSection />
         <AboutSection />
+        <OurPartnersSection />
         <ServicesSection />
         <QuizCTABanner onQuizOpen={() => setQuizOpen(true)} />
         <MilanSection />

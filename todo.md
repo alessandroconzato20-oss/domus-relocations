@@ -34,3 +34,5 @@
 - [ ] Admin Task CRUD UI (create, edit, delete tasks for specific clients)
 - [ ] Real data integration for dashboard cards (Schools, Appointments, Documents)
 - [ ] Email service integration (SendGrid or similar for password resets and notifications)
+- [x] Create "Our Partners" section component with partner logos/information
+- [x] Add "Our Partners" navigation link to hero page next to "Our Approach"
