@@ -17,7 +17,7 @@ const activePartners: Partner[] = [
   // Education & School Advisory
   {
     id: "academie",
-    name: "Académie Advisory Group",
+    name: "Lumom Privee",
     logo: "🎓",
     description: "A leading private school advisory and tutoring firm operating across Milan and the broader Italian education landscape.",
     category: "EDUCATION",
@@ -27,7 +27,7 @@ const activePartners: Partner[] = [
   },
   {
     id: "tf",
-    name: "The Tutoring Firm",
+    name: "PAIDEIA MENTORS",
     logo: "📚",
     description: "Your trusted tutoring partner for children in academic transition — bridging curricula across systems and languages.",
     category: "EDUCATION",

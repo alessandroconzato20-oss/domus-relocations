@@ -4,22 +4,22 @@ import { ArrowLeft } from "lucide-react";
 // Partner data - should match DomusNetworkSection
 const partnersData: Record<string, any> = {
   academie: {
-    name: "Académie Advisory Group",
+    name: "Lumom Privee",
     logo: "🎓",
     category: "EDUCATION",
     description: "A leading private school advisory and tutoring firm operating across Milan and the broader Italian education landscape.",
-    fullDescription: "Académie Advisory Group specializes in helping international families navigate the Italian and international school landscape. With over 15 years of experience, they provide personalized school placement services, academic tutoring, and curriculum guidance.",
+    fullDescription: "Lumom Privee specializes in helping international families navigate the Italian and international school landscape. With over 15 years of experience, they provide personalized school placement services, academic tutoring, and curriculum guidance.",
     quote: "Our preferred school placement partner for families seeking IB, British, and bilingual Italian programmes in Milan.",
     website: "https://academie.example.com",
     contact: "hello@academie.example.com",
     phone: "+39 02 1234 5678",
   },
   tf: {
-    name: "The Tutoring Firm",
+    name: "PAIDEIA MENTORS",
     logo: "📚",
     category: "EDUCATION",
     description: "Your trusted tutoring partner for children in academic transition — bridging curricula across systems and languages.",
-    fullDescription: "The Tutoring Firm offers comprehensive academic support for students transitioning between different educational systems. Their team of experienced tutors specializes in helping children adapt to new curricula while maintaining academic excellence.",
+    fullDescription: "PAIDEIA MENTORS offers comprehensive academic support for students transitioning between different educational systems. Their team of experienced tutors specializes in helping children adapt to new curricula while maintaining academic excellence.",
     website: "https://thetutoringfirm.example.com",
     contact: "info@thetutoringfirm.example.com",
     phone: "+39 02 8765 4321",

@@ -45,3 +45,4 @@
 - [x] Add "Become a DOMUS partner" CTA section
 
 - [x] Move non-active partners to "Ongoing Negotiations" section (keep only Academic Advisory Group, Tutoring Firm, ISM Admissions Office visible)
+- [x] Update partner names (Lumom Privee and PAIDEIA MENTORS)
