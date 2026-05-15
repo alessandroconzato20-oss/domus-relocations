@@ -161,6 +161,29 @@ export default function PartnerDetail() {
         </div>
       </div>
 
+      {/* Partner Banner */}
+      {partner.id === "academie" && (
+        <div
+          style={{
+            background: "linear-gradient(135deg, #1a2b5c 0%, #2d3e6f 100%)",
+            padding: "3rem 2rem",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+          }}
+        >
+          <img
+            src="/manus-storage/pasted_file_lHAIrR_image_1a7377e7.png"
+            alt="Lumo Privee Logo"
+            style={{
+              maxHeight: "120px",
+              maxWidth: "100%",
+              objectFit: "contain",
+            }}
+          />
+        </div>
+      )}
+
       {/* Main content */}
       <div className="container" style={{ padding: "4rem 2rem" }}>
         <div
