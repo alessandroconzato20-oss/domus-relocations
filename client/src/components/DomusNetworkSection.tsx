@@ -296,8 +296,124 @@ export default function DomusNetworkSection() {
             </div>
           )}
 
-          {/* Partner Grid - Redesigned */}
-          {activePartners.slice(1).length > 0 && (
+          {/* PAIDEIA MENTORS Featured Partner */}
+          {activePartners[1] && (
+            <div
+              onClick={() => handlePartnerClick(activePartners[1])}
+              style={{
+                display: "grid",
+                gridTemplateColumns: "1fr 1fr",
+                gap: "4rem",
+                marginBottom: "4rem",
+                padding: "3rem",
+                border: "none",
+                background: "linear-gradient(135deg, #faf8f5 0%, #f5f0ea 100%)",
+                cursor: "pointer",
+                transition: "all 0.4s cubic-bezier(0.4, 0, 0.2, 1)",
+                borderRadius: "8px",
+                boxShadow: "0 2px 8px rgba(0, 0, 0, 0.04)",
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.boxShadow = "0 8px 24px rgba(0, 0, 0, 0.08)";
+                e.currentTarget.style.transform = "translateY(-2px)";
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.boxShadow = "0 2px 8px rgba(0, 0, 0, 0.04)";
+                e.currentTarget.style.transform = "translateY(0)";
+              }}
+            >
+              {/* Logo Container */}
+              <div
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  background: "#ffffff",
+                  borderRadius: "8px",
+                  padding: "2rem",
+                  boxShadow: "0 1px 3px rgba(0, 0, 0, 0.05)",
+                }}
+              >
+                <img
+                  src="/manus-storage/pasted_file_rL5Bb3_image_245de9fc.png"
+                  alt="PAIDEIA MENTORS Logo"
+                  style={{
+                    maxHeight: "140px",
+                    maxWidth: "100%",
+                    objectFit: "contain",
+                  }}
+                />
+              </div>
+
+              {/* Content */}
+              <div
+                style={{
+                  display: "flex",
+                  flexDirection: "column",
+                  justifyContent: "center",
+                }}
+              >
+                <div style={{ marginBottom: "1rem" }}>
+                  <span
+                    style={{
+                      display: "inline-block",
+                      background: "var(--domus-gold)",
+                      color: "#ffffff",
+                      fontSize: "0.6rem",
+                      padding: "0.5rem 1rem",
+                      borderRadius: "20px",
+                      marginBottom: "1rem",
+                      textTransform: "uppercase",
+                      letterSpacing: "0.12rem",
+                      fontWeight: 600,
+                    }}
+                  >
+                    Featured Partner
+                  </span>
+                </div>
+                <h3
+                  style={{
+                    fontFamily: "'Cormorant Garamond', serif",
+                    fontSize: "2rem",
+                    fontWeight: 400,
+                    color: "var(--domus-charcoal)",
+                    marginBottom: "1rem",
+                    lineHeight: 1.2,
+                  }}
+                >
+                  {activePartners[1].name}
+                </h3>
+                <p
+                  style={{
+                    fontSize: "0.95rem",
+                    color: "var(--domus-charcoal)",
+                    marginBottom: "1.5rem",
+                    lineHeight: 1.7,
+                  }}
+                >
+                  {activePartners[1].description}
+                </p>
+                {activePartners[1].quote && (
+                  <blockquote
+                    style={{
+                      fontStyle: "italic",
+                      color: "#666666",
+                      borderLeft: "4px solid var(--domus-gold)",
+                      paddingLeft: "1.5rem",
+                      margin: "0",
+                      fontSize: "0.9rem",
+                      lineHeight: 1.6,
+                    }}
+                  >
+                    "{activePartners[1].quote}"
+                  </blockquote>
+                )}
+              </div>
+            </div>
+          )}
+
+          {/* Partner Grid - Remaining Partners */}
+          {activePartners.slice(2).length > 0 && (
             <div
               style={{
                 display: "grid",
@@ -305,7 +421,7 @@ export default function DomusNetworkSection() {
                 gap: "2.5rem",
               }}
             >
-              {activePartners.slice(1).map((partner) => (
+              {activePartners.slice(2).map((partner) => (
                 <div
                   key={partner.id}
                   onClick={() => handlePartnerClick(partner)}
@@ -340,19 +456,7 @@ export default function DomusNetworkSection() {
                       fontSize: "1.8rem",
                     }}
                   >
-                    {partner.id === "tf" ? (
-                      <img
-                        src="/manus-storage/pasted_file_rL5Bb3_image_245de9fc.png"
-                        alt="PAIDEIA MENTORS Logo"
-                        style={{
-                          maxHeight: "50px",
-                          maxWidth: "100%",
-                          objectFit: "contain",
-                        }}
-                      />
-                    ) : (
-                      partner.logo
-                    )}
+                    {partner.logo}
                   </div>
                   <h3
                     style={{
