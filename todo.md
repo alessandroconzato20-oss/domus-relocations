@@ -43,3 +43,5 @@
 - [x] Add partner detail pages with full information, website links, and quotes
 - [x] Implement click-through functionality from partner cards to detail pages
 - [x] Add "Become a DOMUS partner" CTA section
+
+- [x] Move non-active partners to "Ongoing Negotiations" section (keep only Academic Advisory Group, Tutoring Firm, ISM Admissions Office visible)
