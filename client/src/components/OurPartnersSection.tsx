@@ -77,7 +77,7 @@ export default function OurPartnersSection() {
               marginBottom: "1.5rem",
             }}
           >
-            Our Partners
+            The DOMUS Network
           </h2>
           <p
             style={{

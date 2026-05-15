@@ -65,7 +65,7 @@ export default function Navigation({ onQuizOpen }: NavigationProps) {
               Our Approach
             </button>
             <button onClick={() => scrollTo("partners")} className="nav-link" style={{ background: "none", border: "none" }}>
-              Our Partners
+              The DOMUS Network
             </button>
             <button onClick={() => scrollTo("services")} className="nav-link" style={{ background: "none", border: "none" }}>
               Private Services
@@ -115,7 +115,7 @@ export default function Navigation({ onQuizOpen }: NavigationProps) {
             gap: "1.5rem",
           }}>
             <button onClick={() => scrollTo("about")} className="nav-link" style={{ background: "none", border: "none", textAlign: "left" }}>Our Approach</button>
-            <button onClick={() => scrollTo("partners")} className="nav-link" style={{ background: "none", border: "none", textAlign: "left" }}>Our Partners</button>
+            <button onClick={() => scrollTo("partners")} className="nav-link" style={{ background: "none", border: "none", textAlign: "left" }}>The DOMUS Network</button>
             <button onClick={() => scrollTo("services")} className="nav-link" style={{ background: "none", border: "none", textAlign: "left" }}>Private Services</button>
             <button onClick={() => scrollTo("milan")} className="nav-link" style={{ background: "none", border: "none", textAlign: "left" }}>Living In Milano</button>
             <button
