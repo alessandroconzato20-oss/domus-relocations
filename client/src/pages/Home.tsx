@@ -5,7 +5,7 @@
  * Quiz: Full-screen modal overlay triggered from nav and CTAs
  */
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useAuth } from "@/_core/hooks/useAuth";
 import AboutSection from "@/components/AboutSection";
 import ContactSection from "@/components/ContactSection";
@@ -24,6 +24,23 @@ export default function Home() {
   let { user, loading, error, isAuthenticated, logout } = useAuth();
 
   const [quizOpen, setQuizOpen] = useState(false);
+
+  // Set page title and meta tags for SEO
+  useEffect(() => {
+    document.title = "DOMUS Relocations: Premium Milan Relocation Services";
+    
+    // Update meta description
+    const metaDescription = document.querySelector('meta[name="description"]');
+    if (metaDescription) {
+      metaDescription.setAttribute('content', 'Premium relocation services for Milan. Private advisory, school placement, and trusted network access for international families.');
+    }
+    
+    // Add keywords
+    const metaKeywords = document.querySelector('meta[name="keywords"]');
+    if (metaKeywords) {
+      metaKeywords.setAttribute('content', 'Milan relocation, expat services, school placement, luxury relocation, international families, Milan advisory');
+    }
+  }, []);
 
   return (
     <div style={{ background: "var(--domus-ivory)", minHeight: "100vh" }}>
