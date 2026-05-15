@@ -36,3 +36,10 @@
 - [ ] Email service integration (SendGrid or similar for password resets and notifications)
 - [x] Create "The DOMUS Network" section component with partner logos/information
 - [x] Add "The DOMUS Network" navigation link to hero page next to "Our Approach"
+
+## Current Work
+- [x] Redesign The DOMUS Network section with category-based layout (Education, Tax & Wealth, Real Estate, Healthcare)
+- [x] Create featured partner cards for each category
+- [x] Add partner detail pages with full information, website links, and quotes
+- [x] Implement click-through functionality from partner cards to detail pages
+- [x] Add "Become a DOMUS partner" CTA section

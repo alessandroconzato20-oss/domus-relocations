@@ -20,6 +20,7 @@ import UserDashboard from "./pages/UserDashboard";
 import FamilyDashboard from "./pages/FamilyDashboard";
 import TrustedNetwork from "./pages/TrustedNetwork";
 import Setup2FA from "./pages/Setup2FA";
+import PartnerDetail from "./pages/PartnerDetail";
 
 function Router() {
   // make sure to consider if you need authentication for certain routes
@@ -37,6 +38,7 @@ function Router() {
       <Route path={"/dashboard"} component={FamilyDashboard} />
       <Route path={"/dashboard/network"} component={TrustedNetwork} />
       <Route path={"/setup-2fa"} component={Setup2FA} />
+      <Route path={"/partner/:id"} component={PartnerDetail} />
       <Route path={"/404"} component={NotFound} />
       <Route component={NotFound} />
     </Switch>
