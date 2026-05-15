@@ -209,9 +209,22 @@ export default function DomusNetworkSection() {
                   fontSize: "3rem",
                   background: "#f0ebe5",
                   borderRadius: "4px",
+                  padding: "1rem",
                 }}
               >
-                {activePartners[0].logo}
+                {activePartners[0].id === "academie" ? (
+                  <img
+                    src="/manus-storage/Screenshot2026-05-15at20.23.45_e733e195.png"
+                    alt="Lumo Privee Logo"
+                    style={{
+                      maxHeight: "100px",
+                      maxWidth: "100%",
+                      objectFit: "contain",
+                    }}
+                  />
+                ) : (
+                  activePartners[0].logo
+                )}
               </div>
 
               {/* Content */}
