@@ -176,40 +176,42 @@ export default function DomusNetworkSection() {
             </span>
           </div>
 
-          {/* Featured Partner */}
+          {/* Featured Partner - Redesigned */}
           {activePartners[0] && (
             <div
               onClick={() => handlePartnerClick(activePartners[0])}
               style={{
                 display: "grid",
-                gridTemplateColumns: "150px 1fr",
-                gap: "3rem",
-                marginBottom: "3rem",
-                padding: "2rem",
-                border: "1px solid #e0d5c7",
-                background: "#faf8f5",
+                gridTemplateColumns: "1fr 1fr",
+                gap: "4rem",
+                marginBottom: "4rem",
+                padding: "3rem",
+                border: "none",
+                background: "linear-gradient(135deg, #faf8f5 0%, #f5f0ea 100%)",
                 cursor: "pointer",
-                transition: "all 0.3s ease",
+                transition: "all 0.4s cubic-bezier(0.4, 0, 0.2, 1)",
+                borderRadius: "8px",
+                boxShadow: "0 2px 8px rgba(0, 0, 0, 0.04)",
               }}
               onMouseEnter={(e) => {
-                e.currentTarget.style.background = "#f5f0ea";
-                e.currentTarget.style.borderColor = "var(--domus-gold)";
+                e.currentTarget.style.boxShadow = "0 8px 24px rgba(0, 0, 0, 0.08)";
+                e.currentTarget.style.transform = "translateY(-2px)";
               }}
               onMouseLeave={(e) => {
-                e.currentTarget.style.background = "#faf8f5";
-                e.currentTarget.style.borderColor = "#e0d5c7";
+                e.currentTarget.style.boxShadow = "0 2px 8px rgba(0, 0, 0, 0.04)";
+                e.currentTarget.style.transform = "translateY(0)";
               }}
             >
-              {/* Logo */}
+              {/* Logo Container */}
               <div
                 style={{
                   display: "flex",
                   alignItems: "center",
                   justifyContent: "center",
-                  fontSize: "3rem",
-                  background: "#f0ebe5",
-                  borderRadius: "4px",
-                  padding: "1rem",
+                  background: "#ffffff",
+                  borderRadius: "8px",
+                  padding: "2rem",
+                  boxShadow: "0 1px 3px rgba(0, 0, 0, 0.05)",
                 }}
               >
                 {activePartners[0].id === "academie" ? (
@@ -217,7 +219,7 @@ export default function DomusNetworkSection() {
                     src="/manus-storage/pasted_file_lHAIrR_image_3737daae.png"
                     alt="Lumo Privee Logo"
                     style={{
-                      maxHeight: "100px",
+                      maxHeight: "140px",
                       maxWidth: "100%",
                       objectFit: "contain",
                     }}
@@ -228,19 +230,25 @@ export default function DomusNetworkSection() {
               </div>
 
               {/* Content */}
-              <div>
+              <div
+                style={{
+                  display: "flex",
+                  flexDirection: "column",
+                  justifyContent: "center",
+                }}
+              >
                 <div style={{ marginBottom: "1rem" }}>
                   <span
                     style={{
                       display: "inline-block",
-                      background: "#f5e6d3",
-                      color: "var(--domus-gold)",
-                      fontSize: "0.65rem",
-                      padding: "0.4rem 0.8rem",
-                      borderRadius: "2px",
-                      marginBottom: "0.5rem",
+                      background: "var(--domus-gold)",
+                      color: "#ffffff",
+                      fontSize: "0.6rem",
+                      padding: "0.5rem 1rem",
+                      borderRadius: "20px",
+                      marginBottom: "1rem",
                       textTransform: "uppercase",
-                      letterSpacing: "0.1rem",
+                      letterSpacing: "0.12rem",
                       fontWeight: 600,
                     }}
                   >
@@ -250,10 +258,11 @@ export default function DomusNetworkSection() {
                 <h3
                   style={{
                     fontFamily: "'Cormorant Garamond', serif",
-                    fontSize: "1.5rem",
+                    fontSize: "2rem",
                     fontWeight: 400,
                     color: "var(--domus-charcoal)",
-                    marginBottom: "0.5rem",
+                    marginBottom: "1rem",
+                    lineHeight: 1.2,
                   }}
                 >
                   {activePartners[0].name}
@@ -262,8 +271,8 @@ export default function DomusNetworkSection() {
                   style={{
                     fontSize: "0.95rem",
                     color: "var(--domus-charcoal)",
-                    marginBottom: "1rem",
-                    lineHeight: 1.6,
+                    marginBottom: "1.5rem",
+                    lineHeight: 1.7,
                   }}
                 >
                   {activePartners[0].description}
@@ -272,11 +281,12 @@ export default function DomusNetworkSection() {
                   <blockquote
                     style={{
                       fontStyle: "italic",
-                      color: "var(--domus-charcoal)",
-                      borderLeft: "3px solid var(--domus-gold)",
-                      paddingLeft: "1rem",
-                      margin: "1rem 0",
+                      color: "#666666",
+                      borderLeft: "4px solid var(--domus-gold)",
+                      paddingLeft: "1.5rem",
+                      margin: "0",
                       fontSize: "0.9rem",
+                      lineHeight: 1.6,
                     }}
                   >
                     "{activePartners[0].quote}"
@@ -286,13 +296,13 @@ export default function DomusNetworkSection() {
             </div>
           )}
 
-          {/* Partner Grid */}
+          {/* Partner Grid - Redesigned */}
           {activePartners.slice(1).length > 0 && (
             <div
               style={{
                 display: "grid",
-                gridTemplateColumns: "repeat(auto-fit, minmax(300px, 1fr))",
-                gap: "2rem",
+                gridTemplateColumns: "repeat(auto-fit, minmax(320px, 1fr))",
+                gap: "2.5rem",
               }}
             >
               {activePartners.slice(1).map((partner) => (
@@ -300,31 +310,57 @@ export default function DomusNetworkSection() {
                   key={partner.id}
                   onClick={() => handlePartnerClick(partner)}
                   style={{
-                    padding: "2rem",
-                    border: "1px solid #e0d5c7",
-                    background: "#faf8f5",
+                    padding: "2.5rem",
+                    border: "none",
+                    background: "#ffffff",
                     cursor: "pointer",
-                    transition: "all 0.3s ease",
+                    transition: "all 0.4s cubic-bezier(0.4, 0, 0.2, 1)",
+                    borderRadius: "8px",
+                    boxShadow: "0 2px 8px rgba(0, 0, 0, 0.04)",
                   }}
                   onMouseEnter={(e) => {
-                    e.currentTarget.style.background = "#f5f0ea";
-                    e.currentTarget.style.borderColor = "var(--domus-gold)";
+                    e.currentTarget.style.boxShadow = "0 12px 32px rgba(0, 0, 0, 0.1)";
+                    e.currentTarget.style.transform = "translateY(-4px)";
                   }}
                   onMouseLeave={(e) => {
-                    e.currentTarget.style.background = "#faf8f5";
-                    e.currentTarget.style.borderColor = "#e0d5c7";
+                    e.currentTarget.style.boxShadow = "0 2px 8px rgba(0, 0, 0, 0.04)";
+                    e.currentTarget.style.transform = "translateY(0)";
                   }}
                 >
-                  <div style={{ fontSize: "2rem", marginBottom: "1rem" }}>
-                    {partner.logo}
+                  <div
+                    style={{
+                      width: "60px",
+                      height: "60px",
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "center",
+                      background: "#f5f0ea",
+                      borderRadius: "8px",
+                      marginBottom: "1.5rem",
+                      fontSize: "1.8rem",
+                    }}
+                  >
+                    {partner.id === "tf" ? (
+                      <img
+                        src="/manus-storage/pasted_file_rL5Bb3_image_245de9fc.png"
+                        alt="PAIDEIA MENTORS Logo"
+                        style={{
+                          maxHeight: "50px",
+                          maxWidth: "100%",
+                          objectFit: "contain",
+                        }}
+                      />
+                    ) : (
+                      partner.logo
+                    )}
                   </div>
                   <h3
                     style={{
                       fontFamily: "'Cormorant Garamond', serif",
-                      fontSize: "1.2rem",
+                      fontSize: "1.3rem",
                       fontWeight: 400,
                       color: "var(--domus-charcoal)",
-                      marginBottom: "0.5rem",
+                      marginBottom: "0.75rem",
                     }}
                   >
                     {partner.name}
@@ -332,8 +368,8 @@ export default function DomusNetworkSection() {
                   <p
                     style={{
                       fontSize: "0.9rem",
-                      color: "var(--domus-charcoal)",
-                      lineHeight: 1.6,
+                      color: "#666666",
+                      lineHeight: 1.7,
                     }}
                   >
                     {partner.description}
