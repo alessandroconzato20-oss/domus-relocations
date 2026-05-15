@@ -64,18 +64,18 @@ const ongoingNegotiations: Partner[] = [
 
   // Real Estate & Property
   {
-    id: "ev",
-    name: "Engel & Völkers Milan",
+    id: "re",
+    name: "Luxury Property Partners",
     logo: "🏠",
-    description: "Our luxury property partner for off-market and premium residential listings across Brera, Porta Nuova, and City Life.",
+    description: "Premium residential real estate advisory for international families seeking luxury properties in Milan's most desirable neighborhoods.",
     category: "REAL ESTATE",
     categoryGroup: "REAL ESTATE & PROPERTY",
   },
   {
     id: "id",
-    name: "Atelier Interior Studio",
+    name: "Interior Design Services",
     logo: "🎨",
-    description: "A Milan-based design studio we trust to turn a new apartment into a home — quickly, beautifully, and within a defined brief.",
+    description: "Professional interior design and home furnishing services to transform new residences into personalized living spaces.",
     category: "REAL ESTATE",
     categoryGroup: "REAL ESTATE & PROPERTY",
   },
