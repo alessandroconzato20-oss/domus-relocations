@@ -86,22 +86,7 @@ export default function HeroSection() {
           padding: "4rem 2rem 0 2rem",
         }}
       >
-        {/* Label — positioned at top right */}
-        <div
-          style={{
-            position: "absolute",
-            top: "2rem",
-            right: "2rem",
-            opacity: subVisible ? 1 : 0,
-            transform: subVisible ? "translateY(0)" : "translateY(20px)",
-            transition: "opacity 0.7s ease, transform 0.7s ease",
-            zIndex: 20,
-          }}
-        >
-          <span className="section-label" style={{ color: "var(--domus-gold-light)", fontSize: "0.85rem", letterSpacing: "0.15em" }}>
-            MILANO · EST. 2022
-          </span>
-        </div>
+
 
         {/* Headline */}
         <h1
