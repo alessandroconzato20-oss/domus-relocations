@@ -75,12 +75,12 @@ export default function HeroSection() {
       {/* Content */}
       <div className="container" style={{ position: "relative", zIndex: 10, width: "100%", maxWidth: "900px", marginTop: "2rem" }}>
         <div style={{ maxWidth: "900px" }}>
-          {/* Label — positioned at top left */}
+          {/* Label — positioned at top right, away from text */}
           <div
             style={{
               position: "absolute",
               top: "3rem",
-              left: "2rem",
+              right: "2rem",
               opacity: subVisible ? 1 : 0,
               transform: subVisible ? "translateY(0)" : "translateY(20px)",
               transition: "opacity 0.7s ease, transform 0.7s ease",
