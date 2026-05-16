@@ -27,7 +27,7 @@ const activePartners: Partner[] = [
   },
   {
     id: "tf",
-    name: "PAIDEIA MENTORS",
+    name: "Paideia Mentors",
     logo: "📚",
     description: "Elite educational mentorship and long-term university strategy for families aspiring toward the world's most prestigious institutions.",
     category: "EDUCATION",
@@ -296,7 +296,7 @@ export default function DomusNetworkSection() {
             </div>
           )}
 
-          {/* PAIDEIA MENTORS Featured Partner */}
+          {/* Paideia Mentors Featured Partner */}
           {activePartners[1] && (
             <div
               onClick={() => handlePartnerClick(activePartners[1])}
@@ -336,7 +336,7 @@ export default function DomusNetworkSection() {
               >
                 <img
                   src="/manus-storage/pasted_file_rL5Bb3_image_245de9fc.png"
-                  alt="PAIDEIA MENTORS Logo"
+                  alt="Paideia Mentors Logo"
                   style={{
                     maxHeight: "140px",
                     maxWidth: "100%",

@@ -15,7 +15,7 @@ const partnersData: Record<string, any> = {
     phone: "+39 02 1234 5678",
   },
   tf: {
-    name: "PAIDEIA MENTORS",
+    name: "Paideia Mentors",
     logo: "📚",
     category: "EDUCATION",
     description: "Elite educational mentorship and long-term university strategy for families aspiring toward the world's most prestigious institutions.",
