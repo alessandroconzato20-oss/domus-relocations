@@ -203,8 +203,8 @@ export default function HeroSection() {
                 flexDirection: "column",
                 gap: "0.75rem",
                 alignItems: "stretch",
-                maxWidth: "100%",
-                width: "100%",
+                maxWidth: "calc(50% + 0.5rem)",
+                width: "calc(50% + 0.5rem)",
               }}
             >
               <button
