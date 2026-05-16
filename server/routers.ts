@@ -4,7 +4,7 @@ import { systemRouter } from "./_core/systemRouter";
 import { publicProcedure, router } from "./_core/trpc";
 import { notifyOwner } from "./_core/notification";
 import { z } from "zod";
-import { saveQuizResponse, getQuizResponses, saveContactSubmission, getContactSubmissions, getUserByEmail, createLocalUser, getDb, createPasswordResetToken, validatePasswordResetToken, deletePasswordResetToken, updateUserPasswordByUserId, getQuizResponsesByEmail, getTrustedNetworkContacts, getTrustedNetworkContactsByCategory, getAllClients, getClientWithData, createTotpSecret, getTotpSecretByUserId, enableTotpSecret, disableTotpSecret, validateBackupCode } from "./db";
+import { saveQuizResponse, getQuizResponses, saveContactSubmission, getContactSubmissions, saveInquiry, getInquiries, getUserByEmail, createLocalUser, getDb, createPasswordResetToken, validatePasswordResetToken, deletePasswordResetToken, updateUserPasswordByUserId, getQuizResponsesByEmail, getTrustedNetworkContacts, getTrustedNetworkContactsByCategory, getAllClients, getClientWithData, createTotpSecret, getTotpSecretByUserId, enableTotpSecret, disableTotpSecret, validateBackupCode } from "./db";
 import * as bcrypt from "bcryptjs";
 import { users } from "../drizzle/schema";
 import { eq } from "drizzle-orm";
@@ -230,6 +230,48 @@ export const appRouter = router({
           return [];
         }
       }),
+
+    submitInquiry: publicProcedure
+      .input(z.object({
+        fullName: z.string().min(1),
+        email: z.string().email(),
+        phone: z.string().optional(),
+        serviceType: z.string().min(1),
+        message: z.string().optional(),
+      }))
+      .mutation(async (opts) => {
+        const { input } = opts;
+        try {
+          await saveInquiry({
+            fullName: input.fullName,
+            email: input.email,
+            phone: input.phone,
+            serviceType: input.serviceType,
+            message: input.message,
+          });
+          
+          const messagePreview = input.message ? input.message.substring(0, 100) + (input.message.length > 100 ? "..." : "") : "No message provided";
+          await notifyOwner({
+            title: "New DOMUS Inquiry",
+            content: `${input.fullName} (${input.email}${input.phone ? ", " + input.phone : ""}) has submitted an inquiry for ${input.serviceType}: "${messagePreview}"`,
+          });
+          
+          return { success: true, message: "Inquiry submitted successfully" };
+        } catch (error) {
+          console.error("Failed to save inquiry:", error);
+          return { success: false, message: "Failed to submit inquiry" };
+        }
+      }),
+
+    getInquiries: publicProcedure.query(async () => {
+      try {
+        const inquiries = await getInquiries();
+        return inquiries;
+      } catch (error) {
+        console.error("Failed to get inquiries:", error);
+        return [];
+      }
+    }),
   }),
 
   twoFactor: router({

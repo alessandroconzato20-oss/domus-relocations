@@ -509,3 +509,51 @@ export async function validateBackupCode(userId: number, code: string) {
     return false;
   }
 }
+
+
+// Inquiry functions
+export async function saveInquiry(inquiry: {
+  fullName: string;
+  email: string;
+  phone?: string;
+  serviceType: string;
+  message?: string;
+}) {
+  const db = await getDb();
+  if (!db) {
+    console.warn("[Database] Cannot save inquiry: database not available");
+    throw new Error("Database not available");
+  }
+
+  try {
+    const { inquiries } = await import("../drizzle/schema");
+    const result = await db.insert(inquiries).values({
+      fullName: inquiry.fullName,
+      email: inquiry.email,
+      phone: inquiry.phone || null,
+      serviceType: inquiry.serviceType,
+      message: inquiry.message || null,
+    });
+    return result;
+  } catch (error) {
+    console.error("[Database] Failed to save inquiry:", error);
+    throw error;
+  }
+}
+
+export async function getInquiries() {
+  const db = await getDb();
+  if (!db) {
+    console.warn("[Database] Cannot get inquiries: database not available");
+    return [];
+  }
+
+  try {
+    const { inquiries } = await import("../drizzle/schema");
+    const result = await db.select().from(inquiries).orderBy(inquiries.createdAt);
+    return result;
+  } catch (error) {
+    console.error("[Database] Failed to get inquiries:", error);
+    throw error;
+  }
+}
