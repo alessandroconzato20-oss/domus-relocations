@@ -209,8 +209,7 @@ export default function HeroSection() {
             >
               <button
                 onClick={() => {
-                  const el = document.getElementById("inquiry-form");
-                  if (el) el.scrollIntoView({ behavior: "smooth" });
+                  window.location.href = "mailto:milano@domusrelocations.com?subject=Schedule%20a%20Private%20Consultation&body=Hello%20DOMUS%20Relocations%2C%0A%0AI%20would%20like%20to%20schedule%20a%20private%20consultation.%0A%0AThank%20you";
                 }}
                 style={{
                   padding: "1.1rem 2.5rem",
@@ -241,7 +240,7 @@ export default function HeroSection() {
                   e.currentTarget.style.transform = "translateY(0)";
                 }}
               >
-                Schedule a Private Consultation
+                Schedule A Private Consultation
               </button>
               <p
                 style={{
