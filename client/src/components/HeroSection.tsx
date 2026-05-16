@@ -247,8 +247,8 @@ export default function HeroSection() {
                 style={{
                   fontFamily: "'Jost', sans-serif",
                   fontSize: "0.9rem",
-                  fontWeight: 300,
-                  color: "rgba(245, 240, 232, 0.7)",
+                  fontWeight: 400,
+                  color: "rgba(245, 240, 232, 0.85)",
                   lineHeight: 1.6,
                   margin: 0,
                 }}
