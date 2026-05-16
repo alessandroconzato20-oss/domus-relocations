@@ -202,8 +202,9 @@ export default function HeroSection() {
                 display: "flex",
                 flexDirection: "column",
                 gap: "0.75rem",
-                alignItems: "flex-start",
-                maxWidth: "500px",
+                alignItems: "stretch",
+                maxWidth: "100%",
+                width: "100%",
               }}
             >
               <button
@@ -223,7 +224,9 @@ export default function HeroSection() {
                   transition: "all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1)",
                   letterSpacing: "0.5px",
                   textDecoration: "none",
-                  display: "inline-block",
+                  display: "block",
+                  width: "100%",
+                  textAlign: "center",
                   boxShadow: "0 8px 24px rgba(214, 175, 98, 0.25)",
                   borderRadius: "2px",
                   position: "relative",
