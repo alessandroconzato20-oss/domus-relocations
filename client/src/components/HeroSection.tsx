@@ -196,40 +196,62 @@ export default function HeroSection() {
               </button>
             </div>
 
-            {/* Inquire button */}
+            {/* Schedule Consultation CTA */}
             <div
               style={{
                 display: "flex",
-                justifyContent: "center",
+                flexDirection: "column",
+                gap: "0.75rem",
+                alignItems: "flex-start",
+                maxWidth: "500px",
               }}
             >
-              <a
-                href="mailto:milano@domusrelocations.com"
+              <button
+                onClick={() => {
+                  const el = document.getElementById("inquiry-form");
+                  if (el) el.scrollIntoView({ behavior: "smooth" });
+                }}
                 style={{
-                  padding: "0.75rem 2rem",
-                  background: "rgba(214, 175, 98, 0.2)",
-                  border: "1px solid var(--domus-gold)",
-                  color: "var(--domus-gold)",
-                  fontFamily: "'Jost', sans-serif",
-                  fontSize: "0.9rem",
+                  padding: "1.1rem 2.5rem",
+                  background: "linear-gradient(135deg, var(--domus-gold) 0%, rgba(214, 175, 98, 0.9) 100%)",
+                  border: "none",
+                  color: "var(--domus-charcoal)",
+                  fontFamily: "'Cormorant Garamond', serif",
+                  fontSize: "1.1rem",
                   fontWeight: 500,
                   cursor: "pointer",
-                  transition: "all 0.3s ease",
-                  letterSpacing: "0.3px",
+                  transition: "all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1)",
+                  letterSpacing: "0.5px",
                   textDecoration: "none",
                   display: "inline-block",
+                  boxShadow: "0 8px 24px rgba(214, 175, 98, 0.25)",
+                  borderRadius: "2px",
+                  position: "relative",
+                  overflow: "hidden",
                 }}
                 onMouseEnter={(e) => {
-                  e.currentTarget.style.background = "rgba(214, 175, 98, 0.35)";
-                  e.currentTarget.style.color = "#F5F0E8";
+                  e.currentTarget.style.boxShadow = "0 12px 36px rgba(214, 175, 98, 0.4)";
+                  e.currentTarget.style.transform = "translateY(-2px)";
                 }}
                 onMouseLeave={(e) => {
-                  e.currentTarget.style.background = "rgba(214, 175, 98, 0.2)";
-                  e.currentTarget.style.color = "var(--domus-gold)";
+                  e.currentTarget.style.boxShadow = "0 8px 24px rgba(214, 175, 98, 0.25)";
+                  e.currentTarget.style.transform = "translateY(0)";
                 }}
               >
-                Inquire
-              </a>
+                Schedule a Private Consultation
+              </button>
+              <p
+                style={{
+                  fontFamily: "'Jost', sans-serif",
+                  fontSize: "0.9rem",
+                  fontWeight: 300,
+                  color: "rgba(245, 240, 232, 0.7)",
+                  lineHeight: 1.6,
+                  margin: 0,
+                }}
+              >
+                Explore how DOMUS can support every aspect of your transition to Milan with a discreet, fully tailored approach.
+              </p>
             </div>
           </div>
         </div>
