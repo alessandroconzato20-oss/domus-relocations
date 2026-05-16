@@ -73,20 +73,22 @@ export default function HeroSection() {
       />
 
       {/* Content */}
-      <div className="container" style={{ position: "relative", zIndex: 10, width: "100%", maxWidth: "900px" }}>
+      <div className="container" style={{ position: "relative", zIndex: 10, width: "100%", maxWidth: "900px", marginTop: "2rem" }}>
         <div style={{ maxWidth: "900px" }}>
-          {/* Label */}
+          {/* Label — positioned at top left */}
           <div
             style={{
+              position: "absolute",
+              top: "3rem",
+              left: "2rem",
               opacity: subVisible ? 1 : 0,
               transform: subVisible ? "translateY(0)" : "translateY(20px)",
               transition: "opacity 0.7s ease, transform 0.7s ease",
-              marginBottom: "3rem",
-              marginLeft: "-2rem",
+              zIndex: 20,
             }}
           >
-            <span className="section-label" style={{ color: "var(--domus-gold-light)" }}>
-              Milano · Est. 2022
+            <span className="section-label" style={{ color: "var(--domus-gold-light)", fontSize: "0.85rem", letterSpacing: "0.15em" }}>
+              MILANO · EST. 2022
             </span>
           </div>
 
