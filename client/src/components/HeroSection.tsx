@@ -73,14 +73,14 @@ export default function HeroSection() {
       />
 
       {/* Content */}
-      <div className="container" style={{ position: "relative", zIndex: 10, width: "100%", maxWidth: "900px", marginTop: "-4rem" }}>
+      <div className="container" style={{ position: "relative", zIndex: 10, width: "100%", maxWidth: "900px", marginTop: "2rem" }}>
         <div style={{ maxWidth: "900px" }}>
-          {/* Label — positioned at top left, away from text */}
+          {/* Label — positioned at top right, away from text */}
           <div
             style={{
               position: "absolute",
-              top: "-5rem",
-              left: "0",
+              top: "3rem",
+              right: "2rem",
               opacity: subVisible ? 1 : 0,
               transform: subVisible ? "translateY(0)" : "translateY(20px)",
               transition: "opacity 0.7s ease, transform 0.7s ease",
@@ -101,7 +101,7 @@ export default function HeroSection() {
               fontSize: "clamp(3.5rem, 8vw, 7.5rem)",
               lineHeight: 0.95,
               color: "#F5F0E8",
-              marginBottom: "2rem",
+              marginBottom: "1.5rem",
               letterSpacing: "-0.02em",
             }}
           >
@@ -131,7 +131,7 @@ export default function HeroSection() {
               lineHeight: 1.4,
               color: "rgba(245, 240, 232, 0.98)",
               maxWidth: "600px",
-              marginBottom: "2.5rem",
+              marginBottom: "2rem",
               opacity: subVisible ? 1 : 0,
               transform: subVisible ? "translateY(0)" : "translateY(20px)",
               transition: "opacity 0.7s ease 0.1s, transform 0.7s ease 0.1s",
@@ -149,7 +149,7 @@ export default function HeroSection() {
               lineHeight: 1.8,
               color: "rgba(245, 240, 232, 0.75)",
               maxWidth: "520px",
-              marginBottom: "3rem",
+              marginBottom: "2.5rem",
               opacity: subVisible ? 1 : 0,
               transform: subVisible ? "translateY(0)" : "translateY(20px)",
               transition: "opacity 0.7s ease 0.2s, transform 0.7s ease 0.2s",
@@ -173,9 +173,9 @@ export default function HeroSection() {
             <div
               style={{
                 display: "flex",
-              gap: "1.5rem",
-              flexWrap: "wrap",
-            }}
+                gap: "1rem",
+                flexWrap: "wrap",
+              }}
             >
               <button
                 onClick={() => {
