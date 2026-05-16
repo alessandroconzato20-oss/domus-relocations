@@ -83,14 +83,14 @@ export default function HeroSection() {
           flexDirection: "column",
           alignItems: "center",
           textAlign: "center",
-          padding: "0 2rem",
+          padding: "4rem 2rem 0 2rem",
         }}
       >
         {/* Label — positioned at top right */}
         <div
           style={{
             position: "absolute",
-            top: "-8rem",
+            top: "2rem",
             right: "2rem",
             opacity: subVisible ? 1 : 0,
             transform: subVisible ? "translateY(0)" : "translateY(20px)",
