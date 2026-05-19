@@ -83,7 +83,7 @@ export default function HeroSection() {
           flexDirection: "column",
           alignItems: "center",
           textAlign: "center",
-          padding: "4rem 2rem 0 2rem",
+          padding: "clamp(2rem, 5vw, 4rem) 1.5rem 0 1.5rem",
         }}
       >
 
@@ -94,10 +94,10 @@ export default function HeroSection() {
             fontFamily: "'Cormorant Garamond', serif",
             fontWeight: 400,
             fontStyle: "italic",
-            fontSize: "clamp(3.5rem, 8vw, 7rem)",
+            fontSize: "clamp(2.5rem, 7vw, 7rem)",
             lineHeight: 1.1,
             color: "#F5F0E8",
-            marginBottom: "2.5rem",
+            marginBottom: "clamp(1.5rem, 3vw, 2.5rem)",
             letterSpacing: "-0.02em",
           }}
         >
@@ -123,11 +123,11 @@ export default function HeroSection() {
             fontFamily: "'Cormorant Garamond', serif",
             fontWeight: 300,
             fontStyle: "italic",
-            fontSize: "clamp(1.1rem, 2vw, 1.5rem)",
+            fontSize: "clamp(0.95rem, 1.8vw, 1.5rem)",
             lineHeight: 1.4,
             color: "rgba(245, 240, 232, 0.98)",
             maxWidth: "700px",
-            marginBottom: "2rem",
+            marginBottom: "clamp(1rem, 2vw, 2rem)",
             opacity: subVisible ? 1 : 0,
             transform: subVisible ? "translateY(0)" : "translateY(20px)",
             transition: "opacity 0.7s ease 0.1s, transform 0.7s ease 0.1s",
@@ -141,11 +141,11 @@ export default function HeroSection() {
           style={{
             fontFamily: "'Jost', sans-serif",
             fontWeight: 300,
-            fontSize: "clamp(0.9rem, 1.4vw, 1rem)",
+            fontSize: "clamp(0.8rem, 1.2vw, 1rem)",
             lineHeight: 1.8,
             color: "rgba(245, 240, 232, 0.75)",
             maxWidth: "600px",
-            marginBottom: "3rem",
+            marginBottom: "clamp(1.5rem, 3vw, 3rem)",
             opacity: subVisible ? 1 : 0,
             transform: subVisible ? "translateY(0)" : "translateY(20px)",
             transition: "opacity 0.7s ease 0.2s, transform 0.7s ease 0.2s",
@@ -159,20 +159,22 @@ export default function HeroSection() {
           style={{
             display: "flex",
             flexDirection: "column",
-            gap: "1.5rem",
+            gap: "clamp(0.75rem, 2vw, 1.5rem)",
             alignItems: "center",
             opacity: ctaVisible ? 1 : 0,
             transform: ctaVisible ? "translateY(0)" : "translateY(20px)",
             transition: "opacity 0.7s ease, transform 0.7s ease",
+            width: "100%",
           }}
         >
           {/* Primary CTAs */}
           <div
             style={{
               display: "flex",
-              gap: "1.5rem",
+              gap: "clamp(0.75rem, 2vw, 1.5rem)",
               flexWrap: "wrap",
               justifyContent: "center",
+              width: "100%",
             }}
           >
             <button
@@ -181,7 +183,7 @@ export default function HeroSection() {
                 if (el) el.scrollIntoView({ behavior: "smooth" });
               }}
               className="btn-luxury-dark"
-              style={{ background: "var(--domus-ivory)", color: "var(--domus-charcoal)", border: "1px solid var(--domus-ivory)" }}
+              style={{ background: "var(--domus-ivory)", color: "var(--domus-charcoal)", border: "1px solid var(--domus-ivory)", flex: "1 1 auto", minWidth: "150px" }}
             >
               Begin Your Private Relocation
             </button>
@@ -199,10 +201,11 @@ export default function HeroSection() {
             style={{
               display: "flex",
               flexDirection: "column",
-              gap: "0.75rem",
+              gap: "clamp(0.5rem, 1.5vw, 0.75rem)",
               alignItems: "center",
               maxWidth: "500px",
               width: "100%",
+              paddingBottom: "clamp(1rem, 2vw, 2rem)",
             }}
           >
             <button
@@ -262,7 +265,7 @@ export default function HeroSection() {
           position: "absolute",
           bottom: "2.5rem",
           right: "3rem",
-          display: "flex",
+          display: window.innerWidth < 768 ? "none" : "flex",
           flexDirection: "column",
           alignItems: "center",
           gap: "0.75rem",
