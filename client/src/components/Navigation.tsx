@@ -119,6 +119,13 @@ export default function Navigation({ onQuizOpen }: NavigationProps) {
             <button onClick={() => scrollTo("services")} className="nav-link" style={{ background: "none", border: "none", textAlign: "left" }}>Private Services</button>
             <button onClick={() => scrollTo("milan")} className="nav-link" style={{ background: "none", border: "none", textAlign: "left" }}>Living In Milano</button>
             <button
+              onClick={() => { setLocation("/account"); setMenuOpen(false); }}
+              className="nav-link"
+              style={{ background: "none", border: "none", textAlign: "left" }}
+            >
+              My Account
+            </button>
+            <button
               onClick={() => { onQuizOpen(); setMenuOpen(false); }}
               className="btn-luxury"
               style={{ alignSelf: "flex-start", padding: "0.75rem 2rem", fontSize: "0.7rem" }}
