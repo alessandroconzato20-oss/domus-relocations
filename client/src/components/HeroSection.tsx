@@ -183,7 +183,7 @@ export default function HeroSection() {
                 if (el) el.scrollIntoView({ behavior: "smooth" });
               }}
               className="btn-luxury-dark"
-              style={{ background: "var(--domus-ivory)", color: "var(--domus-charcoal)", border: "1px solid var(--domus-ivory)", flex: "1 1 auto", minWidth: "150px" }}
+              style={{ background: "var(--domus-ivory)", color: "var(--domus-charcoal)", border: "1px solid var(--domus-ivory)", maxWidth: "280px", width: "100%" }}
             >
               Begin Your Private Relocation
             </button>
