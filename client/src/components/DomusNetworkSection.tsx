@@ -182,10 +182,10 @@ export default function DomusNetworkSection() {
               onClick={() => handlePartnerClick(activePartners[0])}
               style={{
                 display: "grid",
-                gridTemplateColumns: "1fr 1fr",
-                gap: "4rem",
-                marginBottom: "4rem",
-                padding: "3rem",
+                gridTemplateColumns: "clamp(1fr, 100%, 1fr 1fr)",
+                gap: "clamp(1.5rem, 3vw, 4rem)",
+                marginBottom: "clamp(2rem, 4vw, 4rem)",
+                padding: "clamp(1.5rem, 4vw, 3rem)",
                 border: "none",
                 background: "linear-gradient(135deg, #faf8f5 0%, #f5f0ea 100%)",
                 cursor: "pointer",
@@ -210,8 +210,9 @@ export default function DomusNetworkSection() {
                   justifyContent: "center",
                   background: "#ffffff",
                   borderRadius: "8px",
-                  padding: "2rem",
+                  padding: "clamp(1rem, 3vw, 2rem)",
                   boxShadow: "0 1px 3px rgba(0, 0, 0, 0.05)",
+                  minHeight: "clamp(200px, 40vw, 300px)",
                 }}
               >
                 {activePartners[0].id === "academie" ? (
@@ -219,8 +220,8 @@ export default function DomusNetworkSection() {
                     src="/manus-storage/pasted_file_lHAIrR_image_3737daae.png"
                     alt="Lumo Privee Logo"
                     style={{
-                      maxHeight: "140px",
-                      maxWidth: "100%",
+                      maxHeight: "clamp(120px, 30vw, 180px)",
+                      maxWidth: "90%",
                       objectFit: "contain",
                     }}
                   />
@@ -302,10 +303,10 @@ export default function DomusNetworkSection() {
               onClick={() => handlePartnerClick(activePartners[1])}
               style={{
                 display: "grid",
-                gridTemplateColumns: "1fr 1fr",
-                gap: "4rem",
-                marginBottom: "4rem",
-                padding: "3rem",
+                gridTemplateColumns: "clamp(1fr, 100%, 1fr 1fr)",
+                gap: "clamp(1.5rem, 3vw, 4rem)",
+                marginBottom: "clamp(2rem, 4vw, 4rem)",
+                padding: "clamp(1.5rem, 4vw, 3rem)",
                 border: "none",
                 background: "linear-gradient(135deg, #faf8f5 0%, #f5f0ea 100%)",
                 cursor: "pointer",
@@ -330,16 +331,17 @@ export default function DomusNetworkSection() {
                   justifyContent: "center",
                   background: "#ffffff",
                   borderRadius: "8px",
-                  padding: "2rem",
+                  padding: "clamp(1rem, 3vw, 2rem)",
                   boxShadow: "0 1px 3px rgba(0, 0, 0, 0.05)",
+                  minHeight: "clamp(200px, 40vw, 300px)",
                 }}
               >
                 <img
                   src="/manus-storage/pasted_file_rL5Bb3_image_245de9fc.png"
                   alt="Paideia Mentors Logo"
                   style={{
-                    maxHeight: "140px",
-                    maxWidth: "100%",
+                    maxHeight: "clamp(120px, 30vw, 180px)",
+                    maxWidth: "90%",
                     objectFit: "contain",
                   }}
                 />
