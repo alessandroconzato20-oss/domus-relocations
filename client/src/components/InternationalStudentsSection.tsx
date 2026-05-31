@@ -119,20 +119,20 @@ export default function InternationalStudentsSection() {
   ];
 
   return (
-    <section id="students" className="py-16 md:py-24 bg-white">
+    <section id="students" className="py-12 md:py-16 lg:py-24 bg-white">
       <div className="container mx-auto px-4 md:px-6">
         {/* The Challenge */}
-        <div className="mb-20 md:mb-32">
-          <div className="mb-12 md:mb-16">
-            <h2 className="text-xs md:text-sm font-semibold tracking-widest text-amber-700 mb-4 md:mb-6">
+        <div className="mb-16 md:mb-24 lg:mb-32">
+          <div className="mb-8 md:mb-12 lg:mb-16">
+            <h2 className="text-xs md:text-sm font-semibold tracking-widest text-amber-700 mb-3 md:mb-4 lg:mb-6">
               THE CHALLENGE YOUR INTERNATIONAL STUDENTS FACE
             </h2>
-            <p className="text-2xl md:text-4xl font-serif italic text-gray-900 max-w-4xl">
+            <p className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-serif italic text-gray-900 max-w-4xl leading-tight">
               Brilliant students. Completely unprepared for what Italy throws at them.
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-5 lg:gap-8">
             {challenges.map((challenge, idx) => {
               const Icon = challenge.icon;
               return (
@@ -144,14 +144,14 @@ export default function InternationalStudentsSection() {
                     style={{ backgroundColor: challenge.color }}
                     className="h-1"
                   />
-                  <div className="p-6 md:p-8">
-                    <div className="mb-4 flex items-center justify-center w-12 h-12 rounded-full" style={{ backgroundColor: `${challenge.color}20` }}>
-                      <Icon size={24} style={{ color: challenge.color }} />
+                  <div className="p-4 md:p-5 lg:p-8">
+                    <div className="mb-3 md:mb-4 flex items-center justify-center w-10 md:w-11 lg:w-12 h-10 md:h-11 lg:h-12 rounded-full" style={{ backgroundColor: `${challenge.color}20` }}>
+                      <Icon size={20} className="md:w-5 md:h-5 lg:w-6 lg:h-6" style={{ color: challenge.color }} />
                     </div>
-                    <h3 className="text-lg md:text-xl font-serif font-bold text-gray-900 mb-4">
+                    <h3 className="text-base md:text-lg lg:text-xl font-serif font-bold text-gray-900 mb-2 md:mb-3 lg:mb-4">
                       {challenge.title}
                     </h3>
-                    <p className="text-sm md:text-base text-gray-700 leading-relaxed">
+                    <p className="text-xs md:text-sm lg:text-base text-gray-700 leading-relaxed">
                       {challenge.description}
                     </p>
                   </div>
@@ -162,17 +162,17 @@ export default function InternationalStudentsSection() {
         </div>
 
         {/* What DOMUS Does */}
-        <div className="mb-20 md:mb-32">
-          <div className="mb-12 md:mb-16">
-            <h2 className="text-xs md:text-sm font-semibold tracking-widest text-amber-700 mb-4 md:mb-6">
+        <div className="mb-16 md:mb-24 lg:mb-32">
+          <div className="mb-8 md:mb-12 lg:mb-16">
+            <h2 className="text-xs md:text-sm font-semibold tracking-widest text-amber-700 mb-3 md:mb-4 lg:mb-6">
               WHAT DOMUS DOES FOR YOUR STUDENTS
             </h2>
-            <p className="text-2xl md:text-4xl font-serif italic text-gray-900 max-w-4xl">
+            <p className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-serif italic text-gray-900 max-w-4xl leading-tight">
               A complete arrival and settlement service, from visa application to first day of class.
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-5 lg:gap-8">
             {services.map((service, idx) => {
               const Icon = service.icon;
               return (
@@ -184,14 +184,14 @@ export default function InternationalStudentsSection() {
                     style={{ backgroundColor: service.color }}
                     className="h-1"
                   />
-                  <div className="p-6 md:p-8">
-                    <div className="flex items-center gap-3 mb-4">
-                      <Icon size={28} style={{ color: service.color }} />
-                      <h3 className="text-lg md:text-xl font-serif font-bold text-gray-900">
+                  <div className="p-4 md:p-5 lg:p-8">
+                    <div className="flex items-start gap-2 md:gap-3 mb-3 md:mb-4">
+                      <Icon size={22} className="md:w-6 md:h-6 lg:w-7 lg:h-7 flex-shrink-0 mt-0.5" style={{ color: service.color }} />
+                      <h3 className="text-base md:text-lg lg:text-xl font-serif font-bold text-gray-900">
                         {service.title}
                       </h3>
                     </div>
-                    <p className="text-sm md:text-base text-gray-700 leading-relaxed">
+                    <p className="text-xs md:text-sm lg:text-base text-gray-700 leading-relaxed">
                       {service.description}
                     </p>
                   </div>
@@ -203,16 +203,16 @@ export default function InternationalStudentsSection() {
 
         {/* The Student Journey */}
         <div>
-          <div className="mb-12 md:mb-16">
-            <h2 className="text-xs md:text-sm font-semibold tracking-widest text-amber-700 mb-4 md:mb-6">
+          <div className="mb-8 md:mb-12 lg:mb-16">
+            <h2 className="text-xs md:text-sm font-semibold tracking-widest text-amber-700 mb-3 md:mb-4 lg:mb-6">
               THE DOMUS STUDENT JOURNEY FROM ACCEPTANCE TO SETTLED
             </h2>
-            <p className="text-2xl md:text-4xl font-serif italic text-gray-900 max-w-4xl">
+            <p className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-serif italic text-gray-900 max-w-4xl leading-tight">
               Everything a student needs, in the right order, before problems arise.
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-5 lg:gap-8">
             {timeline.map((phase, idx) => (
               <div
                 key={idx}
@@ -222,21 +222,21 @@ export default function InternationalStudentsSection() {
                   style={{ backgroundColor: phase.color }}
                   className="h-1"
                 />
-                <div className="p-6 md:p-8">
-                  <h3 className="text-xl md:text-2xl font-serif font-bold text-gray-900 mb-2">
+                <div className="p-4 md:p-5 lg:p-8">
+                  <h3 className="text-lg md:text-xl lg:text-2xl font-serif font-bold text-gray-900 mb-1 md:mb-2">
                     {phase.phase}
                   </h3>
-                  <p className="text-xs md:text-sm text-gray-500 italic mb-6">
+                  <p className="text-xs md:text-sm text-gray-500 italic mb-4 md:mb-5 lg:mb-6">
                     {phase.timeframe}
                   </p>
-                  <ul className="space-y-3">
+                  <ul className="space-y-2 md:space-y-2.5 lg:space-y-3">
                     {phase.items.map((item, itemIdx) => (
-                      <li key={itemIdx} className="flex items-start gap-3">
+                      <li key={itemIdx} className="flex items-start gap-2 md:gap-2.5">
                         <div
                           style={{ backgroundColor: phase.color }}
-                          className="w-2 h-2 rounded-full mt-2 flex-shrink-0"
+                          className="w-1.5 md:w-2 h-1.5 md:h-2 rounded-full mt-1.5 md:mt-2 flex-shrink-0"
                         />
-                        <span className="text-sm md:text-base text-gray-700">
+                        <span className="text-xs md:text-sm lg:text-base text-gray-700 leading-snug">
                           {item}
                         </span>
                       </li>

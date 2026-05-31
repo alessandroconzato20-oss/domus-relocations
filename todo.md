@@ -53,4 +53,4 @@
 - [x] Build "What DOMUS Does" subsection with 6 service cards (visa advisory, housing search, contract review, neighbourhood advisory, arrival & setup, city integration)
 - [x] Build "The Student Journey" subsection with 4 timeline phases (pre-arrival, arrival month, settling in, ongoing)
 - [x] Add navigation link to International Students section in header
-- [ ] Optimize International Students section for mobile responsiveness
+- [x] Optimize International Students section for mobile responsiveness
