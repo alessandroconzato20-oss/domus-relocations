@@ -46,3 +46,11 @@
 
 - [x] Move non-active partners to "Ongoing Negotiations" section (keep only Academic Advisory Group, Tutoring Firm, ISM Admissions Office visible)
 - [x] Update partner names (Lumom Privee and PAIDEIA MENTORS)
+
+## New: International Students Section
+- [x] Create InternationalStudentsSection component with three subsections
+- [x] Build "The Challenge" subsection with 4 challenge cards (contract trap, visa maze, neighbourhood lottery, isolation problem)
+- [x] Build "What DOMUS Does" subsection with 6 service cards (visa advisory, housing search, contract review, neighbourhood advisory, arrival & setup, city integration)
+- [x] Build "The Student Journey" subsection with 4 timeline phases (pre-arrival, arrival month, settling in, ongoing)
+- [x] Add navigation link to International Students section in header
+- [ ] Optimize International Students section for mobile responsiveness

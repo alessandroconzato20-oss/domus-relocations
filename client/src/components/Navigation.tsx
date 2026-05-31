@@ -70,6 +70,9 @@ export default function Navigation({ onQuizOpen }: NavigationProps) {
             <button onClick={() => scrollTo("services")} className="nav-link" style={{ background: "none", border: "none" }}>
               Private Services
             </button>
+            <button onClick={() => scrollTo("students")} className="nav-link" style={{ background: "none", border: "none" }}>
+              International Students
+            </button>
             <button onClick={() => scrollTo("milan")} className="nav-link" style={{ background: "none", border: "none" }}>
               Living In Milano
             </button>
@@ -117,6 +120,7 @@ export default function Navigation({ onQuizOpen }: NavigationProps) {
             <button onClick={() => scrollTo("about")} className="nav-link" style={{ background: "none", border: "none", textAlign: "left" }}>Our Approach</button>
             <button onClick={() => scrollTo("partners")} className="nav-link" style={{ background: "none", border: "none", textAlign: "left" }}>The DOMUS Network</button>
             <button onClick={() => scrollTo("services")} className="nav-link" style={{ background: "none", border: "none", textAlign: "left" }}>Private Services</button>
+            <button onClick={() => scrollTo("students")} className="nav-link" style={{ background: "none", border: "none", textAlign: "left" }}>International Students</button>
             <button onClick={() => scrollTo("milan")} className="nav-link" style={{ background: "none", border: "none", textAlign: "left" }}>Living In Milano</button>
             <button
               onClick={() => { setLocation("/account"); setMenuOpen(false); }}

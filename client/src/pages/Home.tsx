@@ -17,6 +17,7 @@ import DomusNetworkSection from "@/components/DomusNetworkSection";
 import PersonaQuiz from "@/components/PersonaQuiz";
 import ServicesSection from "@/components/ServicesSection";
 import TestimonialSection from "@/components/TestimonialSection";
+import InternationalStudentsSection from "@/components/InternationalStudentsSection";
 
 export default function Home() {
   // The userAuth hooks provides authentication state
@@ -53,6 +54,7 @@ export default function Home() {
         <CoreValuesSection />
         <AboutSection />
         <DomusNetworkSection />
+        <InternationalStudentsSection />
         <ServicesSection />
         <QuizCTABanner onQuizOpen={() => setQuizOpen(true)} />
         <MilanSection />
