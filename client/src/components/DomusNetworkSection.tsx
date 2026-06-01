@@ -41,18 +41,19 @@ const activePartners: Partner[] = [
     category: "EDUCATION",
     categoryGroup: "EDUCATION & SCHOOL ADVISORY",
   },
+  {
+    id: "ciani",
+    name: "Ciani Partners",
+    logo: "/manus-storage/Screenshot2026-06-01at12.10.32_fd6dc1f9.png",
+    description: "Comprehensive tax, wealth and legal advisory for international families establishing residency in Italy and managing cross-border financial structures.",
+    category: "TAX & WEALTH",
+    categoryGroup: "TAX, WEALTH & LEGAL",
+    featured: true,
+  },
 ];
 
 const ongoingNegotiations: Partner[] = [
   // Tax, Wealth & Legal
-  {
-    id: "sl",
-    name: "Studio Legals Partner",
-    logo: "⚖️",
-    description: "Our preferred immigration and residency counsel for families establishing legal domicile under Italy's €100k flat tax regime.",
-    category: "TAX & WEALTH",
-    categoryGroup: "TAX, WEALTH & LEGAL",
-  },
   {
     id: "wm",
     name: "Private Wealth Managers",

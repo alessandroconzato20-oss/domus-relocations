@@ -34,6 +34,16 @@ const partnersData: Record<string, any> = {
     contact: "admissions@ismilanschool.com",
     phone: "+39 02 4000 1000",
   },
+  ciani: {
+    name: "Ciani Partners",
+    logo: "/manus-storage/Screenshot2026-06-01at12.10.32_fd6dc1f9.png",
+    category: "TAX & WEALTH",
+    description: "Comprehensive tax, wealth and legal advisory for international families establishing residency in Italy and managing cross-border financial structures.",
+    fullDescription: "Ciani Partners is a leading advisory firm specializing in tax, wealth management, and legal services for international clients relocating to Italy. With deep expertise in Italian tax law, wealth structuring, and residency planning, they provide comprehensive guidance for high-net-worth families navigating the complexities of international relocation and asset management.",
+    website: "https://cianipartners.example.com",
+    contact: "info@cianipartners.example.com",
+    phone: "+39 02 9999 0000",
+  },
   sl: {
     name: "Studio Legals Partner",
     logo: "⚖️",
