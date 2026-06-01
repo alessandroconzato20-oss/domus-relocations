@@ -59,7 +59,8 @@
 - [x] Reorganize DOMUS Network section with three category sections
 - [x] Move Ciani Partners to featured partner in Tax & Wealth section
 - [x] Add Ciani Partners branded banner to partner detail page
-- [ ] Upload ISM Admissions Office logo and create branded banner
-- [ ] Build inquiry form modal/component connected to submitInquiry tRPC endpoint
-- [ ] Create admin dashboard to view and manage submitted inquiries
-- [ ] Test inquiry form end-to-end (form submission → database → admin dashboard)
+- [x] Build inquiry form modal/component connected to submitInquiry tRPC endpoint
+- [x] Create admin dashboard to view and manage submitted inquiries
+- [x] Add inquiries tab to admin dashboard with expandable inquiry details
+- [x] Write and run vitest tests for inquiry form submission
+- [ ] Test inquiry form end-to-end in browser (form submission → database → admin dashboard)

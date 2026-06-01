@@ -11,7 +11,7 @@ import { useLocation } from "wouter";
 export default function AdminDashboard() {
   const { user, loading } = useAuth();
   const [, setLocation] = useLocation();
-  const [activeTab, setActiveTab] = useState<"quiz" | "contact">("quiz");
+  const [activeTab, setActiveTab] = useState<"quiz" | "contact" | "inquiries">("inquiries");
 
   // TODO: Re-enable auth guard after fixing cookie issue
 
@@ -39,12 +39,218 @@ export default function AdminDashboard() {
   );
 }
 
+function InquiriesTable() {
+  const { data: inquiries = [], isLoading } = trpc.submissions.getInquiries.useQuery();
+  const [expandedId, setExpandedId] = useState<number | null>(null);
+
+  if (isLoading) {
+    return <p>Loading inquiries...</p>;
+  }
+
+  if (inquiries.length === 0) {
+    return (
+      <div
+        style={{
+          padding: "2rem",
+          background: "rgba(201, 168, 76, 0.04)",
+          border: "1px solid rgba(201, 168, 76, 0.2)",
+          textAlign: "center",
+          color: "rgba(45, 41, 38, 0.5)",
+        }}
+      >
+        No inquiries yet
+      </div>
+    );
+  }
+
+  const formatDate = (date: Date | string) => {
+    const d = new Date(date);
+    return d.toLocaleDateString("en-US", {
+      year: "numeric",
+      month: "short",
+      day: "numeric",
+      hour: "2-digit",
+      minute: "2-digit",
+    });
+  };
+
+  return (
+    <div style={{ overflowX: "auto" }}>
+      <table
+        style={{
+          width: "100%",
+          borderCollapse: "collapse",
+          fontFamily: "'Jost', sans-serif",
+          fontSize: "0.9rem",
+        }}
+      >
+        <thead>
+          <tr style={{ borderBottom: "2px solid rgba(45, 41, 38, 0.1)" }}>
+            <th style={{ padding: "1rem", textAlign: "left", fontWeight: 600, color: "var(--domus-charcoal)" }}>
+              Name
+            </th>
+            <th style={{ padding: "1rem", textAlign: "left", fontWeight: 600, color: "var(--domus-charcoal)" }}>
+              Email
+            </th>
+            <th style={{ padding: "1rem", textAlign: "left", fontWeight: 600, color: "var(--domus-charcoal)" }}>
+              Service Type
+            </th>
+            <th style={{ padding: "1rem", textAlign: "left", fontWeight: 600, color: "var(--domus-charcoal)" }}>
+              Date
+            </th>
+            <th style={{ padding: "1rem", textAlign: "center", fontWeight: 600, color: "var(--domus-charcoal)" }}>
+              Action
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          {inquiries.map((inquiry: any) => (
+            <tr key={inquiry.id} style={{ borderBottom: "1px solid rgba(45, 41, 38, 0.05)" }}>
+              <td style={{ padding: "1rem", color: "var(--domus-charcoal)" }}>{inquiry.fullName}</td>
+              <td style={{ padding: "1rem", color: "rgba(45, 41, 38, 0.7)" }}>
+                <a
+                  href={`mailto:${inquiry.email}`}
+                  style={{ color: "var(--domus-gold)", textDecoration: "none" }}
+                >
+                  {inquiry.email}
+                </a>
+              </td>
+              <td style={{ padding: "1rem", color: "var(--domus-gold)", fontWeight: 600 }}>
+                {inquiry.serviceType}
+              </td>
+              <td style={{ padding: "1rem", color: "rgba(45, 41, 38, 0.6)" }}>
+                {formatDate(inquiry.createdAt)}
+              </td>
+              <td style={{ padding: "1rem", textAlign: "center" }}>
+                <button
+                  onClick={() => setExpandedId(expandedId === inquiry.id ? null : inquiry.id)}
+                  style={{
+                    padding: "0.5rem 1rem",
+                    background: "var(--domus-gold)",
+                    color: "white",
+                    border: "none",
+                    fontFamily: "'Jost', sans-serif",
+                    fontSize: "0.8rem",
+                    cursor: "pointer",
+                    transition: "opacity 0.3s ease",
+                  }}
+                  onMouseEnter={(e) => (e.currentTarget.style.opacity = "0.8")}
+                  onMouseLeave={(e) => (e.currentTarget.style.opacity = "1")}
+                >
+                  {expandedId === inquiry.id ? "Hide" : "View"}
+                </button>
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+
+      {/* Expanded details */}
+      {expandedId !== null && (
+        <div
+          style={{
+            marginTop: "2rem",
+            padding: "1.5rem",
+            background: "rgba(201, 168, 76, 0.04)",
+            border: "1px solid rgba(201, 168, 76, 0.2)",
+          }}
+        >
+          {(() => {
+            const inquiry = inquiries.find((i: any) => i.id === expandedId);
+            return (
+              <>
+                <h3
+                  style={{
+                    fontFamily: "'Jost', sans-serif",
+                    fontWeight: 600,
+                    marginBottom: "1rem",
+                    color: "var(--domus-charcoal)",
+                  }}
+                >
+                  Inquiry Details
+                </h3>
+                <div
+                  style={{
+                    display: "grid",
+                    gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))",
+                    gap: "1.5rem",
+                    marginBottom: "1.5rem",
+                  }}
+                >
+                  <div>
+                    <div style={{ fontWeight: 600, marginBottom: "0.5rem", color: "var(--domus-charcoal)" }}>
+                      Full Name
+                    </div>
+                    <div style={{ color: "rgba(45, 41, 38, 0.7)" }}>{inquiry?.fullName}</div>
+                  </div>
+                  <div>
+                    <div style={{ fontWeight: 600, marginBottom: "0.5rem", color: "var(--domus-charcoal)" }}>
+                      Email
+                    </div>
+                    <a
+                      href={`mailto:${inquiry?.email}`}
+                      style={{ color: "var(--domus-gold)", textDecoration: "none" }}
+                    >
+                      {inquiry?.email}
+                    </a>
+                  </div>
+                  {inquiry?.phone && (
+                    <div>
+                      <div style={{ fontWeight: 600, marginBottom: "0.5rem", color: "var(--domus-charcoal)" }}>
+                        Phone
+                      </div>
+                      <a
+                        href={`tel:${inquiry?.phone}`}
+                        style={{ color: "var(--domus-gold)", textDecoration: "none" }}
+                      >
+                        {inquiry?.phone}
+                      </a>
+                    </div>
+                  )}
+                  <div>
+                    <div style={{ fontWeight: 600, marginBottom: "0.5rem", color: "var(--domus-charcoal)" }}>
+                      Service Type
+                    </div>
+                    <div style={{ color: "rgba(45, 41, 38, 0.7)" }}>{inquiry?.serviceType}</div>
+                  </div>
+                </div>
+                {inquiry?.message && (
+                  <>
+                    <h4 style={{ fontWeight: 600, marginBottom: "0.5rem", color: "var(--domus-charcoal)" }}>
+                      Message
+                    </h4>
+                    <p
+                      style={{
+                        background: "white",
+                        padding: "1rem",
+                        borderRadius: "4px",
+                        fontFamily: "'Jost', sans-serif",
+                        fontSize: "0.95rem",
+                        lineHeight: 1.6,
+                        color: "rgba(45, 41, 38, 0.7)",
+                        whiteSpace: "pre-wrap",
+                        wordBreak: "break-word",
+                      }}
+                    >
+                      {inquiry?.message}
+                    </p>
+                  </>
+                )}
+              </>
+            );
+          })()}
+        </div>
+      )}
+    </div>
+  );
+}
+
 function AdminDashboardContent({
   activeTab,
   setActiveTab,
 }: {
-  activeTab: "quiz" | "contact";
-  setActiveTab: (tab: "quiz" | "contact") => void;
+  activeTab: "quiz" | "contact" | "inquiries";
+  setActiveTab: (tab: "quiz" | "contact" | "inquiries") => void;
 }) {
   const { data: quizResponses, isLoading: quizLoading } =
     trpc.submissions.getQuizResponses.useQuery();
@@ -80,6 +286,23 @@ function AdminDashboardContent({
 
       {/* Tabs */}
       <div style={{ display: "flex", gap: "1rem", marginBottom: "2rem", borderBottom: "1px solid rgba(45, 41, 38, 0.1)" }}>
+        <button
+          onClick={() => setActiveTab("inquiries")}
+          style={{
+            padding: "1rem 1.5rem",
+            background: "none",
+            border: "none",
+            borderBottom: activeTab === "inquiries" ? "2px solid var(--domus-gold)" : "none",
+            fontFamily: "'Jost', sans-serif",
+            fontSize: "0.9rem",
+            fontWeight: activeTab === "inquiries" ? 600 : 400,
+            color: activeTab === "inquiries" ? "var(--domus-charcoal)" : "rgba(45, 41, 38, 0.5)",
+            cursor: "pointer",
+            transition: "all 0.3s ease",
+          }}
+        >
+          DOMUS Inquiries
+        </button>
         <button
           onClick={() => setActiveTab("quiz")}
           style={{
@@ -117,7 +340,9 @@ function AdminDashboardContent({
       </div>
 
       {/* Content */}
-      {activeTab === "quiz" ? (
+      {activeTab === "inquiries" ? (
+        <InquiriesTable />
+      ) : activeTab === "quiz" ? (
         <QuizResponsesTable responses={quizResponses || []} loading={quizLoading} />
       ) : (
         <ContactSubmissionsTable submissions={contactSubmissions || []} loading={contactLoading} />

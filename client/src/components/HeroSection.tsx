@@ -6,6 +6,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import { useLocation } from "wouter";
+import InquiryForm from "./InquiryForm";
 
 const HERO_IMAGE = "https://d2xsxph8kpxj0f.cloudfront.net/310519663449035187/5G96cC5HiLZMXbLbP234aP/domus-hero-milan-8KAoKuZsmiaC2PDXN6NmGS.webp";
 
@@ -16,6 +17,7 @@ export default function HeroSection() {
   const [wordsVisible, setWordsVisible] = useState<boolean[]>(new Array(headlineWords.length).fill(false));
   const [subVisible, setSubVisible] = useState(false);
   const [ctaVisible, setCtaVisible] = useState(false);
+  const [inquiryFormOpen, setInquiryFormOpen] = useState(false);
 
   useEffect(() => {
     headlineWords.forEach((_, i) => {
@@ -209,9 +211,7 @@ export default function HeroSection() {
             }}
           >
             <button
-              onClick={() => {
-                window.location.href = "mailto:milano@domusrelocations.com?subject=Schedule%20a%20Private%20Consultation&body=Hello%20DOMUS%20Relocations%2C%0A%0AI%20would%20like%20to%20schedule%20a%20private%20consultation.%0A%0AThank%20you";
-              }}
+              onClick={() => setInquiryFormOpen(true)}
               style={{
                 padding: "1.1rem 2.5rem",
                 background: "linear-gradient(135deg, var(--domus-gold) 0%, rgba(214, 175, 98, 0.9) 100%)",
@@ -324,6 +324,9 @@ export default function HeroSection() {
           }
         }
       `}</style>
+
+      {/* Inquiry Form Modal */}
+      <InquiryForm isOpen={inquiryFormOpen} onClose={() => setInquiryFormOpen(false)} />
     </section>
   );
 }
