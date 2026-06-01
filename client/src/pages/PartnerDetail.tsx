@@ -194,6 +194,29 @@ export default function PartnerDetail() {
         </div>
       )}
 
+      {/* Ciani Partners Banner */}
+      {partner.id === "ciani" && (
+        <div
+          style={{
+            background: "linear-gradient(135deg, #2c3e50 0%, #34495e 100%)",
+            padding: "3rem 2rem",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+          }}
+        >
+          <img
+            src="/manus-storage/Screenshot2026-06-01at12.10.32_fd6dc1f9.png"
+            alt="Ciani Partners Logo"
+            style={{
+              maxHeight: "120px",
+              maxWidth: "100%",
+              objectFit: "contain",
+            }}
+          />
+        </div>
+      )}
+
       {/* Main content */}
       <div className="container" style={{ padding: "4rem 2rem" }}>
         <div

@@ -54,3 +54,12 @@
 - [x] Build "The Student Journey" subsection with 4 timeline phases (pre-arrival, arrival month, settling in, ongoing)
 - [x] Add navigation link to International Students section in header
 - [x] Optimize International Students section for mobile responsiveness
+
+## Latest: Tax & Wealth Section & Ciani Partners Integration
+- [x] Reorganize DOMUS Network section with three category sections
+- [x] Move Ciani Partners to featured partner in Tax & Wealth section
+- [x] Add Ciani Partners branded banner to partner detail page
+- [ ] Upload ISM Admissions Office logo and create branded banner
+- [ ] Build inquiry form modal/component connected to submitInquiry tRPC endpoint
+- [ ] Create admin dashboard to view and manage submitted inquiries
+- [ ] Test inquiry form end-to-end (form submission → database → admin dashboard)

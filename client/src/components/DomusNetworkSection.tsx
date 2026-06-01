@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { useLocation } from "wouter";
 
 interface Partner {
@@ -13,7 +12,7 @@ interface Partner {
   featured?: boolean;
 }
 
-const activePartners: Partner[] = [
+const educationPartners: Partner[] = [
   // Education & School Advisory
   {
     id: "academie",
@@ -41,6 +40,9 @@ const activePartners: Partner[] = [
     category: "EDUCATION",
     categoryGroup: "EDUCATION & SCHOOL ADVISORY",
   },
+];
+
+const taxWealthPartners: Partner[] = [
   {
     id: "ciani",
     name: "Ciani Partners",
@@ -154,7 +156,7 @@ export default function DomusNetworkSection() {
           </p>
         </div>
 
-        {/* Active Partners Section */}
+        {/* EDUCATION & SCHOOL ADVISORY Section */}
         <div style={{ marginBottom: "5rem" }}>
           {/* Category Label */}
           <div
@@ -177,10 +179,10 @@ export default function DomusNetworkSection() {
             </span>
           </div>
 
-          {/* Featured Partner - Redesigned */}
-          {activePartners[0] && (
+          {/* Featured Partner - Lumo Privee */}
+          {educationPartners[0] && (
             <div
-              onClick={() => handlePartnerClick(activePartners[0])}
+              onClick={() => handlePartnerClick(educationPartners[0])}
               style={{
                 display: "grid",
                 gridTemplateColumns: "clamp(1fr, 100%, 1fr 1fr)",
@@ -216,19 +218,15 @@ export default function DomusNetworkSection() {
                   minHeight: "clamp(200px, 40vw, 300px)",
                 }}
               >
-                {activePartners[0].id === "academie" ? (
-                  <img
-                    src="/manus-storage/pasted_file_lHAIrR_image_3737daae.png"
-                    alt="Lumo Privee Logo"
-                    style={{
-                      maxHeight: "clamp(120px, 30vw, 180px)",
-                      maxWidth: "90%",
-                      objectFit: "contain",
-                    }}
-                  />
-                ) : (
-                  activePartners[0].logo
-                )}
+                <img
+                  src="/manus-storage/pasted_file_lHAIrR_image_3737daae.png"
+                  alt="Lumo Privee Logo"
+                  style={{
+                    maxHeight: "clamp(120px, 30vw, 180px)",
+                    maxWidth: "90%",
+                    objectFit: "contain",
+                  }}
+                />
               </div>
 
               {/* Content */}
@@ -267,7 +265,7 @@ export default function DomusNetworkSection() {
                     lineHeight: 1.2,
                   }}
                 >
-                  {activePartners[0].name}
+                  {educationPartners[0].name}
                 </h3>
                 <p
                   style={{
@@ -277,9 +275,9 @@ export default function DomusNetworkSection() {
                     lineHeight: 1.7,
                   }}
                 >
-                  {activePartners[0].description}
+                  {educationPartners[0].description}
                 </p>
-                {activePartners[0].quote && (
+                {educationPartners[0].quote && (
                   <blockquote
                     style={{
                       fontStyle: "italic",
@@ -291,17 +289,17 @@ export default function DomusNetworkSection() {
                       lineHeight: 1.6,
                     }}
                   >
-                    "{activePartners[0].quote}"
+                    "{educationPartners[0].quote}"
                   </blockquote>
                 )}
               </div>
             </div>
           )}
 
-          {/* Paideia Mentors Featured Partner */}
-          {activePartners[1] && (
+          {/* Featured Partner - Paideia Mentors */}
+          {educationPartners[1] && (
             <div
-              onClick={() => handlePartnerClick(activePartners[1])}
+              onClick={() => handlePartnerClick(educationPartners[1])}
               style={{
                 display: "grid",
                 gridTemplateColumns: "clamp(1fr, 100%, 1fr 1fr)",
@@ -384,7 +382,7 @@ export default function DomusNetworkSection() {
                     lineHeight: 1.2,
                   }}
                 >
-                  {activePartners[1].name}
+                  {educationPartners[1].name}
                 </h3>
                 <p
                   style={{
@@ -394,9 +392,9 @@ export default function DomusNetworkSection() {
                     lineHeight: 1.7,
                   }}
                 >
-                  {activePartners[1].description}
+                  {educationPartners[1].description}
                 </p>
-                {activePartners[1].quote && (
+                {educationPartners[1].quote && (
                   <blockquote
                     style={{
                       fontStyle: "italic",
@@ -408,15 +406,15 @@ export default function DomusNetworkSection() {
                       lineHeight: 1.6,
                     }}
                   >
-                    "{activePartners[1].quote}"
+                    "{educationPartners[1].quote}"
                   </blockquote>
                 )}
               </div>
             </div>
           )}
 
-          {/* Partner Grid - Remaining Partners */}
-          {activePartners.slice(2).length > 0 && (
+          {/* Education Partner Grid - Remaining Partners */}
+          {educationPartners.slice(2).length > 0 && (
             <div
               style={{
                 display: "grid",
@@ -424,7 +422,7 @@ export default function DomusNetworkSection() {
                 gap: "2.5rem",
               }}
             >
-              {activePartners.slice(2).map((partner) => (
+              {educationPartners.slice(2).map((partner) => (
                 <div
                   key={partner.id}
                   onClick={() => handlePartnerClick(partner)}
@@ -448,35 +446,28 @@ export default function DomusNetworkSection() {
                 >
                   <div
                     style={{
-                      width: "60px",
-                      height: "60px",
-                      display: "flex",
-                      alignItems: "center",
-                      justifyContent: "center",
-                      background: "#f5f0ea",
-                      borderRadius: "8px",
-                      marginBottom: "1.5rem",
-                      fontSize: "1.8rem",
+                      fontSize: "2.5rem",
+                      marginBottom: "1rem",
                     }}
                   >
                     {partner.logo}
                   </div>
-                  <h3
+                  <h4
                     style={{
                       fontFamily: "'Cormorant Garamond', serif",
-                      fontSize: "1.3rem",
+                      fontSize: "1.5rem",
                       fontWeight: 400,
                       color: "var(--domus-charcoal)",
                       marginBottom: "0.75rem",
                     }}
                   >
                     {partner.name}
-                  </h3>
+                  </h4>
                   <p
                     style={{
                       fontSize: "0.9rem",
                       color: "#666666",
-                      lineHeight: 1.7,
+                      lineHeight: 1.6,
                     }}
                   >
                     {partner.description}
@@ -487,93 +478,287 @@ export default function DomusNetworkSection() {
           )}
         </div>
 
-        {/* Ongoing Negotiations Section */}
-        <div style={{ marginBottom: "5rem", marginTop: "6rem" }}>
-          <div style={{ marginBottom: "3rem", textAlign: "center" }}>
+        {/* TAX, WEALTH & LEGAL Section */}
+        <div style={{ marginBottom: "5rem" }}>
+          {/* Category Label */}
+          <div
+            style={{
+              borderBottom: "1px solid var(--domus-gold)",
+              paddingBottom: "1rem",
+              marginBottom: "2rem",
+            }}
+          >
             <span
               style={{
                 color: "var(--domus-gold)",
-                fontSize: "0.75rem",
+                fontSize: "0.7rem",
                 letterSpacing: "0.15rem",
                 textTransform: "uppercase",
+                fontWeight: 600,
               }}
             >
-              Coming Soon
+              TAX, WEALTH & LEGAL
             </span>
-            <h2
-              style={{
-                fontFamily: "'Cormorant Garamond', serif",
-                fontSize: "clamp(2rem, 5vw, 3.5rem)",
-                fontWeight: 400,
-                color: "var(--domus-charcoal)",
-                marginTop: "1rem",
-                marginBottom: "2rem",
-              }}
-            >
-              Ongoing Negotiations
-            </h2>
-            <p
-              style={{
-                fontFamily: "'Jost', sans-serif",
-                fontSize: "1rem",
-                color: "var(--domus-charcoal)",
-                maxWidth: "600px",
-                margin: "0 auto",
-                lineHeight: 1.6,
-              }}
-            >
-              We are actively developing partnerships across tax & wealth advisory, real estate, interior design, and private healthcare. These collaborations will be announced as they are finalized.
-            </p>
           </div>
 
-          {/* Ongoing Partners Grid */}
-          <div
-            style={{
-              display: "grid",
-              gridTemplateColumns: "repeat(auto-fit, minmax(300px, 1fr))",
-              gap: "2rem",
-            }}
-          >
-            {ongoingNegotiations.map((partner) => (
+          {/* Featured Partner - Ciani Partners */}
+          {taxWealthPartners[0] && (
+            <div
+              onClick={() => handlePartnerClick(taxWealthPartners[0])}
+              style={{
+                display: "grid",
+                gridTemplateColumns: "clamp(1fr, 100%, 1fr 1fr)",
+                gap: "clamp(1.5rem, 3vw, 4rem)",
+                marginBottom: "clamp(2rem, 4vw, 4rem)",
+                padding: "clamp(1.5rem, 4vw, 3rem)",
+                border: "none",
+                background: "linear-gradient(135deg, #faf8f5 0%, #f5f0ea 100%)",
+                cursor: "pointer",
+                transition: "all 0.4s cubic-bezier(0.4, 0, 0.2, 1)",
+                borderRadius: "8px",
+                boxShadow: "0 2px 8px rgba(0, 0, 0, 0.04)",
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.boxShadow = "0 8px 24px rgba(0, 0, 0, 0.08)";
+                e.currentTarget.style.transform = "translateY(-2px)";
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.boxShadow = "0 2px 8px rgba(0, 0, 0, 0.04)";
+                e.currentTarget.style.transform = "translateY(0)";
+              }}
+            >
+              {/* Logo Container */}
               <div
-                key={partner.id}
                 style={{
-                  padding: "2rem",
-                  border: "1px solid #e0d5c7",
-                  background: "#faf8f5",
-                  opacity: 0.7,
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  background: "#ffffff",
+                  borderRadius: "8px",
+                  padding: "clamp(1rem, 3vw, 2rem)",
+                  boxShadow: "0 1px 3px rgba(0, 0, 0, 0.05)",
+                  minHeight: "clamp(200px, 40vw, 300px)",
                 }}
               >
-                <div style={{ fontSize: "2rem", marginBottom: "1rem" }}>
-                  {partner.logo}
+                <img
+                  src="/manus-storage/Screenshot2026-06-01at12.10.32_fd6dc1f9.png"
+                  alt="Ciani Partners Logo"
+                  style={{
+                    maxHeight: "clamp(120px, 30vw, 180px)",
+                    maxWidth: "90%",
+                    objectFit: "contain",
+                  }}
+                />
+              </div>
+
+              {/* Content */}
+              <div
+                style={{
+                  display: "flex",
+                  flexDirection: "column",
+                  justifyContent: "center",
+                }}
+              >
+                <div style={{ marginBottom: "1rem" }}>
+                  <span
+                    style={{
+                      display: "inline-block",
+                      background: "var(--domus-gold)",
+                      color: "#ffffff",
+                      fontSize: "0.6rem",
+                      padding: "0.5rem 1rem",
+                      borderRadius: "20px",
+                      marginBottom: "1rem",
+                      textTransform: "uppercase",
+                      letterSpacing: "0.12rem",
+                      fontWeight: 600,
+                    }}
+                  >
+                    Featured Partner
+                  </span>
                 </div>
                 <h3
                   style={{
                     fontFamily: "'Cormorant Garamond', serif",
-                    fontSize: "1.2rem",
+                    fontSize: "2rem",
                     fontWeight: 400,
                     color: "var(--domus-charcoal)",
-                    marginBottom: "0.5rem",
+                    marginBottom: "1rem",
+                    lineHeight: 1.2,
                   }}
                 >
-                  {partner.name}
+                  {taxWealthPartners[0].name}
                 </h3>
                 <p
                   style={{
-                    fontSize: "0.75rem",
-                    color: "var(--domus-gold)",
-                    textTransform: "uppercase",
-                    letterSpacing: "0.1rem",
-                    marginBottom: "0.5rem",
-                    fontWeight: 600,
+                    fontSize: "0.95rem",
+                    color: "var(--domus-charcoal)",
+                    marginBottom: "1.5rem",
+                    lineHeight: 1.7,
                   }}
                 >
-                  {partner.categoryGroup}
+                  {taxWealthPartners[0].description}
                 </p>
+                {taxWealthPartners[0].quote && (
+                  <blockquote
+                    style={{
+                      fontStyle: "italic",
+                      color: "#666666",
+                      borderLeft: "4px solid var(--domus-gold)",
+                      paddingLeft: "1.5rem",
+                      margin: "0",
+                      fontSize: "0.9rem",
+                      lineHeight: 1.6,
+                    }}
+                  >
+                    "{taxWealthPartners[0].quote}"
+                  </blockquote>
+                )}
+              </div>
+            </div>
+          )}
+
+          {/* Tax & Wealth Partner Grid - Remaining Partners */}
+          {ongoingNegotiations.filter(p => p.categoryGroup === "TAX, WEALTH & LEGAL").length > 0 && (
+            <div
+              style={{
+                display: "grid",
+                gridTemplateColumns: "repeat(auto-fit, minmax(320px, 1fr))",
+                gap: "2.5rem",
+              }}
+            >
+              {ongoingNegotiations.filter(p => p.categoryGroup === "TAX, WEALTH & LEGAL").map((partner) => (
+                <div
+                  key={partner.id}
+                  onClick={() => handlePartnerClick(partner)}
+                  style={{
+                    padding: "2.5rem",
+                    border: "none",
+                    background: "#ffffff",
+                    cursor: "pointer",
+                    transition: "all 0.4s cubic-bezier(0.4, 0, 0.2, 1)",
+                    borderRadius: "8px",
+                    boxShadow: "0 2px 8px rgba(0, 0, 0, 0.04)",
+                  }}
+                  onMouseEnter={(e) => {
+                    e.currentTarget.style.boxShadow = "0 12px 32px rgba(0, 0, 0, 0.1)";
+                    e.currentTarget.style.transform = "translateY(-4px)";
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.boxShadow = "0 2px 8px rgba(0, 0, 0, 0.04)";
+                    e.currentTarget.style.transform = "translateY(0)";
+                  }}
+                >
+                  <div
+                    style={{
+                      fontSize: "2.5rem",
+                      marginBottom: "1rem",
+                    }}
+                  >
+                    {partner.logo}
+                  </div>
+                  <h4
+                    style={{
+                      fontFamily: "'Cormorant Garamond', serif",
+                      fontSize: "1.5rem",
+                      fontWeight: 400,
+                      color: "var(--domus-charcoal)",
+                      marginBottom: "0.75rem",
+                    }}
+                  >
+                    {partner.name}
+                  </h4>
+                  <p
+                    style={{
+                      fontSize: "0.9rem",
+                      color: "#666666",
+                      lineHeight: 1.6,
+                    }}
+                  >
+                    {partner.description}
+                  </p>
+                </div>
+              ))}
+            </div>
+          )}
+        </div>
+
+        {/* ONGOING NEGOTIATIONS Section */}
+        <div>
+          {/* Category Label */}
+          <div
+            style={{
+              borderBottom: "1px solid var(--domus-gold)",
+              paddingBottom: "1rem",
+              marginBottom: "2rem",
+            }}
+          >
+            <span
+              style={{
+                color: "var(--domus-gold)",
+                fontSize: "0.7rem",
+                letterSpacing: "0.15rem",
+                textTransform: "uppercase",
+                fontWeight: 600,
+              }}
+            >
+              ONGOING NEGOTIATIONS
+            </span>
+          </div>
+
+          {/* Partner Grid */}
+          <div
+            style={{
+              display: "grid",
+              gridTemplateColumns: "repeat(auto-fit, minmax(320px, 1fr))",
+              gap: "2.5rem",
+            }}
+          >
+            {ongoingNegotiations.filter(p => p.categoryGroup !== "TAX, WEALTH & LEGAL").map((partner) => (
+              <div
+                key={partner.id}
+                onClick={() => handlePartnerClick(partner)}
+                style={{
+                  padding: "2.5rem",
+                  border: "none",
+                  background: "#ffffff",
+                  cursor: "pointer",
+                  transition: "all 0.4s cubic-bezier(0.4, 0, 0.2, 1)",
+                  borderRadius: "8px",
+                  boxShadow: "0 2px 8px rgba(0, 0, 0, 0.04)",
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.boxShadow = "0 12px 32px rgba(0, 0, 0, 0.1)";
+                  e.currentTarget.style.transform = "translateY(-4px)";
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.boxShadow = "0 2px 8px rgba(0, 0, 0, 0.04)";
+                  e.currentTarget.style.transform = "translateY(0)";
+                }}
+              >
+                <div
+                  style={{
+                    fontSize: "2.5rem",
+                    marginBottom: "1rem",
+                  }}
+                >
+                  {partner.logo}
+                </div>
+                <h4
+                  style={{
+                    fontFamily: "'Cormorant Garamond', serif",
+                    fontSize: "1.5rem",
+                    fontWeight: 400,
+                    color: "var(--domus-charcoal)",
+                    marginBottom: "0.75rem",
+                  }}
+                >
+                  {partner.name}
+                </h4>
                 <p
                   style={{
                     fontSize: "0.9rem",
-                    color: "var(--domus-charcoal)",
+                    color: "#666666",
                     lineHeight: 1.6,
                   }}
                 >
@@ -582,64 +767,6 @@ export default function DomusNetworkSection() {
               </div>
             ))}
           </div>
-        </div>
-
-        {/* Become a Partner CTA */}
-        <div
-          style={{
-            textAlign: "center",
-            padding: "4rem 2rem",
-            background: "#fff",
-            border: "1px solid #e0d5c7",
-            marginTop: "4rem",
-          }}
-        >
-          <h2
-            style={{
-              fontFamily: "'Cormorant Garamond', serif",
-              fontSize: "clamp(2rem, 5vw, 3.5rem)",
-              fontWeight: 400,
-              color: "var(--domus-charcoal)",
-              marginBottom: "1.5rem",
-            }}
-          >
-            Become a DOMUS partner.
-          </h2>
-          <p
-            style={{
-              fontFamily: "'Jost', sans-serif",
-              fontSize: "1rem",
-              color: "var(--domus-charcoal)",
-              maxWidth: "600px",
-              margin: "0 auto 2rem",
-              lineHeight: 1.6,
-            }}
-          >
-            We work with a carefully selected group of specialists who share our commitment to discretion and excellence. If you advise, serve, or support international families relocating to Milan, we would welcome a conversation.
-          </p>
-          <a
-            href="mailto:milano@domusrelocations.com?subject=Partnership%20Inquiry"
-            style={{
-              display: "inline-block",
-              padding: "0.75rem 2rem",
-              background: "var(--domus-charcoal)",
-              color: "#fff",
-              textDecoration: "none",
-              fontWeight: 600,
-              transition: "all 0.3s ease",
-              cursor: "pointer",
-            }}
-            onMouseEnter={(e) => {
-              e.currentTarget.style.background = "var(--domus-gold)";
-              e.currentTarget.style.color = "var(--domus-charcoal)";
-            }}
-            onMouseLeave={(e) => {
-              e.currentTarget.style.background = "var(--domus-charcoal)";
-              e.currentTarget.style.color = "#fff";
-            }}
-          >
-            Get in Touch
-          </a>
         </div>
       </div>
     </section>
