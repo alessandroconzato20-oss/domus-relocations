@@ -4,25 +4,25 @@ export default function InternationalStudentsSection() {
   const challenges = [
     {
       title: 'The contract trap',
-      description: 'Italian landlords routinely insert clauses that international students, unfamiliar with local law, sign without understanding. Automatic renewal locks, disproportionate damage clauses, illegal sub-letting bans, and hidden fee structures. Students discover these problems months or years into their tenancy.',
+      description: 'Italian landlords routinely insert clauses that international students, unfamiliar with local law, sign without understanding. Automatic renewal locks, disproportionate damage clauses, illegal sub-letting bans, and hidden fee structures. These problems are discovered months or years into tenancy.',
       icon: AlertTriangle,
       color: '#DC2626',
     },
     {
       title: 'The visa maze',
-      description: 'Italy\'s student visa process is complex, document-heavy, and poorly explained. Many international students arrive on tourist visas assuming they can convert; they cannot. Permesso di soggiorno delays, missing codice fiscale, and wrong document chains derail starts before they begin.',
+      description: 'Italy\'s student visa process is complex, document-heavy, and poorly explained. Many international students arrive on tourist visas assuming they can convert; they cannot. Permesso di soggiorno delays, missing codice fiscale, and wrong document chains derail everything before it begins.',
       icon: FileText,
       color: '#D97706',
     },
     {
       title: 'The neighbourhood lottery',
-      description: 'Without local knowledge, students end up in the wrong area. Too far from campus, unsafe at night, poorly connected, or overpriced for what they get. International students pay a premium for ignorance. Landlords know this and price accordingly.',
+      description: 'Without local knowledge, international students end up in the wrong area. Too far from campus, unsafe at night, poorly connected, or overpriced for what is offered. International students pay a premium for ignorance. Landlords know this and price accordingly.',
       icon: MapPin,
       color: '#4F46E5',
     },
     {
       title: 'The isolation problem',
-      description: 'Arriving in a new city, in a new country, alone, without a social network is one of the top drivers of student dropout and mental health strain. Integration support in the first weeks transforms the experience, but no one currently provides it systematically.',
+      description: 'Arriving in a new city, in a new country, alone, without a social network is one of the top drivers of student dropout and mental health strain. Integration support in the first weeks transforms the experience, but it is rarely provided systematically.',
       icon: Users,
       color: '#059669',
     },
@@ -37,31 +37,31 @@ export default function InternationalStudentsSection() {
     },
     {
       title: 'Housing search',
-      description: 'Curated listings matched to the student\'s budget, campus proximity and lifestyle. We pre-screen every landlord and every contract before the student signs.',
+      description: 'Curated listings matched to budget, campus proximity and lifestyle. Every landlord and every contract is pre-screened before signing.',
       icon: Search,
       color: '#C9A84C',
     },
     {
       title: 'Contract review & protection',
-      description: 'Every lease reviewed by our team before signing. We flag illegal clauses, explain obligations, negotiate terms, and ensure students are never exploited by local contract traps.',
+      description: 'Every lease is reviewed before signing. Illegal clauses are flagged, obligations explained, terms negotiated, and students are protected from local contract traps.',
       icon: Shield,
       color: '#C9A84C',
     },
     {
       title: 'Neighbourhood advisory',
-      description: 'Personalised guide to the right area — safe, well-connected, close to campus. We match housing to the student\'s lifestyle, not just their budget.',
+      description: 'Personalised guide to the right area — safe, well-connected, close to campus. Housing is matched to lifestyle and needs, not just budget.',
       icon: MapPin,
       color: '#C9A84C',
     },
     {
       title: 'Arrival & setup',
-      description: 'Bank account opening, SIM card, utility registration, public transport setup, local GP registration, all sorted in the first week so students can focus on their course.',
+      description: 'Bank account opening, SIM card, utility registration, public transport setup, local GP registration — all sorted in the first week so focus can shift to coursework.',
       icon: Key,
       color: '#C9A84C',
     },
     {
       title: 'City integration',
-      description: 'Social orientation, campus community introductions, trusted local contacts for food, health and daily life. Students feel at home within days, not months.',
+      description: 'Social orientation, campus community introductions, trusted local contacts for food, health and daily life. Integration happens within days, not months.',
       icon: Globe,
       color: '#C9A84C',
     },
@@ -73,7 +73,7 @@ export default function InternationalStudentsSection() {
       timeframe: '3–6 months before',
       color: '#1F2937',
       items: [
-        'Student visa document checklist',
+        'Visa document checklist',
         'Embassy appointment preparation',
         'Initial housing brief & search',
         'Neighbourhood recommendation',
@@ -125,7 +125,7 @@ export default function InternationalStudentsSection() {
         <div className="mb-16 md:mb-24 lg:mb-32">
           <div className="mb-8 md:mb-12 lg:mb-16">
             <h2 className="text-xs md:text-sm font-semibold tracking-widest text-amber-700 mb-3 md:mb-4 lg:mb-6">
-              THE CHALLENGE YOUR INTERNATIONAL STUDENTS FACE
+              THE CHALLENGE INTERNATIONAL STUDENTS FACE
             </h2>
             <p className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-serif italic text-gray-900 max-w-4xl leading-tight">
               Brilliant students. Completely unprepared for what Italy throws at them.
@@ -165,7 +165,7 @@ export default function InternationalStudentsSection() {
         <div className="mb-16 md:mb-24 lg:mb-32">
           <div className="mb-8 md:mb-12 lg:mb-16">
             <h2 className="text-xs md:text-sm font-semibold tracking-widest text-amber-700 mb-3 md:mb-4 lg:mb-6">
-              WHAT DOMUS DOES FOR YOUR STUDENTS
+              WHAT DOMUS DOES FOR INTERNATIONAL STUDENTS
             </h2>
             <p className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-serif italic text-gray-900 max-w-4xl leading-tight">
               A complete arrival and settlement service, from visa application to first day of class.
@@ -205,7 +205,7 @@ export default function InternationalStudentsSection() {
         <div>
           <div className="mb-8 md:mb-12 lg:mb-16">
             <h2 className="text-xs md:text-sm font-semibold tracking-widest text-amber-700 mb-3 md:mb-4 lg:mb-6">
-              THE DOMUS STUDENT JOURNEY FROM ACCEPTANCE TO SETTLED
+              THE DOMUS STUDENT JOURNEY: ACCEPTANCE TO SETTLED
             </h2>
             <p className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-serif italic text-gray-900 max-w-4xl leading-tight">
               Everything a student needs, in the right order, before problems arise.
