@@ -135,9 +135,11 @@ export default function PersonaQuiz({ isOpen, onClose }: PersonaQuizProps) {
   const [persona, setPersona] = useState<typeof personaMap[string] | null>(null);
   const [userInfo, setUserInfo] = useState<UserInfo>({ email: "", fullName: "" });
   const [showUserForm, setShowUserForm] = useState(false);
+  const [emailCaptured, setEmailCaptured] = useState(false);
   const overlayRef = useRef<HTMLDivElement>(null);
   const submitQuizMutation = trpc.submissions.submitQuiz.useMutation();
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [emailError, setEmailError] = useState("");
 
   useEffect(() => {
     if (isOpen) {
@@ -146,6 +148,9 @@ export default function PersonaQuiz({ isOpen, onClose }: PersonaQuizProps) {
       setAnswers({});
       setCompleted(false);
       setPersona(null);
+      setEmailCaptured(false);
+      setUserInfo({ email: "", fullName: "" });
+      setEmailError("");
     } else {
       document.body.style.overflow = "";
     }
@@ -161,6 +166,260 @@ export default function PersonaQuiz({ isOpen, onClose }: PersonaQuizProps) {
   }, [onClose]);
 
   if (!isOpen) return null;
+
+  const handleEmailCapture = () => {
+    if (!userInfo.fullName || !userInfo.email) {
+      setEmailError("Please enter your name and email");
+      return;
+    }
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(userInfo.email)) {
+      setEmailError("Please enter a valid email address");
+      return;
+    }
+    setEmailError("");
+    setEmailCaptured(true);
+  };
+
+  if (!emailCaptured) {
+    return (
+      <div
+        ref={overlayRef}
+        style={{
+          position: "fixed",
+          inset: 0,
+          zIndex: 2000,
+          display: "flex",
+          alignItems: "stretch",
+        }}
+      >
+        {/* Background */}
+        <div
+          style={{
+            position: "absolute",
+            inset: 0,
+            backgroundImage: `url(${QUIZ_BG})`,
+            backgroundSize: "cover",
+            backgroundPosition: "center",
+          }}
+        />
+        <div
+          style={{
+            position: "absolute",
+            inset: 0,
+            background: "rgba(10, 8, 6, 0.88)",
+          }}
+        />
+
+        {/* Close button */}
+        <button
+          onClick={onClose}
+          style={{
+            position: "absolute",
+            top: "2rem",
+            right: "2rem",
+            background: "none",
+            border: "1px solid rgba(245, 240, 232, 0.2)",
+            color: "rgba(245, 240, 232, 0.7)",
+            width: "44px",
+            height: "44px",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            cursor: "pointer",
+            fontSize: "1.25rem",
+            zIndex: 10,
+            transition: "all 0.3s ease",
+          }}
+          aria-label="Close quiz"
+        >
+          ×
+        </button>
+
+        {/* Email Capture Form */}
+        <div
+          style={{
+            position: "relative",
+            zIndex: 1,
+            width: "100%",
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+            justifyContent: "center",
+            padding: "4rem 1.5rem",
+          }}
+        >
+          <div style={{ width: "100%", maxWidth: "500px" }}>
+            <span
+              style={{
+                fontFamily: "'Jost', sans-serif",
+                fontWeight: 500,
+                fontSize: "0.65rem",
+                letterSpacing: "0.25em",
+                textTransform: "uppercase",
+                color: "var(--domus-gold)",
+                display: "block",
+                marginBottom: "1rem",
+              }}
+            >
+              Get Your Personalized Profile
+            </span>
+
+            <h2
+              style={{
+                fontFamily: "'Cormorant Garamond', serif",
+                fontWeight: 300,
+                fontStyle: "italic",
+                fontSize: "clamp(2rem, 4vw, 3rem)",
+                lineHeight: 1.15,
+                color: "#F5F0E8",
+                marginBottom: "1rem",
+              }}
+            >
+              Let's Find Your Perfect Milan
+            </h2>
+
+            <p
+              style={{
+                fontFamily: "'Jost', sans-serif",
+                fontWeight: 300,
+                fontSize: "0.95rem",
+                lineHeight: 1.85,
+                color: "rgba(245, 240, 232, 0.7)",
+                marginBottom: "2rem",
+              }}
+            >
+              Answer a few questions about your relocation needs and receive an AI-powered personalized profile with tailored recommendations from DOMUS.
+            </p>
+
+            {/* Form Fields */}
+            <div style={{ marginBottom: "1.5rem" }}>
+              <label
+                style={{
+                  display: "block",
+                  fontFamily: "'Jost', sans-serif",
+                  fontSize: "0.85rem",
+                  fontWeight: 600,
+                  color: "rgba(245, 240, 232, 0.8)",
+                  marginBottom: "0.5rem",
+                  textTransform: "uppercase",
+                  letterSpacing: "0.05rem",
+                }}
+              >
+                Full Name
+              </label>
+              <input
+                type="text"
+                value={userInfo.fullName}
+                onChange={(e) => setUserInfo({ ...userInfo, fullName: e.target.value })}
+                style={{
+                  width: "100%",
+                  padding: "0.75rem",
+                  background: "rgba(245, 240, 232, 0.05)",
+                  border: "1px solid rgba(245, 240, 232, 0.2)",
+                  borderRadius: "4px",
+                  color: "#F5F0E8",
+                  fontFamily: "'Jost', sans-serif",
+                  fontSize: "0.95rem",
+                  boxSizing: "border-box",
+                }}
+                placeholder="Your name"
+              />
+            </div>
+
+            <div style={{ marginBottom: "1.5rem" }}>
+              <label
+                style={{
+                  display: "block",
+                  fontFamily: "'Jost', sans-serif",
+                  fontSize: "0.85rem",
+                  fontWeight: 600,
+                  color: "rgba(245, 240, 232, 0.8)",
+                  marginBottom: "0.5rem",
+                  textTransform: "uppercase",
+                  letterSpacing: "0.05rem",
+                }}
+              >
+                Email Address
+              </label>
+              <input
+                type="email"
+                value={userInfo.email}
+                onChange={(e) => setUserInfo({ ...userInfo, email: e.target.value })}
+                style={{
+                  width: "100%",
+                  padding: "0.75rem",
+                  background: "rgba(245, 240, 232, 0.05)",
+                  border: "1px solid rgba(245, 240, 232, 0.2)",
+                  borderRadius: "4px",
+                  color: "#F5F0E8",
+                  fontFamily: "'Jost', sans-serif",
+                  fontSize: "0.95rem",
+                  boxSizing: "border-box",
+                }}
+                placeholder="your@email.com"
+              />
+            </div>
+
+            {emailError && (
+              <div
+                style={{
+                  padding: "0.75rem",
+                  background: "rgba(239, 68, 68, 0.1)",
+                  border: "1px solid rgba(239, 68, 68, 0.3)",
+                  borderRadius: "4px",
+                  color: "#fca5a5",
+                  fontSize: "0.85rem",
+                  marginBottom: "1.5rem",
+                }}
+              >
+                {emailError}
+              </div>
+            )}
+
+            <button
+              onClick={handleEmailCapture}
+              style={{
+                width: "100%",
+                padding: "1rem",
+                background: "linear-gradient(135deg, var(--domus-gold) 0%, rgba(214, 175, 98, 0.9) 100%)",
+                border: "none",
+                color: "var(--domus-charcoal)",
+                fontFamily: "'Jost', sans-serif",
+                fontSize: "0.95rem",
+                fontWeight: 600,
+                cursor: "pointer",
+                textTransform: "uppercase",
+                letterSpacing: "0.1rem",
+                borderRadius: "4px",
+                transition: "all 0.3s ease",
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.boxShadow = "0 12px 36px rgba(214, 175, 98, 0.4)";
+                e.currentTarget.style.transform = "translateY(-2px)";
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.boxShadow = "none";
+                e.currentTarget.style.transform = "translateY(0)";
+              }}
+            >
+              Begin Your Assessment
+            </button>
+
+            <p
+              style={{
+                fontSize: "0.75rem",
+                color: "rgba(245, 240, 232, 0.4)",
+                marginTop: "1rem",
+                textAlign: "center",
+              }}
+            >
+              We respect your privacy. Your information will only be used to contact you about your relocation needs.
+            </p>
+          </div>
+        </div>
+      </div>
+    );
+  }
 
   const question = questions[currentStep];
   const currentAnswer = answers[question.id];

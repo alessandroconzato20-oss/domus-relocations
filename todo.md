@@ -64,3 +64,15 @@
 - [x] Add inquiries tab to admin dashboard with expandable inquiry details
 - [x] Write and run vitest tests for inquiry form submission
 - [ ] Test inquiry form end-to-end in browser (form submission → database → admin dashboard)
+
+## AI-Powered Relocation Assessment Quiz (Phase 1 Complete)
+- [x] Update database schema to support AI profiles, recommendations, lead scoring
+- [x] Integrate LLM for generating personalized relocation profiles
+- [x] Implement lead scoring algorithm (0-100 based on timeline and family status)
+- [x] Add email notifications to milano@domusrelocations.com with full lead details
+- [x] Update PersonaQuiz component to capture email upfront before quiz
+- [x] Add email validation and error handling
+- [x] Write comprehensive vitest tests for AI quiz functionality (16 tests, all passing)
+- [ ] Create PDF report generation feature for quiz results
+- [ ] Add adaptive follow-up questions based on initial answers
+- [ ] Test end-to-end quiz flow in browser (email capture → questions → profile → email sent)

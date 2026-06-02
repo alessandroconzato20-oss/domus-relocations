@@ -35,6 +35,16 @@ export const quizResponses = mysqlTable("quizResponses", {
   answers: text("answers").notNull(), // JSON stringified
   // Persona result
   persona: varchar("persona", { length: 255 }).notNull(),
+  // AI-generated profile and recommendations
+  profile: text("profile"), // JSON stringified personalized profile
+  recommendations: text("recommendations"), // JSON stringified recommendations
+  // Lead scoring
+  leadScore: int("leadScore").default(0).notNull(), // 0-100 score
+  leadPriority: mysqlEnum("leadPriority", ["high", "standard", "future"]).default("standard").notNull(),
+  // PDF report
+  reportUrl: varchar("reportUrl", { length: 512 }), // URL to generated PDF report
+  // Email notification status
+  emailSent: tinyint("emailSent").default(0).notNull(),
   createdAt: timestamp("createdAt").defaultNow().notNull(),
 });
 

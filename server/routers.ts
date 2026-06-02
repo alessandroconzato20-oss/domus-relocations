@@ -3,6 +3,7 @@ import { getSessionCookieOptions } from "./_core/cookies";
 import { systemRouter } from "./_core/systemRouter";
 import { publicProcedure, router } from "./_core/trpc";
 import { notifyOwner } from "./_core/notification";
+import { invokeLLM } from "./_core/llm";
 import { z } from "zod";
 import { saveQuizResponse, getQuizResponses, saveContactSubmission, getContactSubmissions, saveInquiry, getInquiries, getUserByEmail, createLocalUser, getDb, createPasswordResetToken, validatePasswordResetToken, deletePasswordResetToken, updateUserPasswordByUserId, getQuizResponsesByEmail, getTrustedNetworkContacts, getTrustedNetworkContactsByCategory, getAllClients, getClientWithData, createTotpSecret, getTotpSecretByUserId, enableTotpSecret, disableTotpSecret, validateBackupCode } from "./db";
 import * as bcrypt from "bcryptjs";
@@ -147,20 +148,162 @@ export const appRouter = router({
       .mutation(async (opts) => {
         const { input } = opts;
         try {
+          // Generate AI-powered profile and recommendations
+          const profilePrompt = `Based on these relocation quiz answers from ${input.fullName}, generate a concise personalized relocation profile:
+
+Answers:
+${Object.entries(input.answers).map(([q, a]) => `- ${q}: ${a}`).join('\n')}
+
+Persona: ${input.persona}
+
+Provide a JSON response with:
+1. "summary": 2-3 sentence personalized summary of their relocation needs
+2. "keyInsights": array of 3-4 key insights about their profile
+3. "recommendedServices": array of recommended DOMUS services for them`;
+
+          const profileResponse = await invokeLLM({
+            messages: [
+              { role: "system", content: "You are a relocation expert analyzing client profiles. Respond with valid JSON only." },
+              { role: "user", content: profilePrompt },
+            ],
+            response_format: {
+              type: "json_schema",
+              json_schema: {
+                name: "relocation_profile",
+                strict: true,
+                schema: {
+                  type: "object",
+                  properties: {
+                    summary: { type: "string" },
+                    keyInsights: { type: "array", items: { type: "string" } },
+                    recommendedServices: { type: "array", items: { type: "string" } },
+                  },
+                  required: ["summary", "keyInsights", "recommendedServices"],
+                  additionalProperties: false,
+                },
+              },
+            },
+          });
+
+          let profile = null;
+          let recommendations = null;
+          let leadScore = 50;
+          let leadPriority: "high" | "standard" | "future" = "standard";
+
+          try {
+            const profileContent = profileResponse.choices[0]?.message.content;
+            if (typeof profileContent === "string") {
+              const parsed = JSON.parse(profileContent);
+              profile = JSON.stringify(parsed);
+              recommendations = JSON.stringify(parsed.recommendedServices);
+              
+              // Calculate lead score based on answers
+              const timeline = input.answers["timeline"];
+              const familySize = input.answers["family"];
+              
+              if (timeline === "immediate" && (familySize === "family_young" || familySize === "family_teen")) {
+                leadScore = 90;
+                leadPriority = "high";
+              } else if (timeline === "immediate") {
+                leadScore = 80;
+                leadPriority = "high";
+              } else if (timeline === "soon") {
+                leadScore = 65;
+                leadPriority = "standard";
+              } else {
+                leadScore = 40;
+                leadPriority = "future";
+              }
+            }
+          } catch (parseError) {
+            console.error("Failed to parse AI profile response:", parseError);
+          }
+
+          // Save quiz response with AI-generated data
           await saveQuizResponse({
             email: input.email,
             fullName: input.fullName,
             answers: JSON.stringify(input.answers),
             persona: input.persona,
+            profile,
+            recommendations,
+            leadScore,
+            leadPriority,
           });
           
-          // Notify owner of new quiz submission
+          // Format quiz answers for email
+          const formattedAnswers = Object.entries(input.answers)
+            .map(([question, answer]) => `Q: ${question}\nA: ${answer}`)
+            .join('\n\n');
+
+          // Parse profile for email content
+          let profileSummary = "Profile generation pending";
+          let keyInsights: string[] = [];
+          let recommendedServices: string[] = [];
+
+          if (profile) {
+            try {
+              const profileData = JSON.parse(profile);
+              profileSummary = profileData.summary || profileSummary;
+              keyInsights = profileData.keyInsights || [];
+              recommendedServices = profileData.recommendedServices || [];
+            } catch (e) {
+              console.error("Failed to parse profile for email:", e);
+            }
+          }
+
+          // Send email to team with lead information
+          const emailContent = `New Persona Quiz Submission - Lead Score: ${leadScore}/100 (${leadPriority.toUpperCase()})
+
+Client Information:
+Name: ${input.fullName}
+Email: ${input.email}
+Persona: ${input.persona}
+
+Quiz Answers:
+${formattedAnswers}
+
+AI-Generated Profile:
+${profileSummary}
+
+Key Insights:
+${keyInsights.map((insight) => `- ${insight}`).join('\n')}
+
+Recommended Services:
+${recommendedServices.map((service) => `- ${service}`).join('\n')}
+
+View full details in the admin dashboard.`;
+
+          // Send email notification
+          try {
+            const response = await fetch((process.env.BUILT_IN_FORGE_API_URL || "") + "/api/email/send", {
+              method: "POST",
+              headers: {
+                "Authorization": `Bearer ${process.env.BUILT_IN_FORGE_API_KEY}`,
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify({
+                to: "milano@domusrelocations.com",
+                subject: `New Lead: ${input.fullName} (${input.persona}) - Score ${leadScore}/100`,
+                text: emailContent,
+                html: `<pre>${emailContent}</pre>`,
+              }),
+            });
+
+            if (!response.ok) {
+              console.error("Failed to send email notification:", response.statusText);
+            }
+          } catch (emailError) {
+            console.error("Error sending email:", emailError);
+          }
+          
+          // Also notify owner via platform notification
           await notifyOwner({
-            title: "New Persona Quiz Submission",
-            content: `${input.fullName} (${input.email}) has completed the persona quiz and identified as: ${input.persona}. You can review their responses in the admin dashboard.`,
+            title: `New Lead: ${input.fullName} (Score: ${leadScore}/100)`,
+            content: `${input.fullName} (${input.email}) completed the persona quiz as ${input.persona}. Lead Priority: ${leadPriority.toUpperCase()}. Check your email for full details.`,
           });
           
-          return { success: true, message: "Quiz response saved successfully" };
+          return { success: true, message: "Quiz response saved successfully", leadScore, leadPriority };
         } catch (error) {
           console.error("Failed to save quiz response:", error);
           return { success: false, message: "Failed to save quiz response" };
