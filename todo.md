@@ -75,4 +75,4 @@
 - [x] Write comprehensive vitest tests for AI quiz functionality (16 tests, all passing)
 - [ ] Create PDF report generation feature for quiz results
 - [ ] Add adaptive follow-up questions based on initial answers
-- [ ] Test end-to-end quiz flow in browser (email capture → questions → profile → email sent)
+- [x] Test end-to-end quiz flow in browser (email capture → questions → profile → email sent)
