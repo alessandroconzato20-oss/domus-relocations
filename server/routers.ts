@@ -142,7 +142,7 @@ export const appRouter = router({
       .input(z.object({
         email: z.string().email(),
         fullName: z.string().min(1),
-        answers: z.record(z.string(), z.string()),
+        answers: z.record(z.string(), z.union([z.string(), z.array(z.string())])),
         persona: z.string(),
       }))
       .mutation(async (opts) => {
