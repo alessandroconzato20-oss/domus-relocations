@@ -73,18 +73,6 @@
 - [x] Update PersonaQuiz component to capture email upfront before quiz
 - [x] Add email validation and error handling
 - [x] Write comprehensive vitest tests for AI quiz functionality (16 tests, all passing)
-- [x] Create PDF report generation feature for quiz results
-- [x] Integrate PDF generation into quiz submission flow
-- [x] Upload PDF to S3 storage for user download
+- [ ] Create PDF report generation feature for quiz results
 - [ ] Add adaptive follow-up questions based on initial answers
 - [x] Test end-to-end quiz flow in browser (email capture → questions → profile → email sent)
-
-## Remaining Tasks
-- [ ] Update PersonaQuiz UI to display PDF download link after successful submission
-- [ ] Persist PDF URL with quiz response in database
-- [ ] Test PDF download functionality end-to-end in browser
-- [ ] Debug and fix login authentication flow (session cookie not being set properly)
-- [ ] Enforce 2FA in login flow (prompt for TOTP code after password verification for admin accounts with 2FA enabled)
-- [ ] Admin Task CRUD UI (create, edit, delete tasks for specific clients)
-- [ ] Real data integration for dashboard cards (Schools, Appointments, Documents)
-- [ ] Email service integration (SendGrid or similar for password resets and notifications)

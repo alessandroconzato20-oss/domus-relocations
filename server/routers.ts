@@ -4,7 +4,6 @@ import { systemRouter } from "./_core/systemRouter";
 import { publicProcedure, router } from "./_core/trpc";
 import { notifyOwner } from "./_core/notification";
 import { invokeLLM } from "./_core/llm";
-import { generateQuizReportPDF } from "./pdf-report";
 import { z } from "zod";
 import { saveQuizResponse, getQuizResponses, saveContactSubmission, getContactSubmissions, saveInquiry, getInquiries, getUserByEmail, createLocalUser, getDb, createPasswordResetToken, validatePasswordResetToken, deletePasswordResetToken, updateUserPasswordByUserId, getQuizResponsesByEmail, getTrustedNetworkContacts, getTrustedNetworkContactsByCategory, getAllClients, getClientWithData, createTotpSecret, getTotpSecretByUserId, enableTotpSecret, disableTotpSecret, validateBackupCode } from "./db";
 import * as bcrypt from "bcryptjs";
@@ -304,36 +303,6 @@ View full details in the admin dashboard.`;
             content: `${input.fullName} (${input.email}) completed the persona quiz as ${input.persona}. Lead Priority: ${leadPriority.toUpperCase()}. Check your email for full details.`,
           });
           
-          // Generate PDF report for the user
-          let pdfUrl = null;
-          try {
-            const profileData = profile ? JSON.parse(profile) : { summary: profileSummary, keyInsights: [], recommendedServices: [] };
-            const pdfBuffer = await generateQuizReportPDF({
-              fullName: input.fullName,
-              email: input.email,
-              profileName: input.persona,
-              profileDescription: profileData.summary || profileSummary,
-              recommendations: profileData.recommendedServices || recommendedServices,
-              leadScore,
-              timeline: input.answers["timeline"] || "Not specified",
-              familyComposition: input.answers["family"] || "Not specified",
-              preferences: Object.entries(input.answers)
-                .filter(([k]) => k !== "timeline" && k !== "family" && k !== "experience" && k !== "contact")
-                .map(([, v]) => v),
-              preferredContact: input.answers["contact"] || "Not specified",
-              relocationExperience: input.answers["experience"] || "Not specified",
-            });
-            
-            // Upload PDF to storage for user download
-            const { storagePut } = await import("./storage");
-            const pdfKey = `quiz-reports/${input.email}-${Date.now()}.pdf`;
-            const { url } = await storagePut(pdfKey, pdfBuffer, "application/pdf");
-            pdfUrl = url;
-          } catch (pdfError) {
-            console.error("Failed to generate PDF report:", pdfError);
-          }
-          
-          return { success: true, message: "Quiz response saved successfully", leadScore, leadPriority, pdfUrl };
           return { success: true, message: "Quiz response saved successfully", leadScore, leadPriority };
         } catch (error) {
           console.error("Failed to save quiz response:", error);
