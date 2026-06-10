@@ -158,7 +158,7 @@ export async function sendEmailViaResend(payload: EmailPayload): Promise<boolean
     }
 
     const result = await resend.emails.send({
-      from: "noreply@domusrelocations.com",
+      from: "onboarding@resend.dev",
       to: payload.to,
       subject: payload.subject,
       html: payload.htmlContent,

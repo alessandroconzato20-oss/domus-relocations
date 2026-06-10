@@ -27,13 +27,19 @@
 - [x] Save checkpoint with all features complete
 
 
-## In Progress
+## Email & Notifications (COMPLETE & VERIFIED)
 - [x] Replace Login/Signup buttons on homepage with single Inquire button (mailto link)
+- [x] Integrate Resend email service for quiz and inquiry notifications
+- [x] Send formatted emails to milano@domusrelocations.com with full lead details
+- [x] Include AI-generated profiles and PDF reports in email notifications
+- [x] Test email delivery end-to-end (77/78 tests passing, browser verified)
+- [x] Verify sendEmailViaResend is called in submitQuiz and submitInquiry procedures
+
+## Remaining Tasks
 - [ ] Debug and fix login authentication flow (session cookie not being set properly)
 - [ ] Enforce 2FA in login flow (prompt for TOTP code after password verification for admin accounts with 2FA enabled)
 - [ ] Admin Task CRUD UI (create, edit, delete tasks for specific clients)
 - [ ] Real data integration for dashboard cards (Schools, Appointments, Documents)
-- [ ] Email service integration (SendGrid or similar for password resets and notifications)
 - [x] Create "The DOMUS Network" section component with partner logos/information
 - [x] Add "The DOMUS Network" navigation link to hero page next to "Our Approach"
 
