@@ -4,6 +4,7 @@ import { systemRouter } from "./_core/systemRouter";
 import { publicProcedure, router } from "./_core/trpc";
 import { notifyOwner } from "./_core/notification";
 import { invokeLLM } from "./_core/llm";
+import { sendEmailViaResend, formatQuizEmailContent, formatInquiryEmailContent } from "./_core/resendService";
 import { z } from "zod";
 import { saveQuizResponse, getQuizResponses, saveContactSubmission, getContactSubmissions, saveInquiry, getInquiries, getUserByEmail, createLocalUser, getDb, createPasswordResetToken, validatePasswordResetToken, deletePasswordResetToken, updateUserPasswordByUserId, getQuizResponsesByEmail, getTrustedNetworkContacts, getTrustedNetworkContactsByCategory, getAllClients, getClientWithData, createTotpSecret, getTotpSecretByUserId, enableTotpSecret, disableTotpSecret, validateBackupCode } from "./db";
 import * as bcrypt from "bcryptjs";
@@ -274,25 +275,24 @@ ${recommendedServices.map((service) => `- ${service}`).join('\n')}
 
 View full details in the admin dashboard.`;
 
-          // Send email notification
+          // Send email notification using Manus email service
           try {
-            const response = await fetch((process.env.BUILT_IN_FORGE_API_URL || "") + "/api/email/send", {
-              method: "POST",
-              headers: {
-                "Authorization": `Bearer ${process.env.BUILT_IN_FORGE_API_KEY}`,
-                "Content-Type": "application/json",
-              },
-              body: JSON.stringify({
-                to: "milano@domusrelocations.com",
-                subject: `New Lead: ${input.fullName} (${input.persona}) - Score ${leadScore}/100`,
-                text: emailContent,
-                html: `<pre>${emailContent}</pre>`,
-              }),
+            const { subject, htmlContent, textContent } = formatQuizEmailContent({
+              fullName: input.fullName,
+              email: input.email,
+              profileName: input.persona,
+              profileDescription: profileSummary,
+              recommendations: recommendedServices,
+              leadScore,
+              answers: input.answers,
             });
-
-            if (!response.ok) {
-              console.error("Failed to send email notification:", response.statusText);
-            }
+            
+            await sendEmailViaResend({
+              to: "milano@domusrelocations.com",
+              subject,
+              htmlContent,
+              textContent,
+            });
           } catch (emailError) {
             console.error("Error sending email:", emailError);
           }
@@ -392,6 +392,26 @@ View full details in the admin dashboard.`;
             serviceType: input.serviceType,
             message: input.message,
           });
+          
+          // Send email notification using Manus email service
+          try {
+            const { subject, htmlContent, textContent } = formatInquiryEmailContent({
+              fullName: input.fullName,
+              email: input.email,
+              phone: input.phone,
+              serviceType: input.serviceType,
+              message: input.message,
+            });
+            
+            await sendEmailViaResend({
+              to: "milano@domusrelocations.com",
+              subject,
+              htmlContent,
+              textContent,
+            });
+          } catch (emailError) {
+            console.error("Error sending inquiry email:", emailError);
+          }
           
           const messagePreview = input.message ? input.message.substring(0, 100) + (input.message.length > 100 ? "..." : "") : "No message provided";
           await notifyOwner({
