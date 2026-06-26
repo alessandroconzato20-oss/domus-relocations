@@ -114,6 +114,114 @@ export const trustedNetworkContacts = mysqlTable("trustedNetworkContacts", {
 export type TrustedNetworkContact = typeof trustedNetworkContacts.$inferSelect;
 export type InsertTrustedNetworkContact = typeof trustedNetworkContacts.$inferInsert;
 
+// ─── CLIENT DASHBOARD TABLES ────────────────────────────────────────────────
+
+// Client profiles — one per user, created by admin
+export const clientProfiles = mysqlTable("clientProfiles", {
+  id: int("id").autoincrement().primaryKey(),
+  userId: int("userId").notNull().references(() => users.id, { onDelete: "cascade" }),
+  fullName: varchar("fullName", { length: 255 }).notNull(),
+  email: varchar("email", { length: 320 }).notNull(),
+  phone: varchar("phone", { length: 50 }),
+  nationality: varchar("nationality", { length: 100 }),
+  currentCity: varchar("currentCity", { length: 100 }),
+  targetMoveDate: varchar("targetMoveDate", { length: 50 }),
+  servicePackage: mysqlEnum("servicePackage", ["standard", "premium", "elite"]).default("standard").notNull(),
+  notes: text("notes"),
+  isActive: tinyint("isActive").default(1).notNull(),
+  createdAt: timestamp("createdAt").defaultNow().notNull(),
+  updatedAt: timestamp("updatedAt").defaultNow().onUpdateNow().notNull(),
+});
+
+export type ClientProfile = typeof clientProfiles.$inferSelect;
+export type InsertClientProfile = typeof clientProfiles.$inferInsert;
+
+// Checklist items — per client, managed by admin
+export const checklistItems = mysqlTable("checklistItems", {
+  id: int("id").autoincrement().primaryKey(),
+  clientProfileId: int("clientProfileId").notNull().references(() => clientProfiles.id, { onDelete: "cascade" }),
+  title: varchar("title", { length: 255 }).notNull(),
+  description: text("description"),
+  category: varchar("category", { length: 100 }),
+  isCompleted: tinyint("isCompleted").default(0).notNull(),
+  completedAt: timestamp("completedAt"),
+  dueDate: timestamp("dueDate"),
+  sortOrder: int("sortOrder").default(0).notNull(),
+  createdAt: timestamp("createdAt").defaultNow().notNull(),
+  updatedAt: timestamp("updatedAt").defaultNow().onUpdateNow().notNull(),
+});
+
+export type ChecklistItem = typeof checklistItems.$inferSelect;
+export type InsertChecklistItem = typeof checklistItems.$inferInsert;
+
+// Documents — per client, uploaded by admin, stored in S3
+export const documents = mysqlTable("documents", {
+  id: int("id").autoincrement().primaryKey(),
+  clientProfileId: int("clientProfileId").notNull().references(() => clientProfiles.id, { onDelete: "cascade" }),
+  fileName: varchar("fileName", { length: 255 }).notNull(),
+  originalName: varchar("originalName", { length: 255 }).notNull(),
+  mimeType: varchar("mimeType", { length: 100 }).notNull(),
+  fileSize: int("fileSize").notNull(), // bytes
+  s3Key: varchar("s3Key", { length: 512 }).notNull(), // S3 storage key
+  category: varchar("category", { length: 100 }), // e.g. "Lease", "Visa", "School"
+  uploadedAt: timestamp("uploadedAt").defaultNow().notNull(),
+});
+
+export type Document = typeof documents.$inferSelect;
+export type InsertDocument = typeof documents.$inferInsert;
+
+// Appointments — per client, managed by admin
+export const appointments = mysqlTable("appointments", {
+  id: int("id").autoincrement().primaryKey(),
+  clientProfileId: int("clientProfileId").notNull().references(() => clientProfiles.id, { onDelete: "cascade" }),
+  title: varchar("title", { length: 255 }).notNull(),
+  description: text("description"),
+  appointmentDate: timestamp("appointmentDate").notNull(),
+  location: varchar("location", { length: 255 }),
+  type: mysqlEnum("type", ["call", "viewing", "meeting", "school_visit", "other"]).default("meeting").notNull(),
+  status: mysqlEnum("status", ["scheduled", "completed", "cancelled"]).default("scheduled").notNull(),
+  createdAt: timestamp("createdAt").defaultNow().notNull(),
+  updatedAt: timestamp("updatedAt").defaultNow().onUpdateNow().notNull(),
+});
+
+export type Appointment = typeof appointments.$inferSelect;
+export type InsertAppointment = typeof appointments.$inferInsert;
+
+// School options — per client, curated by admin
+export const schoolOptions = mysqlTable("schoolOptions", {
+  id: int("id").autoincrement().primaryKey(),
+  clientProfileId: int("clientProfileId").notNull().references(() => clientProfiles.id, { onDelete: "cascade" }),
+  schoolName: varchar("schoolName", { length: 255 }).notNull(),
+  type: mysqlEnum("type", ["international", "bilingual", "local", "montessori", "other"]).default("international").notNull(),
+  ageRange: varchar("ageRange", { length: 50 }),
+  curriculum: varchar("curriculum", { length: 100 }),
+  location: varchar("location", { length: 255 }),
+  website: varchar("website", { length: 512 }),
+  notes: text("notes"),
+  status: mysqlEnum("status", ["shortlisted", "applied", "accepted", "rejected", "waitlisted"]).default("shortlisted").notNull(),
+  createdAt: timestamp("createdAt").defaultNow().notNull(),
+  updatedAt: timestamp("updatedAt").defaultNow().onUpdateNow().notNull(),
+});
+
+export type SchoolOption = typeof schoolOptions.$inferSelect;
+export type InsertSchoolOption = typeof schoolOptions.$inferInsert;
+
+// Messages — between admin and client
+export const messages = mysqlTable("messages", {
+  id: int("id").autoincrement().primaryKey(),
+  clientProfileId: int("clientProfileId").notNull().references(() => clientProfiles.id, { onDelete: "cascade" }),
+  senderRole: mysqlEnum("senderRole", ["admin", "client"]).notNull(),
+  content: text("content").notNull(),
+  isRead: tinyint("isRead").default(0).notNull(),
+  readAt: timestamp("readAt"),
+  createdAt: timestamp("createdAt").defaultNow().notNull(),
+});
+
+export type Message = typeof messages.$inferSelect;
+export type InsertMessage = typeof messages.$inferInsert;
+
+// ─── TOTP 2FA TABLE ───────────────────────────────────────────────────────────
+
 // TOTP 2FA table for admin accounts
 export const totpSecrets = mysqlTable("totpSecrets", {
   id: int("id").autoincrement().primaryKey(),

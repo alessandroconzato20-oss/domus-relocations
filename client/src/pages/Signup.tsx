@@ -1,397 +1,194 @@
-/*
+/**
  * DOMUS Relocations — Signup Page
- * Design: Milanese Atelier — light theme
+ * Milanese Atelier aesthetic: ivory background, serif typography, warm gold accents
  */
-
 import { useState } from "react";
-import { useLocation } from "wouter";
 import { trpc } from "@/lib/trpc";
-import { toast } from "sonner";
 
 export default function Signup() {
-  const [, setLocation] = useLocation();
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
-  const [isLoading, setIsLoading] = useState(false);
-  const signupMutation = trpc.auth.signup.useMutation();
+  const [error, setError] = useState("");
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-
-    if (!name || !email || !password || !confirmPassword) {
-      toast.error("Please fill in all fields");
-      return;
-    }
-
-    if (password !== confirmPassword) {
-      toast.error("Passwords do not match");
-      return;
-    }
-
-    if (password.length < 8) {
-      toast.error("Password must be at least 8 characters");
-      return;
-    }
-
-    setIsLoading(true);
-    try {
-      const result = await signupMutation.mutateAsync({ email, name, password });
-
-      if (result.success) {
-        toast.success("Account created successfully!");
-        setLocation("/admin");
+  const signupMutation = trpc.auth.signup.useMutation({
+    onSuccess: (data) => {
+      if (data.success) {
+        window.location.replace("/dashboard");
       } else {
-        toast.error(result.message || "Signup failed");
+        setError(data.message || "Signup failed. Please try again.");
       }
-    } catch (error) {
-      console.error("Signup error:", error);
-      toast.error("An error occurred. Please try again.");
-    } finally {
-      setIsLoading(false);
+    },
+    onError: () => {
+      setError("An unexpected error occurred. Please try again.");
+    },
+  });
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    setError("");
+    if (password !== confirmPassword) {
+      setError("Passwords do not match.");
+      return;
     }
+    if (password.length < 8) {
+      setError("Password must be at least 8 characters.");
+      return;
+    }
+    signupMutation.mutate({ email, name, password });
+  };
+
+  const inputStyle: React.CSSProperties = {
+    width: "100%",
+    padding: "0.75rem 1rem",
+    backgroundColor: "#f9f6f1",
+    border: "1px solid rgba(180,155,110,0.3)",
+    borderRadius: "2px",
+    color: "#1a1a1a",
+    fontSize: "0.875rem",
+    outline: "none",
+    boxSizing: "border-box",
+    transition: "border-color 0.2s, background-color 0.2s",
+  };
+
+  const labelStyle: React.CSSProperties = {
+    display: "block",
+    fontSize: "0.7rem",
+    letterSpacing: "0.15em",
+    textTransform: "uppercase",
+    color: "#6b6b6b",
+    marginBottom: "0.5rem",
   };
 
   return (
     <div
-      style={{
-        minHeight: "100vh",
-        background: "var(--domus-ivory)",
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "center",
-        padding: "2rem",
-      }}
+      style={{ minHeight: "100vh", display: "flex", alignItems: "center", justifyContent: "center", padding: "2rem", backgroundColor: "#f9f6f1" }}
     >
-      <div
-        style={{
-          width: "100%",
-          maxWidth: "400px",
-          background: "white",
-          padding: "3rem 2rem",
-          boxShadow: "0 2px 8px rgba(45, 41, 38, 0.08)",
-        }}
-      >
-        {/* Header */}
-        <h1
-          style={{
-            fontFamily: "'Cormorant Garamond', serif",
-            fontWeight: 300,
-            fontStyle: "italic",
-            fontSize: "2rem",
-            color: "var(--domus-charcoal)",
-            marginBottom: "0.5rem",
-            textAlign: "center",
-          }}
-        >
-          Create Account
-        </h1>
-        <p
-          style={{
-            fontFamily: "'Jost', sans-serif",
-            fontSize: "0.85rem",
-            color: "rgba(45, 41, 38, 0.6)",
-            textAlign: "center",
-            marginBottom: "2rem",
-          }}
-        >
-          Sign up for admin access
-        </p>
-
-        {/* Form */}
-        <form onSubmit={handleSubmit} style={{ display: "flex", flexDirection: "column", gap: "1.5rem" }}>
-          {/* Name */}
-          <div>
-            <label
-              style={{
-                fontFamily: "'Jost', sans-serif",
-                fontSize: "0.85rem",
-                fontWeight: 600,
-                color: "var(--domus-charcoal)",
-                display: "block",
-                marginBottom: "0.5rem",
-              }}
-            >
-              Full Name
-            </label>
-            <input
-              type="text"
-              value={name}
-              onChange={(e) => setName(e.target.value)}
-              placeholder="Your full name"
-              style={{
-                width: "100%",
-                padding: "0.75rem 1rem",
-                background: "rgba(45, 41, 38, 0.02)",
-                border: "1px solid rgba(45, 41, 38, 0.15)",
-                color: "var(--domus-charcoal)",
-                fontFamily: "'Jost', sans-serif",
-                fontSize: "0.9rem",
-                outline: "none",
-                boxSizing: "border-box",
-                transition: "border-color 0.3s ease",
-              }}
-              onFocus={(e) => (e.target.style.borderColor = "var(--domus-gold)")}
-              onBlur={(e) => (e.target.style.borderColor = "rgba(45, 41, 38, 0.15)")}
-            />
-          </div>
-
-          {/* Email */}
-          <div>
-            <label
-              style={{
-                fontFamily: "'Jost', sans-serif",
-                fontSize: "0.85rem",
-                fontWeight: 600,
-                color: "var(--domus-charcoal)",
-                display: "block",
-                marginBottom: "0.5rem",
-              }}
-            >
-              Email
-            </label>
-            <input
-              type="email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              placeholder="your@email.com"
-              style={{
-                width: "100%",
-                padding: "0.75rem 1rem",
-                background: "rgba(45, 41, 38, 0.02)",
-                border: "1px solid rgba(45, 41, 38, 0.15)",
-                color: "var(--domus-charcoal)",
-                fontFamily: "'Jost', sans-serif",
-                fontSize: "0.9rem",
-                outline: "none",
-                boxSizing: "border-box",
-                transition: "border-color 0.3s ease",
-              }}
-              onFocus={(e) => (e.target.style.borderColor = "var(--domus-gold)")}
-              onBlur={(e) => (e.target.style.borderColor = "rgba(45, 41, 38, 0.15)")}
-            />
-          </div>
-
-          {/* Password */}
-          <div>
-            <label
-              style={{
-                fontFamily: "'Jost', sans-serif",
-                fontSize: "0.85rem",
-                fontWeight: 600,
-                color: "var(--domus-charcoal)",
-                display: "block",
-                marginBottom: "0.5rem",
-              }}
-            >
-              Password
-            </label>
-            <input
-              type="password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              placeholder="Minimum 8 characters"
-              style={{
-                width: "100%",
-                padding: "0.75rem 1rem",
-                background: "rgba(45, 41, 38, 0.02)",
-                border: "1px solid rgba(45, 41, 38, 0.15)",
-                color: "var(--domus-charcoal)",
-                fontFamily: "'Jost', sans-serif",
-                fontSize: "0.9rem",
-                outline: "none",
-                boxSizing: "border-box",
-                transition: "border-color 0.3s ease",
-              }}
-              onFocus={(e) => (e.target.style.borderColor = "var(--domus-gold)")}
-              onBlur={(e) => (e.target.style.borderColor = "rgba(45, 41, 38, 0.15)")}
-            />
-          </div>
-
-          {/* Confirm Password */}
-          <div>
-            <label
-              style={{
-                fontFamily: "'Jost', sans-serif",
-                fontSize: "0.85rem",
-                fontWeight: 600,
-                color: "var(--domus-charcoal)",
-                display: "block",
-                marginBottom: "0.5rem",
-              }}
-            >
-              Confirm Password
-            </label>
-            <input
-              type="password"
-              value={confirmPassword}
-              onChange={(e) => setConfirmPassword(e.target.value)}
-              placeholder="Confirm your password"
-              style={{
-                width: "100%",
-                padding: "0.75rem 1rem",
-                background: "rgba(45, 41, 38, 0.02)",
-                border: "1px solid rgba(45, 41, 38, 0.15)",
-                color: "var(--domus-charcoal)",
-                fontFamily: "'Jost', sans-serif",
-                fontSize: "0.9rem",
-                outline: "none",
-                boxSizing: "border-box",
-                transition: "border-color 0.3s ease",
-              }}
-              onFocus={(e) => (e.target.style.borderColor = "var(--domus-gold)")}
-              onBlur={(e) => (e.target.style.borderColor = "rgba(45, 41, 38, 0.15)")}
-            />
-          </div>
-
-          {/* Submit Button */}
-          <button
-            type="submit"
-            disabled={isLoading}
-            style={{
-              padding: "0.75rem 1.5rem",
-              background: "var(--domus-charcoal)",
-              color: "white",
-              border: "none",
-              fontFamily: "'Jost', sans-serif",
-              fontSize: "0.9rem",
-              fontWeight: 600,
-              cursor: isLoading ? "not-allowed" : "pointer",
-              opacity: isLoading ? 0.6 : 1,
-              transition: "opacity 0.3s ease",
-              marginTop: "0.5rem",
-            }}
-            onMouseEnter={(e) => !isLoading && (e.currentTarget.style.opacity = "0.8")}
-            onMouseLeave={(e) => !isLoading && (e.currentTarget.style.opacity = "1")}
-          >
-            {isLoading ? "Creating Account..." : "Sign Up"}
-          </button>
-        </form>
-
-        {/* Social Login Divider */}
-        <div
-          style={{
-            display: "flex",
-            alignItems: "center",
-            gap: "1rem",
-            margin: "2rem 0",
-          }}
-        >
-          <div style={{ flex: 1, height: "1px", background: "rgba(45, 41, 38, 0.1)" }} />
-          <span
-            style={{
-              fontFamily: "'Jost', sans-serif",
-              fontSize: "0.75rem",
-              color: "rgba(45, 41, 38, 0.5)",
-              textTransform: "uppercase",
-              letterSpacing: "0.5px",
-            }}
-          >
-            Or
-          </span>
-          <div style={{ flex: 1, height: "1px", background: "rgba(45, 41, 38, 0.1)" }} />
+      <div style={{ width: "100%", maxWidth: "440px" }}>
+        {/* Brand */}
+        <div style={{ textAlign: "center", marginBottom: "2.5rem" }}>
+          <a href="/" style={{ textDecoration: "none" }}>
+            <div style={{ fontSize: "0.7rem", letterSpacing: "0.35em", textTransform: "uppercase", color: "#b49b6e", marginBottom: "0.25rem" }}>
+              Private Client Access
+            </div>
+            <h1 style={{ fontFamily: "Georgia, 'Times New Roman', serif", fontWeight: 300, fontSize: "1.875rem", letterSpacing: "0.05em", color: "#1a1a1a", margin: 0 }}>
+              DOMUS
+            </h1>
+            <div style={{ fontSize: "0.7rem", letterSpacing: "0.2em", textTransform: "uppercase", color: "#6b6b6b", marginTop: "0.125rem" }}>
+              Relocations
+            </div>
+          </a>
         </div>
 
-        {/* Social Login Buttons */}
-        <div style={{ display: "flex", flexDirection: "column", gap: "0.75rem" }}>
-          <button
-            onClick={() => {
-              toast.info("Google signup coming soon");
-            }}
-            style={{
-              padding: "0.75rem 1.5rem",
-              background: "white",
-              border: "1px solid rgba(45, 41, 38, 0.15)",
-              color: "var(--domus-charcoal)",
-              fontFamily: "'Jost', sans-serif",
-              fontSize: "0.9rem",
-              fontWeight: 600,
-              cursor: "pointer",
-              transition: "all 0.3s ease",
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              gap: "0.75rem",
-            }}
-            onMouseEnter={(e) => {
-              e.currentTarget.style.background = "rgba(45, 41, 38, 0.02)";
-              e.currentTarget.style.borderColor = "var(--domus-gold)";
-            }}
-            onMouseLeave={(e) => {
-              e.currentTarget.style.background = "white";
-              e.currentTarget.style.borderColor = "rgba(45, 41, 38, 0.15)";
-            }}
-          >
-            <span>🔵</span> Continue with Google
-          </button>
-          <button
-            onClick={() => {
-              toast.info("Apple signup coming soon");
-            }}
-            style={{
-              padding: "0.75rem 1.5rem",
-              background: "white",
-              border: "1px solid rgba(45, 41, 38, 0.15)",
-              color: "var(--domus-charcoal)",
-              fontFamily: "'Jost', sans-serif",
-              fontSize: "0.9rem",
-              fontWeight: 600,
-              cursor: "pointer",
-              transition: "all 0.3s ease",
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              gap: "0.75rem",
-            }}
-            onMouseEnter={(e) => {
-              e.currentTarget.style.background = "rgba(45, 41, 38, 0.02)";
-              e.currentTarget.style.borderColor = "var(--domus-gold)";
-            }}
-            onMouseLeave={(e) => {
-              e.currentTarget.style.background = "white";
-              e.currentTarget.style.borderColor = "rgba(45, 41, 38, 0.15)";
-            }}
-          >
-            <span>🍎</span> Continue with Apple
-          </button>
-        </div>
-
-        {/* Footer */}
-        <div
-          style={{
-            marginTop: "2rem",
-            paddingTop: "2rem",
-            borderTop: "1px solid rgba(45, 41, 38, 0.1)",
-            textAlign: "center",
-          }}
-        >
-          <p
-            style={{
-              fontFamily: "'Jost', sans-serif",
-              fontSize: "0.85rem",
-              color: "rgba(45, 41, 38, 0.6)",
-            }}
-          >
-            Already have an account?{" "}
-            <button
-              onClick={() => setLocation("/login")}
-              style={{
-                background: "none",
-                border: "none",
-                color: "var(--domus-gold)",
-                fontFamily: "'Jost', sans-serif",
-                fontSize: "0.85rem",
-                fontWeight: 600,
-                cursor: "pointer",
-                textDecoration: "none",
-                padding: 0,
-              }}
-            >
-              Login
-            </button>
+        {/* Card */}
+        <div style={{ backgroundColor: "#ffffff", border: "1px solid rgba(180,155,110,0.2)", borderRadius: "2px", padding: "2.5rem 2rem", boxShadow: "0 1px 4px rgba(0,0,0,0.06)" }}>
+          <h2 style={{ fontFamily: "Georgia, 'Times New Roman', serif", fontWeight: 300, fontSize: "1.25rem", letterSpacing: "0.05em", color: "#1a1a1a", marginBottom: "0.25rem" }}>
+            Create Your Account
+          </h2>
+          <p style={{ fontSize: "0.875rem", color: "#6b6b6b", marginBottom: "2rem" }}>
+            Register to access your private client portal
           </p>
+
+          {error && (
+            <div style={{ marginBottom: "1.5rem", padding: "0.75rem 1rem", backgroundColor: "rgba(220,53,69,0.06)", border: "1px solid rgba(220,53,69,0.2)", borderRadius: "2px", fontSize: "0.875rem", color: "#c0392b" }}>
+              {error}
+            </div>
+          )}
+
+          <form onSubmit={handleSubmit} style={{ display: "flex", flexDirection: "column", gap: "1.25rem" }}>
+            <div>
+              <label style={labelStyle}>Full Name</label>
+              <input
+                type="text"
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+                required
+                placeholder="Your full name"
+                style={inputStyle}
+                onFocus={(e) => { e.target.style.borderColor = "#b49b6e"; e.target.style.backgroundColor = "#ffffff"; }}
+                onBlur={(e) => { e.target.style.borderColor = "rgba(180,155,110,0.3)"; e.target.style.backgroundColor = "#f9f6f1"; }}
+              />
+            </div>
+
+            <div>
+              <label style={labelStyle}>Email Address</label>
+              <input
+                type="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                required
+                placeholder="your@email.com"
+                style={inputStyle}
+                onFocus={(e) => { e.target.style.borderColor = "#b49b6e"; e.target.style.backgroundColor = "#ffffff"; }}
+                onBlur={(e) => { e.target.style.borderColor = "rgba(180,155,110,0.3)"; e.target.style.backgroundColor = "#f9f6f1"; }}
+              />
+            </div>
+
+            <div>
+              <label style={labelStyle}>Password</label>
+              <input
+                type="password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                required
+                placeholder="Minimum 8 characters"
+                style={inputStyle}
+                onFocus={(e) => { e.target.style.borderColor = "#b49b6e"; e.target.style.backgroundColor = "#ffffff"; }}
+                onBlur={(e) => { e.target.style.borderColor = "rgba(180,155,110,0.3)"; e.target.style.backgroundColor = "#f9f6f1"; }}
+              />
+            </div>
+
+            <div>
+              <label style={labelStyle}>Confirm Password</label>
+              <input
+                type="password"
+                value={confirmPassword}
+                onChange={(e) => setConfirmPassword(e.target.value)}
+                required
+                placeholder="Repeat your password"
+                style={inputStyle}
+                onFocus={(e) => { e.target.style.borderColor = "#b49b6e"; e.target.style.backgroundColor = "#ffffff"; }}
+                onBlur={(e) => { e.target.style.borderColor = "rgba(180,155,110,0.3)"; e.target.style.backgroundColor = "#f9f6f1"; }}
+              />
+            </div>
+
+            <button
+              type="submit"
+              disabled={signupMutation.isPending}
+              style={{
+                width: "100%",
+                padding: "0.875rem",
+                backgroundColor: signupMutation.isPending ? "rgba(180,155,110,0.5)" : "#b49b6e",
+                color: "#ffffff",
+                border: "none",
+                borderRadius: "2px",
+                fontSize: "0.7rem",
+                letterSpacing: "0.2em",
+                textTransform: "uppercase",
+                cursor: signupMutation.isPending ? "not-allowed" : "pointer",
+                marginTop: "0.5rem",
+              }}
+            >
+              {signupMutation.isPending ? "Creating Account…" : "Create Account"}
+            </button>
+          </form>
+
+          <div style={{ marginTop: "1.5rem", paddingTop: "1.5rem", borderTop: "1px solid rgba(180,155,110,0.15)", textAlign: "center" }}>
+            <p style={{ fontSize: "0.75rem", color: "#6b6b6b" }}>
+              Already have an account?{" "}
+              <a href="/login" style={{ color: "#b49b6e", textDecoration: "none" }}>
+                Sign in here
+              </a>
+            </p>
+          </div>
         </div>
+
+        <p style={{ textAlign: "center", fontSize: "0.75rem", marginTop: "1.5rem" }}>
+          <a href="/" style={{ color: "#b49b6e", textDecoration: "none" }}>
+            ← Return to DOMUS Relocations
+          </a>
+        </p>
       </div>
     </div>
   );

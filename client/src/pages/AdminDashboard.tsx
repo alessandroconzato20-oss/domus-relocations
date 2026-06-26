@@ -260,28 +260,47 @@ function AdminDashboardContent({
   return (
     <div className="container" style={{ paddingTop: "2rem", paddingBottom: "2rem" }}>
       {/* Header */}
-      <div style={{ marginBottom: "3rem" }}>
-        <h1
+      <div style={{ marginBottom: "3rem", display: "flex", justifyContent: "space-between", alignItems: "flex-start" }}>
+        <div>
+          <h1
+            style={{
+              fontFamily: "'Cormorant Garamond', serif",
+              fontWeight: 300,
+              fontStyle: "italic",
+              fontSize: "2.5rem",
+              color: "var(--domus-charcoal)",
+              marginBottom: "0.5rem",
+            }}
+          >
+            Admin Dashboard
+          </h1>
+          <p
+            style={{
+              fontFamily: "'Jost', sans-serif",
+              fontSize: "0.9rem",
+              color: "rgba(45, 41, 38, 0.6)",
+            }}
+          >
+            Manage quiz responses and contact inquiries
+          </p>
+        </div>
+        <a
+          href="/admin/clients"
           style={{
-            fontFamily: "'Cormorant Garamond', serif",
-            fontWeight: 300,
-            fontStyle: "italic",
-            fontSize: "2.5rem",
-            color: "var(--domus-charcoal)",
-            marginBottom: "0.5rem",
-          }}
-        >
-          Admin Dashboard
-        </h1>
-        <p
-          style={{
+            padding: "0.75rem 1.5rem",
+            backgroundColor: "var(--domus-charcoal)",
+            color: "#ffffff",
             fontFamily: "'Jost', sans-serif",
-            fontSize: "0.9rem",
-            color: "rgba(45, 41, 38, 0.6)",
+            fontSize: "0.8rem",
+            letterSpacing: "0.1em",
+            textTransform: "uppercase",
+            textDecoration: "none",
+            borderRadius: "2px",
+            flexShrink: 0,
           }}
         >
-          Manage quiz responses and contact inquiries
-        </p>
+          Manage Clients →
+        </a>
       </div>
 
       {/* Tabs */}

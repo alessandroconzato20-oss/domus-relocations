@@ -84,3 +84,90 @@
 - [x] Upload PDF to S3 storage for user download
 - [x] Fix schema validation bug (checkbox arrays rejection)
 - [x] Test end-to-end quiz flow in browser (email capture → questions → profile → email sent → PDF generated)
+
+## Client Dashboard Build (DOMUS_Manus_Dashboard_Prompt.pdf)
+
+### Phase 1: Auth & Database Schema
+- [ ] Replace Manus OAuth with email/password auth (bcrypt hashing, JWT session cookies)
+- [ ] Add /login and /signup pages with DOMUS aesthetic
+- [ ] Add password field to users table
+- [ ] Add clientProfiles table to Drizzle schema
+- [ ] Add checklistItems table to Drizzle schema
+- [ ] Add schoolItems table to Drizzle schema
+- [ ] Add housingItems table to Drizzle schema
+- [ ] Add messages table to Drizzle schema
+- [ ] Add documents table (S3 key/URL, not base64) to Drizzle schema
+- [ ] Add appointments table to Drizzle schema
+- [ ] Run pnpm db:push to migrate schema
+
+### Phase 2: Backend tRPC Procedures
+- [ ] Add dashboard router with all client-facing procedures (getMyProfile, getMyChecklist, getMySchools, getMyHousing, getMyMessages, getMyDocuments, getDocumentById, getMyAppointments, sendMessage, markMessagesRead)
+- [ ] Add admin router with all admin-only procedures (getAllClients, getClientDashboard, upsertProfile, CRUD for checklist/schools/housing/messages/documents/appointments, updateProgress)
+- [ ] Enforce auth on all dashboard procedures (UNAUTHORIZED if no session)
+- [ ] Enforce admin check via ADMIN_EMAIL env var
+- [ ] Enforce client data isolation (userId === ctx.user.id)
+- [ ] S3 document upload/download with pre-signed URLs
+- [ ] File validation: extension allowlist, 10MB cap, base64 format check
+
+### Phase 3: Client Dashboard Pages
+- [ ] Build DashboardLayout with 220px fixed sidebar and mobile hamburger
+- [ ] /dashboard — Overview page (greeting, progress bar, 2x2 card grid, appointments, profile card)
+- [ ] /dashboard/checklist — Filter tabs, checklist items, completed section
+- [ ] /dashboard/housing — Property cards with status pills
+- [ ] /dashboard/schools — School cards with status pills
+- [ ] /dashboard/documents — File list with download, filter tabs
+- [ ] /dashboard/messages — Async thread, 30s polling, sticky input
+- [ ] /dashboard/appointments — List + calendar view
+- [ ] /dashboard/profile — Read-only fields, editable phone, retake quiz link
+- [ ] Link /dashboard/network to existing TrustedNetworkPage from sidebar
+
+### Phase 4: Admin Panel
+- [ ] /admin/dashboard — Client list table with Add New Client button
+- [ ] /admin/dashboard/[id] — Tabbed client management (7 tabs)
+- [ ] Tab 1: Profile edit with progress controls
+- [ ] Tab 2: Checklist CRUD
+- [ ] Tab 3: Schools CRUD
+- [ ] Tab 4: Housing CRUD
+- [ ] Tab 5: Messages (send as DOMUS)
+- [ ] Tab 6: Documents (upload to S3, delete)
+- [ ] Tab 7: Appointments CRUD
+- [ ] Redirect non-admin authenticated users to /404
+
+### Phase 5: Security
+- [ ] Install express-rate-limit (100 req/min/IP on tRPC endpoint)
+- [ ] Input sanitisation: strip HTML from all string fields
+- [ ] httpOnly, secure, sameSite session cookies
+- [ ] Log all admin mutations to server console
+- [ ] Generic error messages, no stack traces exposed
+- [ ] ADMIN_EMAIL env var set
+
+### Phase 6: Testing & Delivery
+- [ ] End-to-end test: admin creates client, client views dashboard
+- [ ] Test document upload and download
+- [ ] Test message thread between admin and client
+- [ ] Test progress bar update
+- [ ] Test auth redirects (unauthenticated → /login, non-admin → /404)
+- [ ] Write vitest tests for critical backend procedures
+- [ ] Save checkpoint
+
+## Dashboard Build — Completed Items (Jun 2026)
+- [x] Email/password auth (bcrypt + JWT) — login and signup pages built
+- [x] /login and /signup pages with DOMUS Milanese Atelier aesthetic
+- [x] clientProfiles, checklistItems, documents, appointments, schoolOptions, messages tables in Drizzle schema
+- [x] pnpm db:push run — all tables migrated
+- [x] clientDashboard tRPC router (getMyProfile, getMyChecklist, getMyDocuments, getMyAppointments, getMySchools, getMyMessages, sendMessage, markMessagesRead, getUnreadCount, getDocumentDownloadUrl)
+- [x] adminDashboard tRPC router (getAllClients, getClientFull, createClient, updateClient, addChecklistItem, deleteChecklistItem, uploadDocument, deleteDocument, getDocumentDownloadUrl, addAppointment, deleteAppointment, addSchool, deleteSchool, sendMessageToClient)
+- [x] S3 document upload/download with pre-signed URLs (10MB cap, extension allowlist)
+- [x] ClientDashboardLayout with 260px sidebar, mobile hamburger, unread badge
+- [x] /dashboard — Overview page
+- [x] /dashboard/checklist — Checklist page
+- [x] /dashboard/documents — Documents page (S3 upload/download)
+- [x] /dashboard/appointments — Appointments page
+- [x] /dashboard/schools — Schools page
+- [x] /dashboard/messages — Messages page (30s polling)
+- [x] /dashboard/network — Linked to existing TrustedNetwork page from sidebar
+- [x] /admin/clients — Client list with Add New Client (user-search-by-email)
+- [x] /admin/clients/:id — Tabbed client detail (Overview, Checklist, Documents, Appointments, Schools, Messages)
+- [x] Admin Dashboard "Manage Clients" button added
+- [x] App.tsx routes updated for all new pages
+- [x] 0 TypeScript errors

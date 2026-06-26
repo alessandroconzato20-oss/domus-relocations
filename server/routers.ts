@@ -2,9 +2,11 @@ import { COOKIE_NAME } from "@shared/const";
 import { getSessionCookieOptions } from "./_core/cookies";
 import { systemRouter } from "./_core/systemRouter";
 import { publicProcedure, router } from "./_core/trpc";
+import { clientDashboardRouter, adminDashboardRouter } from "./routers/dashboard";
 import { notifyOwner } from "./_core/notification";
 import { invokeLLM } from "./_core/llm";
 import { sendEmailViaResend, formatQuizEmailContent, formatInquiryEmailContent } from "./_core/resendService";
+import { sdk } from "./_core/sdk";
 import { z } from "zod";
 import { saveQuizResponse, getQuizResponses, saveContactSubmission, getContactSubmissions, saveInquiry, getInquiries, getUserByEmail, createLocalUser, getDb, createPasswordResetToken, validatePasswordResetToken, deletePasswordResetToken, updateUserPasswordByUserId, getQuizResponsesByEmail, getTrustedNetworkContacts, getTrustedNetworkContactsByCategory, getAllClients, getClientWithData, createTotpSecret, getTotpSecretByUserId, enableTotpSecret, disableTotpSecret, validateBackupCode } from "./db";
 import * as bcrypt from "bcryptjs";
@@ -40,8 +42,9 @@ export const appRouter = router({
           const passwordHash = await bcrypt.hash(input.password, 10);
           const newUser = await createLocalUser(input.email, input.name, passwordHash);
 
+          const sessionToken = await sdk.createSessionToken(newUser.openId, { name: newUser.name ?? "" });
           const cookieOptions = getSessionCookieOptions(ctx.req);
-          ctx.res.cookie(COOKIE_NAME, newUser.openId, cookieOptions);
+          ctx.res.cookie(COOKIE_NAME, sessionToken, { ...cookieOptions, maxAge: 365 * 24 * 60 * 60 * 1000 });
 
           return { success: true, message: "Account created successfully", user: newUser };
         } catch (error) {
@@ -78,11 +81,10 @@ export const appRouter = router({
             await db.update(users).set({ lastSignedIn: new Date() }).where(eq(users.id, user.id));
           }
 
+          const sessionToken = await sdk.createSessionToken(user.openId, { name: user.name ?? "" });
           const cookieOptions = getSessionCookieOptions(ctx.req);
-          // Manually set the Set-Cookie header instead of using ctx.res.cookie()
-          const cookieString = `${COOKIE_NAME}=${user.openId}; Path=${cookieOptions.path}; HttpOnly; SameSite=${cookieOptions.sameSite}${cookieOptions.secure ? '; Secure' : ''}`;
-          ctx.res.setHeader('Set-Cookie', cookieString);
-          console.log(`[Auth] Set-Cookie header: ${cookieString}`);
+          ctx.res.cookie(COOKIE_NAME, sessionToken, { ...cookieOptions, maxAge: 365 * 24 * 60 * 60 * 1000 });
+          console.log(`[Auth] Session cookie set for user: ${user.email}`);
 
           return { success: true, message: "Logged in successfully", user };
         } catch (error) {
@@ -554,6 +556,12 @@ View full details in the admin dashboard.`;
         }
       }),
   }),
+
+  // Client private dashboard
+  clientDashboard: clientDashboardRouter,
+
+  // Admin dashboard management
+  adminDashboard: adminDashboardRouter,
 
   admin: router({
     getAllClients: publicProcedure.query(async () => {
