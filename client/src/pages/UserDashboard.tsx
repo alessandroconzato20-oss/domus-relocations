@@ -17,6 +17,8 @@ export default function UserDashboard() {
   const [quizzes, setQuizzes] = useState<any[]>([]);
   const [expandedId, setExpandedId] = useState<number | null>(null);
 
+  const utils = trpc.useUtils();
+
   const handleSearch = async (e: React.FormEvent) => {
     e.preventDefault();
 
@@ -27,7 +29,6 @@ export default function UserDashboard() {
 
     setIsLoading(true);
     try {
-      const utils = trpc.useUtils();
       const result = await utils.submissions.getUserQuizzes.fetch({ email });
       setQuizzes(result);
       setHasSearched(true);
