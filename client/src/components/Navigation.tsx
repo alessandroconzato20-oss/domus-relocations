@@ -76,13 +76,13 @@ export default function Navigation({ onQuizOpen }: NavigationProps) {
             <button onClick={() => scrollTo("milan")} className="nav-link" style={{ background: "none", border: "none" }}>
               Living In Milano
             </button>
-            <button
-              onClick={() => setLocation("/account")}
+            <a
+              href="/login"
               className="nav-link"
-              style={{ background: "none", border: "none" }}
+              style={{ textDecoration: "none" }}
             >
-              My Account
-            </button>
+              Client Login
+            </a>
             <button
               onClick={onQuizOpen}
               className="btn-luxury"
@@ -122,13 +122,14 @@ export default function Navigation({ onQuizOpen }: NavigationProps) {
             <button onClick={() => scrollTo("services")} className="nav-link" style={{ background: "none", border: "none", textAlign: "left" }}>Private Services</button>
             <button onClick={() => scrollTo("students")} className="nav-link" style={{ background: "none", border: "none", textAlign: "left" }}>International Students</button>
             <button onClick={() => scrollTo("milan")} className="nav-link" style={{ background: "none", border: "none", textAlign: "left" }}>Living In Milano</button>
-            <button
-              onClick={() => { setLocation("/account"); setMenuOpen(false); }}
+            <a
+              href="/login"
+              onClick={() => setMenuOpen(false)}
               className="nav-link"
-              style={{ background: "none", border: "none", textAlign: "left" }}
+              style={{ textDecoration: "none", textAlign: "left" }}
             >
-              My Account
-            </button>
+              Client Login
+            </a>
             <button
               onClick={() => { onQuizOpen(); setMenuOpen(false); }}
               className="btn-luxury"

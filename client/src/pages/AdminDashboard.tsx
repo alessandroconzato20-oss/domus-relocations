@@ -3,17 +3,16 @@
  * Protected page for viewing quiz responses and contact submissions
  */
 
-import { useAuth } from "@/_core/hooks/useAuth";
 import { trpc } from "@/lib/trpc";
-import { useEffect, useState } from "react";
-import { useLocation } from "wouter";
+import { useState } from "react";
+const ADMIN_EMAIL = "milano@domusrelocations.com";
 
 export default function AdminDashboard() {
-  const { user, loading } = useAuth();
-  const [, setLocation] = useLocation();
+  const meQuery = trpc.auth.me.useQuery();
   const [activeTab, setActiveTab] = useState<"quiz" | "contact" | "inquiries">("inquiries");
 
-  // TODO: Re-enable auth guard after fixing cookie issue
+  const user = meQuery.data;
+  const loading = meQuery.isLoading;
 
   if (loading) {
     return (
@@ -23,12 +22,15 @@ export default function AdminDashboard() {
     );
   }
 
-  // Don't render content if not authenticated or not admin
+  // Redirect to login if not authenticated
   if (!user) {
+    window.location.replace("/login");
     return null;
   }
 
-  if (user.role !== "admin") {
+  // Redirect non-admin users to dashboard
+  if (user.email !== ADMIN_EMAIL) {
+    window.location.replace("/dashboard");
     return null;
   }
 
