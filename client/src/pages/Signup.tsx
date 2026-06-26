@@ -15,6 +15,10 @@ export default function Signup() {
   const signupMutation = trpc.auth.signup.useMutation({
     onSuccess: (data) => {
       if (data.success) {
+        // Store JWT in localStorage so it survives page navigation
+        if (data.token) {
+          localStorage.setItem("domus_auth_token", data.token);
+        }
         window.location.replace("/dashboard");
       } else {
         setError(data.message || "Signup failed. Please try again.");

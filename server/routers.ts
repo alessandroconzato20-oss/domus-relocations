@@ -43,10 +43,11 @@ export const appRouter = router({
           const newUser = await createLocalUser(input.email, input.name, passwordHash);
 
           const sessionToken = await sdk.createSessionToken(newUser.openId, { name: newUser.name ?? "" });
+          // Set cookie as fallback for environments where it works
           const cookieOptions = getSessionCookieOptions(ctx.req);
           ctx.res.cookie(COOKIE_NAME, sessionToken, { ...cookieOptions, maxAge: 365 * 24 * 60 * 60 * 1000 });
 
-          return { success: true, message: "Account created successfully", user: newUser };
+          return { success: true, message: "Account created successfully", user: newUser, token: sessionToken };
         } catch (error) {
           console.error("Failed to sign up:", error);
           return { success: false, message: "Failed to create account" };
@@ -82,11 +83,12 @@ export const appRouter = router({
           }
 
           const sessionToken = await sdk.createSessionToken(user.openId, { name: user.name ?? "" });
+          // Set cookie as fallback for environments where it works
           const cookieOptions = getSessionCookieOptions(ctx.req);
           ctx.res.cookie(COOKIE_NAME, sessionToken, { ...cookieOptions, maxAge: 365 * 24 * 60 * 60 * 1000 });
           console.log(`[Auth] Session cookie set for user: ${user.email}`);
 
-          return { success: true, message: "Logged in successfully", user };
+          return { success: true, message: "Logged in successfully", user, token: sessionToken };
         } catch (error) {
           console.error("Failed to log in:", error);
           return { success: false, message: "Failed to log in" };

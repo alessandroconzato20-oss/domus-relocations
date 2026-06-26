@@ -17,6 +17,10 @@ export default function Login() {
   const loginMutation = trpc.auth.login.useMutation({
     onSuccess: (data) => {
       if (data.success) {
+        // Store JWT in localStorage so it survives page navigation and proxy stripping of cookies
+        if (data.token) {
+          localStorage.setItem("domus_auth_token", data.token);
+        }
         const isAdmin = data.user?.email === ADMIN_EMAIL;
         // Hard navigate to refresh auth state
         if (isAdmin) {

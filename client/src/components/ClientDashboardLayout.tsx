@@ -30,6 +30,7 @@ export default function ClientDashboardLayout({ children, title }: ClientDashboa
   const meQuery = trpc.auth.me.useQuery();
   const logoutMutation = trpc.auth.logout.useMutation({
     onSuccess: () => {
+      localStorage.removeItem("domus_auth_token");
       window.location.replace("/login");
     },
   });
