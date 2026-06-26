@@ -3,6 +3,7 @@
  */
 import { trpc } from "@/lib/trpc";
 import ClientDashboardLayout from "@/components/ClientDashboardLayout";
+import type { ChecklistItem, Appointment, Document } from "@shared/types";
 
 function StatCard({ label, value, sub }: { label: string; value: string | number; sub?: string }) {
   return (
@@ -36,11 +37,11 @@ export default function DashboardOverview() {
   const documents = documentsQuery.data ?? [];
   const unreadCount = unreadQuery.data?.count ?? 0;
 
-  const completedItems = checklist.filter((i) => i.isCompleted).length;
+  const completedItems = (checklist as ChecklistItem[]).filter((i: ChecklistItem) => i.isCompleted).length;
   const totalItems = checklist.length;
   const completionPct = totalItems > 0 ? Math.round((completedItems / totalItems) * 100) : 0;
 
-  const upcomingAppts = appointments.filter((a) => {
+  const upcomingAppts = (appointments as Appointment[]).filter((a: Appointment) => {
     const d = new Date(a.appointmentDate);
     return d >= new Date() && a.status !== "cancelled";
   });
@@ -159,7 +160,7 @@ export default function DashboardOverview() {
           </div>
           {checklist.length > 0 ? (
             <div style={{ display: "flex", flexDirection: "column", gap: "0.5rem" }}>
-              {checklist.slice(0, 4).map((item) => (
+              {(checklist as ChecklistItem[]).slice(0, 4).map((item: ChecklistItem) => (
                 <div key={item.id} style={{ display: "flex", alignItems: "center", gap: "0.75rem" }}>
                   <div style={{
                     width: "16px",
