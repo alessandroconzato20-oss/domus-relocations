@@ -51,16 +51,28 @@ export default function HeroSection() {
         justifyContent: "center",
       }}
     >
-      {/* Background image */}
-      <div
+      {/* Background image — using <img fetchPriority="high"> so the browser
+           discovers and fetches it immediately during HTML parsing, not after CSS.
+           This is the single most impactful LCP optimisation. */}
+      <img
+        src={HERO_IMAGE}
+        alt=""
+        aria-hidden="true"
+        fetchPriority="high"
+        decoding="sync"
+        width={1920}
+        height={1080}
         style={{
           position: "absolute",
           inset: 0,
-          backgroundImage: `url(${HERO_IMAGE})`,
-          backgroundSize: "cover",
-          backgroundPosition: "center 30%",
+          width: "100%",
+          height: "100%",
+          objectFit: "cover",
+          objectPosition: "center 30%",
           transform: "scale(1.05)",
           transition: "transform 8s ease-out",
+          pointerEvents: "none",
+          userSelect: "none",
         }}
         className="hero-bg"
       />

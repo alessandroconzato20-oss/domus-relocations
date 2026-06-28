@@ -43,17 +43,33 @@
       while custom fonts load asynchronously. Eliminates invisible text (FOIT).
     -->
     <style>
+      /* ===== CRITICAL CSS — inlined to eliminate render-blocking ===== */
       :root {
         --font-serif-fallback: Georgia, 'Times New Roman', Times, serif;
         --font-sans-fallback: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+        --domus-ivory: #F5F0E8;
+        --domus-charcoal: #1A1814;
+        --domus-gold: #C9A84C;
+        --domus-dark: #0F0D0B;
       }
-      /* Apply fallbacks before web fonts arrive */
+      /* Prevent FOUC — set background immediately so no white flash */
+      html { background-color: #F5F0E8; }
       body {
+        margin: 0;
         font-family: var(--font-sans-fallback);
+        background-color: #F5F0E8;
+        color: #1A1814;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
       }
       h1, h2, h3, h4, h5, h6 {
         font-family: var(--font-serif-fallback);
       }
+      /* Hero section: reserve full-viewport height immediately so LCP image
+         has a stable container before React hydrates */
+      #root { min-height: 100vh; }
+      /* Prevent layout shift from navigation */
+      nav, header { display: block; }
     </style>
 
     <!-- Preload the LCP hero image so the browser fetches it immediately -->
