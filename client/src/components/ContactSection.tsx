@@ -196,7 +196,13 @@ export default function ContactSection({ onQuizOpen }: ContactSectionProps) {
             {/* Right: Contact form */}
             <div ref={formRef} className="fade-up">
               {!submitted ? (
-                <form onSubmit={handleSubmit} style={{ display: "flex", flexDirection: "column", gap: "1.5rem" }}>
+                <form
+                  onSubmit={handleSubmit}
+                  aria-label="Contact DOMUS Relocations — Begin Your Private Relocation"
+                  data-mcp-form="contact"
+                  data-mcp-description="Enquiry form for prospective clients interested in private relocation advisory services for Milan, Italy"
+                  style={{ display: "flex", flexDirection: "column", gap: "1.5rem" }}
+                >
                   <div>
                     <label
                       style={{
@@ -215,6 +221,13 @@ export default function ContactSection({ onQuizOpen }: ContactSectionProps) {
                     <input
                       type="text"
                       required
+                      id="contact-name"
+                      name="name"
+                      autoComplete="name"
+                      aria-label="Your full name"
+                      aria-required="true"
+                      data-mcp-field="name"
+                      data-mcp-description="Full name of the person making the enquiry"
                       value={formData.name}
                       onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                       placeholder="Full name"
@@ -254,6 +267,13 @@ export default function ContactSection({ onQuizOpen }: ContactSectionProps) {
                     <input
                       type="email"
                       required
+                      id="contact-email"
+                      name="email"
+                      autoComplete="email"
+                      aria-label="Your email address"
+                      aria-required="true"
+                      data-mcp-field="email"
+                      data-mcp-description="Email address for DOMUS to respond to the enquiry"
                       value={formData.email}
                       onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                       placeholder="your@email.com"
@@ -292,6 +312,11 @@ export default function ContactSection({ onQuizOpen }: ContactSectionProps) {
                     </label>
                     <textarea
                       rows={5}
+                      id="contact-message"
+                      name="message"
+                      aria-label="Tell us about your move"
+                      data-mcp-field="message"
+                      data-mcp-description="Details about the relocation: timeline, priorities, family situation, and any questions for DOMUS"
                       value={formData.message}
                       onChange={(e) => setFormData({ ...formData, message: e.target.value })}
                       placeholder="When are you moving? What are your priorities? Any questions?"

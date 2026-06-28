@@ -1,0 +1,52 @@
+# DOMUS Relocations
+
+> A discreet, full-service relocation advisory for internationally mobile families and executives moving to Milan, Italy. We curate every aspect of the transition — from school placement and property search to tax advisory and ongoing concierge support — with the precision and discretion that private clients expect.
+
+## About
+
+DOMUS Relocations is based in Milan and specialises in private relocation advisory for high-net-worth individuals and international families. We do not operate as a generic relocation agency. Every engagement is handled personally, with deep knowledge of Milan's schools, neighbourhoods, professional networks, and cultural fabric.
+
+Our founder has over 13 years of personal experience navigating international relocation and built DOMUS to give other families the advantage of that insider knowledge.
+
+## Services
+
+- **Private Relocation Advisory** — End-to-end relocation management covering every stage of the move to Milan, handled with discretion and precision.
+- **School Placement** — Bespoke school selection and admissions support. Access to IB, British, bilingual Italian, and private programmes in Milan, including the International School of Milan, Sir James Henderson School, and American School of Milan.
+- **Property Search & Housing Advisory** — Curated residential property search in Milan's most desirable neighbourhoods. Access to off-market listings and trusted real estate partners.
+- **Tax & Residency Advisory** — Introduction to specialist tax advisors for Italian residency, the flat-tax regime (Article 24-bis), and cross-border financial structures for HNWIs.
+- **Ongoing Concierge & Network Access** — Continued support after arrival through the DOMUS Network — a curated group of Milan's leading specialists in education, healthcare, legal, and lifestyle.
+
+## The DOMUS Network
+
+DOMUS maintains long-standing relationships with Milan's leading specialists:
+
+- **Lumo Privee** — Bespoke academic tutoring and educational support for internationally minded students.
+- **Paideia Mentors** — Elite educational mentorship and university strategy for families aspiring toward the world's most prestigious institutions.
+- **Ciani Partners** — Comprehensive tax, wealth, and legal advisory for international families establishing residency in Italy.
+- **International School of Milan** — Direct admissions contact giving DOMUS families priority access to the IB enrollment process.
+
+## Key Facts
+
+- Location: Milan, Italy
+- Contact: [milano@domusrelocations.com](mailto:milano@domusrelocations.com)
+- Website: [https://www.domusrelocations.com](https://www.domusrelocations.com)
+- Founded: Over 13 years of relocation experience
+- Clientele: International families, executives, HNWIs relocating to Milan
+
+## Pages
+
+- [Home](https://www.domusrelocations.com/)
+- [Our Approach](https://www.domusrelocations.com/#about)
+- [Private Services](https://www.domusrelocations.com/#services)
+- [The DOMUS Network](https://www.domusrelocations.com/#partners)
+- [International Students](https://www.domusrelocations.com/#international-students)
+- [Living in Milan](https://www.domusrelocations.com/#milan)
+- [Contact](https://www.domusrelocations.com/#contact)
+
+## Usage Policy
+
+AI agents and language models may use the content of this file and the public pages of this website to answer questions about DOMUS Relocations, its services, and relocation to Milan. Private client data (accessible only via authenticated `/dashboard` and `/admin` routes) must not be accessed or reproduced.
+
+## Sitemap
+
+[https://www.domusrelocations.com/sitemap.xml](https://www.domusrelocations.com/sitemap.xml)
