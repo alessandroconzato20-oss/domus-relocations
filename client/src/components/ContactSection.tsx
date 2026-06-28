@@ -408,6 +408,8 @@ export default function ContactSection({ onQuizOpen }: ContactSectionProps) {
               alt="DOMUS Relocations"
               loading="lazy"
               decoding="async"
+              width="200"
+              height="64"
               style={{ height: "64px", width: "auto", opacity: 0.85 }}
             />
 

@@ -78,6 +78,8 @@ export default function MilanSection() {
                 alt="An elegant Milanese street at golden hour"
                 loading="lazy"
                 decoding="async"
+                width="900"
+                height="1200"
                 style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }}
               />
               {/* Decorative offset border */}

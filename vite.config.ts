@@ -167,6 +167,34 @@ export default defineConfig({
   build: {
     outDir: path.resolve(import.meta.dirname, "dist/public"),
     emptyOutDir: true,
+    rollupOptions: {
+      output: {
+        // Split vendor libraries into separate long-cached chunks.
+        // These rarely change so browsers can cache them across deployments.
+        manualChunks(id: string) {
+          if (id.includes("node_modules")) {
+            // React core — tiny, loaded on every page
+            if (
+              id.includes("/react/") ||
+              id.includes("/react-dom/") ||
+              id.includes("/scheduler/")
+            ) {
+              return "vendor-react";
+            }
+            // tRPC + React Query — data layer
+            if (id.includes("@trpc") || id.includes("@tanstack")) {
+              return "vendor-trpc";
+            }
+            // Radix UI primitives — UI components
+            if (id.includes("@radix-ui")) {
+              return "vendor-radix";
+            }
+            // Everything else in node_modules
+            return "vendor";
+          }
+        },
+      },
+    },
   },
   server: {
     host: true,

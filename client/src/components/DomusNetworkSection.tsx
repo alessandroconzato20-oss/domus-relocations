@@ -223,6 +223,8 @@ export default function DomusNetworkSection() {
                   alt="Lumo Privee Logo"
                   loading="lazy"
                   decoding="async"
+                  width="400"
+                  height="180"
                   style={{
                     maxHeight: "clamp(120px, 30vw, 180px)",
                     maxWidth: "90%",
@@ -342,6 +344,8 @@ export default function DomusNetworkSection() {
                   alt="Paideia Mentors Logo"
                   loading="lazy"
                   decoding="async"
+                  width="400"
+                  height="180"
                   style={{
                     maxHeight: "clamp(120px, 30vw, 180px)",
                     maxWidth: "90%",
@@ -549,6 +553,8 @@ export default function DomusNetworkSection() {
                   alt="Ciani Partners Logo"
                   loading="lazy"
                   decoding="async"
+                  width="400"
+                  height="180"
                   style={{
                     maxHeight: "clamp(120px, 30vw, 180px)",
                     maxWidth: "90%",
