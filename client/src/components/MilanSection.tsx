@@ -76,6 +76,8 @@ export default function MilanSection() {
               <img
                 src={MILAN_IMAGE}
                 alt="An elegant Milanese street at golden hour"
+                loading="lazy"
+                decoding="async"
                 style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }}
               />
               {/* Decorative offset border */}

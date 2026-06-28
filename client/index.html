@@ -9,9 +9,62 @@
     <meta property="og:title" content="DOMUS Relocations: Premium Milan Relocation Services" />
     <meta property="og:description" content="Premium relocation services for Milan. Private advisory, school placement, and trusted network access for international families." />
     <meta property="og:type" content="website" />
+    <!-- Preconnect to font origins to reduce DNS + TLS latency -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500;1,600&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet" />
+    <!-- dns-prefetch as a fallback for browsers that don't support preconnect -->
+    <link rel="dns-prefetch" href="https://fonts.googleapis.com" />
+    <link rel="dns-prefetch" href="https://fonts.gstatic.com" />
+
+    <!-- Preconnect to CDN for hero/about/milan images (LCP candidates) -->
+    <link rel="preconnect" href="https://d2xsxph8kpxj0f.cloudfront.net" crossorigin />
+    <link rel="dns-prefetch" href="https://d2xsxph8kpxj0f.cloudfront.net" />
+
+    <!--
+      Critical font-face fallback: render text immediately with system fonts
+      while custom fonts load asynchronously. Eliminates invisible text (FOIT).
+    -->
+    <style>
+      :root {
+        --font-serif-fallback: Georgia, 'Times New Roman', Times, serif;
+        --font-sans-fallback: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+      }
+      /* Apply fallbacks before web fonts arrive */
+      body {
+        font-family: var(--font-sans-fallback);
+      }
+      h1, h2, h3, h4, h5, h6 {
+        font-family: var(--font-serif-fallback);
+      }
+    </style>
+
+    <!-- Preload the LCP hero image so the browser fetches it immediately -->
+    <link
+      rel="preload"
+      as="image"
+      href="https://d2xsxph8kpxj0f.cloudfront.net/310519663449035187/5G96cC5HiLZMXbLbP234aP/domus-hero-milan-8KAoKuZsmiaC2PDXN6NmGS.webp"
+      type="image/webp"
+      fetchpriority="high"
+    />
+
+    <!--
+      Non-render-blocking Google Fonts:
+      Load as print stylesheet (invisible to render), then swap to all media once loaded.
+      This eliminates the ~1,760 ms render-blocking penalty.
+    -->
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500;1,600&family=Jost:wght@300;400;500;600&display=swap"
+      media="print"
+      onload="this.media='all'"
+    />
+    <!-- Fallback for no-JS environments -->
+    <noscript>
+      <link
+        rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500;1,600&family=Jost:wght@300;400;500;600&display=swap"
+      />
+    </noscript>
     <link rel="icon" type="image/png" href="/favicon.png" />
   </head>
   <body>

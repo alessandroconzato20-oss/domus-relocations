@@ -406,6 +406,8 @@ export default function ContactSection({ onQuizOpen }: ContactSectionProps) {
             <img
               src={LOGO_URL}
               alt="DOMUS Relocations"
+              loading="lazy"
+              decoding="async"
               style={{ height: "64px", width: "auto", opacity: 0.85 }}
             />
 

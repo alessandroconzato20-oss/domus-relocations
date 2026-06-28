@@ -221,6 +221,8 @@ export default function DomusNetworkSection() {
                 <img
                   src="/manus-storage/pasted_file_lHAIrR_image_3737daae.png"
                   alt="Lumo Privee Logo"
+                  loading="lazy"
+                  decoding="async"
                   style={{
                     maxHeight: "clamp(120px, 30vw, 180px)",
                     maxWidth: "90%",
@@ -338,6 +340,8 @@ export default function DomusNetworkSection() {
                 <img
                   src="/manus-storage/pasted_file_rL5Bb3_image_245de9fc.png"
                   alt="Paideia Mentors Logo"
+                  loading="lazy"
+                  decoding="async"
                   style={{
                     maxHeight: "clamp(120px, 30vw, 180px)",
                     maxWidth: "90%",
@@ -543,6 +547,8 @@ export default function DomusNetworkSection() {
                 <img
                   src="/manus-storage/Screenshot2026-06-01at12.10.32_fd6dc1f9.png"
                   alt="Ciani Partners Logo"
+                  loading="lazy"
+                  decoding="async"
                   style={{
                     maxHeight: "clamp(120px, 30vw, 180px)",
                     maxWidth: "90%",

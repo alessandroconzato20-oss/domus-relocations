@@ -58,10 +58,28 @@ export function serveStatic(app: Express) {
     );
   }
 
-  app.use(express.static(distPath));
+  // Vite content-hashes JS/CSS/image filenames at build time (e.g. index-Bx3kLm9a.js).
+  // Those assets are safe to cache for 1 year with the immutable directive.
+  // HTML must never be cached so users always get the latest app shell.
+  app.use(
+    express.static(distPath, {
+      setHeaders(res, filePath) {
+        const isHashed = /\.[a-f0-9]{8,}\.(js|css|woff2?|ttf|eot|svg|png|jpg|jpeg|webp|gif|ico)$/i.test(filePath);
+        if (isHashed) {
+          res.setHeader("Cache-Control", "public, max-age=31536000, immutable");
+        } else if (filePath.endsWith(".html")) {
+          res.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
+        } else {
+          // favicon, robots.txt, manifest, etc. — 1 day
+          res.setHeader("Cache-Control", "public, max-age=86400");
+        }
+      },
+    })
+  );
 
   // fall through to index.html if the file doesn't exist
   app.use("*", (_req, res) => {
+    res.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
     res.sendFile(path.resolve(distPath, "index.html"));
   });
 }
