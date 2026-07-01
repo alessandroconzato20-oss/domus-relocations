@@ -286,23 +286,41 @@ function AdminDashboardContent({
             Manage quiz responses and contact inquiries
           </p>
         </div>
-        <a
-          href="/admin/clients"
-          style={{
-            padding: "0.75rem 1.5rem",
-            backgroundColor: "var(--domus-charcoal)",
-            color: "#ffffff",
-            fontFamily: "'Jost', sans-serif",
-            fontSize: "0.8rem",
-            letterSpacing: "0.1em",
-            textTransform: "uppercase",
-            textDecoration: "none",
-            borderRadius: "2px",
-            flexShrink: 0,
-          }}
-        >
-          Manage Clients →
-        </a>
+        <div style={{ display: "flex", gap: "0.75rem", flexShrink: 0 }}>
+          <a
+            href="/admin/intake"
+            style={{
+              padding: "0.75rem 1.5rem",
+              backgroundColor: "transparent",
+              color: "var(--domus-gold)",
+              border: "1px solid var(--domus-gold)",
+              fontFamily: "'Jost', sans-serif",
+              fontSize: "0.8rem",
+              letterSpacing: "0.1em",
+              textTransform: "uppercase",
+              textDecoration: "none",
+              borderRadius: "2px",
+            }}
+          >
+            Intake Forms →
+          </a>
+          <a
+            href="/admin/clients"
+            style={{
+              padding: "0.75rem 1.5rem",
+              backgroundColor: "var(--domus-charcoal)",
+              color: "#ffffff",
+              fontFamily: "'Jost', sans-serif",
+              fontSize: "0.8rem",
+              letterSpacing: "0.1em",
+              textTransform: "uppercase",
+              textDecoration: "none",
+              borderRadius: "2px",
+            }}
+          >
+            Manage Clients →
+          </a>
+        </div>
       </div>
 
       {/* Tabs */}

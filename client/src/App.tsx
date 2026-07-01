@@ -33,10 +33,14 @@ import FamilyDashboard from "./pages/FamilyDashboard";
 import Setup2FA from "./pages/Setup2FA";
 import PartnerDetail from "./pages/PartnerDetail";
 
+// Intake
+import Intake from "./pages/Intake";
+
 // Admin
 import AdminDashboard from "./pages/AdminDashboard";
 import AdminClientList from "./pages/admin/ClientList";
 import AdminClientDetail from "./pages/admin/ClientDetail";
+import AdminIntakeForms from "./pages/admin/IntakeForms";
 
 function Router() {
   // make sure to consider if you need authentication for certain routes
@@ -44,6 +48,7 @@ function Router() {
     <Switch>
       {/* Public */}
       <Route path={"/"} component={Home} />
+      <Route path={"/intake"} component={Intake} />
       <Route path={"/login"} component={Login} />
       <Route path={"/signup"} component={Signup} />
       <Route path={"/forgot-password"} component={ForgotPassword} />
@@ -68,6 +73,7 @@ function Router() {
       <Route path={"/admin"} component={AdminDashboard} />
       <Route path={"/admin/clients"} component={AdminClientList} />
       <Route path={"/admin/clients/:id"} component={AdminClientDetail} />
+      <Route path={"/admin/intake"} component={AdminIntakeForms} />
 
       {/* Other */}
       <Route path={"/setup-2fa"} component={Setup2FA} />

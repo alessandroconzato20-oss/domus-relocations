@@ -9,4 +9,5 @@ export const ENV = {
   forgeApiKey: process.env.BUILT_IN_FORGE_API_KEY ?? "",
   resendApiKey: process.env.RESEND_API_KEY ?? "",
   adminEmail: process.env.ADMIN_EMAIL ?? "milano@domusrelocations.com",
+  anthropicApiKey: process.env.ANTHROPIC_API_KEY ?? "",
 };

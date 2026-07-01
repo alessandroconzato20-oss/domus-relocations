@@ -1,4 +1,4 @@
-import { int, mysqlEnum, mysqlTable, text, timestamp, varchar, tinyint } from "drizzle-orm/mysql-core";
+import { int, mysqlEnum, mysqlTable, text, timestamp, varchar, tinyint, json, date } from "drizzle-orm/mysql-core";
 
 /**
  * Core user table backing auth flow.
@@ -235,3 +235,101 @@ export const totpSecrets = mysqlTable("totpSecrets", {
 
 export type TotpSecret = typeof totpSecrets.$inferSelect;
 export type InsertTotpSecret = typeof totpSecrets.$inferInsert;
+
+// ─── INTAKE QUESTIONNAIRE TABLE ──────────────────────────────────────────────
+
+export const intakeForms = mysqlTable("intakeForms", {
+  id: int("id").autoincrement().primaryKey(),
+
+  // Section 1 — The Family
+  primaryName: varchar("primaryName", { length: 255 }).notNull(),
+  email: varchar("email", { length: 320 }).notNull(),
+  phone: varchar("phone", { length: 50 }),
+  preferredLanguage: varchar("preferredLanguage", { length: 50 }).notNull().default("English"),
+  whoRelocating: json("whoRelocating").$type<string[]>().notNull(),
+  partnerName: varchar("partnerName", { length: 255 }),
+  partnerNationality: varchar("partnerNationality", { length: 100 }),
+  partnerLanguages: text("partnerLanguages"),
+  children: json("children").$type<Array<{
+    name: string;
+    dateOfBirth: string;
+    currentSchool: string;
+    currentCurriculum: string;
+    yearGrade: string;
+    languagesSpoken: string;
+  }>>(),
+  pets: json("pets").$type<string[]>(),
+
+  // Section 2 — The Move
+  fromCity: varchar("fromCity", { length: 255 }).notNull(),
+  nationalities: text("nationalities"),
+  moveReasons: json("moveReasons").$type<string[]>().notNull(),
+  arrivalDate: varchar("arrivalDate", { length: 20 }),
+  dateFirmness: varchar("dateFirmness", { length: 100 }),
+  intendedDuration: json("intendedDuration").$type<string[]>(),
+  targetCity: json("targetCity").$type<string[]>().notNull(),
+  livedInItalyBefore: varchar("livedInItalyBefore", { length: 100 }),
+  previousCountries: text("previousCountries"),
+
+  // Section 3 — Housing
+  rentOrBuy: json("rentOrBuy").$type<string[]>().notNull(),
+  budget: json("budget").$type<string[]>().notNull(),
+  bedrooms: varchar("bedrooms", { length: 50 }),
+  propertyType: varchar("propertyType", { length: 100 }),
+  propertyRequirements: json("propertyRequirements").$type<string[]>(),
+  neighbourhoodVibe: json("neighbourhoodVibe").$type<string[]>(),
+  neighbourhoodInterest: text("neighbourhoodInterest"),
+  previousHomeNotes: text("previousHomeNotes"),
+
+  // Section 4 — Education
+  childEduProfiles: json("childEduProfiles").$type<Array<{
+    childName: string;
+    academicStrengths: string;
+    extracurriculars: string;
+    continuityEssential: string;
+  }>>(),
+  italianImmersionScale: int("italianImmersionScale"),
+  curriculumPreference: json("curriculumPreference").$type<string[]>(),
+  midYearEntry: json("midYearEntry").$type<string[]>(),
+  learningNeeds: text("learningNeeds"),
+  universityTarget: text("universityTarget"),
+
+  // Section 5 — Professional & Fiscal
+  professionalSituation: json("professionalSituation").$type<string[]>(),
+  partnerProfSituation: json("partnerProfSituation").$type<string[]>(),
+  flatTaxInterest: json("flatTaxInterest").$type<string[]>(),
+  livedInItalyLast9: json("livedInItalyLast9").$type<string[]>(),
+  hasCommercialista: json("hasCommercialista").$type<string[]>(),
+  bankingNeeds: json("bankingNeeds").$type<string[]>(),
+
+  // Section 6 — Lifestyle
+  lifestyleDescriptors: json("lifestyleDescriptors").$type<string[]>(),
+  hobbies: text("hobbies"),
+  socialNetworkScale: int("socialNetworkScale"),
+  italianLevelYou: varchar("italianLevelYou", { length: 50 }),
+  italianLevelPartner: varchar("italianLevelPartner", { length: 50 }),
+  healthcareNeeds: json("healthcareNeeds").$type<string[]>(),
+  healthcareOther: text("healthcareOther"),
+  dietaryNotes: text("dietaryNotes"),
+
+  // Section 7 — Priorities
+  topPriorities: json("topPriorities").$type<string[]>(),
+  biggestAnxiety: text("biggestAnxiety"),
+  prevReloScale: int("prevReloScale"),
+  prevReloWentWrong: text("prevReloWentWrong"),
+  commsPref: json("commsPref").$type<string[]>(),
+  timezone: varchar("timezone", { length: 100 }),
+  additionalDecisionMaker: varchar("additionalDecisionMaker", { length: 255 }),
+  anythingElse: text("anythingElse"),
+  heardAboutDomus: json("heardAboutDomus").$type<string[]>(),
+
+  // Metadata
+  submittedAt: timestamp("submittedAt").defaultNow().notNull(),
+  advisorBriefSent: tinyint("advisorBriefSent").default(0).notNull(),
+  clientPreviewSent: tinyint("clientPreviewSent").default(0).notNull(),
+  assignedAdvisor: varchar("assignedAdvisor", { length: 255 }),
+  internalNotes: text("internalNotes"),
+});
+
+export type IntakeForm = typeof intakeForms.$inferSelect;
+export type InsertIntakeForm = typeof intakeForms.$inferInsert;

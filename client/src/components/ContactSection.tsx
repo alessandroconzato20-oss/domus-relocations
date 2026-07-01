@@ -31,10 +31,10 @@ function useScrollReveal(threshold = 0.15) {
 }
 
 interface ContactSectionProps {
-  onQuizOpen: () => void;
+  onQuizOpen?: () => void;
 }
 
-export default function ContactSection({ onQuizOpen }: ContactSectionProps) {
+export default function ContactSection({ onQuizOpen: _onQuizOpen }: ContactSectionProps) {
   const headerRef = useScrollReveal();
   const formRef = useScrollReveal(0.1);
   const [submitted, setSubmitted] = useState(false);
@@ -129,9 +129,9 @@ export default function ContactSection({ onQuizOpen }: ContactSectionProps) {
                 Every engagement begins with a private, no-obligation consultation. We listen first, then we plan. Reach out to begin a conversation about your move to Milan.
               </p>
 
-              <button onClick={onQuizOpen} className="btn-luxury" style={{ borderColor: "rgba(201, 168, 76, 0.5)", color: "rgba(245, 240, 232, 0.8)", marginBottom: "3rem" }}>
-                Take the Profile Quiz
-              </button>
+              <a href="/intake" className="btn-luxury" style={{ borderColor: "rgba(201, 168, 76, 0.5)", color: "rgba(245, 240, 232, 0.8)", marginBottom: "3rem", textDecoration: "none", display: "inline-block" }}>
+                Begin Your Private Consultation
+              </a>
 
               {/* Contact details */}
               <div style={{ display: "flex", flexDirection: "column", gap: "1.25rem" }}>

@@ -3,6 +3,7 @@ import { getSessionCookieOptions } from "./_core/cookies";
 import { systemRouter } from "./_core/systemRouter";
 import { publicProcedure, router } from "./_core/trpc";
 import { clientDashboardRouter, adminDashboardRouter } from "./routers/dashboard";
+import { intakeRouter } from "./routers/intake";
 import { notifyOwner } from "./_core/notification";
 import { invokeLLM } from "./_core/llm";
 import { sendEmailViaResend, formatQuizEmailContent, formatInquiryEmailContent } from "./_core/resendService";
@@ -564,6 +565,9 @@ View full details in the admin dashboard.`;
 
   // Admin dashboard management
   adminDashboard: adminDashboardRouter,
+
+  // Intake questionnaire
+  intake: intakeRouter,
 
   admin: router({
     getAllClients: publicProcedure.query(async () => {

@@ -171,3 +171,62 @@
 - [x] Admin Dashboard "Manage Clients" button added
 - [x] App.tsx routes updated for all new pages
 - [x] 0 TypeScript errors
+
+## Intake Questionnaire & AI Output System (Jul 2026)
+
+### Phase 1: Database & Dependencies
+- [x] Add intakeForms table to Drizzle schema (all 50+ fields per spec)
+- [x] Run pnpm db:push to migrate schema
+- [x] Install @anthropic-ai/sdk, @sparticuz/chromium, puppeteer-core dependencies
+- [ ] Install express-rate-limit if not already present
+
+### Phase 2: Backend
+- [x] Create server/lib/aiPrompts.ts with ADVISOR_BRIEF_SYSTEM_PROMPT and CLIENT_PREVIEW_SYSTEM_PROMPT (exact prompts from spec)
+- [x] Create server/lib/intakePromptBuilders.ts with buildAdvisorBriefUserPrompt() and buildClientPreviewUserPrompt()
+- [x] Create server/lib/pdfGenerator.ts with generatePDF() using @sparticuz/chromium + puppeteer-core
+- [x] Create Advisor Brief HTML template (navy header, gold section headings, risk flag boxes, watermark)
+- [x] Create Client Preview HTML template (cream background, DOMUS crest SVG, warm typography)
+- [x] Create server/routers/intake.ts with saveIntake tRPC mutation
+- [x] saveIntake: validate fields, save to DB, call Claude API in parallel, generate PDFs, send emails, return success
+- [x] Email 1: Advisor Brief PDF to milano@domusrelocations.com
+- [x] Email 2: Client Preview PDF to client email
+- [ ] Rate limit intake endpoint: 5 submissions per IP per hour (Phase 2 follow-up)
+- [x] Strip HTML from all text inputs server-side
+- [x] Register intake router in server/routers.ts
+- [ ] Add ANTHROPIC_API_KEY secret (wire when key is available)
+
+### Phase 3: Frontend Questionnaire
+- [x] Create client/src/pages/Intake.tsx — 7-section multi-step form
+- [x] Section 1: The Family (name, email, phone, language, who relocating, partner, children repeater, pets)
+- [x] Section 2: The Move (from city, nationalities, reasons, arrival date, firmness, duration, target city, Italy before, previous countries)
+- [x] Section 3: Housing (rent/buy, budget, bedrooms, property type, requirements, neighbourhood vibe, notes)
+- [x] Section 4: Education (dynamic per-child cards from Section 1, immersion scale, curriculum, mid-year, learning needs, university)
+- [x] Section 5: Professional & Fiscal (professional situation, partner situation, flat tax, Italy last 9 years, commercialista, banking)
+- [x] Section 6: Lifestyle & Integration (lifestyle descriptors, hobbies, social scale, Italian level, healthcare, dietary)
+- [x] Section 7: Priorities & Anxieties (top priorities, biggest anxiety, prev relo scale, what went wrong, comms pref, timezone, anything else, heard about DOMUS)
+- [x] Gold progress bar (dynamic: 6 steps if no children, 7 if children present)
+- [x] Per-section validation rules per spec
+- [x] Confirmation screen (DOMUS crest, thank you message, multilingual if non-English)
+- [x] Fully responsive / mobile-first
+- [x] Add /intake route to App.tsx
+
+### Phase 4: Admin Intake View
+- [x] Create client/src/pages/admin/IntakeForms.tsx — submissions table
+- [x] Table columns: family name, target city, arrival date, submission date, PDFs sent, assigned advisor
+- [x] Detail view: read-only full form data + Re-send Advisor Brief / Re-send Client Preview buttons
+- [x] Re-send tRPC mutations in intake router
+- [x] Add /admin/intake route to App.tsx
+- [x] Add Intake Forms link to admin hub (/admin)
+
+### Phase 5: Homepage Updates
+- [x] Replace "Begin Your Private Relocation" CTA with link to /intake
+- [x] Replace "Schedule A Private Consultation" CTA with link to /intake
+- [x] Remove PersonaQuiz modal component and all references from Home.tsx
+- [x] Remove submitQuiz tRPC procedure references from frontend (keep DB table for historical data)
+
+### Phase 6: Testing & Delivery
+- [x] Write vitest tests for intake router (save, validate, re-send) — 5 tests, all passing
+- [ ] Test full form submission flow in browser
+- [ ] Verify PDF generation produces correct styled output
+- [x] Save checkpoint
+- [ ] Provide ANTHROPIC_API_KEY wiring instructions (pending key from client)

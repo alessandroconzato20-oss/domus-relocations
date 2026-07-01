@@ -14,7 +14,7 @@ import HeroSection from "@/components/HeroSection";
 import MilanSection from "@/components/MilanSection";
 import Navigation from "@/components/Navigation";
 import DomusNetworkSection from "@/components/DomusNetworkSection";
-import PersonaQuiz from "@/components/PersonaQuiz";
+
 import ServicesSection from "@/components/ServicesSection";
 import TestimonialSection from "@/components/TestimonialSection";
 import InternationalStudentsSection from "@/components/InternationalStudentsSection";
@@ -23,8 +23,6 @@ export default function Home() {
   // The userAuth hooks provides authentication state
   // To implement login/logout functionality, simply call logout() or redirect to getLoginUrl()
   let { user, loading, error, isAuthenticated, logout } = useAuth();
-
-  const [quizOpen, setQuizOpen] = useState(false);
 
   // Set page title and meta tags for SEO
   useEffect(() => {
@@ -46,7 +44,7 @@ export default function Home() {
   return (
     <div style={{ background: "var(--domus-ivory)", minHeight: "100vh" }}>
       {/* Fixed navigation */}
-      <Navigation onQuizOpen={() => setQuizOpen(true)} />
+      <Navigation />
 
       {/* Page sections */}
       <main>
@@ -56,20 +54,19 @@ export default function Home() {
         <DomusNetworkSection />
         <InternationalStudentsSection />
         <ServicesSection />
-        <QuizCTABanner onQuizOpen={() => setQuizOpen(true)} />
+        <QuizCTABanner />
         <MilanSection />
         <TestimonialSection />
-        <ContactSection onQuizOpen={() => setQuizOpen(true)} />
+        <ContactSection />
       </main>
 
-      {/* Full-screen persona quiz */}
-      <PersonaQuiz isOpen={quizOpen} onClose={() => setQuizOpen(false)} />
+
     </div>
   );
 }
 
 /* Quiz CTA interlude banner between Services and Milan */
-function QuizCTABanner({ onQuizOpen }: { onQuizOpen: () => void }) {
+function QuizCTABanner() {
   return (
     <div
       style={{
@@ -135,13 +132,13 @@ function QuizCTABanner({ onQuizOpen }: { onQuizOpen: () => void }) {
             Answer six questions and we will build your personalised DOMUS profile, revealing which services are most relevant to your move to Milan.
           </p>
 
-          <button
-            onClick={onQuizOpen}
+          <a
+            href="/intake"
             className="btn-luxury"
-            style={{ marginTop: "0.75rem" }}
+            style={{ marginTop: "0.75rem", textDecoration: "none", display: "inline-block" }}
           >
-            Begin the Profile Quiz
-          </button>
+            Begin Your Private Consultation
+          </a>
         </div>
       </div>
     </div>

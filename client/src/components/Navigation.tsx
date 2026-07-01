@@ -10,10 +10,10 @@ import { useLocation } from "wouter";
 const LOGO_URL = "https://d2xsxph8kpxj0f.cloudfront.net/310519663449035187/5G96cC5HiLZMXbLbP234aP/DomusRelocationsLogo_506fe4bc.png";
 
 interface NavigationProps {
-  onQuizOpen: () => void;
+  onQuizOpen?: () => void;
 }
 
-export default function Navigation({ onQuizOpen }: NavigationProps) {
+export default function Navigation({ onQuizOpen: _onQuizOpen }: NavigationProps) {
   const [, setLocation] = useLocation();
   const [visible, setVisible] = useState(true);
   const [lastScrollY, setLastScrollY] = useState(0);
@@ -83,13 +83,13 @@ export default function Navigation({ onQuizOpen }: NavigationProps) {
             >
               Client Login
             </a>
-            <button
-              onClick={onQuizOpen}
+            <a
+              href="/intake"
               className="btn-luxury"
-              style={{ padding: "0.625rem 1.75rem", fontSize: "0.7rem" }}
+              style={{ padding: "0.625rem 1.75rem", fontSize: "0.7rem", textDecoration: "none" }}
             >
               Begin Your Journey
-            </button>
+            </a>
           </div>
 
           {/* Mobile hamburger */}
@@ -130,13 +130,14 @@ export default function Navigation({ onQuizOpen }: NavigationProps) {
             >
               Client Login
             </a>
-            <button
-              onClick={() => { onQuizOpen(); setMenuOpen(false); }}
+            <a
+              href="/intake"
+              onClick={() => setMenuOpen(false)}
               className="btn-luxury"
-              style={{ alignSelf: "flex-start", padding: "0.75rem 2rem", fontSize: "0.7rem" }}
+              style={{ alignSelf: "flex-start", padding: "0.75rem 2rem", fontSize: "0.7rem", textDecoration: "none" }}
             >
               Begin Your Journey
-            </button>
+            </a>
           </div>
         )}
       </div>
