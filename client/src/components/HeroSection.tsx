@@ -191,16 +191,13 @@ export default function HeroSection() {
               width: "100%",
             }}
           >
-            <button
-              onClick={() => {
-                const el = document.getElementById("services");
-                if (el) el.scrollIntoView({ behavior: "smooth" });
-              }}
+            <a
+              href="/intake"
               className="btn-luxury-dark"
-              style={{ background: "var(--domus-ivory)", color: "var(--domus-charcoal)", border: "1px solid var(--domus-ivory)", maxWidth: "280px", width: "100%" }}
+              style={{ background: "var(--domus-ivory)", color: "var(--domus-charcoal)", border: "1px solid var(--domus-ivory)", maxWidth: "280px", width: "100%", textDecoration: "none", textAlign: "center", display: "inline-block" }}
             >
               Begin Your Private Relocation
-            </button>
+            </a>
             <button
               onClick={scrollToAbout}
               className="btn-luxury"
@@ -222,8 +219,8 @@ export default function HeroSection() {
               paddingBottom: "clamp(1rem, 2vw, 2rem)",
             }}
           >
-            <button
-              onClick={() => setInquiryFormOpen(true)}
+            <a
+              href="/intake"
               style={{
                 padding: "1.1rem 2.5rem",
                 background: "linear-gradient(135deg, var(--domus-gold) 0%, rgba(214, 175, 98, 0.9) 100%)",
@@ -246,15 +243,15 @@ export default function HeroSection() {
               }}
               onMouseEnter={(e) => {
                 e.currentTarget.style.boxShadow = "0 12px 36px rgba(214, 175, 98, 0.4)";
-                e.currentTarget.style.transform = "translateY(-2px)";
+                (e.currentTarget as HTMLElement).style.transform = "translateY(-2px)";
               }}
               onMouseLeave={(e) => {
                 e.currentTarget.style.boxShadow = "0 8px 24px rgba(214, 175, 98, 0.25)";
-                e.currentTarget.style.transform = "translateY(0)";
+                (e.currentTarget as HTMLElement).style.transform = "translateY(0)";
               }}
             >
               Schedule A Private Consultation
-            </button>
+            </a>
             <p
               style={{
                 fontFamily: "'Jost', sans-serif",
