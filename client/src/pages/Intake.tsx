@@ -22,6 +22,11 @@ type Child = {
   currentCurriculum: string;
   yearGrade: string;
   languagesSpoken: string;
+  academicLevel: string;
+  strongestSubjects: string;
+  weakestSubjects: string;
+  extracurriculars: string;
+  personality: string;
 };
 
 type ChildEduProfile = {
@@ -99,6 +104,7 @@ type FormData = {
 
 const defaultChild = (): Child => ({
   name: "", dateOfBirth: "", currentSchool: "", currentCurriculum: "", yearGrade: "", languagesSpoken: "",
+  academicLevel: "", strongestSubjects: "", weakestSubjects: "", extracurriculars: "", personality: "",
 });
 
 const defaultEduProfile = (childName: string): ChildEduProfile => ({
@@ -212,15 +218,12 @@ function Divider() {
   return <div className="border-t border-[var(--domus-gold)]/20 my-6" />;
 }
 
-// ─── DOMUS Crest SVG ──────────────────────────────────────────────────────────
+// ─── DOMUS Logo ───────────────────────────────────────────────────────────────
+const DOMUS_LOGO_URL = "https://d2xsxph8kpxj0f.cloudfront.net/310519663449035187/5G96cC5HiLZMXbLbP234aP/DomusRelocationsLogo_506fe4bc.png";
+
 function DomusCrest({ size = 60 }: { size?: number }) {
   return (
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 80 100" width={size} height={size * 1.25}>
-      <path d="M40 5 L75 20 L75 55 C75 75 60 90 40 95 C20 90 5 75 5 55 L5 20 Z" fill="none" stroke="#C9A84C" strokeWidth="1.5" />
-      <text x="40" y="52" textAnchor="middle" fontFamily="Cormorant Garamond, serif" fontSize="18" fill="#1A1814" fontStyle="italic">D</text>
-      <path d="M25 62 L55 62" stroke="#C9A84C" strokeWidth="0.8" />
-      <text x="40" y="75" textAnchor="middle" fontFamily="Jost, sans-serif" fontSize="7" fill="#1A1814" letterSpacing="3">DOMUS</text>
-    </svg>
+    <img src={DOMUS_LOGO_URL} alt="DOMUS Relocations" style={{ height: size, width: "auto", objectFit: "contain" }} />
   );
 }
 
@@ -313,7 +316,7 @@ function Section1({ form, update }: { form: FormData; update: (patch: Partial<Fo
           </div>
           {form.children.length === 0 && (
             <button type="button" onClick={addChild} className="w-full border border-dashed border-[var(--domus-gold)]/40 py-4 text-sm text-[var(--domus-grey)] hover:border-[var(--domus-gold)] transition-colors">
-              + Add your first child
+              + Add your first child to the DOMUS Family Profile
             </button>
           )}
           {form.children.map((child, i) => (
@@ -348,6 +351,41 @@ function Section1({ form, update }: { form: FormData; update: (patch: Partial<Fo
                 <div className="space-y-1.5">
                   <FieldLabel optional>Languages Spoken</FieldLabel>
                   <Input value={child.languagesSpoken} onChange={(e) => updateChild(i, { languagesSpoken: e.target.value })} placeholder="e.g. English, French" className="intake-input" />
+                </div>
+                <div className="space-y-1.5">
+                  <FieldLabel optional>Current Academic Level</FieldLabel>
+                  <Input value={child.academicLevel} onChange={(e) => updateChild(i, { academicLevel: e.target.value })} placeholder="e.g. Above average, Average, Needs support" className="intake-input" />
+                </div>
+                <div className="space-y-1.5">
+                  <FieldLabel optional>Strongest Subjects</FieldLabel>
+                  <Input value={child.strongestSubjects} onChange={(e) => updateChild(i, { strongestSubjects: e.target.value })} placeholder="e.g. Maths, Science" className="intake-input" />
+                </div>
+                <div className="space-y-1.5">
+                  <FieldLabel optional>Weakest Subjects</FieldLabel>
+                  <Input value={child.weakestSubjects} onChange={(e) => updateChild(i, { weakestSubjects: e.target.value })} placeholder="e.g. Languages, Writing" className="intake-input" />
+                </div>
+                <div className="space-y-1.5">
+                  <FieldLabel optional>Extracurricular Activities</FieldLabel>
+                  <Input value={child.extracurriculars} onChange={(e) => updateChild(i, { extracurriculars: e.target.value })} placeholder="e.g. Football, piano, swimming" className="intake-input" />
+                </div>
+              </div>
+              <div className="space-y-1.5 mt-4">
+                <FieldLabel optional>Personality</FieldLabel>
+                <div className="flex gap-3">
+                  {["Introverted", "Mostly introverted", "In between", "Mostly extroverted", "Extroverted"].map((opt) => (
+                    <button
+                      key={opt}
+                      type="button"
+                      onClick={() => updateChild(i, { personality: child.personality === opt ? "" : opt })}
+                      className={`flex-1 py-2 text-xs border transition-colors ${
+                        child.personality === opt
+                          ? "border-[var(--domus-gold)] bg-[var(--domus-gold)]/10 text-[var(--domus-charcoal)]"
+                          : "border-[var(--domus-grey)]/30 text-[var(--domus-grey)] hover:border-[var(--domus-gold)]/60"
+                      }`}
+                    >
+                      {opt}
+                    </button>
+                  ))}
                 </div>
               </div>
             </div>
@@ -914,46 +952,53 @@ function Section7({ form, update }: { form: FormData; update: (patch: Partial<Fo
 }
 
 // ─── Confirmation Screen ──────────────────────────────────────────────────────
-function ConfirmationScreen({ firstName, lang }: { firstName: string; lang: string }) {
-  const messages: Record<string, { heading: string; body: string; sub: string }> = {
+function ConfirmationScreen({
+  firstName,
+  lang,
+  emailExists,
+  submittedEmail,
+}: {
+  firstName: string;
+  lang: string;
+  emailExists: boolean;
+  submittedEmail: string;
+}) {
+  const encodedEmail = encodeURIComponent(submittedEmail);
+
+  // Multilingual body copy (email-agnostic — preview is on the dashboard)
+  const messages: Record<string, { heading: string; body: string }> = {
     Italian: {
       heading: "Grazie, " + firstName,
       body: "Il vostro questionario è stato ricevuto. Il vostro consulente DOMUS vi contatterà entro 24 ore. Abbiamo già iniziato a lavorare per voi.",
-      sub: "Controllate la vostra casella di posta — vi abbiamo inviato un'anteprima personalizzata di Milano.",
     },
     French: {
       heading: "Merci, " + firstName,
       body: "Votre questionnaire a été reçu. Votre conseiller DOMUS vous contactera dans les 24 heures. Nous travaillons déjà pour vous.",
-      sub: "Consultez votre boîte mail — nous vous avons envoyé un aperçu personnalisé de Milan.",
     },
     German: {
       heading: "Danke, " + firstName,
       body: "Ihr Fragebogen ist eingegangen. Ihr DOMUS-Berater wird sich innerhalb von 24 Stunden bei Ihnen melden.",
-      sub: "Bitte prüfen Sie Ihre E-Mails — wir haben Ihnen eine persönliche Mailand-Vorschau gesendet.",
     },
     Japanese: {
       heading: firstName + " 様、ありがとうございます",
       body: "アンケートを受け取りました。DOMusのアドバイザーが24時間以内にご連絡いたします。",
-      sub: "メールをご確認ください。パーソナライズされたミラノプレビューをお送りしました。",
     },
     Mandarin: {
       heading: firstName + "，谢谢您",
       body: "您的问卷已收到。您的DOMUS顾问将在24小时内与您联系。我们已经开始为您工作了。",
-      sub: "请查看您的邮箱——我们已向您发送了个性化的米兰预览。",
     },
   };
 
   const msg = messages[lang] || {
     heading: `Thank you, ${firstName}`,
     body: "Your questionnaire has been received. Your DOMUS advisor will be in touch within 24 hours. We have already begun working for you.",
-    sub: "Please check your inbox — we have sent you a personalised Milan Preview.",
   };
 
   return (
     <div className="min-h-screen bg-[var(--domus-ivory)] flex items-center justify-center px-6">
       <div className="max-w-lg text-center space-y-8">
         <div className="flex justify-center">
-          <DomusCrest size={72} />
+          <DomusCrest size={160} />
         </div>
         <div className="w-12 h-12 rounded-full bg-[var(--domus-gold)] flex items-center justify-center mx-auto">
           <Check size={24} className="text-[var(--domus-charcoal)]" />
@@ -961,8 +1006,40 @@ function ConfirmationScreen({ firstName, lang }: { firstName: string; lang: stri
         <div className="space-y-4">
           <h1 className="font-['Cormorant_Garamond'] text-4xl text-[var(--domus-charcoal)] font-light">{msg.heading}</h1>
           <p className="text-[var(--domus-charcoal)] leading-relaxed">{msg.body}</p>
-          <p className="text-sm text-[var(--domus-grey)] leading-relaxed">{msg.sub}</p>
         </div>
+
+        {/* Milan Preview CTA — adapts based on whether the client already has an account */}
+        <div className="border border-[var(--domus-gold)]/30 p-6 space-y-4 bg-white/60">
+          <p className="font-['Cormorant_Garamond'] text-xl text-[var(--domus-charcoal)] font-light italic">
+            Your personalised Milan Preview is ready.
+          </p>
+          {emailExists ? (
+            <>
+              <p className="text-sm text-[var(--domus-grey)] leading-relaxed">
+                Welcome back — your Milan Preview is waiting in your dashboard.
+              </p>
+              <a
+                href={`/login?email=${encodedEmail}`}
+                className="inline-block px-8 py-3 bg-[var(--domus-charcoal)] text-[var(--domus-ivory)] text-xs tracking-widest uppercase hover:bg-[var(--domus-gold)] hover:text-[var(--domus-charcoal)] transition-colors"
+              >
+                Go to your dashboard →
+              </a>
+            </>
+          ) : (
+            <>
+              <p className="text-sm text-[var(--domus-grey)] leading-relaxed">
+                Create your DOMUS account to read it now.
+              </p>
+              <a
+                href={`/signup?email=${encodedEmail}`}
+                className="inline-block px-8 py-3 bg-[var(--domus-charcoal)] text-[var(--domus-ivory)] text-xs tracking-widest uppercase hover:bg-[var(--domus-gold)] hover:text-[var(--domus-charcoal)] transition-colors"
+              >
+                Create your account →
+              </a>
+            </>
+          )}
+        </div>
+
         <div className="border-t border-[var(--domus-gold)]/30 pt-6">
           <Link href="/" className="text-xs tracking-widest uppercase text-[var(--domus-gold)] hover:text-[var(--domus-charcoal)] transition-colors">
             ← Return to DOMUS
@@ -1000,7 +1077,7 @@ export default function Intake() {
   const [form, setForm] = useState<FormData>(initialForm);
   const [currentSection, setCurrentSection] = useState(1);
   const [submitted, setSubmitted] = useState(false);
-  const [submissionResult, setSubmissionResult] = useState<{ firstName: string; lang: string } | null>(null);
+  const [submissionResult, setSubmissionResult] = useState<{ firstName: string; lang: string; emailExists: boolean; submittedEmail: string } | null>(null);
   const topRef = useRef<HTMLDivElement>(null);
 
   const hasChildren = form.whoRelocating.includes("Children") && form.children.length > 0;
@@ -1016,7 +1093,12 @@ export default function Intake() {
 
   const submitMutation = trpc.intake.submit.useMutation({
     onSuccess: (data) => {
-      setSubmissionResult({ firstName: data.firstName, lang: data.preferredLanguage });
+      setSubmissionResult({
+        firstName: data.firstName,
+        lang: data.preferredLanguage,
+        emailExists: data.emailExists,
+        submittedEmail: data.submittedEmail,
+      });
       setSubmitted(true);
     },
     onError: (err) => {
@@ -1065,7 +1147,14 @@ export default function Intake() {
   };
 
   if (submitted && submissionResult) {
-    return <ConfirmationScreen firstName={submissionResult.firstName} lang={submissionResult.lang} />;
+    return (
+      <ConfirmationScreen
+        firstName={submissionResult.firstName}
+        lang={submissionResult.lang}
+        emailExists={submissionResult.emailExists}
+        submittedEmail={submissionResult.submittedEmail}
+      />
+    );
   }
 
   const sectionLabels = ["The Family", "The Move", "Housing", "Education", "Professional & Fiscal", "Lifestyle", "Priorities"];
@@ -1080,8 +1169,7 @@ export default function Intake() {
       <header className="border-b border-[var(--domus-gold)]/20 bg-[var(--domus-ivory)] sticky top-0 z-10">
         <div className="max-w-2xl mx-auto px-6 py-4 flex items-center justify-between">
           <Link href="/" className="flex items-center gap-3">
-            <DomusCrest size={28} />
-            <span className="font-['Cormorant_Garamond'] text-lg text-[var(--domus-charcoal)]">DOMUS</span>
+            <img src={DOMUS_LOGO_URL} alt="DOMUS Relocations" style={{ height: 64, width: "auto", objectFit: "contain" }} />
           </Link>
           <span className="text-xs tracking-widest uppercase text-[var(--domus-grey)]">Private Intake</span>
         </div>

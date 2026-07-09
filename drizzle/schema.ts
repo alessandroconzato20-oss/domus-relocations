@@ -129,6 +129,11 @@ export const clientProfiles = mysqlTable("clientProfiles", {
   servicePackage: mysqlEnum("servicePackage", ["standard", "premium", "elite"]).default("standard").notNull(),
   notes: text("notes"),
   isActive: tinyint("isActive").default(1).notNull(),
+  // Milan Preview — AI-generated, published by admin
+  clientPreview: text("clientPreview"),
+  clientPreviewGeneratedAt: timestamp("clientPreviewGeneratedAt"),
+  clientPreviewReadAt: timestamp("clientPreviewReadAt"),
+  clientPreviewPublished: tinyint("clientPreviewPublished").default(0).notNull(),
   createdAt: timestamp("createdAt").defaultNow().notNull(),
   updatedAt: timestamp("updatedAt").defaultNow().onUpdateNow().notNull(),
 });
@@ -257,6 +262,11 @@ export const intakeForms = mysqlTable("intakeForms", {
     currentCurriculum: string;
     yearGrade: string;
     languagesSpoken: string;
+    academicLevel?: string;
+    strongestSubjects?: string;
+    weakestSubjects?: string;
+    extracurriculars?: string;
+    personality?: string;
   }>>(),
   pets: json("pets").$type<string[]>(),
 
@@ -329,6 +339,9 @@ export const intakeForms = mysqlTable("intakeForms", {
   clientPreviewSent: tinyint("clientPreviewSent").default(0).notNull(),
   assignedAdvisor: varchar("assignedAdvisor", { length: 255 }),
   internalNotes: text("internalNotes"),
+  // Client Preview — stored here until linked to a user account
+  clientPreviewContent: text("clientPreviewContent"),
+  clientPreviewPublished: tinyint("clientPreviewPublished").default(0).notNull(),
 });
 
 export type IntakeForm = typeof intakeForms.$inferSelect;

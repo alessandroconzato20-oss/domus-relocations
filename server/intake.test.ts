@@ -116,6 +116,8 @@ vi.mock("./db", () => {
       select: mockSelect,
       update: vi.fn().mockReturnValue({ set: vi.fn().mockReturnValue({ where: mockUpdate }) }),
     }),
+    // New: email-existence check added in the dashboard-preview flow
+    getUserByEmail: vi.fn().mockResolvedValue(null),
   };
 });
 

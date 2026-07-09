@@ -1,8 +1,9 @@
 /**
  * DOMUS Relocations — Intake Questionnaire tRPC Router
  *
- * Handles: form submission, AI generation, PDF creation, email delivery, admin re-send.
- * Rate limited to 5 submissions per IP per hour (enforced via middleware in index.ts).
+ * Handles: form submission, AI generation, Advisor Brief PDF + email, Client Preview saved to DB.
+ * The Advisor Brief is emailed as a PDF to milano@domusrelocations.com.
+ * The Client Preview is saved to the database and published to the client dashboard by the admin.
  */
 
 import { z } from "zod";
@@ -11,11 +12,12 @@ import Anthropic from "@anthropic-ai/sdk";
 import { publicProcedure, protectedProcedure, router } from "../_core/trpc";
 import { ENV } from "../_core/env";
 import { getDb } from "../db";
-import { intakeForms } from "../../drizzle/schema";
+import { getUserByEmail } from "../db";
+import { intakeForms, clientProfiles, users } from "../../drizzle/schema";
 import { eq, desc } from "drizzle-orm";
 import { ADVISOR_BRIEF_SYSTEM_PROMPT, CLIENT_PREVIEW_SYSTEM_PROMPT } from "../lib/aiPrompts";
 import { buildAdvisorBriefUserPrompt, buildClientPreviewUserPrompt } from "../lib/intakePromptBuilders";
-import { generatePDF, buildAdvisorBriefHTML, buildClientPreviewHTML } from "../lib/pdfGenerator";
+import { generatePDF, buildAdvisorBriefHTML } from "../lib/pdfGenerator";
 import { sendEmailViaResend } from "../_core/resendService";
 import type { IntakeForm } from "../../drizzle/schema";
 
@@ -27,6 +29,11 @@ const childSchema = z.object({
   currentCurriculum: z.string(),
   yearGrade: z.string(),
   languagesSpoken: z.string(),
+  academicLevel: z.string().optional(),
+  strongestSubjects: z.string().optional(),
+  weakestSubjects: z.string().optional(),
+  extracurriculars: z.string().optional(),
+  personality: z.string().optional(),
 });
 
 const childEduProfileSchema = z.object({
@@ -132,7 +139,6 @@ async function callClaude(
   maxTokens: number = 2000
 ): Promise<string> {
   if (!ENV.anthropicApiKey) {
-    // Return a placeholder when no API key is configured
     return "[AI generation unavailable — ANTHROPIC_API_KEY not configured. Please add the API key to enable this feature.]";
   }
 
@@ -150,7 +156,7 @@ async function callClaude(
     .join("\n");
 }
 
-// ─── PDF + email delivery ─────────────────────────────────────────────────────
+// ─── Advisor Brief: generate PDF and email to DOMUS ──────────────────────────
 async function generateAndSendAdvisorBrief(form: IntakeForm): Promise<boolean> {
   try {
     const userPrompt = buildAdvisorBriefUserPrompt(form);
@@ -181,59 +187,10 @@ async function generateAndSendAdvisorBrief(form: IntakeForm): Promise<boolean> {
   }
 }
 
-async function generateAndSendClientPreview(form: IntakeForm): Promise<boolean> {
-  try {
-    const userPrompt = buildClientPreviewUserPrompt(form);
-    const aiText = await callClaude(CLIENT_PREVIEW_SYSTEM_PROMPT, userPrompt, 1200);
-    const date = new Date().toLocaleDateString("en-GB", { day: "2-digit", month: "long", year: "numeric" });
-    const html = buildClientPreviewHTML(aiText, form.primaryName, date);
-    const pdfBuffer = await generatePDF(html);
-
-    const safeDate = new Date().toISOString().slice(0, 10);
-    const filename = `DOMUS_YourMilanPreview_${safeDate}.pdf`;
-    const firstName = form.primaryName.split(" ")[0];
-
-    const lang = form.preferredLanguage || "English";
-    const subject = getClientEmailSubject(lang);
-    const body = getClientEmailBody(firstName, lang);
-
-    const sent = await sendEmailWithAttachment({
-      to: form.email,
-      subject,
-      text: body,
-      pdfBuffer,
-      filename,
-    });
-
-    return sent;
-  } catch (err) {
-    console.error("[Intake] Client preview generation failed:", err);
-    return false;
-  }
-}
-
-function getClientEmailSubject(lang: string): string {
-  const subjects: Record<string, string> = {
-    Italian: "La Tua Anteprima su Milano — da DOMUS Relocations",
-    Japanese: "ミラノへの第一歩 — DOMUS Relocations より",
-    Mandarin: "您的米兰预览 — DOMUS Relocations",
-    French: "Votre Aperçu de Milan — DOMUS Relocations",
-    German: "Ihre Mailand-Vorschau — DOMUS Relocations",
-    Spanish: "Su Vista Previa de Milán — DOMUS Relocations",
-    Portuguese: "Sua Prévia de Milão — DOMUS Relocations",
-    Russian: "Ваш Предварительный Обзор Милана — DOMUS Relocations",
-    Arabic: "معاينتك لميلانو — DOMUS Relocations",
-    Korean: "밀라노 미리보기 — DOMUS Relocations",
-  };
-  return subjects[lang] || "Your Milan Preview — from DOMUS Relocations";
-}
-
-function getClientEmailBody(firstName: string, lang: string): string {
-  if (lang === "English" || !lang) {
-    return `Dear ${firstName},\n\nWe have read your questionnaire carefully and we wanted to send you something personal before we speak. Please find attached your personalised Milan Preview — our first gift to your family before we meet.\n\nYour DOMUS advisor will be in touch within 24 hours.\n\nWarm regards,\nThe DOMUS Team\n\ndomusrelocations.com · Milano`;
-  }
-  // For non-English, keep body in English — the PDF itself is in the client's language
-  return `Dear ${firstName},\n\nPlease find attached your personalised Milan Preview from DOMUS Relocations.\n\nYour DOMUS advisor will be in touch within 24 hours.\n\nWarm regards,\nThe DOMUS Team\n\ndomusrelocations.com · Milano`;
+// ─── Client Preview: generate text and save to DB ────────────────────────────
+async function generateClientPreviewText(form: IntakeForm): Promise<string> {
+  const userPrompt = buildClientPreviewUserPrompt(form);
+  return callClaude(CLIENT_PREVIEW_SYSTEM_PROMPT, userPrompt, 1200);
 }
 
 // ─── Resend with PDF attachment ───────────────────────────────────────────────
@@ -286,7 +243,7 @@ export const intakeRouter = router({
       if (!db) throw new TRPCError({ code: "INTERNAL_SERVER_ERROR", message: "Database unavailable" });
 
       // Save to database
-      const [inserted] = await db
+      await db
         .insert(intakeForms)
         .values({
           primaryName: clean.primaryName,
@@ -362,20 +319,46 @@ export const intakeRouter = router({
 
       console.log(`[Intake] Saved form ID ${savedForm.id} for ${savedForm.primaryName} at ${new Date().toISOString()}`);
 
-      // Generate and send PDFs in parallel (non-blocking — don't fail submission if email fails)
+      // Check if this email already has a DOMUS account
+      const existingUser = await getUserByEmail(clean.email);
+      const emailExists = !!existingUser;
+
+      // Background: generate Advisor Brief (PDF + email) and Client Preview (save to DB)
       Promise.all([
+        // Advisor Brief — PDF emailed to DOMUS advisor
         generateAndSendAdvisorBrief(savedForm).then(async (sent) => {
           if (sent) {
             await db.update(intakeForms).set({ advisorBriefSent: 1 }).where(eq(intakeForms.id, savedForm.id));
           }
         }),
-        generateAndSendClientPreview(savedForm).then(async (sent) => {
-          if (sent) {
-            await db.update(intakeForms).set({ clientPreviewSent: 1 }).where(eq(intakeForms.id, savedForm.id));
+
+        // Client Preview — generate text and save to intakeForms.clientPreviewContent
+        generateClientPreviewText(savedForm).then(async (previewText) => {
+          await db
+            .update(intakeForms)
+            .set({ clientPreviewContent: previewText })
+            .where(eq(intakeForms.id, savedForm.id));
+
+          // If the client already has an account with a clientProfile, save preview there too
+          if (existingUser) {
+            const profileRows = await db
+              .select()
+              .from(clientProfiles)
+              .where(eq(clientProfiles.userId, existingUser.id))
+              .limit(1);
+            if (profileRows[0]) {
+              await db
+                .update(clientProfiles)
+                .set({
+                  clientPreview: previewText,
+                  clientPreviewGeneratedAt: new Date(),
+                })
+                .where(eq(clientProfiles.id, profileRows[0].id));
+            }
           }
         }),
       ]).catch((err) => {
-        console.error("[Intake] Background PDF/email error:", err);
+        console.error("[Intake] Background generation error:", err);
       });
 
       return {
@@ -383,6 +366,8 @@ export const intakeRouter = router({
         id: savedForm.id,
         firstName: clean.primaryName.split(" ")[0],
         preferredLanguage: clean.preferredLanguage,
+        emailExists,
+        submittedEmail: clean.email,
       };
     }),
 
@@ -391,10 +376,10 @@ export const intakeRouter = router({
     if (ctx.user?.email !== ENV.adminEmail) {
       throw new TRPCError({ code: "FORBIDDEN", message: "Admin access required" });
     }
-      const db = await getDb();
-      if (!db) throw new TRPCError({ code: "INTERNAL_SERVER_ERROR", message: "Database unavailable" });
-      return db
-        .select({
+    const db = await getDb();
+    if (!db) throw new TRPCError({ code: "INTERNAL_SERVER_ERROR", message: "Database unavailable" });
+    return db
+      .select({
         id: intakeForms.id,
         primaryName: intakeForms.primaryName,
         email: intakeForms.email,
@@ -403,6 +388,7 @@ export const intakeRouter = router({
         submittedAt: intakeForms.submittedAt,
         advisorBriefSent: intakeForms.advisorBriefSent,
         clientPreviewSent: intakeForms.clientPreviewSent,
+        clientPreviewPublished: intakeForms.clientPreviewPublished,
         assignedAdvisor: intakeForms.assignedAdvisor,
       })
       .from(intakeForms)
@@ -420,8 +406,128 @@ export const intakeRouter = router({
       if (!db) throw new TRPCError({ code: "INTERNAL_SERVER_ERROR", message: "Database unavailable" });
       const rows = await db.select().from(intakeForms).where(eq(intakeForms.id, input.id));
       if (!rows[0]) throw new TRPCError({ code: "NOT_FOUND" });
-      return rows[0];
+
+      // Also fetch the linked clientProfile preview read status if the email matches a user
+      const linkedUser = await getUserByEmail(rows[0].email);
+      let previewReadAt: Date | null = null;
+      let linkedProfileId: number | null = null;
+      if (linkedUser) {
+        const profileRows = await db
+          .select({ id: clientProfiles.id, clientPreviewReadAt: clientProfiles.clientPreviewReadAt })
+          .from(clientProfiles)
+          .where(eq(clientProfiles.userId, linkedUser.id))
+          .limit(1);
+        if (profileRows[0]) {
+          previewReadAt = profileRows[0].clientPreviewReadAt ?? null;
+          linkedProfileId = profileRows[0].id;
+        }
+      }
+
+      return { ...rows[0], previewReadAt, linkedProfileId };
     }),
+
+  // Admin: publish Client Preview to client dashboard
+  publishPreview: protectedProcedure
+    .input(z.object({
+      id: z.number(),
+      previewContent: z.string().min(1, "Preview content cannot be empty"),
+    }))
+    .mutation(async ({ ctx, input }) => {
+      if (ctx.user?.email !== ENV.adminEmail) {
+        throw new TRPCError({ code: "FORBIDDEN", message: "Admin access required" });
+      }
+      const db = await getDb();
+      if (!db) throw new TRPCError({ code: "INTERNAL_SERVER_ERROR", message: "Database unavailable" });
+
+      // Update intakeForms with possibly-edited content and mark as published
+      await db
+        .update(intakeForms)
+        .set({ clientPreviewContent: input.previewContent, clientPreviewPublished: 1 })
+        .where(eq(intakeForms.id, input.id));
+
+      // Find the linked user and their clientProfile
+      const formRows = await db.select({ email: intakeForms.email }).from(intakeForms).where(eq(intakeForms.id, input.id));
+      if (!formRows[0]) throw new TRPCError({ code: "NOT_FOUND" });
+
+      const linkedUser = await getUserByEmail(formRows[0].email);
+      if (!linkedUser) {
+        // No account yet — preview is stored in intakeForms, will be pushed when account is linked
+        return { success: true, publishedToProfile: false };
+      }
+
+      const profileRows = await db
+        .select()
+        .from(clientProfiles)
+        .where(eq(clientProfiles.userId, linkedUser.id))
+        .limit(1);
+
+      if (!profileRows[0]) {
+        return { success: true, publishedToProfile: false };
+      }
+
+      await db
+        .update(clientProfiles)
+        .set({
+          clientPreview: input.previewContent,
+          clientPreviewGeneratedAt: new Date(),
+          clientPreviewPublished: 1,
+        })
+        .where(eq(clientProfiles.id, profileRows[0].id));
+
+      return { success: true, publishedToProfile: true };
+    }),
+
+  // Protected (client): mark preview as read
+  markPreviewRead: protectedProcedure.mutation(async ({ ctx }) => {
+    const db = await getDb();
+    if (!db) throw new TRPCError({ code: "INTERNAL_SERVER_ERROR", message: "Database unavailable" });
+
+    const profileRows = await db
+      .select()
+      .from(clientProfiles)
+      .where(eq(clientProfiles.userId, ctx.user.id))
+      .limit(1);
+
+    if (!profileRows[0]) throw new TRPCError({ code: "NOT_FOUND", message: "No client profile found" });
+
+    // Only set readAt the first time
+    if (!profileRows[0].clientPreviewReadAt) {
+      await db
+        .update(clientProfiles)
+        .set({ clientPreviewReadAt: new Date() })
+        .where(eq(clientProfiles.id, profileRows[0].id));
+    }
+
+    return { success: true };
+  }),
+
+  // Protected (client): get published preview for current user
+  getMyPreview: protectedProcedure.query(async ({ ctx }) => {
+    const db = await getDb();
+    if (!db) throw new TRPCError({ code: "INTERNAL_SERVER_ERROR", message: "Database unavailable" });
+
+    const profileRows = await db
+      .select({
+        clientPreview: clientProfiles.clientPreview,
+        clientPreviewPublished: clientProfiles.clientPreviewPublished,
+        clientPreviewGeneratedAt: clientProfiles.clientPreviewGeneratedAt,
+        clientPreviewReadAt: clientProfiles.clientPreviewReadAt,
+      })
+      .from(clientProfiles)
+      .where(eq(clientProfiles.userId, ctx.user.id))
+      .limit(1);
+
+    if (!profileRows[0]) return null;
+
+    const p = profileRows[0];
+    if (!p.clientPreviewPublished) return null;
+
+    return {
+      content: p.clientPreview,
+      generatedAt: p.clientPreviewGeneratedAt,
+      readAt: p.clientPreviewReadAt,
+    };
+  }),
 
   // Admin: re-send advisor brief
   resendAdvisorBrief: protectedProcedure
@@ -437,24 +543,6 @@ export const intakeRouter = router({
       const sent = await generateAndSendAdvisorBrief(rows[0]);
       if (sent) {
         await db.update(intakeForms).set({ advisorBriefSent: 1 }).where(eq(intakeForms.id, input.id));
-      }
-      return { success: sent };
-    }),
-
-  // Admin: re-send client preview
-  resendClientPreview: protectedProcedure
-    .input(z.object({ id: z.number() }))
-    .mutation(async ({ ctx, input }) => {
-      if (ctx.user?.email !== ENV.adminEmail) {
-        throw new TRPCError({ code: "FORBIDDEN", message: "Admin access required" });
-      }
-      const db = await getDb();
-      if (!db) throw new TRPCError({ code: "INTERNAL_SERVER_ERROR", message: "Database unavailable" });
-      const rows = await db.select().from(intakeForms).where(eq(intakeForms.id, input.id));
-      if (!rows[0]) throw new TRPCError({ code: "NOT_FOUND" });
-      const sent = await generateAndSendClientPreview(rows[0]);
-      if (sent) {
-        await db.update(intakeForms).set({ clientPreviewSent: 1 }).where(eq(intakeForms.id, input.id));
       }
       return { success: sent };
     }),

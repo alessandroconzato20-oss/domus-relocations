@@ -230,3 +230,45 @@
 - [ ] Verify PDF generation produces correct styled output
 - [x] Save checkpoint
 - [ ] Provide ANTHROPIC_API_KEY wiring instructions (pending key from client)
+
+## Client Preview — Dashboard Migration (Jul 2026)
+
+### Phase 1: Schema
+- [ ] Add clientPreview (text nullable), clientPreviewGeneratedAt (timestamp nullable), clientPreviewReadAt (timestamp nullable), clientPreviewPublished (boolean default false) to clientProfiles table
+- [ ] Add clientPreviewContent (text nullable), clientPreviewPublished (boolean default false) to intakeForms table
+- [ ] Run pnpm db:push
+
+### Phase 2: Backend
+- [ ] intake.submit: save clientPreviewContent to intakeForms after AI generation (not emailed as PDF)
+- [ ] intake.submit: check if submitted email matches a user in users table, return { emailExists: boolean, submittedEmail: string }
+- [ ] intake.submit: if email matches user with clientProfile, save preview to clientProfiles.clientPreview + set clientPreviewGeneratedAt
+- [ ] intake.submit: remove client-facing PDF generation and email sending entirely
+- [ ] intake.submit: Advisor Brief PDF + email to milano@domusrelocations.com unchanged
+- [ ] Add intake.publishPreview mutation (admin-only): copy clientPreviewContent from intakeForms to clientProfiles.clientPreview, set clientPreviewGeneratedAt, set clientPreviewPublished = true
+- [ ] Add intake.markPreviewRead mutation (protected): set clientPreviewReadAt = now() on clientProfiles for ctx.user
+- [ ] Add clientDashboard.getClientPreview query (protected): return clientPreview, clientPreviewPublished, clientPreviewReadAt for current user's profile
+
+### Phase 3: Client Dashboard
+- [ ] Add Milan Preview featured card at very top of /dashboard (above progress bar and card grid)
+- [ ] Card: full-width, gold top border, Cormorant Garamond italic heading "Your Milan Preview — prepared for you by DOMUS"
+- [ ] Render AI content in warm body text
+- [ ] "I've read this" button → calls markPreviewRead mutation, collapses card
+- [ ] After collapse: persistent "Read your Milan Preview again →" link in sidebar under MY RELOCATION
+- [ ] Card only shows when clientPreviewPublished = true
+
+### Phase 4: Admin
+- [ ] Intake detail view: add preview text editor panel (admin can review/lightly edit before publishing)
+- [ ] Intake detail view: "Publish to Client Dashboard" button → calls publishPreview mutation
+- [ ] Intake detail view: show published status and clientPreviewReadAt
+- [ ] Submissions table: add "Preview Read" column showing read timestamp or "Not yet read"
+
+### Phase 5: Confirmation Screen
+- [ ] After submit, server returns { emailExists: boolean, submittedEmail: string }
+- [ ] If emailExists: show "Welcome back — your Milan Preview is waiting" + button to /login?email=...
+- [ ] If !emailExists: show "Your Milan Preview is ready — create your DOMUS account" + button to /signup?email=...
+- [ ] Pre-fill email in both cases via URL param
+
+### Phase 6: Tests & Checkpoint
+- [ ] Update intake tests for new submit response shape
+- [ ] Test publishPreview and markPreviewRead mutations
+- [ ] Save checkpoint

@@ -7,7 +7,10 @@ import { trpc } from "@/lib/trpc";
 
 export default function Signup() {
   const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
+  const [email, setEmail] = useState(() => {
+    const params = new URLSearchParams(window.location.search);
+    return params.get("email") ?? "";
+  });
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [error, setError] = useState("");

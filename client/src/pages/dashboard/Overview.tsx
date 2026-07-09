@@ -1,10 +1,161 @@
 /**
  * DOMUS Relocations — Client Dashboard Overview
+ * Includes the Milan Preview featured card at the top (only when published).
  */
+import { useState } from "react";
 import { trpc } from "@/lib/trpc";
 import ClientDashboardLayout from "@/components/ClientDashboardLayout";
 import type { ChecklistItem, Appointment, Document } from "@shared/types";
 
+// ─── Milan Preview Card ───────────────────────────────────────────────────────
+function MilanPreviewCard() {
+  const utils = trpc.useUtils();
+  const previewQuery = trpc.intake.getMyPreview.useQuery();
+  const markReadMutation = trpc.intake.markPreviewRead.useMutation({
+    onSuccess: () => {
+      utils.intake.getMyPreview.invalidate();
+    },
+  });
+
+  const [collapsed, setCollapsed] = useState(false);
+
+  const preview = previewQuery.data;
+
+  // Not published or not available — render nothing
+  if (previewQuery.isLoading || !preview || !preview.content) return null;
+
+  const isRead = Boolean(preview.readAt);
+
+  function handleRead() {
+    setCollapsed(true);
+    if (!isRead) {
+      markReadMutation.mutate();
+    }
+  }
+
+  // Collapsed state — persistent link
+  if (collapsed) {
+    return (
+      <div style={{
+        marginBottom: "1.5rem",
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "space-between",
+        padding: "0.75rem 1.25rem",
+        backgroundColor: "rgba(180,155,110,0.06)",
+        borderLeft: "2px solid #b49b6e",
+      }}>
+        <span style={{ fontSize: "0.75rem", color: "#6b6b6b" }}>
+          Your Milan Preview is saved here
+        </span>
+        <button
+          onClick={() => setCollapsed(false)}
+          style={{
+            fontSize: "0.7rem",
+            letterSpacing: "0.12em",
+            textTransform: "uppercase",
+            color: "#b49b6e",
+            background: "none",
+            border: "none",
+            cursor: "pointer",
+            padding: 0,
+          }}
+        >
+          Read your Milan Preview again →
+        </button>
+      </div>
+    );
+  }
+
+  // Full card
+  return (
+    <div style={{
+      marginBottom: "2rem",
+      backgroundColor: "#ffffff",
+      borderTop: "3px solid #b49b6e",
+      border: "1px solid rgba(180,155,110,0.25)",
+      borderTopWidth: "3px",
+      borderTopColor: "#b49b6e",
+      padding: "2rem 2.25rem",
+      position: "relative",
+    }}>
+      {/* Header */}
+      <div style={{ marginBottom: "1.5rem" }}>
+        <div style={{ fontSize: "0.6rem", letterSpacing: "0.3em", textTransform: "uppercase", color: "#b49b6e", marginBottom: "0.5rem" }}>
+          Prepared for you by DOMUS
+        </div>
+        <h2 style={{
+          fontFamily: "'Cormorant Garamond', 'Cormorant', Georgia, serif",
+          fontWeight: 400,
+          fontStyle: "italic",
+          fontSize: "1.6rem",
+          color: "#1a1a1a",
+          margin: 0,
+          lineHeight: 1.3,
+        }}>
+          Your Milan Preview
+        </h2>
+        {preview.generatedAt && (
+          <p style={{ fontSize: "0.7rem", color: "#9b9b9b", marginTop: "0.35rem" }}>
+            Prepared on {new Date(preview.generatedAt).toLocaleDateString("en-GB", { day: "2-digit", month: "long", year: "numeric" })}
+          </p>
+        )}
+      </div>
+
+      {/* Content */}
+      <div style={{
+        fontFamily: "Georgia, 'Times New Roman', serif",
+        fontSize: "0.9rem",
+        lineHeight: 1.85,
+        color: "#2a2a2a",
+        whiteSpace: "pre-wrap",
+        maxHeight: "480px",
+        overflowY: "auto",
+        paddingRight: "0.5rem",
+      }}>
+        {preview.content}
+      </div>
+
+      {/* Footer actions */}
+      <div style={{
+        marginTop: "1.75rem",
+        paddingTop: "1.25rem",
+        borderTop: "1px solid rgba(180,155,110,0.15)",
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "space-between",
+        flexWrap: "wrap",
+        gap: "0.75rem",
+      }}>
+        <p style={{ fontSize: "0.75rem", color: "#9b9b9b", margin: 0 }}>
+          {isRead
+            ? `You read this on ${new Date(preview.readAt!).toLocaleDateString("en-GB", { day: "2-digit", month: "long", year: "numeric" })}.`
+            : "Your advisor will reference this document on your first call."}
+        </p>
+        <button
+          onClick={handleRead}
+          style={{
+            padding: "0.6rem 1.4rem",
+            fontSize: "0.7rem",
+            letterSpacing: "0.15em",
+            textTransform: "uppercase",
+            backgroundColor: "#1a1a1a",
+            color: "#ffffff",
+            border: "none",
+            cursor: "pointer",
+            transition: "background-color 0.2s",
+          }}
+          onMouseEnter={(e) => { e.currentTarget.style.backgroundColor = "#b49b6e"; }}
+          onMouseLeave={(e) => { e.currentTarget.style.backgroundColor = "#1a1a1a"; }}
+        >
+          {isRead ? "Collapse ↑" : "I've read this →"}
+        </button>
+      </div>
+    </div>
+  );
+}
+
+// ─── Stat Card ────────────────────────────────────────────────────────────────
 function StatCard({ label, value, sub }: { label: string; value: string | number; sub?: string }) {
   return (
     <div style={{
@@ -24,6 +175,7 @@ function StatCard({ label, value, sub }: { label: string; value: string | number
   );
 }
 
+// ─── Overview Page ────────────────────────────────────────────────────────────
 export default function DashboardOverview() {
   const profileQuery = trpc.clientDashboard.getMyProfile.useQuery();
   const checklistQuery = trpc.clientDashboard.getMyChecklist.useQuery();
@@ -83,6 +235,9 @@ export default function DashboardOverview() {
 
   return (
     <ClientDashboardLayout title="Overview">
+      {/* Milan Preview — full-width featured card, shown only when published */}
+      <MilanPreviewCard />
+
       {/* Welcome banner */}
       <div style={{
         backgroundColor: "#1a1a1a",

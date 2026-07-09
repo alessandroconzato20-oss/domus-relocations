@@ -1,6 +1,8 @@
-/*
+/**
  * DOMUS Relocations — Admin Intake Forms
- * Lists all private client intake submissions with detail view and re-send actions.
+ * Lists all private client intake submissions with detail view.
+ * Advisor Brief: re-send as PDF email.
+ * Client Preview: review/edit in-browser, then publish to client dashboard.
  */
 
 import { useState } from "react";
@@ -10,7 +12,7 @@ import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 import { Input } from "@/components/ui/input";
-import { ChevronLeft, Mail, RefreshCw, FileText, User, MapPin, Calendar, CheckCircle, XCircle } from "lucide-react";
+import { ChevronLeft, RefreshCw, FileText, CheckCircle, XCircle, Eye, Send } from "lucide-react";
 
 const ADMIN_EMAIL = "milano@domusrelocations.com";
 
@@ -24,20 +26,23 @@ type Submission = {
   submittedAt: Date;
   advisorBriefSent: number;
   clientPreviewSent: number;
+  clientPreviewPublished: number;
   assignedAdvisor: string | null;
 };
 
 // ─── Helpers ──────────────────────────────────────────────────────────────────
-function formatDate(d: Date | string): string {
+function formatDate(d: Date | string | null | undefined): string {
+  if (!d) return "—";
   return new Date(d).toLocaleDateString("en-GB", { day: "2-digit", month: "short", year: "numeric" });
 }
 
-function StatusBadge({ sent, label }: { sent: number; label: string }) {
+function StatusBadge({ active, label }: { active: boolean | number; label: string }) {
+  const on = Boolean(active);
   return (
     <span className={`inline-flex items-center gap-1 text-xs px-2 py-0.5 ${
-      sent ? "text-emerald-700 bg-emerald-50 border border-emerald-200" : "text-amber-700 bg-amber-50 border border-amber-200"
+      on ? "text-emerald-700 bg-emerald-50 border border-emerald-200" : "text-amber-700 bg-amber-50 border border-amber-200"
     }`}>
-      {sent ? <CheckCircle size={10} /> : <XCircle size={10} />}
+      {on ? <CheckCircle size={10} /> : <XCircle size={10} />}
       {label}
     </span>
   );
@@ -45,22 +50,33 @@ function StatusBadge({ sent, label }: { sent: number; label: string }) {
 
 // ─── Detail View ──────────────────────────────────────────────────────────────
 function DetailView({ id, onBack }: { id: number; onBack: () => void }) {
+  const utils = trpc.useUtils();
   const { data: form, isLoading, refetch } = trpc.intake.getSubmission.useQuery({ id });
   const [notes, setNotes] = useState<string>("");
   const [advisor, setAdvisor] = useState<string>("");
   const [notesLoaded, setNotesLoaded] = useState(false);
+  const [previewText, setPreviewText] = useState<string>("");
+  const [previewLoaded, setPreviewLoaded] = useState(false);
 
   const resendBriefMutation = trpc.intake.resendAdvisorBrief.useMutation({
     onSuccess: () => { toast.success("Advisor Brief is being regenerated and sent."); refetch(); },
-    onError: (e) => toast.error(e.message),
+    onError: (e: { message: string }) => toast.error(e.message),
   });
-  const resendPreviewMutation = trpc.intake.resendClientPreview.useMutation({
-    onSuccess: () => { toast.success("Client Preview is being regenerated and sent."); refetch(); },
-    onError: (e) => toast.error(e.message),
+
+  const publishPreviewMutation = trpc.intake.publishPreview.useMutation({
+    onSuccess: (data) => {
+      toast.success(data.publishedToProfile
+        ? "Preview published to client dashboard."
+        : "Preview saved — will appear when client creates their account.");
+      refetch();
+      utils.intake.listSubmissions.invalidate();
+    },
+    onError: (e: { message: string }) => toast.error(e.message),
   });
+
   const updateNotesMutation = trpc.intake.updateNotes.useMutation({
     onSuccess: () => toast.success("Notes saved."),
-    onError: (e) => toast.error(e.message),
+    onError: (e: { message: string }) => toast.error(e.message),
   });
 
   if (isLoading) {
@@ -80,7 +96,18 @@ function DetailView({ id, onBack }: { id: number; onBack: () => void }) {
     setNotesLoaded(true);
   }
 
-  const children = (form.children as Array<{ name: string; dateOfBirth: string; currentSchool: string; currentCurriculum: string; yearGrade: string; languagesSpoken: string }> | null) || [];
+  // Initialise preview text from DB on first load
+  if (!previewLoaded && form.clientPreviewContent !== undefined) {
+    setPreviewText(form.clientPreviewContent || "");
+    setPreviewLoaded(true);
+  }
+
+  const children = (form.children as Array<{
+    name: string; dateOfBirth: string; currentSchool: string;
+    currentCurriculum: string; yearGrade: string; languagesSpoken: string;
+    academicLevel?: string; strongestSubjects?: string; weakestSubjects?: string;
+    extracurriculars?: string; personality?: string;
+  }> | null) || [];
 
   function Field({ label, value }: { label: string; value: unknown }) {
     if (!value || (Array.isArray(value) && value.length === 0)) return null;
@@ -102,6 +129,8 @@ function DetailView({ id, onBack }: { id: number; onBack: () => void }) {
     );
   }
 
+  const isPublished = Boolean(form.clientPreviewPublished);
+
   return (
     <div className="space-y-8">
       {/* Header */}
@@ -114,9 +143,12 @@ function DetailView({ id, onBack }: { id: number; onBack: () => void }) {
           <p className="text-sm text-[var(--domus-grey)] mt-1">{form.email} · Submitted {formatDate(form.submittedAt)}</p>
         </div>
         <div className="flex flex-col gap-2 items-end">
-          <div className="flex gap-2">
-            <StatusBadge sent={form.advisorBriefSent} label="Advisor Brief" />
-            <StatusBadge sent={form.clientPreviewSent} label="Client Preview" />
+          <div className="flex gap-2 flex-wrap justify-end">
+            <StatusBadge active={form.advisorBriefSent} label="Advisor Brief" />
+            <StatusBadge active={isPublished} label={isPublished ? "Preview Published" : "Preview Unpublished"} />
+            {form.previewReadAt && (
+              <StatusBadge active={true} label={`Read ${formatDate(form.previewReadAt)}`} />
+            )}
           </div>
           <div className="flex gap-2 mt-2">
             <Button
@@ -129,18 +161,62 @@ function DetailView({ id, onBack }: { id: number; onBack: () => void }) {
               <RefreshCw size={12} />
               {resendBriefMutation.isPending ? "Sending…" : "Re-send Advisor Brief"}
             </Button>
-            <Button
-              size="sm"
-              variant="outline"
-              onClick={() => resendPreviewMutation.mutate({ id })}
-              disabled={resendPreviewMutation.isPending}
-              className="flex items-center gap-1.5 text-xs border-[var(--domus-gold)] text-[var(--domus-gold)]"
-            >
-              <Mail size={12} />
-              {resendPreviewMutation.isPending ? "Sending…" : "Re-send Client Preview"}
-            </Button>
           </div>
         </div>
+      </div>
+
+      {/* Client Preview Editor */}
+      <div className="border border-[var(--domus-gold)]/30 p-5 space-y-4 bg-[var(--domus-gold)]/3">
+        <div className="flex items-center justify-between">
+          <div>
+            <p className="text-xs tracking-widest uppercase text-[var(--domus-gold)]">Client Milan Preview</p>
+            <p className="text-xs text-[var(--domus-grey)] mt-1">
+              {form.clientPreviewContent
+                ? "AI-generated preview ready. Review and edit below, then publish to the client's dashboard."
+                : "Preview not yet generated — it will appear here once the AI has processed this submission."}
+            </p>
+          </div>
+          {isPublished && (
+            <div className="flex items-center gap-1.5 text-xs text-emerald-700">
+              <Eye size={12} />
+              <span>Visible on client dashboard</span>
+            </div>
+          )}
+        </div>
+
+        {form.clientPreviewContent ? (
+          <>
+            <Textarea
+              value={previewText}
+              onChange={(e) => setPreviewText(e.target.value)}
+              placeholder="AI-generated preview will appear here…"
+              rows={12}
+              className="text-sm font-['Cormorant_Garamond'] text-base resize-y border-[var(--domus-grey)]/40 bg-white/60 rounded-none leading-relaxed"
+            />
+            <div className="flex items-center justify-between">
+              <p className="text-xs text-[var(--domus-grey)]/60">
+                {previewText.length} characters · {Math.ceil(previewText.split(/\s+/).filter(Boolean).length)} words
+              </p>
+              <Button
+                size="sm"
+                onClick={() => publishPreviewMutation.mutate({ id, previewContent: previewText })}
+                disabled={publishPreviewMutation.isPending || !previewText.trim()}
+                className="flex items-center gap-1.5 text-xs bg-[var(--domus-gold)] text-[var(--domus-charcoal)] hover:bg-[var(--domus-charcoal)] hover:text-[var(--domus-ivory)]"
+              >
+                <Send size={12} />
+                {publishPreviewMutation.isPending
+                  ? "Publishing…"
+                  : isPublished
+                    ? "Update Published Preview"
+                    : "Publish to Client Dashboard"}
+              </Button>
+            </div>
+          </>
+        ) : (
+          <div className="py-8 text-center border border-dashed border-[var(--domus-gold)]/20">
+            <p className="text-sm text-[var(--domus-grey)]/60">Awaiting AI generation…</p>
+          </div>
+        )}
       </div>
 
       {/* Internal notes */}
@@ -201,6 +277,11 @@ function DetailView({ id, onBack }: { id: number; onBack: () => void }) {
                 <Field label="Curriculum" value={child.currentCurriculum} />
                 <Field label="Year / Grade" value={child.yearGrade} />
                 <Field label="Languages" value={child.languagesSpoken} />
+                <Field label="Academic Level" value={child.academicLevel} />
+                <Field label="Strongest Subjects" value={child.strongestSubjects} />
+                <Field label="Weakest Subjects" value={child.weakestSubjects} />
+                <Field label="Extracurriculars" value={child.extracurriculars} />
+                <Field label="Personality" value={child.personality} />
               </div>
             </div>
           ))}
@@ -310,7 +391,7 @@ function SubmissionsTable({ onSelect }: { onSelect: (id: number) => void }) {
       <table className="w-full text-sm">
         <thead>
           <tr className="border-b border-[var(--domus-gold)]/20">
-            {["Family", "Target City", "Arrival", "Submitted", "Advisor Brief", "Client Preview", "Advisor"].map((h) => (
+            {["Family", "Target City", "Arrival", "Submitted", "Advisor Brief", "Preview", "Advisor"].map((h) => (
               <th key={h} className="text-left text-xs tracking-widest uppercase text-[var(--domus-grey)] py-3 pr-4 font-normal">{h}</th>
             ))}
           </tr>
@@ -338,10 +419,13 @@ function SubmissionsTable({ onSelect }: { onSelect: (id: number) => void }) {
                 {formatDate(sub.submittedAt)}
               </td>
               <td className="py-3 pr-4">
-                <StatusBadge sent={sub.advisorBriefSent} label={sub.advisorBriefSent ? "Sent" : "Pending"} />
+                <StatusBadge active={sub.advisorBriefSent} label={sub.advisorBriefSent ? "Sent" : "Pending"} />
               </td>
               <td className="py-3 pr-4">
-                <StatusBadge sent={sub.clientPreviewSent} label={sub.clientPreviewSent ? "Sent" : "Pending"} />
+                <StatusBadge
+                  active={sub.clientPreviewPublished}
+                  label={sub.clientPreviewPublished ? "Published" : "Unpublished"}
+                />
               </td>
               <td className="py-3 pr-4 text-[var(--domus-grey)] text-xs">
                 {sub.assignedAdvisor || "—"}

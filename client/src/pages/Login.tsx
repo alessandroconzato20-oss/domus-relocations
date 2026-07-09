@@ -10,7 +10,10 @@ const ADMIN_EMAIL = "milano@domusrelocations.com";
 
 export default function Login() {
   const [, navigate] = useLocation();
-  const [email, setEmail] = useState("");
+  const [email, setEmail] = useState(() => {
+    const params = new URLSearchParams(window.location.search);
+    return params.get("email") ?? "";
+  });
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
 
