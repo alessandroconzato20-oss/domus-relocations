@@ -342,6 +342,9 @@ export const intakeForms = mysqlTable("intakeForms", {
   // Client Preview — stored here until linked to a user account
   clientPreviewContent: text("clientPreviewContent"),
   clientPreviewPublished: tinyint("clientPreviewPublished").default(0).notNull(),
+  // Account gate — tracks whether the submitter has created/linked an account
+  accountStatus: mysqlEnum("accountStatus", ["pending_account", "linked", "skipped"]).default("pending_account").notNull(),
+  linkedUserId: int("linkedUserId").references(() => users.id, { onDelete: "set null" }),
 });
 
 export type IntakeForm = typeof intakeForms.$inferSelect;

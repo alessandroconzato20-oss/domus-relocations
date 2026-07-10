@@ -272,3 +272,19 @@
 - [ ] Update intake tests for new submit response shape
 - [ ] Test publishPreview and markPreviewRead mutations
 - [ ] Save checkpoint
+
+## Account Gate — Intake Questionnaire (Jul 2026)
+
+- [ ] Add accountStatus field to intakeForms schema (enum: pending_account | linked | skipped)
+- [ ] Add linkedUserId foreign key to intakeForms
+- [ ] Run pnpm db:push to migrate schema
+- [ ] Backend: intake.submit sets accountStatus = pending_account on every new submission
+- [ ] Backend: new intake.linkToAccount mutation — links intakeForm to userId, copies clientPreviewContent to clientProfiles, sets clientPreviewPublished = true (auto-publish), sets accountStatus = linked
+- [ ] Backend: intake.cleanupStale procedure (admin) — deletes pending_account submissions older than 24h with no linkedUserId
+- [ ] Frontend: update confirmation screen with "Sign up or log in to see your DOMUS AI Pre-Relocation Intelligence Brief" gate UI
+- [ ] Confirmation screen passes intakeId in /signup?email=...&intakeId=... and /login?email=...&intakeId=... URLs
+- [ ] Signup page: on successful account creation, call intake.linkToAccount if intakeId param present, then redirect to /dashboard
+- [ ] Login page: on successful login, call intake.linkToAccount if intakeId param present, then redirect to /dashboard
+- [ ] Scheduled cleanup: heartbeat job deletes pending_account intakeForms older than 24h
+- [ ] Remove admin "Publish to Client Dashboard" requirement — preview auto-publishes on account link
+- [ ] Tests: linkToAccount success, linkToAccount with unknown intakeId, cleanup deletes stale rows

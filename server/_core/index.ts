@@ -9,6 +9,7 @@ import { registerStorageProxy } from "./storageProxy";
 import { appRouter } from "../routers";
 import { createContext } from "./context";
 import { serveStatic, setupVite } from "./vite";
+import { intakeCleanupHandler } from "../handlers/intakeCleanup";
 
 function isPortAvailable(port: number): Promise<boolean> {
   return new Promise(resolve => {
@@ -38,6 +39,9 @@ async function startServer() {
   app.use(cookieParser());
   registerStorageProxy(app);
   registerOAuthRoutes(app);
+  // Scheduled job handlers (must be before Vite/static fallthrough)
+  app.post("/api/scheduled/intake-cleanup", intakeCleanupHandler);
+
   // tRPC API
   app.use(
     "/api/trpc",

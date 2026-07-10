@@ -957,13 +957,17 @@ function ConfirmationScreen({
   lang,
   emailExists,
   submittedEmail,
+  intakeId,
 }: {
   firstName: string;
   lang: string;
   emailExists: boolean;
   submittedEmail: string;
+  intakeId: number;
 }) {
   const encodedEmail = encodeURIComponent(submittedEmail);
+  const signupUrl = `/signup?email=${encodedEmail}&intakeId=${intakeId}`;
+  const loginUrl = `/login?email=${encodedEmail}&intakeId=${intakeId}`;
 
   // Multilingual body copy (email-agnostic — preview is on the dashboard)
   const messages: Record<string, { heading: string; body: string }> = {
@@ -1009,9 +1013,9 @@ function ConfirmationScreen({
         </div>
 
         {/* Milan Preview CTA — adapts based on whether the client already has an account */}
-        <div className="border border-[var(--domus-gold)]/30 p-6 space-y-4 bg-white/60">
-          <p className="font-['Cormorant_Garamond'] text-xl text-[var(--domus-charcoal)] font-light italic">
-            Your personalised Milan Preview is ready.
+        <div className="border border-[var(--domus-gold)]/30 p-8 space-y-5 bg-white/60">
+          <p className="font-['Cormorant_Garamond'] text-2xl text-[var(--domus-charcoal)] font-light italic leading-snug">
+            Sign up or log in to see your DOMUS AI Pre-Relocation Intelligence Brief
           </p>
           {emailExists ? (
             <>
@@ -1019,19 +1023,19 @@ function ConfirmationScreen({
                 Welcome back — your Milan Preview is waiting in your dashboard.
               </p>
               <a
-                href={`/login?email=${encodedEmail}`}
+                href={loginUrl}
                 className="inline-block px-8 py-3 bg-[var(--domus-charcoal)] text-[var(--domus-ivory)] text-xs tracking-widest uppercase hover:bg-[var(--domus-gold)] hover:text-[var(--domus-charcoal)] transition-colors"
               >
-                Go to your dashboard →
+                Log in to read your brief →
               </a>
             </>
           ) : (
             <>
               <p className="text-sm text-[var(--domus-grey)] leading-relaxed">
-                Create your DOMUS account to read it now.
+                Create your DOMUS account to access your personalised brief now.
               </p>
               <a
-                href={`/signup?email=${encodedEmail}`}
+                href={signupUrl}
                 className="inline-block px-8 py-3 bg-[var(--domus-charcoal)] text-[var(--domus-ivory)] text-xs tracking-widest uppercase hover:bg-[var(--domus-gold)] hover:text-[var(--domus-charcoal)] transition-colors"
               >
                 Create your account →
@@ -1077,7 +1081,7 @@ export default function Intake() {
   const [form, setForm] = useState<FormData>(initialForm);
   const [currentSection, setCurrentSection] = useState(1);
   const [submitted, setSubmitted] = useState(false);
-  const [submissionResult, setSubmissionResult] = useState<{ firstName: string; lang: string; emailExists: boolean; submittedEmail: string } | null>(null);
+  const [submissionResult, setSubmissionResult] = useState<{ firstName: string; lang: string; emailExists: boolean; submittedEmail: string; intakeId: number } | null>(null);
   const topRef = useRef<HTMLDivElement>(null);
 
   const hasChildren = form.whoRelocating.includes("Children") && form.children.length > 0;
@@ -1098,6 +1102,7 @@ export default function Intake() {
         lang: data.preferredLanguage,
         emailExists: data.emailExists,
         submittedEmail: data.submittedEmail,
+        intakeId: data.id,
       });
       setSubmitted(true);
     },
@@ -1153,6 +1158,7 @@ export default function Intake() {
         lang={submissionResult.lang}
         emailExists={submissionResult.emailExists}
         submittedEmail={submissionResult.submittedEmail}
+        intakeId={submissionResult.intakeId}
       />
     );
   }

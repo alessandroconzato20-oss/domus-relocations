@@ -15,12 +15,30 @@ export default function Signup() {
   const [confirmPassword, setConfirmPassword] = useState("");
   const [error, setError] = useState("");
 
+  // Read intakeId from URL params (passed from intake confirmation screen)
+  const intakeId = (() => {
+    const params = new URLSearchParams(window.location.search);
+    const val = params.get("intakeId");
+    return val ? parseInt(val, 10) : null;
+  })();
+
+  const linkToAccountMutation = trpc.intake.linkToAccount.useMutation();
+
   const signupMutation = trpc.auth.signup.useMutation({
-    onSuccess: (data) => {
+    onSuccess: async (data) => {
       if (data.success) {
         // Store JWT in localStorage so it survives page navigation
         if (data.token) {
           localStorage.setItem("domus_auth_token", data.token);
+        }
+        // If the user came from the intake questionnaire, link the submission to their new account
+        if (intakeId) {
+          try {
+            await linkToAccountMutation.mutateAsync({ intakeId });
+          } catch (e) {
+            // Non-fatal — the intake is still saved, admin can link manually
+            console.warn("[Signup] Could not link intake to account:", e);
+          }
         }
         window.location.replace("/dashboard");
       } else {

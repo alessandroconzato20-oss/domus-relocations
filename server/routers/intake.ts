@@ -144,7 +144,7 @@ async function callClaude(
 
   const anthropic = new Anthropic({ apiKey: ENV.anthropicApiKey });
   const response = await anthropic.messages.create({
-    model: "claude-sonnet-4-5",
+    model: "claude-sonnet-4-6",
     max_tokens: maxTokens,
     system: systemPrompt,
     messages: [{ role: "user", content: userPrompt }],
@@ -371,6 +371,74 @@ export const intakeRouter = router({
       };
     }),
 
+  // Public: link an intake submission to a newly created or logged-in user account
+  // Called by Signup and Login pages when intakeId is present in URL params
+  linkToAccount: protectedProcedure
+    .input(z.object({ intakeId: z.number() }))
+    .mutation(async ({ ctx, input }) => {
+      const db = await getDb();
+      if (!db) throw new TRPCError({ code: "INTERNAL_SERVER_ERROR", message: "Database unavailable" });
+
+      // Fetch the intake form
+      const formRows = await db.select().from(intakeForms).where(eq(intakeForms.id, input.intakeId)).limit(1);
+      if (!formRows[0]) throw new TRPCError({ code: "NOT_FOUND", message: "Intake submission not found" });
+      const form = formRows[0];
+
+      // Guard: already linked to a different account
+      if (form.accountStatus === "linked" && form.linkedUserId && form.linkedUserId !== ctx.user.id) {
+        throw new TRPCError({ code: "FORBIDDEN", message: "This submission is already linked to another account" });
+      }
+
+      // Mark intake as linked
+      await db
+        .update(intakeForms)
+        .set({ accountStatus: "linked", linkedUserId: ctx.user.id })
+        .where(eq(intakeForms.id, input.intakeId));
+
+      // Find or create clientProfile for this user
+      const profileRows = await db
+        .select()
+        .from(clientProfiles)
+        .where(eq(clientProfiles.userId, ctx.user.id))
+        .limit(1);
+
+      if (profileRows[0] && form.clientPreviewContent) {
+        // Profile exists — push preview and auto-publish
+        await db
+          .update(clientProfiles)
+          .set({
+            clientPreview: form.clientPreviewContent,
+            clientPreviewGeneratedAt: new Date(),
+            clientPreviewPublished: 1,
+          })
+          .where(eq(clientProfiles.id, profileRows[0].id));
+      } else if (!profileRows[0]) {
+        // No profile yet — create a minimal one with the preview pre-loaded
+        const nameParts = form.primaryName.trim().split(" ");
+        await db.insert(clientProfiles).values({
+          userId: ctx.user.id,
+          fullName: form.primaryName,
+          email: form.email,
+          phone: form.phone ?? undefined,
+          nationality: form.nationalities ?? undefined,
+          currentCity: form.fromCity ?? undefined,
+          targetMoveDate: form.arrivalDate ?? undefined,
+          clientPreview: form.clientPreviewContent ?? undefined,
+          clientPreviewGeneratedAt: form.clientPreviewContent ? new Date() : undefined,
+          clientPreviewPublished: form.clientPreviewContent ? 1 : 0,
+        });
+      }
+
+      // Also mark intake clientPreviewPublished
+      await db
+        .update(intakeForms)
+        .set({ clientPreviewPublished: 1 })
+        .where(eq(intakeForms.id, input.intakeId));
+
+      return { success: true };
+    }),
+
+
   // Admin: list all intake submissions
   listSubmissions: protectedProcedure.query(async ({ ctx }) => {
     if (ctx.user?.email !== ENV.adminEmail) {
@@ -546,6 +614,38 @@ export const intakeRouter = router({
       }
       return { success: sent };
     }),
+
+  // Admin: delete stale pending_account submissions older than 24 hours
+  cleanupStale: protectedProcedure.mutation(async ({ ctx }) => {
+    if (ctx.user?.email !== ENV.adminEmail) {
+      throw new TRPCError({ code: "FORBIDDEN", message: "Admin access required" });
+    }
+    const db = await getDb();
+    if (!db) throw new TRPCError({ code: "INTERNAL_SERVER_ERROR", message: "Database unavailable" });
+
+    const cutoff = new Date(Date.now() - 24 * 60 * 60 * 1000);
+    const { lt, and, isNull } = await import("drizzle-orm");
+
+    const stale = await db
+      .select({ id: intakeForms.id })
+      .from(intakeForms)
+      .where(
+        and(
+          eq(intakeForms.accountStatus, "pending_account"),
+          isNull(intakeForms.linkedUserId),
+          lt(intakeForms.submittedAt, cutoff)
+        )
+      );
+
+    let deleted = 0;
+    for (const row of stale) {
+      await db.delete(intakeForms).where(eq(intakeForms.id, row.id));
+      deleted++;
+    }
+
+    console.log(`[Intake Cleanup] Deleted ${deleted} stale pending_account submissions`);
+    return { success: true, deleted };
+  }),
 
   // Admin: update internal notes
   updateNotes: protectedProcedure
