@@ -288,3 +288,10 @@
 - [ ] Scheduled cleanup: heartbeat job deletes pending_account intakeForms older than 24h
 - [ ] Remove admin "Publish to Client Dashboard" requirement — preview auto-publishes on account link
 - [ ] Tests: linkToAccount success, linkToAccount with unknown intakeId, cleanup deletes stale rows
+
+## Regenerate AI Content & Layout Fixes (Jul 2026)
+
+- [x] Add regenerateAI admin procedure to server/routers/intake.ts — re-runs Claude for both Advisor Brief and Client Preview, updates DB, re-sends Advisor Brief PDF
+- [x] Add "Regenerate AI Content" button to admin IntakeForms.tsx detail view (amber-styled, Sparkles icon)
+- [x] Fix ClientDashboardLayout.tsx: main content uses ml-0 md:ml-[260px] pt-16 md:pt-0 to clear fixed sidebar/header
+- [x] 86/86 tests passing, 0 TypeScript errors (tsc --noEmit)

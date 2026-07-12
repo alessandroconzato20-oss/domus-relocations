@@ -615,6 +615,60 @@ export const intakeRouter = router({
       return { success: sent };
     }),
 
+  // Admin: regenerate AI content (Advisor Brief + Client Preview) for an existing submission
+  regenerateAI: protectedProcedure
+    .input(z.object({ id: z.number() }))
+    .mutation(async ({ ctx, input }) => {
+      if (ctx.user?.email !== ENV.adminEmail) {
+        throw new TRPCError({ code: "FORBIDDEN", message: "Admin access required" });
+      }
+      if (!ENV.anthropicApiKey) {
+        throw new TRPCError({ code: "PRECONDITION_FAILED", message: "ANTHROPIC_API_KEY is not configured" });
+      }
+      const db = await getDb();
+      if (!db) throw new TRPCError({ code: "INTERNAL_SERVER_ERROR", message: "Database unavailable" });
+
+      const rows = await db.select().from(intakeForms).where(eq(intakeForms.id, input.id));
+      if (!rows[0]) throw new TRPCError({ code: "NOT_FOUND" });
+      const form = rows[0];
+
+      // Generate both documents in parallel
+      const [advisorText, previewText] = await Promise.all([
+        callClaude(ADVISOR_BRIEF_SYSTEM_PROMPT, buildAdvisorBriefUserPrompt(form), 2000),
+        callClaude(CLIENT_PREVIEW_SYSTEM_PROMPT, buildClientPreviewUserPrompt(form), 1200),
+      ]);
+
+      // Save preview to intakeForms
+      await db
+        .update(intakeForms)
+        .set({ clientPreviewContent: previewText })
+        .where(eq(intakeForms.id, input.id));
+
+      // If there is a linked clientProfile, update it too
+      const linkedUser = await getUserByEmail(form.email);
+      if (linkedUser) {
+        const profileRows = await db
+          .select()
+          .from(clientProfiles)
+          .where(eq(clientProfiles.userId, linkedUser.id))
+          .limit(1);
+        if (profileRows[0]) {
+          await db
+            .update(clientProfiles)
+            .set({ clientPreview: previewText, clientPreviewGeneratedAt: new Date() })
+            .where(eq(clientProfiles.id, profileRows[0].id));
+        }
+      }
+
+      // Regenerate and re-send the Advisor Brief PDF
+      const briefSent = await generateAndSendAdvisorBrief(form);
+      if (briefSent) {
+        await db.update(intakeForms).set({ advisorBriefSent: 1 }).where(eq(intakeForms.id, input.id));
+      }
+
+      return { success: true, advisorBriefSent: briefSent, previewText };
+    }),
+
   // Admin: delete stale pending_account submissions older than 24 hours
   cleanupStale: protectedProcedure.mutation(async ({ ctx }) => {
     if (ctx.user?.email !== ENV.adminEmail) {

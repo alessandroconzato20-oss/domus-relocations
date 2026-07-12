@@ -605,24 +605,6 @@ function Section4({ form, update }: { form: FormData; update: (patch: Partial<Fo
         <div key={i} className="border border-[var(--domus-gold)]/20 p-5 space-y-4">
           <p className="text-xs tracking-widest uppercase text-[var(--domus-gold)]">{child.name || `Child ${i + 1}`}</p>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <div className="space-y-1.5">
-              <FieldLabel optional>Academic strengths or areas of interest</FieldLabel>
-              <Input
-                value={syncedProfiles[i]?.academicStrengths || ""}
-                onChange={(e) => updateEduProfile(i, { childName: child.name, academicStrengths: e.target.value })}
-                placeholder="e.g. Sciences, languages, arts"
-                className="intake-input"
-              />
-            </div>
-            <div className="space-y-1.5">
-              <FieldLabel optional>Extracurricular activities</FieldLabel>
-              <Input
-                value={syncedProfiles[i]?.extracurriculars || ""}
-                onChange={(e) => updateEduProfile(i, { childName: child.name, extracurriculars: e.target.value })}
-                placeholder="e.g. Football, piano, swimming"
-                className="intake-input"
-              />
-            </div>
             <div className="space-y-1.5 md:col-span-2">
               <FieldLabel optional>Is curriculum continuity essential for this child?</FieldLabel>
               <select

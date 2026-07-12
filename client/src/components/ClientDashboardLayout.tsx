@@ -287,10 +287,9 @@ export default function ClientDashboardLayout({ children, title }: ClientDashboa
       <main
         style={{
           flex: 1,
-          marginLeft: 0,
-          paddingTop: 0,
+          minWidth: 0,
         }}
-        className="md:ml-[260px]"
+        className="ml-0 md:ml-[260px] pt-16 md:pt-0"
       >
         {/* Page header */}
         {title && (
@@ -300,7 +299,7 @@ export default function ClientDashboardLayout({ children, title }: ClientDashboa
               borderBottom: "1px solid rgba(180,155,110,0.15)",
               backgroundColor: "#ffffff",
             }}
-            className="pt-20 md:pt-0"
+            className="md:pt-0"
           >
             <h1
               style={{
@@ -315,7 +314,7 @@ export default function ClientDashboardLayout({ children, title }: ClientDashboa
             </h1>
           </div>
         )}
-        <div className={title ? "" : "pt-16 md:pt-0"} style={{ padding: title ? "2rem 2.5rem" : "2rem 2.5rem" }}>
+        <div style={{ padding: "2rem 2.5rem" }}>
           {children}
         </div>
       </main>

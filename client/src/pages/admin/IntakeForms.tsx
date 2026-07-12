@@ -12,7 +12,7 @@ import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 import { Input } from "@/components/ui/input";
-import { ChevronLeft, RefreshCw, FileText, CheckCircle, XCircle, Eye, Send } from "lucide-react";
+import { ChevronLeft, RefreshCw, FileText, CheckCircle, XCircle, Eye, Send, Sparkles } from "lucide-react";
 
 const ADMIN_EMAIL = "milano@domusrelocations.com";
 
@@ -60,6 +60,15 @@ function DetailView({ id, onBack }: { id: number; onBack: () => void }) {
 
   const resendBriefMutation = trpc.intake.resendAdvisorBrief.useMutation({
     onSuccess: () => { toast.success("Advisor Brief is being regenerated and sent."); refetch(); },
+    onError: (e: { message: string }) => toast.error(e.message),
+  });
+
+  const regenerateAIMutation = trpc.intake.regenerateAI.useMutation({
+    onSuccess: (data) => {
+      toast.success("AI content regenerated. Advisor Brief re-sent.");
+      setPreviewText(data.previewText);
+      refetch();
+    },
     onError: (e: { message: string }) => toast.error(e.message),
   });
 
@@ -160,6 +169,16 @@ function DetailView({ id, onBack }: { id: number; onBack: () => void }) {
             >
               <RefreshCw size={12} />
               {resendBriefMutation.isPending ? "Sending…" : "Re-send Advisor Brief"}
+            </Button>
+            <Button
+              size="sm"
+              variant="outline"
+              onClick={() => regenerateAIMutation.mutate({ id })}
+              disabled={regenerateAIMutation.isPending}
+              className="flex items-center gap-1.5 text-xs border-amber-600 text-amber-700 bg-amber-50"
+            >
+              <Sparkles size={12} />
+              {regenerateAIMutation.isPending ? "Generating…" : "Regenerate AI Content"}
             </Button>
           </div>
         </div>

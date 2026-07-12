@@ -172,99 +172,55 @@ export default function HeroSection() {
         <div
           style={{
             display: "flex",
-            flexDirection: "column",
             gap: "clamp(0.75rem, 2vw, 1.5rem)",
+            flexWrap: "wrap",
+            justifyContent: "center",
             alignItems: "center",
             opacity: ctaVisible ? 1 : 0,
             transform: ctaVisible ? "translateY(0)" : "translateY(20px)",
             transition: "opacity 0.7s ease, transform 0.7s ease",
             width: "100%",
+            paddingBottom: "clamp(1rem, 2vw, 2rem)",
           }}
         >
-          {/* Primary CTAs */}
-          <div
+          <a
+            href="/intake"
             style={{
-              display: "flex",
-              gap: "clamp(0.75rem, 2vw, 1.5rem)",
-              flexWrap: "wrap",
-              justifyContent: "center",
-              width: "100%",
+              padding: "1.1rem 2.5rem",
+              background: "linear-gradient(135deg, var(--domus-gold) 0%, rgba(214, 175, 98, 0.9) 100%)",
+              border: "none",
+              color: "var(--domus-charcoal)",
+              fontFamily: "'Cormorant Garamond', serif",
+              fontSize: "1.1rem",
+              fontWeight: 500,
+              cursor: "pointer",
+              transition: "all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1)",
+              letterSpacing: "0.5px",
+              textDecoration: "none",
+              display: "inline-block",
+              textAlign: "center",
+              boxShadow: "0 8px 24px rgba(214, 175, 98, 0.25)",
+              borderRadius: "2px",
+              whiteSpace: "nowrap",
+            }}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.boxShadow = "0 12px 36px rgba(214, 175, 98, 0.4)";
+              (e.currentTarget as HTMLElement).style.transform = "translateY(-2px)";
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.boxShadow = "0 8px 24px rgba(214, 175, 98, 0.25)";
+              (e.currentTarget as HTMLElement).style.transform = "translateY(0)";
             }}
           >
-            <a
-              href="/intake"
-              className="btn-luxury-dark"
-              style={{ background: "var(--domus-ivory)", color: "var(--domus-charcoal)", border: "1px solid var(--domus-ivory)", maxWidth: "280px", width: "100%", textDecoration: "none", textAlign: "center", display: "inline-block" }}
-            >
-              Begin Your Private Relocation
-            </a>
-            <button
-              onClick={scrollToAbout}
-              className="btn-luxury"
-              style={{ borderColor: "rgba(245, 240, 232, 0.5)", color: "#F5F0E8" }}
-            >
-              Our Story
-            </button>
-          </div>
-
-          {/* Schedule Consultation CTA */}
-          <div
-            style={{
-              display: "flex",
-              flexDirection: "column",
-              gap: "clamp(0.5rem, 1.5vw, 0.75rem)",
-              alignItems: "center",
-              maxWidth: "500px",
-              width: "100%",
-              paddingBottom: "clamp(1rem, 2vw, 2rem)",
-            }}
+            Begin Your Private Relocation
+          </a>
+          <button
+            onClick={scrollToAbout}
+            className="btn-luxury"
+            style={{ borderColor: "rgba(245, 240, 232, 0.5)", color: "#F5F0E8", whiteSpace: "nowrap" }}
           >
-            <a
-              href="/intake"
-              style={{
-                padding: "1.1rem 2.5rem",
-                background: "linear-gradient(135deg, var(--domus-gold) 0%, rgba(214, 175, 98, 0.9) 100%)",
-                border: "none",
-                color: "var(--domus-charcoal)",
-                fontFamily: "'Cormorant Garamond', serif",
-                fontSize: "1.1rem",
-                fontWeight: 500,
-                cursor: "pointer",
-                transition: "all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1)",
-                letterSpacing: "0.5px",
-                textDecoration: "none",
-                display: "block",
-                width: "100%",
-                textAlign: "center",
-                boxShadow: "0 8px 24px rgba(214, 175, 98, 0.25)",
-                borderRadius: "2px",
-                position: "relative",
-                overflow: "hidden",
-              }}
-              onMouseEnter={(e) => {
-                e.currentTarget.style.boxShadow = "0 12px 36px rgba(214, 175, 98, 0.4)";
-                (e.currentTarget as HTMLElement).style.transform = "translateY(-2px)";
-              }}
-              onMouseLeave={(e) => {
-                e.currentTarget.style.boxShadow = "0 8px 24px rgba(214, 175, 98, 0.25)";
-                (e.currentTarget as HTMLElement).style.transform = "translateY(0)";
-              }}
-            >
-              Schedule A Private Consultation
-            </a>
-            <p
-              style={{
-                fontFamily: "'Jost', sans-serif",
-                fontSize: "0.9rem",
-                fontWeight: 400,
-                color: "rgba(245, 240, 232, 0.85)",
-                lineHeight: 1.6,
-                margin: 0,
-              }}
-            >
-              Explore how DOMUS can support every aspect of your transition to Milan with a discreet, fully tailored approach.
-            </p>
-          </div>
+            Our Story
+          </button>
         </div>
       </div>
 
