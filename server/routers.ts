@@ -108,8 +108,35 @@ export const appRouter = router({
           }
 
           const token = await createPasswordResetToken(user.id, 1);
-          console.log(`[Password Reset] Token for ${input.email}: ${token}`);
-          console.log(`Reset link: /reset-password?token=${token}`);
+          console.log(`[Password Reset] Token created for ${input.email}`);
+
+          // Send password reset email via Resend
+          const resetUrl = `https://domusrelocations.com/reset-password?token=${token}`;
+          const htmlContent = `
+            <div style="font-family: Georgia, serif; max-width: 600px; margin: 0 auto; padding: 32px; background: #faf9f6; border: 1px solid #e8e0d0;">
+              <div style="border-bottom: 2px solid #b49b6e; padding-bottom: 16px; margin-bottom: 24px;">
+                <h2 style="font-family: 'Cormorant Garamond', Georgia, serif; color: #1a1a1a; margin: 0; font-size: 22px; font-weight: 400; font-style: italic;">Reset your DOMUS password</h2>
+              </div>
+              <p style="font-family: Georgia, serif; color: #1a1a1a; font-size: 15px; line-height: 1.7; margin-bottom: 24px;">We received a request to reset the password for your DOMUS account. Click the button below to choose a new password.</p>
+              <div style="text-align: center; margin: 32px 0;">
+                <a href="${resetUrl}" style="display: inline-block; padding: 14px 32px; background: #1a1a2e; color: #ffffff; text-decoration: none; font-family: 'Jost', Georgia, sans-serif; font-size: 13px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase;">Reset My Password</a>
+              </div>
+              <p style="font-family: Georgia, serif; color: #6b6b6b; font-size: 13px; line-height: 1.6; margin-bottom: 8px;">This link will expire in <strong>1 hour</strong>. If you did not request a password reset, you can safely ignore this email — your account remains secure.</p>
+              <p style="font-family: Georgia, serif; color: #999; font-size: 12px; margin-top: 24px; padding-top: 16px; border-top: 1px solid #e8e0d0;">If the button above does not work, copy and paste this link into your browser:<br><span style="color: #b49b6e; word-break: break-all;">${resetUrl}</span></p>
+            </div>
+          `;
+
+          try {
+            await sendEmailViaResend({
+              to: input.email,
+              subject: "Reset your DOMUS password",
+              htmlContent,
+              textContent: `Reset your DOMUS password\n\nClick the link below to reset your password (expires in 1 hour):\n${resetUrl}\n\nIf you did not request this, ignore this email.`,
+            });
+          } catch (emailError) {
+            console.error("[Password Reset] Failed to send email:", emailError);
+            // Still return success — token is valid, user can request again
+          }
 
           return { success: true, message: "Check your email for password reset instructions" };
         } catch (error) {
