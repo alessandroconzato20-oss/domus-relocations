@@ -330,8 +330,35 @@ View full details in the admin dashboard.`;
             message: input.message,
           });
           
-          // Notify owner of new contact submission
+          // Send immediate email to milano@domusrelocations.com
           const messagePreview = input.message.substring(0, 100) + (input.message.length > 100 ? "..." : "");
+          try {
+            const htmlContent = `
+              <div style="font-family: Georgia, serif; max-width: 600px; margin: 0 auto; padding: 32px; background: #faf9f6; border: 1px solid #e8e0d0;">
+                <div style="border-bottom: 2px solid #b49b6e; padding-bottom: 16px; margin-bottom: 24px;">
+                  <h2 style="font-family: 'Cormorant Garamond', Georgia, serif; color: #1a1a1a; margin: 0; font-size: 22px; font-weight: 400;">New Contact Inquiry — DOMUS</h2>
+                </div>
+                <table style="width: 100%; border-collapse: collapse; margin-bottom: 24px;">
+                  <tr><td style="padding: 8px 0; color: #6b6b6b; font-size: 13px; width: 120px;">Name</td><td style="padding: 8px 0; color: #1a1a1a; font-size: 14px;">${input.fullName}</td></tr>
+                  <tr><td style="padding: 8px 0; color: #6b6b6b; font-size: 13px;">Email</td><td style="padding: 8px 0;"><a href="mailto:${input.email}" style="color: #b49b6e; text-decoration: none;">${input.email}</a></td></tr>
+                </table>
+                <div style="background: #ffffff; border-left: 3px solid #b49b6e; padding: 16px 20px; margin-bottom: 24px;">
+                  <p style="margin: 0; color: #1a1a1a; font-size: 14px; line-height: 1.7;">${input.message.replace(/\n/g, "<br>")}</p>
+                </div>
+                <p style="font-size: 12px; color: #999; margin: 0;">Submitted via domusrelocations.com contact form</p>
+              </div>
+            `;
+            await sendEmailViaResend({
+              to: "milano@domusrelocations.com",
+              subject: `New Contact Inquiry — ${input.fullName}`,
+              htmlContent,
+              textContent: `New contact inquiry from ${input.fullName} (${input.email}):\n\n${input.message}`,
+            });
+          } catch (emailError) {
+            console.error("[Contact] Failed to send email notification:", emailError);
+          }
+
+          // Also notify via platform notification
           await notifyOwner({
             title: "New Contact Inquiry",
             content: `${input.fullName} (${input.email}) has sent a new inquiry: "${messagePreview}"`,
