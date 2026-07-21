@@ -168,6 +168,53 @@ export default function HeroSection() {
           A private relocation advisory rooted in discretion, precision, and a seamless transition into Milanese life. We expect more than efficiency.
         </p>
 
+        {/* DOMUS Compass badge */}
+        <div
+          style={{
+            opacity: subVisible ? 1 : 0,
+            transform: subVisible ? "translateY(0)" : "translateY(20px)",
+            transition: "opacity 0.7s ease 0.35s, transform 0.7s ease 0.35s",
+            marginBottom: "clamp(1.5rem, 3vw, 3rem)",
+            display: "flex",
+            justifyContent: "center",
+          }}
+        >
+          <a
+            href="#compass"
+            onClick={(e) => { e.preventDefault(); document.getElementById("compass")?.scrollIntoView({ behavior: "smooth" }); }}
+            style={{
+              display: "inline-flex",
+              alignItems: "center",
+              gap: "0.6rem",
+              padding: "0.55rem 1.25rem",
+              border: "1px solid rgba(201,168,76,0.45)",
+              background: "rgba(201,168,76,0.08)",
+              color: "rgba(245,240,232,0.85)",
+              fontFamily: "'Jost', sans-serif",
+              fontWeight: 400,
+              fontSize: "0.72rem",
+              letterSpacing: "0.18em",
+              textTransform: "uppercase",
+              textDecoration: "none",
+              borderRadius: "2px",
+              backdropFilter: "blur(4px)",
+              transition: "border-color 0.3s, background 0.3s",
+              cursor: "pointer",
+            }}
+            onMouseEnter={(e) => {
+              (e.currentTarget as HTMLElement).style.borderColor = "rgba(201,168,76,0.75)";
+              (e.currentTarget as HTMLElement).style.background = "rgba(201,168,76,0.15)";
+            }}
+            onMouseLeave={(e) => {
+              (e.currentTarget as HTMLElement).style.borderColor = "rgba(201,168,76,0.45)";
+              (e.currentTarget as HTMLElement).style.background = "rgba(201,168,76,0.08)";
+            }}
+          >
+            <span style={{ color: "var(--domus-gold)", fontSize: "0.9rem" }}>◈</span>
+            DOMUS Compass — AI Pre-Moving Intelligence Brief
+          </a>
+        </div>
+
         {/* CTA */}
         <div
           style={{

@@ -13,6 +13,7 @@ import CoreValuesSection from "@/components/CoreValuesSection";
 import HeroSection from "@/components/HeroSection";
 import MilanSection from "@/components/MilanSection";
 import Navigation from "@/components/Navigation";
+import DomusCompassSection from "@/components/DomusCompassSection";
 import DomusNetworkSection from "@/components/DomusNetworkSection";
 
 import ServicesSection from "@/components/ServicesSection";
@@ -50,6 +51,7 @@ export default function Home() {
       <main>
         <HeroSection />
         <CoreValuesSection />
+        <DomusCompassSection />
         <AboutSection />
         <DomusNetworkSection />
         <InternationalStudentsSection />

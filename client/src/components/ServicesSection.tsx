@@ -62,6 +62,20 @@ const services = [
       "Ongoing access as your needs evolve",
     ],
   },
+  {
+    numeral: "V",
+    label: "DOMUS Compass — AI Intelligence Brief",
+    title: "Your move, understood before it begins.",
+    description:
+      "Included with every DOMUS engagement, the DOMUS Compass is our proprietary AI-powered Pre-Moving Intelligence Brief — the first of its kind in private relocation. Before your first advisor call, our AI analyses your intake questionnaire in depth and generates a personalised intelligence document mapping your risks, fiscal deadlines, school admission windows, neighbourhood fit, and a 30/60/90-day integration roadmap. No other relocation brand does this. Your advisor arrives at your first conversation already knowing your situation — and ready to act.",
+    details: [
+      "AI analysis of your full family and lifestyle profile",
+      "Risk mapping: fiscal deadlines, permit timelines, school windows",
+      "Personalised 30/60/90-day Milan integration roadmap",
+      "Parallel advisor brief in English — every call starts informed",
+      "Delivered in your preferred language, included at no extra cost",
+    ],
+  },
 ];
 
 function ServiceCard({ service, index }: { service: typeof services[0]; index: number }) {
