@@ -41,6 +41,10 @@ import AdminDashboard from "./pages/AdminDashboard";
 import AdminClientList from "./pages/admin/ClientList";
 import AdminClientDetail from "./pages/admin/ClientDetail";
 import AdminIntakeForms from "./pages/admin/IntakeForms";
+import CorporateAdmin from "./pages/admin/CorporateAdmin";
+import CorporateLanding from "./pages/CorporateLanding";
+import CorporateActivate from "./pages/CorporateActivate";
+import CorporateDashboard from "./pages/CorporateDashboard";
 
 function Router() {
   // make sure to consider if you need authentication for certain routes
@@ -74,6 +78,12 @@ function Router() {
       <Route path={"/admin/clients"} component={AdminClientList} />
       <Route path={"/admin/clients/:id"} component={AdminClientDetail} />
       <Route path={"/admin/intake"} component={AdminIntakeForms} />
+      <Route path={"/admin/corporate"} component={CorporateAdmin} />
+
+      {/* DOMUS Meridian — Corporate */}
+      <Route path={"/corporate"} component={CorporateLanding} />
+      <Route path={"/corporate/activate"} component={CorporateActivate} />
+      <Route path={"/corporate/dashboard"} component={CorporateDashboard} />
 
       {/* Other */}
       <Route path={"/setup-2fa"} component={Setup2FA} />

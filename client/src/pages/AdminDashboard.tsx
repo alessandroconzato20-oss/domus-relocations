@@ -320,6 +320,22 @@ function AdminDashboardContent({
           >
             Manage Clients →
           </a>
+          <a
+            href="/admin/corporate"
+            style={{
+              padding: "0.75rem 1.5rem",
+              backgroundColor: "#B8963E",
+              color: "#ffffff",
+              fontFamily: "'Jost', sans-serif",
+              fontSize: "0.8rem",
+              letterSpacing: "0.1em",
+              textTransform: "uppercase",
+              textDecoration: "none",
+              borderRadius: "2px",
+            }}
+          >
+            DOMUS Meridian →
+          </a>
         </div>
       </div>
 

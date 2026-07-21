@@ -349,3 +349,119 @@ export const intakeForms = mysqlTable("intakeForms", {
 
 export type IntakeForm = typeof intakeForms.$inferSelect;
 export type InsertIntakeForm = typeof intakeForms.$inferInsert;
+
+// ─── DOMUS MERIDIAN — CORPORATE HR PLATFORM ──────────────────────────────────
+
+// Corporate lead submissions — public gated form at /corporate
+export const corporateLeads = mysqlTable("corporateLeads", {
+  id: int("id").autoincrement().primaryKey(),
+  companyName: varchar("companyName", { length: 255 }).notNull(),
+  workEmail: varchar("workEmail", { length: 320 }).notNull(),
+  relocationsPerYear: varchar("relocationsPerYear", { length: 100 }).notNull(),
+  contactName: varchar("contactName", { length: 255 }),
+  message: text("message"),
+  status: mysqlEnum("status", ["pending", "approved", "rejected"]).default("pending").notNull(),
+  createdAt: timestamp("createdAt").defaultNow().notNull(),
+});
+
+export type CorporateLead = typeof corporateLeads.$inferSelect;
+export type InsertCorporateLead = typeof corporateLeads.$inferInsert;
+
+// Corporate access codes — admin-generated, single-use per company
+export const corporateAccessCodes = mysqlTable("corporateAccessCodes", {
+  id: int("id").autoincrement().primaryKey(),
+  code: varchar("code", { length: 10 }).notNull().unique(),
+  companyName: varchar("companyName", { length: 255 }).notNull(),
+  createdByAdminId: int("createdByAdminId").references(() => users.id, { onDelete: "set null" }),
+  createdAt: timestamp("createdAt").defaultNow().notNull(),
+  usedAt: timestamp("usedAt"),
+  usedByUserId: int("usedByUserId").references(() => users.id, { onDelete: "set null" }),
+  isActive: tinyint("isActive").default(1).notNull(),
+});
+
+export type CorporateAccessCode = typeof corporateAccessCodes.$inferSelect;
+export type InsertCorporateAccessCode = typeof corporateAccessCodes.$inferInsert;
+
+// Corporate accounts — one per company, created when code is activated
+export const corporateAccounts = mysqlTable("corporateAccounts", {
+  id: int("id").autoincrement().primaryKey(),
+  companyName: varchar("companyName", { length: 255 }).notNull(),
+  accessCodeId: int("accessCodeId").references(() => corporateAccessCodes.id, { onDelete: "set null" }),
+  primaryUserId: int("primaryUserId").notNull().references(() => users.id, { onDelete: "cascade" }),
+  showFullNames: tinyint("showFullNames").default(0).notNull(), // privacy toggle
+  isActive: tinyint("isActive").default(1).notNull(),
+  createdAt: timestamp("createdAt").defaultNow().notNull(),
+  updatedAt: timestamp("updatedAt").defaultNow().onUpdateNow().notNull(),
+});
+
+export type CorporateAccount = typeof corporateAccounts.$inferSelect;
+export type InsertCorporateAccount = typeof corporateAccounts.$inferInsert;
+
+// Corporate assignments — employee relocations managed per company
+export const corporateAssignments = mysqlTable("corporateAssignments", {
+  id: int("id").autoincrement().primaryKey(),
+  corporateAccountId: int("corporateAccountId").notNull().references(() => corporateAccounts.id, { onDelete: "cascade" }),
+  employeeInitials: varchar("employeeInitials", { length: 10 }).notNull(),
+  employeeFullName: varchar("employeeFullName", { length: 255 }), // optional, shown only if showFullNames toggled
+  seniorityBand: mysqlEnum("seniorityBand", ["junior", "mid", "senior", "executive"]).default("mid").notNull(),
+  familySize: mysqlEnum("familySize", ["solo", "couple", "family_children"]).default("solo").notNull(),
+  destinationCity: varchar("destinationCity", { length: 100 }).notNull(),
+  startDate: timestamp("startDate"),
+  status: mysqlEnum("status", ["new", "on_track", "needs_attention", "completed"]).default("new").notNull(),
+  // Milestone tracking (JSON flags)
+  milestones: json("milestones").$type<{
+    housing: "pending" | "in_progress" | "completed";
+    school: "pending" | "in_progress" | "completed" | "na";
+    documentation: "pending" | "in_progress" | "completed";
+    banking: "pending" | "in_progress" | "completed";
+    healthcare: "pending" | "in_progress" | "completed";
+  }>().notNull(),
+  progressPercent: int("progressPercent").default(0).notNull(),
+  notes: text("notes"),
+  createdAt: timestamp("createdAt").defaultNow().notNull(),
+  updatedAt: timestamp("updatedAt").defaultNow().onUpdateNow().notNull(),
+});
+
+export type CorporateAssignment = typeof corporateAssignments.$inferSelect;
+export type InsertCorporateAssignment = typeof corporateAssignments.$inferInsert;
+
+// City cost data — admin-maintained reference table for cost estimator
+export const cityCostData = mysqlTable("cityCostData", {
+  id: int("id").autoincrement().primaryKey(),
+  city: varchar("city", { length: 100 }).notNull(),
+  subArea: varchar("subArea", { length: 100 }), // optional e.g. "Brera", "Navigli"
+  profileType: mysqlEnum("profileType", ["solo", "couple", "family_children"]).notNull(),
+  rentRangeMin: int("rentRangeMin").notNull(), // monthly EUR
+  rentRangeMax: int("rentRangeMax").notNull(),
+  schoolFeeRangeMin: int("schoolFeeRangeMin"), // annual EUR, null if no children
+  schoolFeeRangeMax: int("schoolFeeRangeMax"),
+  setupCostEstimate: int("setupCostEstimate").notNull(), // fiscal + admin one-off
+  healthcareCostEstimate: int("healthcareCostEstimate").notNull(), // annual
+  domusServiceFeeMin: int("domusServiceFeeMin").notNull(),
+  domusServiceFeeMax: int("domusServiceFeeMax").notNull(),
+  dataSource: mysqlEnum("dataSource", ["market_only", "blended", "domus_data"]).default("market_only").notNull(),
+  dataQuality: mysqlEnum("dataQuality", ["full", "limited"]).default("full").notNull(), // "limited" = thin data city
+  lastUpdatedBy: varchar("lastUpdatedBy", { length: 255 }).notNull(),
+  lastUpdatedAt: timestamp("lastUpdatedAt").defaultNow().onUpdateNow().notNull(),
+  createdAt: timestamp("createdAt").defaultNow().notNull(),
+});
+
+export type CityCostData = typeof cityCostData.$inferSelect;
+export type InsertCityCostData = typeof cityCostData.$inferInsert;
+
+// Completed engagement data — real outcome data fed in after engagements close
+export const completedEngagementData = mysqlTable("completedEngagementData", {
+  id: int("id").autoincrement().primaryKey(),
+  city: varchar("city", { length: 100 }).notNull(),
+  profileType: mysqlEnum("profileType", ["solo", "couple", "family_children"]).notNull(),
+  actualRentPaid: int("actualRentPaid").notNull(), // monthly EUR
+  actualSchoolFeesPaid: int("actualSchoolFeesPaid"), // annual EUR, nullable
+  actualSetupCost: int("actualSetupCost").notNull(),
+  actualTimeToHousing: int("actualTimeToHousing"), // days
+  actualTimeToSchoolPlacement: int("actualTimeToSchoolPlacement"), // days
+  completedAt: timestamp("completedAt").defaultNow().notNull(),
+  notes: text("notes"),
+});
+
+export type CompletedEngagementData = typeof completedEngagementData.$inferSelect;
+export type InsertCompletedEngagementData = typeof completedEngagementData.$inferInsert;

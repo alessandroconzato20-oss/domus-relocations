@@ -295,3 +295,14 @@
 - [x] Add "Regenerate AI Content" button to admin IntakeForms.tsx detail view (amber-styled, Sparkles icon)
 - [x] Fix ClientDashboardLayout.tsx: main content uses ml-0 md:ml-[260px] pt-16 md:pt-0 to clear fixed sidebar/header
 - [x] 86/86 tests passing, 0 TypeScript errors (tsc --noEmit)
+
+## DOMUS Meridian Corporate Platform (Jul 2026)
+
+- [x] DB schema: corporateLeads, corporateAccessCodes, corporateAccounts, corporateAssignments, corporateCostData tables migrated
+- [x] Backend tRPC corporate router: submitLead, activateCode, getMyAccount, getAssignments, getCostData, getCities, updateAccountSettings, adminListLeads, adminUpdateLeadStatus, adminListCodes, adminGenerateCode, adminListAccounts, adminListCostData, adminUpsertCostData, adminDeleteCostData
+- [x] Admin panel: /admin/corporate with Leads, Access Codes, Accounts, City Cost Data tabs
+- [x] Public landing page: /corporate with hero, features, and lead enquiry form
+- [x] Activate page: /corporate/activate with 6-char code entry and Manus OAuth gate
+- [x] Corporate dashboard: /corporate/dashboard with cost estimator + assignment tracker + privacy toggle
+- [x] Admin dashboard: DOMUS Meridian button added to nav
+- [x] 0 new TypeScript errors, 86/86 tests passing

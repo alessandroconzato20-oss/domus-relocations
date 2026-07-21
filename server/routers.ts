@@ -4,6 +4,7 @@ import { systemRouter } from "./_core/systemRouter";
 import { publicProcedure, router } from "./_core/trpc";
 import { clientDashboardRouter, adminDashboardRouter } from "./routers/dashboard";
 import { intakeRouter } from "./routers/intake";
+import { corporateRouter } from "./routers/corporate";
 import { notifyOwner } from "./_core/notification";
 import { invokeLLM } from "./_core/llm";
 import { sendEmailViaResend, formatQuizEmailContent, formatInquiryEmailContent } from "./_core/resendService";
@@ -622,6 +623,9 @@ View full details in the admin dashboard.`;
 
   // Intake questionnaire
   intake: intakeRouter,
+
+  // DOMUS Meridian — Corporate HR Platform
+  corporate: router(corporateRouter),
 
   admin: router({
     getAllClients: publicProcedure.query(async () => {
