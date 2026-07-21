@@ -86,9 +86,7 @@ export default function AboutSection() {
               alt="DOMUS Relocations"
               loading="lazy"
               decoding="async"
-              width="380"
-              height="380"
-              style={{ height: "clamp(200px, 35vw, 380px)", width: "auto", filter: "drop-shadow(0 4px 16px rgba(0,0,0,0.08))" }}
+              style={{ maxWidth: "clamp(180px, 28vw, 320px)", width: "100%", height: "auto", objectFit: "contain", filter: "drop-shadow(0 4px 16px rgba(0,0,0,0.08))" }}
             />
           </div>
 
