@@ -1,0 +1,1 @@
+ALTER TABLE `intakeForms` ADD `advisorBriefContent` text;

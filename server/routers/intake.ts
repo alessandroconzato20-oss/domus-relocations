@@ -157,7 +157,7 @@ async function callClaude(
 }
 
 // ─── Advisor Brief: generate PDF and email to DOMUS ──────────────────────────
-async function generateAndSendAdvisorBrief(form: IntakeForm): Promise<boolean> {
+async function generateAndSendAdvisorBrief(form: IntakeForm): Promise<{ sent: boolean; aiText: string }> {
   try {
     const userPrompt = buildAdvisorBriefUserPrompt(form);
     const aiText = await callClaude(ADVISOR_BRIEF_SYSTEM_PROMPT, userPrompt, 2000);
@@ -180,10 +180,10 @@ async function generateAndSendAdvisorBrief(form: IntakeForm): Promise<boolean> {
       filename,
     });
 
-    return sent;
+    return { sent, aiText };
   } catch (err) {
     console.error("[Intake] Advisor brief generation failed:", err);
-    return false;
+    return { sent: false, aiText: "" };
   }
 }
 
@@ -325,11 +325,12 @@ export const intakeRouter = router({
 
       // Background: generate Advisor Brief (PDF + email) and Client Preview (save to DB)
       Promise.all([
-        // Advisor Brief — PDF emailed to DOMUS advisor
-        generateAndSendAdvisorBrief(savedForm).then(async (sent) => {
-          if (sent) {
-            await db.update(intakeForms).set({ advisorBriefSent: 1 }).where(eq(intakeForms.id, savedForm.id));
-          }
+        // Advisor Brief — generate, save to DB, and attempt email
+        generateAndSendAdvisorBrief(savedForm).then(async ({ sent, aiText }) => {
+          await db.update(intakeForms).set({
+            advisorBriefContent: aiText || null,
+            advisorBriefSent: sent ? 1 : 0,
+          }).where(eq(intakeForms.id, savedForm.id));
         }),
 
         // Client Preview — generate text and save to intakeForms.clientPreviewContent
@@ -660,13 +661,14 @@ export const intakeRouter = router({
         }
       }
 
-      // Regenerate and re-send the Advisor Brief PDF
-      const briefSent = await generateAndSendAdvisorBrief(form);
-      if (briefSent) {
-        await db.update(intakeForms).set({ advisorBriefSent: 1 }).where(eq(intakeForms.id, input.id));
-      }
+      // Regenerate and re-send the Advisor Brief PDF, save text to DB
+      const { sent: briefSent, aiText: briefText } = await generateAndSendAdvisorBrief(form);
+      await db.update(intakeForms).set({
+        advisorBriefContent: briefText || null,
+        advisorBriefSent: briefSent ? 1 : 0,
+      }).where(eq(intakeForms.id, input.id));
 
-      return { success: true, advisorBriefSent: briefSent, previewText };
+      return { success: true, advisorBriefSent: briefSent, previewText, advisorBriefContent: briefText };
     }),
 
   // Admin: delete stale pending_account submissions older than 24 hours

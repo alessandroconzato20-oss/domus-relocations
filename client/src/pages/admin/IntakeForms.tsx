@@ -12,7 +12,7 @@ import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 import { Input } from "@/components/ui/input";
-import { ChevronLeft, RefreshCw, FileText, CheckCircle, XCircle, Eye, Send, Sparkles } from "lucide-react";
+import { ChevronLeft, ChevronUp, ChevronDown, RefreshCw, FileText, CheckCircle, XCircle, Eye, Send, Sparkles } from "lucide-react";
 
 const ADMIN_EMAIL = "milano@domusrelocations.com";
 
@@ -25,6 +25,7 @@ type Submission = {
   arrivalDate: string | null;
   submittedAt: Date;
   advisorBriefSent: number;
+  advisorBriefContent: string | null;
   clientPreviewSent: number;
   clientPreviewPublished: number;
   assignedAdvisor: string | null;
@@ -57,6 +58,7 @@ function DetailView({ id, onBack }: { id: number; onBack: () => void }) {
   const [notesLoaded, setNotesLoaded] = useState(false);
   const [previewText, setPreviewText] = useState<string>("");
   const [previewLoaded, setPreviewLoaded] = useState(false);
+  const [briefExpanded, setBriefExpanded] = useState(false);
 
   const resendBriefMutation = trpc.intake.resendAdvisorBrief.useMutation({
     onSuccess: () => { toast.success("Advisor Brief is being regenerated and sent."); refetch(); },
@@ -67,6 +69,7 @@ function DetailView({ id, onBack }: { id: number; onBack: () => void }) {
     onSuccess: (data) => {
       toast.success("AI content regenerated. Advisor Brief re-sent.");
       setPreviewText(data.previewText);
+      if (data.advisorBriefContent) setBriefExpanded(true);
       refetch();
     },
     onError: (e: { message: string }) => toast.error(e.message),
@@ -182,6 +185,48 @@ function DetailView({ id, onBack }: { id: number; onBack: () => void }) {
             </Button>
           </div>
         </div>
+      </div>
+
+      {/* Advisor Brief Viewer */}
+      <div className="border border-[var(--domus-charcoal)]/20 p-5 space-y-4 bg-[var(--domus-charcoal)]/3">
+        <div className="flex items-center justify-between">
+          <div>
+            <p className="text-xs tracking-widest uppercase text-[var(--domus-charcoal)]">Advisor Intelligence Brief</p>
+            <p className="text-xs text-[var(--domus-grey)] mt-1">
+              {form.advisorBriefContent
+                ? "AI-generated brief for your eyes only. Read before first contact with the family."
+                : "Brief not yet generated — use Regenerate AI Content to produce it."}
+            </p>
+          </div>
+          {form.advisorBriefContent && (
+            <button
+              onClick={() => setBriefExpanded(!briefExpanded)}
+              className="flex items-center gap-1.5 text-xs text-[var(--domus-charcoal)] hover:text-[var(--domus-gold)] transition-colors"
+            >
+              {briefExpanded ? <ChevronUp size={14} /> : <ChevronDown size={14} />}
+              {briefExpanded ? "Collapse" : "Read Brief"}
+            </button>
+          )}
+        </div>
+
+        {form.advisorBriefContent ? (
+          briefExpanded ? (
+            <div
+              className="bg-white/70 border border-[var(--domus-charcoal)]/10 p-6 rounded-none"
+              style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: "0.95rem", lineHeight: 1.85, color: "var(--domus-charcoal)", whiteSpace: "pre-wrap", maxHeight: "600px", overflowY: "auto" }}
+            >
+              {form.advisorBriefContent}
+            </div>
+          ) : (
+            <div className="py-3 px-4 bg-white/40 border border-[var(--domus-charcoal)]/10 text-xs text-[var(--domus-grey)]">
+              {form.advisorBriefContent.slice(0, 200).trim()}{form.advisorBriefContent.length > 200 ? "…" : ""}
+            </div>
+          )
+        ) : (
+          <div className="py-8 text-center border border-dashed border-[var(--domus-charcoal)]/20">
+            <p className="text-sm text-[var(--domus-grey)]/60">Awaiting AI generation…</p>
+          </div>
+        )}
       </div>
 
       {/* Client Preview Editor */}
