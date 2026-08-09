@@ -43,6 +43,8 @@ import AdminClientDetail from "./pages/admin/ClientDetail";
 import AdminIntakeForms from "./pages/admin/IntakeForms";
 import CorporateAdmin from "./pages/admin/CorporateAdmin";
 import CorporateLanding from "./pages/CorporateLanding";
+import InternationalStudents from "./pages/InternationalStudents";
+import Services from "./pages/Services";
 import CorporateActivate from "./pages/CorporateActivate";
 import CorporateDashboard from "./pages/CorporateDashboard";
 
@@ -80,6 +82,9 @@ function Router() {
       <Route path={"/admin/intake"} component={AdminIntakeForms} />
       <Route path={"/admin/corporate"} component={CorporateAdmin} />
 
+      {/* SEO landing pages */}
+      <Route path={"/international-students"} component={InternationalStudents} />
+      <Route path={"/services"} component={Services} />
       {/* DOMUS Meridian — Corporate */}
       <Route path={"/corporate"} component={CorporateLanding} />
       <Route path={"/corporate/activate"} component={CorporateActivate} />

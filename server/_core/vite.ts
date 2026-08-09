@@ -5,6 +5,7 @@ import { nanoid } from "nanoid";
 import path from "path";
 import { createServer as createViteServer } from "vite";
 import viteConfig from "../../vite.config";
+import { injectSeoContent } from "../lib/seoPrerender";
 
 export async function setupVite(app: Express, server: Server) {
   const serverOptions = {
@@ -81,12 +82,19 @@ export function serveStatic(app: Express) {
   );
 
   // fall through to index.html if the file doesn't exist.
-  // Inject a Link: preload header for the LCP hero image so the browser
-  // starts fetching it before the HTML is fully parsed (HTTP Early Hints).
+  // Inject route-specific SEO content so crawlers see real HTML (not an empty shell).
+  // Also inject a Link: preload header for the LCP hero image.
   const HERO_PRELOAD = '<https://d2xsxph8kpxj0f.cloudfront.net/310519663449035187/5G96cC5HiLZMXbLbP234aP/domus-hero-milan-8KAoKuZsmiaC2PDXN6NmGS.webp>; rel=preload; as=image; type="image/webp"';
-  app.use("*", (_req, res) => {
+  const indexHtmlPath = path.resolve(distPath, "index.html");
+  app.use("*", (req, res) => {
     res.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
     res.setHeader("Link", HERO_PRELOAD);
-    res.sendFile(path.resolve(distPath, "index.html"));
+    try {
+      const html = fs.readFileSync(indexHtmlPath, "utf-8");
+      const enriched = injectSeoContent(html, req.path || "/");
+      res.status(200).set({ "Content-Type": "text/html" }).end(enriched);
+    } catch {
+      res.sendFile(indexHtmlPath);
+    }
   });
 }
