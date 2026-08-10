@@ -639,6 +639,108 @@ export default function DomusNetworkSection() {
             </div>
           )}
 
+          {/* Featured Partner - Protax Consulting Services */}
+          {taxWealthPartners[1] && (
+            <div
+              onClick={() => handlePartnerClick(taxWealthPartners[1])}
+              style={{
+                display: "grid",
+                gridTemplateColumns: "1fr 1fr",
+                gap: "clamp(1.5rem, 3vw, 4rem)",
+                marginBottom: "clamp(2rem, 4vw, 4rem)",
+                padding: "clamp(1.5rem, 4vw, 3rem)",
+                border: "none",
+                background: "linear-gradient(135deg, #faf8f5 0%, #f5f0ea 100%)",
+                cursor: "pointer",
+                transition: "all 0.4s cubic-bezier(0.4, 0, 0.2, 1)",
+                borderRadius: "8px",
+                boxShadow: "0 2px 8px rgba(0, 0, 0, 0.04)",
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.boxShadow = "0 8px 24px rgba(0, 0, 0, 0.08)";
+                e.currentTarget.style.transform = "translateY(-2px)";
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.boxShadow = "0 2px 8px rgba(0, 0, 0, 0.04)";
+                e.currentTarget.style.transform = "translateY(0)";
+              }}
+            >
+              <div
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  background: "#ffffff",
+                  borderRadius: "8px",
+                  padding: "clamp(1rem, 3vw, 2rem)",
+                  boxShadow: "0 1px 3px rgba(0, 0, 0, 0.05)",
+                  minHeight: "clamp(200px, 40vw, 300px)",
+                }}
+              >
+                <img
+                  src="/manus-storage/protax-logo_b11621d4.png"
+                  alt="Protax Consulting Services Logo"
+                  loading="lazy"
+                  decoding="async"
+                  width="400"
+                  height="180"
+                  style={{
+                    maxHeight: "clamp(120px, 30vw, 180px)",
+                    maxWidth: "90%",
+                    objectFit: "contain",
+                  }}
+                />
+              </div>
+              <div
+                style={{
+                  display: "flex",
+                  flexDirection: "column",
+                  justifyContent: "center",
+                }}
+              >
+                <div style={{ marginBottom: "1rem" }}>
+                  <span
+                    style={{
+                      display: "inline-block",
+                      background: "var(--domus-gold)",
+                      color: "#ffffff",
+                      fontSize: "0.6rem",
+                      padding: "0.5rem 1rem",
+                      borderRadius: "20px",
+                      marginBottom: "1rem",
+                      textTransform: "uppercase",
+                      letterSpacing: "0.12rem",
+                      fontWeight: 600,
+                    }}
+                  >
+                    Featured Partner
+                  </span>
+                </div>
+                <h3
+                  style={{
+                    fontFamily: "'Cormorant Garamond', serif",
+                    fontSize: "2rem",
+                    fontWeight: 400,
+                    color: "var(--domus-charcoal)",
+                    marginBottom: "1rem",
+                    lineHeight: 1.2,
+                  }}
+                >
+                  {taxWealthPartners[1].name}
+                </h3>
+                <p
+                  style={{
+                    fontSize: "0.95rem",
+                    color: "var(--domus-charcoal)",
+                    marginBottom: "1.5rem",
+                    lineHeight: 1.7,
+                  }}
+                >
+                  {taxWealthPartners[1].description}
+                </p>
+              </div>
+            </div>
+          )}
           {/* Tax & Wealth Partner Grid - Remaining Partners */}
           {ongoingNegotiations.filter(p => p.categoryGroup === "TAX, WEALTH & LEGAL").length > 0 && (
             <div
