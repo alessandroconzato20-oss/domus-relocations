@@ -27,14 +27,14 @@ const partnersData: Record<string, any> = {
   },
   ciani: {
     name: "Ciani Partners",
-    logo: "/manus-storage/ciani-partners-logo_835c637d.png",
+    logo: "/manus-storage/ciani-partners-logo_cff6b854.png",
     category: "TAX & WEALTH",
     description: "Comprehensive tax, wealth and legal advisory for international families establishing residency in Italy and managing cross-border financial structures.",
     fullDescription: "Ciani Partners is a leading advisory firm specializing in tax, wealth management, and legal services for international clients relocating to Italy. With deep expertise in Italian tax law, wealth structuring, and residency planning, they provide comprehensive guidance for high-net-worth families navigating the complexities of international relocation and asset management.",
   },
   protax: {
     name: "Protax Consulting Services",
-    logo: "/manus-storage/protax-logo_b11621d4.png",
+    logo: "/manus-storage/protax-logo_627867a1.png",
     category: "TAX & WEALTH",
     description: "The world's leading U.S. Global Mobility Tax services CPA firm, specialising in U.S. Expatriates, Foreign Nationals, and High Net Worth individuals.",
     fullDescription: "Protax Consulting Services is the world's leading U.S. Global Mobility Tax services CPA firm specialising in the delivery of world class professional services to U.S. Expatriates — U.S. persons living and working outside the US — Foreign Nationals, both U.S. Nonresident and Resident Aliens living and working inside the US, and High Net Worth individuals.\n\nProtax's Principal, Marc J Strohl CPA, is a multi-licensed CPA who has managed engagements for EY, Deloitte, and PwC, and is known internationally as a leading educator and mentor, delivering webinars through BARBRI, CPA Academy, Wolters Kluwer, and other platforms to CPAs and attorneys worldwide.\n\nThrough DOMUS' partnership with Protax, internationally mobile clients receive access to the highest standard of U.S. tax advisory — an essential resource for American families and dual nationals navigating the intersection of Italian residency and U.S. tax obligations.",
@@ -160,7 +160,7 @@ export default function PartnerDetail() {
           }}
         >
           <img
-            src="/manus-storage/pasted_file_lHAIrR_image_1a7377e7.png"
+            src="/manus-storage/lumo-privee-logo_900d8445.png"
             alt="Lumo Privee Logo"
             style={{
               maxHeight: "120px",
@@ -183,7 +183,7 @@ export default function PartnerDetail() {
           }}
         >
           <img
-            src="/manus-storage/Screenshot2026-06-01at12.10.32_fd6dc1f9.png"
+            src="/manus-storage/ciani-partners-logo_cff6b854.png"
             alt="Ciani Partners Logo"
             style={{
               maxHeight: "120px",
