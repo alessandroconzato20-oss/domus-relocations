@@ -10,9 +10,6 @@ const partnersData: Record<string, any> = {
     description: "Bespoke academic tutoring and educational support tailored to internationally minded students navigating Milan's leading school systems.",
     fullDescription: "Offering online and in-person tutoring across a range of curricula spanning the International Baccalaureate, the Italian high school system, and the British A-levels, amongst others, Lumo Privée is Milan's premier resource for quality tutoring. Founded by Alex Zarganis, a graduate of Columbia University's Teacher College with a specialisation in Private School Leadership, Lumo rejects the 'one size fits all' ethos of other tutoring agencies. Instead, its 150+ experienced tutors work to understand each student's optimal learning style as they strive towards concrete learning goals together.\n\nThrough DOMUS' partnership with Lumo Privée, families relocating to Milan gain access not only to exceptional educational support, but to a deeply personalised academic ecosystem designed around long-term success. Together, we create a seamless bridge between relocation and educational continuity, ensuring students are not simply placed into a new environment, but empowered to thrive within it from day one.",
     quote: "Our preferred school placement partner for families seeking IB, British, and bilingual Italian programmes in Milan.",
-    website: "https://academie.example.com",
-    contact: "hello@academie.example.com",
-    phone: "+39 02 1234 5678",
   },
   tf: {
     name: "Paideia Mentors",
@@ -20,9 +17,6 @@ const partnersData: Record<string, any> = {
     category: "EDUCATION",
     description: "Elite educational mentorship and long-term university strategy for families aspiring toward the world's most prestigious institutions.",
     fullDescription: "Serving only a handful of clients each year, Paideia Mentors acts as an educational \"family office\", crafting a comprehensive plan geared towards gaining students a place at one of the world's top universities. Its two founders — Andras Kapuvari (University of Cambridge) and Alex Zarganis (Columbia University) — together hold over three decades of experience leveraging diagnostics, tutoring, profile-building, and application consultation into offers from Oxbridge, the Ivy League, and other renowned schools from all over the world.\n\nDOMUS' collaboration with Paideia Mentors offers families a level of strategic educational guidance rarely accessible outside elite private networks. By integrating relocation, schooling, mentorship, and long-term university planning into a single experience, we provide internationally mobile families with an unparalleled foundation for both personal and academic excellence.",
-    website: "https://thetutoringfirm.example.com",
-    contact: "info@thetutoringfirm.example.com",
-    phone: "+39 02 8765 4321",
   },
   ism: {
     name: "ISM Admissions Office",
@@ -30,19 +24,20 @@ const partnersData: Record<string, any> = {
     category: "EDUCATION",
     description: "Our direct admissions contact at the International School of Milan — giving DOMUS families priority access to the enrollment process.",
     fullDescription: "The International School of Milan (ISM) is a leading international school offering IB programs and English-language education. DOMUS families receive priority consideration in the admissions process.",
-    website: "https://ismilanschool.com",
-    contact: "admissions@ismilanschool.com",
-    phone: "+39 02 4000 1000",
   },
   ciani: {
     name: "Ciani Partners",
-    logo: "/manus-storage/Screenshot2026-06-01at12.10.32_fd6dc1f9.png",
+    logo: "/manus-storage/ciani-partners-logo_835c637d.png",
     category: "TAX & WEALTH",
     description: "Comprehensive tax, wealth and legal advisory for international families establishing residency in Italy and managing cross-border financial structures.",
     fullDescription: "Ciani Partners is a leading advisory firm specializing in tax, wealth management, and legal services for international clients relocating to Italy. With deep expertise in Italian tax law, wealth structuring, and residency planning, they provide comprehensive guidance for high-net-worth families navigating the complexities of international relocation and asset management.",
-    website: "https://cianipartners.example.com",
-    contact: "info@cianipartners.example.com",
-    phone: "+39 02 9999 0000",
+  },
+  protax: {
+    name: "Protax Consulting Services",
+    logo: "/manus-storage/protax-logo_b11621d4.png",
+    category: "TAX & WEALTH",
+    description: "The world's leading U.S. Global Mobility Tax services CPA firm, specialising in U.S. Expatriates, Foreign Nationals, and High Net Worth individuals.",
+    fullDescription: "Protax Consulting Services is the world's leading U.S. Global Mobility Tax services CPA firm specialising in the delivery of world class professional services to U.S. Expatriates — U.S. persons living and working outside the US — Foreign Nationals, both U.S. Nonresident and Resident Aliens living and working inside the US, and High Net Worth individuals.\n\nProtax's Principal, Marc J Strohl CPA, is a multi-licensed CPA who has managed engagements for EY, Deloitte, and PwC, and is known internationally as a leading educator and mentor, delivering webinars through BARBRI, CPA Academy, Wolters Kluwer, and other platforms to CPAs and attorneys worldwide.\n\nThrough DOMUS' partnership with Protax, internationally mobile clients receive access to the highest standard of U.S. tax advisory — an essential resource for American families and dual nationals navigating the intersection of Italian residency and U.S. tax obligations.",
   },
   sl: {
     name: "Studio Legals Partner",
@@ -50,9 +45,6 @@ const partnersData: Record<string, any> = {
     category: "TAX & WEALTH",
     description: "Our preferred immigration and residency counsel for families establishing legal domicile under Italy's €100k flat tax regime.",
     fullDescription: "Studio Legals specializes in immigration law and tax optimization for high-net-worth individuals relocating to Italy. They provide expert guidance on residency permits, tax planning, and legal domicile establishment.",
-    website: "https://studiolegals.example.com",
-    contact: "info@studiolegals.example.com",
-    phone: "+39 02 5555 6666",
   },
   wm: {
     name: "Private Wealth Managers",
@@ -60,9 +52,6 @@ const partnersData: Record<string, any> = {
     category: "TAX & WEALTH",
     description: "Trusted wealth advisors with deep expertise in cross-border asset structuring for newly resident HNWI families.",
     fullDescription: "Our wealth management partners provide comprehensive financial advisory services including asset structuring, investment management, and tax-efficient wealth planning for international clients.",
-    website: "https://privatewealthmanagers.example.com",
-    contact: "contact@privatewealthmanagers.example.com",
-    phone: "+39 02 7777 8888",
   },
   ev: {
     name: "Engel & Völkers Milan",
@@ -70,9 +59,6 @@ const partnersData: Record<string, any> = {
     category: "REAL ESTATE",
     description: "Our luxury property partner for off-market and premium residential listings across Brera, Porta Nuova, and City Life.",
     fullDescription: "Engel & Völkers is a global luxury real estate firm with extensive experience in Milan's premium residential market. They specialize in off-market properties and provide white-glove service for discerning clients.",
-    website: "https://engelvoelkers.com/milan",
-    contact: "milan@engelvoelkers.com",
-    phone: "+39 02 3000 1000",
   },
   id: {
     name: "Atelier Interior Studio",
@@ -80,9 +66,6 @@ const partnersData: Record<string, any> = {
     category: "REAL ESTATE",
     description: "A Milan-based design studio we trust to turn a new apartment into a home — quickly, beautifully, and within a defined brief.",
     fullDescription: "Atelier Interior Studio specializes in residential interior design and renovation. Their team works efficiently to transform new apartments into beautiful, functional homes that reflect their clients' lifestyle and preferences.",
-    website: "https://atelierinteriorstudio.example.com",
-    contact: "info@atelierinteriorstudio.example.com",
-    phone: "+39 02 2222 3333",
   },
   hc: {
     name: "Private Clinic Partner",
@@ -90,9 +73,6 @@ const partnersData: Record<string, any> = {
     category: "HEALTHCARE",
     description: "Concierge-level private healthcare for DOMUS families — English-speaking GPs, specialist referrals, and priority access.",
     fullDescription: "Our healthcare partner provides premium private medical services with English-speaking physicians, specialist referrals, and concierge-level care coordination for international families.",
-    website: "https://privateclinic.example.com",
-    contact: "hello@privateclinic.example.com",
-    phone: "+39 02 4444 5555",
   },
   pb: {
     name: "Private Bank Milan",
@@ -100,9 +80,6 @@ const partnersData: Record<string, any> = {
     category: "HEALTHCARE",
     description: "Our recommended private banking contact for foreign nationals navigating Italian account opening and wealth management.",
     fullDescription: "Private Bank Milan specializes in serving high-net-worth individuals and international clients. They provide comprehensive banking services, investment management, and wealth advisory tailored to the needs of relocating families.",
-    website: "https://privatebankmilangroup.com",
-    contact: "international@privatebankmilangroup.com",
-    phone: "+39 02 6666 7777",
   },
 };
 
@@ -275,98 +252,45 @@ export default function PartnerDetail() {
               {partner.fullDescription}
             </p>
 
-            {/* Contact Info */}
+            {/* DOMUS Introduction CTA */}
             <div
               style={{
-                display: "grid",
-                gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))",
-                gap: "2rem",
                 marginTop: "3rem",
+                paddingTop: "2rem",
+                borderTop: "1px solid rgba(201,168,76,0.2)",
               }}
             >
-              {partner.website && (
-                <div>
-                  <span
-                    style={{
-                      display: "block",
-                      fontSize: "0.75rem",
-                      textTransform: "uppercase",
-                      letterSpacing: "0.1rem",
-                      color: "var(--domus-gold)",
-                      marginBottom: "0.5rem",
-                      fontWeight: 600,
-                    }}
-                  >
-                    Website
-                  </span>
-                  <a
-                    href={partner.website}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    style={{
-                      color: "var(--domus-charcoal)",
-                      textDecoration: "none",
-                      fontSize: "0.95rem",
-                    }}
-                  >
-                    {partner.website.replace("https://", "")}
-                  </a>
-                </div>
-              )}
-              {partner.contact && (
-                <div>
-                  <span
-                    style={{
-                      display: "block",
-                      fontSize: "0.75rem",
-                      textTransform: "uppercase",
-                      letterSpacing: "0.1rem",
-                      color: "var(--domus-gold)",
-                      marginBottom: "0.5rem",
-                      fontWeight: 600,
-                    }}
-                  >
-                    Email
-                  </span>
-                  <a
-                    href={`mailto:${partner.contact}`}
-                    style={{
-                      color: "var(--domus-charcoal)",
-                      textDecoration: "none",
-                      fontSize: "0.95rem",
-                    }}
-                  >
-                    {partner.contact}
-                  </a>
-                </div>
-              )}
-              {partner.phone && (
-                <div>
-                  <span
-                    style={{
-                      display: "block",
-                      fontSize: "0.75rem",
-                      textTransform: "uppercase",
-                      letterSpacing: "0.1rem",
-                      color: "var(--domus-gold)",
-                      marginBottom: "0.5rem",
-                      fontWeight: 600,
-                    }}
-                  >
-                    Phone
-                  </span>
-                  <a
-                    href={`tel:${partner.phone}`}
-                    style={{
-                      color: "var(--domus-charcoal)",
-                      textDecoration: "none",
-                      fontSize: "0.95rem",
-                    }}
-                  >
-                    {partner.phone}
-                  </a>
-                </div>
-              )}
+              <p
+                style={{
+                  fontFamily: "'Jost', sans-serif",
+                  fontSize: "0.9rem",
+                  fontWeight: 300,
+                  color: "#6B6560",
+                  lineHeight: 1.8,
+                  fontStyle: "italic",
+                }}
+              >
+                To be introduced to {partner.name}, please reach out to your DOMUS advisor directly — all partner introductions are made personally and with full context of your relocation.
+              </p>
+              <a
+                href="mailto:milano@domusrelocations.com"
+                style={{
+                  display: "inline-block",
+                  marginTop: "1.25rem",
+                  padding: "0.75rem 2rem",
+                  background: "transparent",
+                  color: "var(--domus-charcoal)",
+                  fontFamily: "'Jost', sans-serif",
+                  fontSize: "0.7rem",
+                  fontWeight: 500,
+                  letterSpacing: "0.15em",
+                  textTransform: "uppercase",
+                  textDecoration: "none",
+                  border: "1px solid rgba(26,24,20,0.3)",
+                }}
+              >
+                Contact DOMUS
+              </a>
             </div>
           </div>
         </div>
