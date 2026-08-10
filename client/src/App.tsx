@@ -37,6 +37,7 @@ import PartnerDetail from "./pages/PartnerDetail";
 import Intake from "./pages/Intake";
 
 // Admin
+import AdminWorkspace from "@/pages/AdminWorkspace";
 import AdminDashboard from "./pages/AdminDashboard";
 import AdminClientList from "./pages/admin/ClientList";
 import AdminClientDetail from "./pages/admin/ClientDetail";
@@ -76,7 +77,7 @@ function Router() {
       <Route path={"/family-dashboard"} component={FamilyDashboard} />
 
       {/* Admin */}
-      <Route path={"/admin"} component={AdminDashboard} />
+      <Route path={"/admin"} component={AdminWorkspace} />
       <Route path={"/admin/clients"} component={AdminClientList} />
       <Route path={"/admin/clients/:id"} component={AdminClientDetail} />
       <Route path={"/admin/intake"} component={AdminIntakeForms} />
