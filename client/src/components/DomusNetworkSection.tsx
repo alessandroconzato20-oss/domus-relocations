@@ -46,8 +46,17 @@ const taxWealthPartners: Partner[] = [
   {
     id: "ciani",
     name: "Ciani Partners",
-    logo: "/manus-storage/Screenshot2026-06-01at12.10.32_fd6dc1f9.png",
+    logo: "/manus-storage/ciani-partners-logo_835c637d.png",
     description: "Comprehensive tax, wealth and legal advisory for international families establishing residency in Italy and managing cross-border financial structures.",
+    category: "TAX & WEALTH",
+    categoryGroup: "TAX, WEALTH & LEGAL",
+    featured: true,
+  },
+  {
+    id: "protax",
+    name: "Protax Consulting Services",
+    logo: "/manus-storage/protax-logo_b11621d4.png",
+    description: "Protax Consulting Services is the world's leading U.S. Global Mobility Tax services CPA firm specialising in U.S. Expatriates, Foreign Nationals, and High Net Worth individuals. Principal Marc J Strohl CPA brings senior experience from EY, Deloitte and PwC and is recognised internationally as a leading educator for CPAs and attorneys worldwide.",
     category: "TAX & WEALTH",
     categoryGroup: "TAX, WEALTH & LEGAL",
     featured: true,
@@ -219,7 +228,7 @@ export default function DomusNetworkSection() {
                 }}
               >
                 <img
-                  src="/manus-storage/pasted_file_lHAIrR_image_3737daae.png"
+                  src="/manus-storage/lumo-privee-logo_9ca1e82c.png"
                   alt="Lumo Privee Logo"
                   loading="lazy"
                   decoding="async"
@@ -340,7 +349,7 @@ export default function DomusNetworkSection() {
                 }}
               >
                 <img
-                  src="/manus-storage/pasted_file_rL5Bb3_image_245de9fc.png"
+                  src="/manus-storage/paideia-mentors-logo_ad19737e.png"
                   alt="Paideia Mentors Logo"
                   loading="lazy"
                   decoding="async"
@@ -549,7 +558,7 @@ export default function DomusNetworkSection() {
                 }}
               >
                 <img
-                  src="/manus-storage/Screenshot2026-06-01at12.10.32_fd6dc1f9.png"
+                  src="/manus-storage/ciani-partners-logo_835c637d.png"
                   alt="Ciani Partners Logo"
                   loading="lazy"
                   decoding="async"
