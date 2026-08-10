@@ -211,7 +211,7 @@ export default function HeroSection() {
             }}
           >
             <span style={{ color: "var(--domus-gold)", fontSize: "0.9rem" }}>◈</span>
-            DOMUS Compass — AI Pre-Moving Intelligence Brief
+            DOMUS Compass: AI Pre-Moving Intelligence Brief
           </a>
         </div>
 

@@ -317,7 +317,7 @@ function DetailView({ id, onBack }: { id: number; onBack: () => void }) {
       </div>
 
       {/* Form data */}
-      <Section title="Section 1 — The Family">
+      <Section title="Section 1: The Family">
         <Field label="Primary Name" value={form.primaryName} />
         <Field label="Email" value={form.email} />
         <Field label="Phone" value={form.phone} />
@@ -352,7 +352,7 @@ function DetailView({ id, onBack }: { id: number; onBack: () => void }) {
         </div>
       )}
 
-      <Section title="Section 2 — The Move">
+      <Section title="Section 2: The Move">
         <Field label="From" value={form.fromCity} />
         <Field label="Nationalities" value={form.nationalities} />
         <Field label="Move Reasons" value={form.moveReasons} />
@@ -364,7 +364,7 @@ function DetailView({ id, onBack }: { id: number; onBack: () => void }) {
         <Field label="Previous Countries" value={form.previousCountries} />
       </Section>
 
-      <Section title="Section 3 — Housing">
+      <Section title="Section 3: Housing">
         <Field label="Rent or Buy" value={form.rentOrBuy} />
         <Field label="Budget" value={form.budget} />
         <Field label="Bedrooms" value={form.bedrooms} />
@@ -375,7 +375,7 @@ function DetailView({ id, onBack }: { id: number; onBack: () => void }) {
         <Field label="Previous Home Notes" value={form.previousHomeNotes} />
       </Section>
 
-      <Section title="Section 4 — Education">
+      <Section title="Section 4: Education">
         <Field label="Italian Immersion Scale" value={form.italianImmersionScale ? `${form.italianImmersionScale}/5` : null} />
         <Field label="Curriculum Preference" value={form.curriculumPreference} />
         <Field label="Mid-Year Entry" value={form.midYearEntry} />
@@ -385,7 +385,7 @@ function DetailView({ id, onBack }: { id: number; onBack: () => void }) {
         </div>
       </Section>
 
-      <Section title="Section 5 — Professional & Fiscal">
+      <Section title="Section 5: Professional and Fiscal">
         <Field label="Professional Situation" value={form.professionalSituation} />
         <Field label="Partner Situation" value={form.partnerProfSituation} />
         <Field label="Flat Tax Interest" value={form.flatTaxInterest} />
@@ -407,7 +407,7 @@ function DetailView({ id, onBack }: { id: number; onBack: () => void }) {
         <Field label="Dietary Notes" value={form.dietaryNotes} />
       </Section>
 
-      <Section title="Section 7 — Priorities">
+      <Section title="Section 7: Priorities">
         <Field label="Top Priorities" value={form.topPriorities} />
         <Field label="Previous Relo Scale" value={form.prevReloScale ? `${form.prevReloScale}/5` : null} />
         <Field label="Comms Preference" value={form.commsPref} />

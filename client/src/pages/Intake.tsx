@@ -410,7 +410,7 @@ function Section1({ form, update }: { form: FormData; update: (patch: Partial<Fo
 function Section2({ form, update }: { form: FormData; update: (patch: Partial<FormData>) => void }) {
   return (
     <div className="space-y-6">
-      <SectionTitle number="02" title="The Move" subtitle="Understanding the shape of your move — where you are coming from, why you are going, and how much flexibility you have." />
+      <SectionTitle number="02" title="The Move" subtitle="Understanding the shape of your move: where you are coming from, why you are going, and how much flexibility you have." />
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         <div className="space-y-1.5">
@@ -447,7 +447,7 @@ function Section2({ form, update }: { form: FormData; update: (patch: Partial<Fo
             className="w-full h-10 px-3 text-sm border border-[var(--domus-grey)]/50 bg-transparent text-[var(--domus-charcoal)] focus:outline-none focus:border-[var(--domus-gold)]"
           >
             <option value="">Select…</option>
-            <option>Fixed — we must be there by this date</option>
+            <option>Fixed: we must be there by this date</option>
             <option>Flexible within 1–2 months</option>
             <option>Flexible within 3–6 months</option>
             <option>No fixed date yet</option>
@@ -503,7 +503,7 @@ function Section2({ form, update }: { form: FormData; update: (patch: Partial<Fo
 function Section3({ form, update }: { form: FormData; update: (patch: Partial<FormData>) => void }) {
   return (
     <div className="space-y-6">
-      <SectionTitle number="03" title="Housing" subtitle="Your home in Italy is the foundation of everything. Help us understand what you need — and what you dream of." />
+      <SectionTitle number="03" title="Housing" subtitle="Your home in Italy is the foundation of everything. Help us understand what you need, and what you dream of." />
 
       <div className="space-y-2">
         <FieldLabel>Are you looking to rent or buy?</FieldLabel>
@@ -577,7 +577,7 @@ function Section3({ form, update }: { form: FormData; update: (patch: Partial<Fo
       </div>
 
       <div className="space-y-1.5">
-        <FieldLabel optional>Tell us about your current home — what do you love about it?</FieldLabel>
+        <FieldLabel optional>Tell us about your current home. What do you love about it?</FieldLabel>
         <Textarea value={form.previousHomeNotes} onChange={(e) => update({ previousHomeNotes: e.target.value })} placeholder="This helps us find something that feels like home…" rows={3} className="intake-input resize-none" />
       </div>
     </div>
@@ -613,7 +613,7 @@ function Section4({ form, update }: { form: FormData; update: (patch: Partial<Fo
                 className="w-full h-10 px-3 text-sm border border-[var(--domus-grey)]/50 bg-transparent text-[var(--domus-charcoal)] focus:outline-none focus:border-[var(--domus-gold)]"
               >
                 <option value="">Select…</option>
-                <option>Yes — must continue same curriculum (IB, British, French, etc.)</option>
+                <option>Yes, must continue same curriculum (IB, British, French, etc.)</option>
                 <option>Preferred but flexible</option>
                 <option>Open to a different curriculum</option>
                 <option>Considering Italian state school</option>
@@ -783,7 +783,7 @@ function Section6({ form, update }: { form: FormData; update: (patch: Partial<Fo
             className="w-full h-10 px-3 text-sm border border-[var(--domus-grey)]/50 bg-transparent text-[var(--domus-charcoal)] focus:outline-none focus:border-[var(--domus-gold)]"
           >
             <option value="">Select…</option>
-            <option>None — starting from zero</option>
+            <option>None, starting from zero</option>
             <option>Beginner (A1–A2)</option>
             <option>Intermediate (B1–B2)</option>
             <option>Advanced (C1–C2)</option>
@@ -799,7 +799,7 @@ function Section6({ form, update }: { form: FormData; update: (patch: Partial<Fo
               className="w-full h-10 px-3 text-sm border border-[var(--domus-grey)]/50 bg-transparent text-[var(--domus-charcoal)] focus:outline-none focus:border-[var(--domus-gold)]"
             >
               <option value="">Select…</option>
-              <option>None — starting from zero</option>
+              <option>None, starting from zero</option>
               <option>Beginner (A1–A2)</option>
               <option>Intermediate (B1–B2)</option>
               <option>Advanced (C1–C2)</option>

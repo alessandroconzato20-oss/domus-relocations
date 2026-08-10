@@ -35,7 +35,7 @@ const compassPoints = [
   {
     icon: "◈",
     label: "Risk & Opportunity Mapping",
-    text: "Fiscal deadlines, permit timelines, school admission windows, and neighbourhood fit are surfaced before you arrive — not after.",
+    text: "Fiscal deadlines, permit timelines, school admission windows, and neighbourhood fit are surfaced before you arrive. Not after.",
   },
   {
     icon: "◈",
@@ -118,7 +118,7 @@ export default function DomusCompassSection() {
             Introducing{" "}
             <em style={{ color: "var(--domus-gold)" }}>DOMUS Compass</em>
             <br />
-            — your move, understood before it begins.
+            Your move, understood before it begins.
           </h2>
           <p
             style={{
@@ -134,7 +134,7 @@ export default function DomusCompassSection() {
             <strong style={{ color: "rgba(245,240,232,0.9)", fontWeight: 400 }}>
               AI-powered Pre-Moving Intelligence Brief
             </strong>{" "}
-            — the first of its kind in private relocation. Before your first conversation with an advisor, our
+            The first of its kind in private relocation. Before your first conversation with an advisor, our
             AI analyses your intake questionnaire in depth: your family structure, professional context, lifestyle
             priorities, and destination requirements. It then generates a personalised intelligence document that
             maps your risks, your opportunities, and your optimal path into Milanese life.
@@ -149,7 +149,7 @@ export default function DomusCompassSection() {
             }}
           >
             No other relocation brand does this. Most advisors meet you without context. With DOMUS Compass,
-            your advisor arrives at your first call already knowing your situation — and ready to act.
+            your advisor arrives at your first call already knowing your situation. Ready to act.
           </p>
         </div>
 
@@ -262,7 +262,7 @@ export default function DomusCompassSection() {
               margin: 0,
             }}
           >
-            Included with every DOMUS intake — no additional cost.
+            Included with every DOMUS intake. No additional cost.
           </p>
         </div>
       </div>
