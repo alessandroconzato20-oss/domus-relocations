@@ -741,6 +741,83 @@ export default function DomusNetworkSection() {
               </div>
             </div>
           )}
+          {/* Featured Partner - Barducci Law Firm */}
+          {taxWealthPartners[2] && (
+            <div
+              style={{ cursor: "pointer", marginBottom: "3rem" }}
+              onClick={() => handlePartnerClick(taxWealthPartners[2])}
+            >
+              <div
+                style={{
+                  display: "grid",
+                  gridTemplateColumns: "1fr 1fr",
+                  gap: "0",
+                  background: "linear-gradient(135deg, #faf9f7 0%, #f5f2ed 100%)",
+                  border: "1px solid rgba(180,155,110,0.2)",
+                  borderRadius: "2px",
+                  overflow: "hidden",
+                  minHeight: "420px",
+                }}
+              >
+                <div
+                  style={{
+                    background: "#1c3557",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    padding: "3rem",
+                  }}
+                >
+                  <img
+                    src={taxWealthPartners[2].logo}
+                    alt="Barducci Law Firm Logo"
+                    loading="lazy"
+                    decoding="async"
+                    style={{ maxWidth: "260px", maxHeight: "260px", objectFit: "contain" }}
+                  />
+                </div>
+                <div style={{ padding: "3rem 3.5rem", display: "flex", flexDirection: "column", justifyContent: "center" }}>
+                  <span
+                    style={{
+                      display: "inline-block",
+                      fontSize: "0.6rem",
+                      letterSpacing: "0.2em",
+                      color: "#B49B6E",
+                      border: "1px solid rgba(180,155,110,0.4)",
+                      padding: "0.3rem 0.8rem",
+                      marginBottom: "1.5rem",
+                      width: "fit-content",
+                    }}
+                  >
+                    FEATURED PARTNER
+                  </span>
+                  <h3
+                    style={{
+                      fontFamily: "'Cormorant Garamond', serif",
+                      fontSize: "clamp(1.6rem, 2.5vw, 2.2rem)",
+                      fontWeight: 400,
+                      color: "#2D2926",
+                      marginBottom: "1.2rem",
+                      lineHeight: 1.2,
+                    }}
+                  >
+                    {taxWealthPartners[2].name}
+                  </h3>
+                  <p
+                    style={{
+                      fontFamily: "'Jost', sans-serif",
+                      fontSize: "0.85rem",
+                      color: "rgba(45,41,38,0.75)",
+                      lineHeight: 1.8,
+                      marginBottom: "1.5rem",
+                    }}
+                  >
+                    {taxWealthPartners[2].description}
+                  </p>
+                </div>
+              </div>
+            </div>
+          )}
           {/* Tax & Wealth Partner Grid - Remaining Partners */}
           {ongoingNegotiations.filter(p => p.categoryGroup === "TAX, WEALTH & LEGAL").length > 0 && (
             <div

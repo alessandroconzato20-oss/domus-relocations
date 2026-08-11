@@ -8,7 +8,7 @@ const partnersData: Record<string, any> = {
     logo: "🎓",
     category: "EDUCATION",
     description: "Bespoke academic tutoring and educational support tailored to internationally minded students navigating Milan's leading school systems.",
-    fullDescription: "Offering online and in-person tutoring across a range of curricula spanning the International Baccalaureate, the Italian high school system, and the British A-levels, amongst others, Lumo Privée is Milan's premier resource for quality tutoring. Founded by Alex Zarganis, a graduate of Columbia University's Teacher College with a specialisation in Private School Leadership, Lumo rejects the 'one size fits all' ethos of other tutoring agencies. Instead, its 150+ experienced tutors work to understand each student's optimal learning style as they strive towards concrete learning goals together.\n\nThrough DOMUS' partnership with Lumo Privée, families relocating to Milan gain access not only to exceptional educational support, but to a deeply personalised academic ecosystem designed around long-term success. Together, we create a seamless bridge between relocation and educational continuity, ensuring students are not simply placed into a new environment, but empowered to thrive within it from day one.",
+    fullDescription: "Offering online and in-person tutoring across a range of curricula spanning the International Baccalaureate, the Italian high school system, and the British A-levels, amongst others, Lumo Privée is Milan's premier resource for quality tutoring. Founded by Alex Zarganis, a graduate of Columbia University's Teacher College with a specialisation in Private School Leadership, Lumo rejects the one size fits all ethos of other tutoring agencies. Instead, its 150+ experienced tutors work to understand each student's optimal learning style as they strive towards concrete learning goals together.\n\n\n\nThrough DOMUS' partnership with Lumo Privée, families relocating to Milan gain access not only to exceptional educational support, but to a deeply personalised academic ecosystem designed around long-term success. Together, we create a seamless bridge between relocation and educational continuity, ensuring students are not simply placed into a new environment, but empowered to thrive within it from day one.",
     quote: "Our preferred school placement partner for families seeking IB, British, and bilingual Italian programmes in Milan.",
   },
   tf: {
@@ -16,13 +16,13 @@ const partnersData: Record<string, any> = {
     logo: "📚",
     category: "EDUCATION",
     description: "Elite educational mentorship and long-term university strategy for families aspiring toward the world's most prestigious institutions.",
-    fullDescription: "Serving only a handful of clients each year, Paideia Mentors acts as an educational \"family office\", crafting a comprehensive plan geared towards gaining students a place at one of the world's top universities. Its two founders — Andras Kapuvari (University of Cambridge) and Alex Zarganis (Columbia University) — together hold over three decades of experience leveraging diagnostics, tutoring, profile-building, and application consultation into offers from Oxbridge, the Ivy League, and other renowned schools from all over the world.\n\nDOMUS' collaboration with Paideia Mentors offers families a level of strategic educational guidance rarely accessible outside elite private networks. By integrating relocation, schooling, mentorship, and long-term university planning into a single experience, we provide internationally mobile families with an unparalleled foundation for both personal and academic excellence.",
+    fullDescription: "Serving only a handful of clients each year, Paideia Mentors acts as an educational family office, crafting a comprehensive plan geared towards gaining students a place at one of the world's top universities. Its two founders, Andras Kapuvari (University of Cambridge) and Alex Zarganis (Columbia University), together hold over three decades of experience leveraging diagnostics, tutoring, profile-building, and application consultation into offers from Oxbridge, the Ivy League, and other renowned schools from all over the world.\n\n\n\nDOMUS' collaboration with Paideia Mentors offers families a level of strategic educational guidance rarely accessible outside elite private networks. By integrating relocation, schooling, mentorship, and long-term university planning into a single experience, we provide internationally mobile families with an unparalleled foundation for both personal and academic excellence.",
   },
   ism: {
     name: "ISM Admissions Office",
     logo: "🏫",
     category: "EDUCATION",
-    description: "Our direct admissions contact at the International School of Milan — giving DOMUS families priority access to the enrollment process.",
+    description: "Our direct admissions contact at the International School of Milan, giving DOMUS families priority access to the enrollment process.",
     fullDescription: "The International School of Milan (ISM) is a leading international school offering IB programs and English-language education. DOMUS families receive priority consideration in the admissions process.",
   },
   ciani: {
@@ -37,7 +37,14 @@ const partnersData: Record<string, any> = {
     logo: "/manus-storage/protax-logo_627867a1.png",
     category: "TAX & WEALTH",
     description: "The world's leading U.S. Global Mobility Tax services CPA firm, specialising in U.S. Expatriates, Foreign Nationals, and High Net Worth individuals.",
-    fullDescription: "Protax Consulting Services is the world's leading U.S. Global Mobility Tax services CPA firm specialising in the delivery of world class professional services to U.S. Expatriates — U.S. persons living and working outside the US — Foreign Nationals, both U.S. Nonresident and Resident Aliens living and working inside the US, and High Net Worth individuals.\n\nProtax's Principal, Marc J Strohl CPA, is a multi-licensed CPA who has managed engagements for EY, Deloitte, and PwC, and is known internationally as a leading educator and mentor, delivering webinars through BARBRI, CPA Academy, Wolters Kluwer, and other platforms to CPAs and attorneys worldwide.\n\nThrough DOMUS' partnership with Protax, internationally mobile clients receive access to the highest standard of U.S. tax advisory — an essential resource for American families and dual nationals navigating the intersection of Italian residency and U.S. tax obligations.",
+    fullDescription: "Protax Consulting Services is the world's leading U.S. Global Mobility Tax services CPA firm specialising in the delivery of world class professional services to U.S. Expatriates, Foreign Nationals, both U.S. Nonresident and Resident Aliens living and working inside the US, and High Net Worth individuals.\n\n\n\nProtax's Principal, Marc J Strohl CPA, is a multi-licensed CPA who has managed engagements for EY, Deloitte, and PwC, and is known internationally as a leading educator and mentor, delivering webinars through BARBRI, CPA Academy, Wolters Kluwer, and other platforms to CPAs and attorneys worldwide.\n\n\n\nThrough DOMUS' partnership with Protax, internationally mobile clients receive access to the highest standard of U.S. tax advisory, an essential resource for American families and dual nationals navigating the intersection of Italian residency and U.S. tax obligations.",
+  },
+  barducci: {
+    name: "Barducci Law Firm",
+    logo: "/manus-storage/barducci-law-firm-logo_7d7e5d97.jpg",
+    category: "LEGAL",
+    description: "Expert legal guidance across Corporate Law, Immigration Law, Real Estate Law, and Maritime Personal Injury Law, with dedicated Italy and United States cross-border services.",
+    fullDescription: "Barducci Law Firm stands at the forefront of delivering expert legal guidance and dedicated representation in Corporate Law, Immigration Law, Real Estate Law, and Maritime Personal Injury Law.\n\n\n\nItaly and the United States, each rich in heritage, economic opportunity and global influence, offer exceptional possibilities for individuals, families and businesses operating across both countries. Yet navigating the legal, administrative and commercial complexities of a cross-border relationship can be challenging.\n\n\n\nTheir dedicated Italy and America legal services provide tailored guidance across a broad range of cross-border needs, including Italian citizenship through jure sanguinis and naturalisation, real estate transactions, business establishment and expansion, visa and immigration matters, and the authentication of legal documents.\n\n\n\nWith expertise across both Italian and American legal frameworks, their team helps clients navigate each stage with clarity and confidence, whether establishing a life, acquiring property, expanding a business or pursuing citizenship across borders.",
   },
   sl: {
     name: "Studio Legals Partner",
@@ -64,14 +71,14 @@ const partnersData: Record<string, any> = {
     name: "Atelier Interior Studio",
     logo: "🎨",
     category: "REAL ESTATE",
-    description: "A Milan-based design studio we trust to turn a new apartment into a home — quickly, beautifully, and within a defined brief.",
+    description: "A Milan-based design studio we trust to turn a new apartment into a home, quickly, beautifully, and within a defined brief.",
     fullDescription: "Atelier Interior Studio specializes in residential interior design and renovation. Their team works efficiently to transform new apartments into beautiful, functional homes that reflect their clients' lifestyle and preferences.",
   },
   hc: {
     name: "Private Clinic Partner",
     logo: "🏥",
     category: "HEALTHCARE",
-    description: "Concierge-level private healthcare for DOMUS families — English-speaking GPs, specialist referrals, and priority access.",
+    description: "Concierge-level private healthcare for DOMUS families, English-speaking GPs, specialist referrals, and priority access.",
     fullDescription: "Our healthcare partner provides premium private medical services with English-speaking physicians, specialist referrals, and concierge-level care coordination for international families.",
   },
   pb: {
