@@ -61,6 +61,15 @@ const taxWealthPartners: Partner[] = [
     categoryGroup: "TAX, WEALTH & LEGAL",
     featured: true,
   },
+  {
+    id: "barducci",
+    name: "Barducci Law Firm",
+    logo: "/manus-storage/barducci-law-firm-logo_7d7e5d97.jpg",
+    description: "Barducci Law Firm delivers expert legal guidance across Corporate Law, Immigration Law, Real Estate Law, and Maritime Personal Injury Law, with dedicated Italy and United States cross-border services covering citizenship, real estate, business establishment, and immigration.",
+    category: "LEGAL",
+    categoryGroup: "TAX, WEALTH & LEGAL",
+    featured: true,
+  },
 ];
 
 const ongoingNegotiations: Partner[] = [
