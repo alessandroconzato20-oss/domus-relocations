@@ -26,6 +26,9 @@
 - [x] Test all features in browser
 - [x] Save checkpoint with all features complete
 
+## Mobile Hero Navigation
+- [x] Make the hero navigation category labels more prominent, evenly spaced, and phone-safe without changing tablet or desktop layouts
+
 
 ## Email & Notifications (COMPLETE & VERIFIED)
 - [x] Replace Login/Signup buttons on homepage with single Inquire button (mailto link)

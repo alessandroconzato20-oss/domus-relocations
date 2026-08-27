@@ -296,6 +296,95 @@
     width: 100%;
   }
 
+  /* Phone-only navigation: equal category controls avoid cramped link rows. */
+  @media (max-width: 767px) {
+    .domus-desktop-links {
+      display: none !important;
+    }
+
+    .domus-mobile-menu-toggle {
+      min-height: 42px;
+      min-width: 42px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      border: 1px solid rgba(245, 240, 232, 0.45) !important;
+    }
+
+    .domus-mobile-menu {
+      background: rgba(245, 240, 232, 0.99);
+      border-top: 1px solid rgba(201, 168, 76, 0.3);
+      padding: 1rem 0 1.25rem;
+    }
+
+    .domus-mobile-category-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 0.55rem;
+    }
+
+    .domus-mobile-category {
+      min-height: 56px;
+      padding: 0.65rem 0.55rem;
+      border: 1px solid rgba(26, 24, 20, 0.16);
+      background: rgba(255, 255, 255, 0.48);
+      color: var(--domus-charcoal);
+      font-family: 'Jost', sans-serif;
+      font-size: 0.66rem;
+      font-weight: 600;
+      line-height: 1.25;
+      letter-spacing: 0.1em;
+      text-align: center;
+      text-transform: uppercase;
+      transition: background 160ms var(--ease-out, ease-out), border-color 160ms var(--ease-out, ease-out), color 160ms var(--ease-out, ease-out), transform 160ms var(--ease-out, ease-out);
+    }
+
+    .domus-mobile-category:active {
+      transform: scale(0.97);
+    }
+
+    .domus-mobile-category:hover,
+    .domus-mobile-category:focus-visible {
+      border-color: var(--domus-gold);
+      background: rgba(201, 168, 76, 0.08);
+      outline: none;
+    }
+
+    .domus-mobile-category-wide {
+      grid-column: 1 / -1;
+      min-height: 43px;
+    }
+
+    .domus-mobile-login {
+      display: block;
+      width: 100%;
+      margin-top: 0.9rem;
+      color: var(--domus-charcoal);
+      font-family: 'Jost', sans-serif;
+      font-size: 0.68rem;
+      font-weight: 600;
+      letter-spacing: 0.14em;
+      text-align: center;
+      text-decoration: none;
+      text-transform: uppercase;
+    }
+
+    .domus-mobile-journey {
+      display: flex;
+      width: 100%;
+      margin-top: 0.8rem;
+      min-height: 45px;
+      padding: 0.7rem 1rem;
+      font-size: 0.64rem;
+    }
+  }
+
+  @media (min-width: 768px) {
+    .domus-desktop-links {
+      display: flex !important;
+    }
+  }
+
   /* Service card */
   .service-card {
     position: relative;

@@ -60,7 +60,7 @@ export default function Navigation({ onQuizOpen: _onQuizOpen }: NavigationProps)
       <div className="container">
         <nav style={{ display: "flex", alignItems: "center", justifyContent: "flex-end", padding: "1.25rem 0" }}>
           {/* Desktop Links */}
-          <div style={{ display: "flex", alignItems: "center", gap: "2.5rem" }} className="hidden md:flex">
+          <div style={{ alignItems: "center", gap: "2.5rem" }} className="domus-desktop-links hidden md:flex">
             <button onClick={() => scrollTo("about")} className="nav-link" style={{ background: "none", border: "none" }}>
               Our Approach
             </button>
@@ -92,12 +92,13 @@ export default function Navigation({ onQuizOpen: _onQuizOpen }: NavigationProps)
             </a>
           </div>
 
-          {/* Mobile hamburger */}
+          {/* Mobile menu control */}
           <button
-            className="md:hidden"
+            className="domus-mobile-menu-toggle md:hidden"
             onClick={() => setMenuOpen(!menuOpen)}
             style={{ background: "none", border: "none", padding: "0.5rem", cursor: "pointer" }}
-            aria-label="Toggle menu"
+            aria-label={menuOpen ? "Close navigation menu" : "Open navigation menu"}
+            aria-expanded={menuOpen}
           >
             <div style={{ display: "flex", flexDirection: "column", gap: "5px" }}>
               <span style={{ display: "block", width: "22px", height: "1px", background: menuOpen ? "transparent" : "var(--domus-charcoal)", transition: "all 0.3s" }} />
@@ -109,32 +110,25 @@ export default function Navigation({ onQuizOpen: _onQuizOpen }: NavigationProps)
 
         {/* Mobile Menu */}
         {menuOpen && (
-          <div style={{
-            background: "rgba(245, 240, 232, 0.98)",
-            borderTop: "1px solid rgba(201, 168, 76, 0.2)",
-            padding: "1.5rem 0 2rem",
-            display: "flex",
-            flexDirection: "column",
-            gap: "1.5rem",
-          }}>
-            <button onClick={() => scrollTo("about")} className="nav-link" style={{ background: "none", border: "none", textAlign: "left" }}>Our Approach</button>
-            <button onClick={() => scrollTo("partners")} className="nav-link" style={{ background: "none", border: "none", textAlign: "left" }}>The DOMUS Network</button>
-            <button onClick={() => scrollTo("services")} className="nav-link" style={{ background: "none", border: "none", textAlign: "left" }}>Private Services</button>
-            <button onClick={() => scrollTo("students")} className="nav-link" style={{ background: "none", border: "none", textAlign: "left" }}>International Students</button>
-            <button onClick={() => scrollTo("milan")} className="nav-link" style={{ background: "none", border: "none", textAlign: "left" }}>Living In Milano</button>
+          <div className="domus-mobile-menu">
+            <div className="domus-mobile-category-grid">
+              <button onClick={() => scrollTo("about")} className="domus-mobile-category">Our Approach</button>
+              <button onClick={() => scrollTo("partners")} className="domus-mobile-category">The DOMUS Network</button>
+              <button onClick={() => scrollTo("services")} className="domus-mobile-category">Private Services</button>
+              <button onClick={() => scrollTo("students")} className="domus-mobile-category">International Students</button>
+              <button onClick={() => scrollTo("milan")} className="domus-mobile-category domus-mobile-category-wide">Living In Milano</button>
+            </div>
             <a
               href="/login"
               onClick={() => setMenuOpen(false)}
-              className="nav-link"
-              style={{ textDecoration: "none", textAlign: "left" }}
+              className="domus-mobile-login"
             >
               Client Login
             </a>
             <a
               href="/intake"
               onClick={() => setMenuOpen(false)}
-              className="btn-luxury"
-              style={{ alignSelf: "flex-start", padding: "0.75rem 2rem", fontSize: "0.7rem", textDecoration: "none" }}
+              className="btn-luxury domus-mobile-journey"
             >
               Begin Your Journey
             </a>
