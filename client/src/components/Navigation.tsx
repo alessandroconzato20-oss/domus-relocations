@@ -60,7 +60,7 @@ export default function Navigation({ onQuizOpen: _onQuizOpen }: NavigationProps)
       <div className="container">
         <nav style={{ display: "flex", alignItems: "center", justifyContent: "flex-end", padding: "1.25rem 0" }}>
           {/* Desktop Links */}
-          <div style={{ alignItems: "center", gap: "2.5rem" }} className="domus-desktop-links hidden md:flex">
+          <div style={{ alignItems: "center", justifyContent: "space-between", width: "100%" }} className="domus-desktop-links hidden md:flex">
             <button onClick={() => scrollTo("about")} className="nav-link" style={{ background: "none", border: "none" }}>
               Our Approach
             </button>
@@ -82,13 +82,6 @@ export default function Navigation({ onQuizOpen: _onQuizOpen }: NavigationProps)
               style={{ textDecoration: "none" }}
             >
               Client Login
-            </a>
-            <a
-              href="/intake"
-              className="btn-luxury"
-              style={{ padding: "0.625rem 1.75rem", fontSize: "0.7rem", textDecoration: "none" }}
-            >
-              Begin Your Journey
             </a>
           </div>
 
@@ -124,13 +117,6 @@ export default function Navigation({ onQuizOpen: _onQuizOpen }: NavigationProps)
               className="domus-mobile-login"
             >
               Client Login
-            </a>
-            <a
-              href="/intake"
-              onClick={() => setMenuOpen(false)}
-              className="btn-luxury domus-mobile-journey"
-            >
-              Begin Your Journey
             </a>
           </div>
         )}

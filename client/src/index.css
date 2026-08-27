@@ -369,14 +369,6 @@
       text-transform: uppercase;
     }
 
-    .domus-mobile-journey {
-      display: flex;
-      width: 100%;
-      margin-top: 0.8rem;
-      min-height: 45px;
-      padding: 0.7rem 1rem;
-      font-size: 0.64rem;
-    }
   }
 
   @media (min-width: 768px) {

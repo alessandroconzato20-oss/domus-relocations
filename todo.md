@@ -29,6 +29,9 @@
 ## Mobile Hero Navigation
 - [x] Make the hero navigation category labels more prominent, evenly spaced, and phone-safe without changing tablet or desktop layouts
 
+## Hero Navigation Simplification
+- [x] Remove the Begin Your Journey button and redistribute the remaining hero navigation links evenly
+
 
 ## Email & Notifications (COMPLETE & VERIFIED)
 - [x] Replace Login/Signup buttons on homepage with single Inquire button (mailto link)
