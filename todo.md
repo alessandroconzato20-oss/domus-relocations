@@ -198,7 +198,7 @@
 - [x] Add intakeForms table to Drizzle schema (all 50+ fields per spec)
 - [x] Run pnpm db:push to migrate schema
 - [x] Install @anthropic-ai/sdk, @sparticuz/chromium, puppeteer-core dependencies
-- [ ] Install express-rate-limit if not already present
+- [x] Install express-rate-limit and apply a 100 requests per IP per minute limit to the tRPC API
 
 ### Phase 2: Backend
 - [x] Create server/lib/aiPrompts.ts with ADVISOR_BRIEF_SYSTEM_PROMPT and CLIENT_PREVIEW_SYSTEM_PROMPT (exact prompts from spec)
