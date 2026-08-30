@@ -210,7 +210,7 @@
 - [x] saveIntake: validate fields, save to DB, call Claude API in parallel, generate PDFs, send emails, return success
 - [x] Email 1: Advisor Brief PDF to milano@domusrelocations.com
 - [x] Email 2: Client Preview PDF to client email
-- [ ] Rate limit intake endpoint: 5 submissions per IP per hour (Phase 2 follow-up)
+- [x] Rate limit intake endpoint: five submissions per IP per hour, enforced through durable database backed counters with integration coverage
 - [x] Strip HTML from all text inputs server-side
 - [x] Register intake router in server/routers.ts
 - [ ] Add ANTHROPIC_API_KEY secret (wire when key is available)

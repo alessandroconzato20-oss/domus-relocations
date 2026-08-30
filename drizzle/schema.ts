@@ -89,6 +89,16 @@ export const passwordResetTokens = mysqlTable("passwordResetTokens", {
 export type PasswordResetToken = typeof passwordResetTokens.$inferSelect;
 export type InsertPasswordResetToken = typeof passwordResetTokens.$inferInsert;
 
+// Durable hourly intake submission counters. IP addresses are stored only as SHA-256 hashes.
+export const intakeSubmissionLimits = mysqlTable("intakeSubmissionLimits", {
+  ipHash: varchar("ipHash", { length: 64 }).primaryKey(),
+  windowStartedAt: timestamp("windowStartedAt").notNull(),
+  submissionCount: int("submissionCount").default(0).notNull(),
+  updatedAt: timestamp("updatedAt").defaultNow().onUpdateNow().notNull(),
+});
+
+export type IntakeSubmissionLimit = typeof intakeSubmissionLimits.$inferSelect;
+
 // Trusted network contacts table
 export const trustedNetworkContacts = mysqlTable("trustedNetworkContacts", {
   id: int("id").autoincrement().primaryKey(),

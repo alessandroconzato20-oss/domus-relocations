@@ -18,6 +18,7 @@ import { eq, desc } from "drizzle-orm";
 import { ADVISOR_BRIEF_SYSTEM_PROMPT, CLIENT_PREVIEW_SYSTEM_PROMPT } from "../lib/aiPrompts";
 import { buildAdvisorBriefUserPrompt, buildClientPreviewUserPrompt } from "../lib/intakePromptBuilders";
 import { generatePDF, buildAdvisorBriefHTML } from "../lib/pdfGenerator";
+import { allowIntakeSubmission } from "../lib/intakeRateLimit";
 import { sendEmailViaResend } from "../_core/resendService";
 import type { IntakeForm } from "../../drizzle/schema";
 
@@ -235,12 +236,20 @@ export const intakeRouter = router({
   // Public: submit intake form
   submit: publicProcedure
     .input(intakeFormSchema)
-    .mutation(async ({ input }) => {
+    .mutation(async ({ ctx, input }) => {
+      const clientIp = ctx.req.ip || ctx.req.socket?.remoteAddress || "unknown";
       // Sanitise all text inputs
       const clean = stripHtml(input) as typeof input;
 
       const db = await getDb();
       if (!db) throw new TRPCError({ code: "INTERNAL_SERVER_ERROR", message: "Database unavailable" });
+
+      if (!(await allowIntakeSubmission(db, clientIp))) {
+        throw new TRPCError({
+          code: "TOO_MANY_REQUESTS",
+          message: "Too many intake submissions from this connection. Please try again in one hour.",
+        });
+      }
 
       // Save to database
       await db

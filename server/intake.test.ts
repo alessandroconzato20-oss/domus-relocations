@@ -121,6 +121,10 @@ vi.mock("./db", () => {
   };
 });
 
+vi.mock("./lib/intakeRateLimit", () => ({
+  allowIntakeSubmission: vi.fn().mockResolvedValue(true),
+}));
+
 // ─── Tests ────────────────────────────────────────────────────────────────────
 describe("intake.submit", () => {
   beforeEach(() => {
