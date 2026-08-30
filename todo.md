@@ -32,6 +32,9 @@
 ## Hero Navigation Simplification
 - [x] Remove the Begin Your Journey button and redistribute the remaining hero navigation links evenly
 
+## Private Relocation Packages
+- [x] Add a premium no pricing packages section for Essential, Elevate, and Thrive
+
 
 ## Email & Notifications (COMPLETE & VERIFIED)
 - [x] Replace Login/Signup buttons on homepage with single Inquire button (mailto link)

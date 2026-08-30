@@ -16,6 +16,7 @@ import Navigation from "@/components/Navigation";
 import DomusCompassSection from "@/components/DomusCompassSection";
 import DomusMeridianSection from "@/components/DomusMeridianSection";
 import DomusNetworkSection from "@/components/DomusNetworkSection";
+import PrivatePackagesSection from "@/components/PrivatePackagesSection";
 
 import ServicesSection from "@/components/ServicesSection";
 import TestimonialSection from "@/components/TestimonialSection";
@@ -58,6 +59,7 @@ export default function Home() {
         <DomusNetworkSection />
         <InternationalStudentsSection />
         <ServicesSection />
+        <PrivatePackagesSection />
         <QuizCTABanner />
         <MilanSection />
         <TestimonialSection />
