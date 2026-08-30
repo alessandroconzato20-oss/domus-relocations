@@ -254,60 +254,60 @@
 ## Client Preview — Dashboard Migration (Jul 2026)
 
 ### Phase 1: Schema
-- [ ] Add clientPreview (text nullable), clientPreviewGeneratedAt (timestamp nullable), clientPreviewReadAt (timestamp nullable), clientPreviewPublished (boolean default false) to clientProfiles table
-- [ ] Add clientPreviewContent (text nullable), clientPreviewPublished (boolean default false) to intakeForms table
-- [ ] Run pnpm db:push
+- [x] Add clientPreview (text nullable), clientPreviewGeneratedAt (timestamp nullable), clientPreviewReadAt (timestamp nullable), clientPreviewPublished (boolean default false) to clientProfiles table
+- [x] Add clientPreviewContent (text nullable), clientPreviewPublished (boolean default false) to intakeForms table
+- [x] Run pnpm db:push
 
 ### Phase 2: Backend
-- [ ] intake.submit: save clientPreviewContent to intakeForms after AI generation (not emailed as PDF)
-- [ ] intake.submit: check if submitted email matches a user in users table, return { emailExists: boolean, submittedEmail: string }
-- [ ] intake.submit: if email matches user with clientProfile, save preview to clientProfiles.clientPreview + set clientPreviewGeneratedAt
-- [ ] intake.submit: remove client-facing PDF generation and email sending entirely
-- [ ] intake.submit: Advisor Brief PDF + email to milano@domusrelocations.com unchanged
-- [ ] Add intake.publishPreview mutation (admin-only): copy clientPreviewContent from intakeForms to clientProfiles.clientPreview, set clientPreviewGeneratedAt, set clientPreviewPublished = true
-- [ ] Add intake.markPreviewRead mutation (protected): set clientPreviewReadAt = now() on clientProfiles for ctx.user
-- [ ] Add clientDashboard.getClientPreview query (protected): return clientPreview, clientPreviewPublished, clientPreviewReadAt for current user's profile
+- [x] intake.submit: save clientPreviewContent to intakeForms after AI generation (not emailed as PDF)
+- [x] intake.submit: check if submitted email matches a user in users table, return { emailExists: boolean, submittedEmail: string }
+- [x] intake.submit: if email matches user with clientProfile, save preview to clientProfiles.clientPreview + set clientPreviewGeneratedAt
+- [x] intake.submit: remove client-facing PDF generation and email sending entirely
+- [x] intake.submit: Advisor Brief PDF + email to milano@domusrelocations.com unchanged
+- [x] Add intake.publishPreview mutation (admin-only), superseded in the normal flow by auto publishing on account link
+- [x] Add intake.markPreviewRead mutation (protected): set clientPreviewReadAt = now() on clientProfiles for ctx.user
+- [x] Add clientDashboard.getClientPreview query (protected): return clientPreview, clientPreviewPublished, clientPreviewReadAt for current user's profile
 
 ### Phase 3: Client Dashboard
-- [ ] Add Milan Preview featured card at very top of /dashboard (above progress bar and card grid)
-- [ ] Card: full-width, gold top border, Cormorant Garamond italic heading "Your Milan Preview — prepared for you by DOMUS"
-- [ ] Render AI content in warm body text
-- [ ] "I've read this" button → calls markPreviewRead mutation, collapses card
-- [ ] After collapse: persistent "Read your Milan Preview again →" link in sidebar under MY RELOCATION
-- [ ] Card only shows when clientPreviewPublished = true
+- [x] Add Milan Preview featured card at very top of /dashboard (above progress bar and card grid)
+- [x] Card: full-width, gold top border, Cormorant Garamond italic heading "Your Milan Preview, prepared for you by DOMUS"
+- [x] Render AI content in warm body text
+- [x] "I've read this" button calls markPreviewRead mutation and collapses card
+- [x] After collapse: persistent read again control remains available
+- [x] Card only shows when clientPreviewPublished = true
 
 ### Phase 4: Admin
-- [ ] Intake detail view: add preview text editor panel (admin can review/lightly edit before publishing)
-- [ ] Intake detail view: "Publish to Client Dashboard" button → calls publishPreview mutation
-- [ ] Intake detail view: show published status and clientPreviewReadAt
-- [ ] Submissions table: add "Preview Read" column showing read timestamp or "Not yet read"
+- [x] Intake detail view: add preview text editor panel (admin can review and lightly edit before publishing)
+- [x] Intake detail view: "Publish to Client Dashboard" action retained for manual control, though normal account linking auto publishes
+- [x] Intake detail view: show published status and clientPreviewReadAt
+- [ ] Submissions table: add a Preview Read column showing read timestamp or not yet read
 
 ### Phase 5: Confirmation Screen
-- [ ] After submit, server returns { emailExists: boolean, submittedEmail: string }
-- [ ] If emailExists: show "Welcome back — your Milan Preview is waiting" + button to /login?email=...
-- [ ] If !emailExists: show "Your Milan Preview is ready — create your DOMUS account" + button to /signup?email=...
-- [ ] Pre-fill email in both cases via URL param
+- [x] After submit, server returns { emailExists: boolean, submittedEmail: string }
+- [x] If emailExists: show a return login action with the client email and intake ID
+- [x] If no matching email exists: show a sign up action with the client email and intake ID
+- [x] Pre-fill email in both cases via URL parameter
 
 ### Phase 6: Tests & Checkpoint
-- [ ] Update intake tests for new submit response shape
-- [ ] Test publishPreview and markPreviewRead mutations
-- [ ] Save checkpoint
+- [x] Update intake tests for new submit response shape, including emailExists and submittedEmail
+- [x] Test publishPreview and markPreviewRead mutations
+- [x] Save checkpoint
 
-## Account Gate — Intake Questionnaire (Jul 2026)
+## Account Gate: Intake Questionnaire (Jul 2026)
 
-- [ ] Add accountStatus field to intakeForms schema (enum: pending_account | linked | skipped)
-- [ ] Add linkedUserId foreign key to intakeForms
-- [ ] Run pnpm db:push to migrate schema
-- [ ] Backend: intake.submit sets accountStatus = pending_account on every new submission
-- [ ] Backend: new intake.linkToAccount mutation — links intakeForm to userId, copies clientPreviewContent to clientProfiles, sets clientPreviewPublished = true (auto-publish), sets accountStatus = linked
-- [ ] Backend: intake.cleanupStale procedure (admin) — deletes pending_account submissions older than 24h with no linkedUserId
-- [ ] Frontend: update confirmation screen with "Sign up or log in to see your DOMUS AI Pre-Relocation Intelligence Brief" gate UI
-- [ ] Confirmation screen passes intakeId in /signup?email=...&intakeId=... and /login?email=...&intakeId=... URLs
-- [ ] Signup page: on successful account creation, call intake.linkToAccount if intakeId param present, then redirect to /dashboard
-- [ ] Login page: on successful login, call intake.linkToAccount if intakeId param present, then redirect to /dashboard
-- [ ] Scheduled cleanup: heartbeat job deletes pending_account intakeForms older than 24h
-- [ ] Remove admin "Publish to Client Dashboard" requirement — preview auto-publishes on account link
-- [ ] Tests: linkToAccount success, linkToAccount with unknown intakeId, cleanup deletes stale rows
+- [x] Add accountStatus field to intakeForms schema (enum: pending_account | linked | skipped)
+- [x] Add linkedUserId foreign key to intakeForms
+- [x] Run pnpm db:push to migrate schema
+- [x] Backend: intake.submit sets accountStatus = pending_account on every new submission
+- [x] Backend: intake.linkToAccount links the intake form to the user, copies the preview to their profile, auto publishes it, and sets accountStatus to linked
+- [x] Backend: intake.cleanupStale procedure deletes pending account submissions older than 24 hours with no linked user
+- [x] Frontend: update confirmation screen with sign up or login access to the DOMUS AI pre relocation intelligence brief
+- [x] Confirmation screen passes intakeId in sign up and login URLs
+- [x] Signup page calls intake.linkToAccount when intakeId is present, then redirects to the dashboard
+- [x] Login page calls intake.linkToAccount when intakeId is present, then redirects to the dashboard
+- [x] Scheduled cleanup: heartbeat job deletes pending account intake forms older than 24 hours
+- [x] Remove admin publishing requirement: preview auto publishes on account link
+- [x] Tests: linkToAccount success, unknown intake ID, and stale cleanup coverage
 
 ## Regenerate AI Content & Layout Fixes (Jul 2026)
 

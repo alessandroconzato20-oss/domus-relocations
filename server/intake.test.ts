@@ -131,7 +131,7 @@ describe("intake.submit", () => {
     vi.clearAllMocks();
   });
 
-  it("accepts a valid minimal payload and returns firstName + preferredLanguage", async () => {
+  it("accepts a valid minimal payload and returns client account routing details", async () => {
     const { appRouter } = await import("./routers");
     const caller = appRouter.createCaller(createPublicContext());
 
@@ -140,6 +140,8 @@ describe("intake.submit", () => {
     expect(result.success).toBe(true);
     expect(result.firstName).toBe("Isabelle");
     expect(result.preferredLanguage).toBe("English");
+    expect(result.emailExists).toBe(false);
+    expect(result.submittedEmail).toBe("isabelle@example.com");
   });
 
   it("rejects a payload missing the required email field", async () => {

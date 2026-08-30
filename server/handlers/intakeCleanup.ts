@@ -25,7 +25,9 @@ export async function intakeCleanupHandler(req: Request, res: Response) {
     // Authenticate the cron caller — accept both Heartbeat cron identity and
     // a simple shared secret header for manual/test triggers.
     const authHeader = req.headers["x-cron-secret"];
-    const isCronSecret = authHeader === process.env.CRON_SECRET;
+    const cronSecret = process.env.CRON_SECRET;
+    const isCronSecret =
+      typeof cronSecret === "string" && cronSecret.length > 0 && authHeader === cronSecret;
 
     // For project-level Heartbeat, the platform POSTs with a session cookie
     // that has isCron=true. We do a lightweight check: if the request has no
