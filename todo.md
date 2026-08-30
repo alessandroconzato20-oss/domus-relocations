@@ -36,6 +36,9 @@
 - [x] Add a premium no pricing packages section for Essential, Elevate, and Thrive
 - [x] Move the private packages section directly below the homepage hero
 
+## Core Values Refresh
+- [x] Redesign the Core Values section with a distinct premium layout aligned with the private packages presentation
+
 
 ## Email & Notifications (COMPLETE & VERIFIED)
 - [x] Replace Login/Signup buttons on homepage with single Inquire button (mailto link)

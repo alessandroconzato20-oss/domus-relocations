@@ -1,135 +1,52 @@
-/*
- * DOMUS Relocations — Core Values Section
- * Design: Ivory background, three value boxes with new titles
- * Proficiency, Fidelity, Care
- */
-
-import { useEffect, useRef } from "react";
-
-function useScrollReveal(threshold = 0.15) {
-  const ref = useRef<HTMLDivElement>(null);
-  useEffect(() => {
-    const el = ref.current;
-    if (!el) return;
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          el.classList.add("visible");
-          observer.unobserve(el);
-        }
-      },
-      { threshold }
-    );
-    observer.observe(el);
-    return () => observer.disconnect();
-  }, [threshold]);
-  return ref;
-}
+/* DOMUS Relocations: Core Values */
 
 const values = [
   {
+    number: "01",
     title: "Proficiency",
-    text: "We bring a deep, hands-on understanding of international relocation shaped by years of personal experience. Every detail is handled with expertise, ensuring a seamless and efficient transition at every stage.",
+    statement: "Knowledge, applied with purpose.",
+    text: "We bring a deep, practical understanding of international relocation shaped by years of personal experience. Every decision is informed, every detail considered, and every transition managed with quiet expertise.",
   },
   {
+    number: "02",
     title: "Fidelity",
-    text: "Trust is at the core of everything we do, guided by discretion, integrity, and complete transparency. We are committed to representing our clients' best interests with unwavering loyalty and care.",
+    statement: "Your interests, held above all else.",
+    text: "Discretion, integrity, and transparency guide every recommendation we make. We represent our clients with independence and loyalty, protecting what matters while making even complex decisions feel clear.",
   },
   {
+    number: "03",
     title: "Care",
-    text: "We approach every relocation with genuine attention to the people behind the move, not just the process itself. Our role is to provide reassurance, continuity, and a sense of ease during moments of change.",
+    statement: "A relocation designed around real life.",
+    text: "Behind every move is a family, a rhythm, and a future taking shape. We give each one the attention it deserves, creating continuity and reassurance at every stage of the transition.",
   },
 ];
 
 export default function CoreValuesSection() {
-  const valuesRef = useScrollReveal(0.1);
-
   return (
-    <section
-      style={{
-        background: "var(--domus-ivory)",
-        paddingTop: "8rem",
-        paddingBottom: "8rem",
-        overflow: "hidden",
-      }}
-    >
-      <div className="container">
-        {/* Section title */}
-        <div ref={valuesRef} className="fade-up" style={{ marginBottom: "5rem" }}>
-          <div style={{ textAlign: "center", marginBottom: "4rem" }}>
-            <h2
-              style={{
-                fontFamily: "'Cormorant Garamond', serif",
-                fontWeight: 300,
-                fontStyle: "italic",
-                fontSize: "clamp(1.75rem, 2.5vw, 2.25rem)",
-                color: "var(--domus-charcoal)",
-                marginBottom: "1.5rem",
-              }}
-            >
-              Our Core Values
-            </h2>
-            <div
-              style={{
-                width: "60px",
-                height: "1px",
-                background: "var(--domus-gold)",
-                margin: "0 auto",
-              }}
-            />
-          </div>
+    <section className="domus-values-section">
+      <div className="container domus-values-layout">
+        <header className="domus-values-intro">
+          <span className="section-label">The DOMUS standard</span>
+          <span className="domus-values-rule" aria-hidden="true" />
+          <h2>
+            The principles behind every <em>considered move.</em>
+          </h2>
+          <p>
+            The way we work is as important as what we deliver. These three principles direct every introduction, decision, and detail.
+          </p>
+        </header>
 
-          {/* Three values */}
-          <div
-            style={{
-              display: "grid",
-              gridTemplateColumns: "1fr",
-              gap: "0",
-            }}
-            className="qualities-grid"
-          >
-            {values.map((v, i) => (
-              <div
-                key={i}
-                style={{
-                  padding: "3rem 2.5rem",
-                  borderLeft: i > 0 ? "1px solid rgba(201, 168, 76, 0.2)" : "none",
-                  borderTop: "1px solid rgba(201, 168, 76, 0.2)",
-                  borderBottom: "1px solid rgba(201, 168, 76, 0.2)",
-                  borderRight: i === values.length - 1 ? "none" : "none",
-                }}
-              >
-                <span
-                  style={{
-                    fontFamily: "'Jost', sans-serif",
-                    fontWeight: 500,
-                    fontSize: "0.65rem",
-                    letterSpacing: "0.25em",
-                    textTransform: "uppercase",
-                    color: "var(--domus-gold)",
-                    display: "block",
-                    marginBottom: "1.25rem",
-                  }}
-                >
-                  0{i + 1}
-                </span>
-                <h3
-                  style={{
-                    fontFamily: "'Cormorant Garamond', serif",
-                    fontWeight: 400,
-                    fontSize: "1.75rem",
-                    color: "var(--domus-charcoal)",
-                    marginBottom: "1rem",
-                  }}
-                >
-                  {v.title}
-                </h3>
-                <p className="body-text" style={{ fontSize: "0.9rem" }}>
-                  {v.text}
-                </p>
+        <div className="domus-values-list">
+          {values.map((value) => (
+            <article className="domus-value-row" key={value.title}>
+              <span className="domus-value-number">{value.number}</span>
+              <div className="domus-value-copy">
+                <h3>{value.title}</h3>
+                <p className="domus-value-statement">{value.statement}</p>
+                <p className="domus-value-description">{value.text}</p>
               </div>
-            ))}
-          </div>
+            </article>
+          ))}
         </div>
       </div>
     </section>
