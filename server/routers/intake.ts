@@ -14,7 +14,7 @@ import { ENV } from "../_core/env";
 import { getDb } from "../db";
 import { getUserByEmail } from "../db";
 import { intakeForms, clientProfiles, users } from "../../drizzle/schema";
-import { eq, desc } from "drizzle-orm";
+import { eq, desc, inArray } from "drizzle-orm";
 import { ADVISOR_BRIEF_SYSTEM_PROMPT, CLIENT_PREVIEW_SYSTEM_PROMPT } from "../lib/aiPrompts";
 import { buildAdvisorBriefUserPrompt, buildClientPreviewUserPrompt } from "../lib/intakePromptBuilders";
 import { generatePDF, buildAdvisorBriefHTML } from "../lib/pdfGenerator";
@@ -456,7 +456,7 @@ export const intakeRouter = router({
     }
     const db = await getDb();
     if (!db) throw new TRPCError({ code: "INTERNAL_SERVER_ERROR", message: "Database unavailable" });
-    return db
+    const submissions = await db
       .select({
         id: intakeForms.id,
         primaryName: intakeForms.primaryName,
@@ -468,9 +468,32 @@ export const intakeRouter = router({
         clientPreviewSent: intakeForms.clientPreviewSent,
         clientPreviewPublished: intakeForms.clientPreviewPublished,
         assignedAdvisor: intakeForms.assignedAdvisor,
+        linkedUserId: intakeForms.linkedUserId,
       })
       .from(intakeForms)
       .orderBy(desc(intakeForms.submittedAt));
+
+    const linkedUserIds = submissions
+      .map((submission) => submission.linkedUserId)
+      .filter((userId): userId is number => userId !== null);
+
+    if (linkedUserIds.length === 0) {
+      return submissions.map(({ linkedUserId: _linkedUserId, ...submission }) => ({
+        ...submission,
+        previewReadAt: null,
+      }));
+    }
+
+    const profiles = await db
+      .select({ userId: clientProfiles.userId, clientPreviewReadAt: clientProfiles.clientPreviewReadAt })
+      .from(clientProfiles)
+      .where(inArray(clientProfiles.userId, linkedUserIds));
+    const readStatusByUserId = new Map(profiles.map((profile) => [profile.userId, profile.clientPreviewReadAt]));
+
+    return submissions.map(({ linkedUserId, ...submission }) => ({
+      ...submission,
+      previewReadAt: linkedUserId ? readStatusByUserId.get(linkedUserId) ?? null : null,
+    }));
   }),
 
   // Admin: get single submission detail

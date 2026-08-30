@@ -25,7 +25,7 @@ type Submission = {
   arrivalDate: string | null;
   submittedAt: Date;
   advisorBriefSent: number;
-  advisorBriefContent: string | null;
+  advisorBriefContent?: string | null;
   clientPreviewSent: number;
   clientPreviewPublished: number;
   assignedAdvisor: string | null;

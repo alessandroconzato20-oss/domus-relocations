@@ -32,7 +32,7 @@ const card: React.CSSProperties = { background: "#fff", border: "1px solid rgba(
 const TH: React.CSSProperties = { padding: "0.75rem 1rem", textAlign: "left", fontWeight: 600, fontSize: "0.78rem", letterSpacing: "0.05em", textTransform: "uppercase", color: "rgba(45,41,38,0.5)", borderBottom: "1px solid rgba(45,41,38,0.08)", background: "#faf8f5" };
 const TD: React.CSSProperties = { padding: "0.75rem 1rem", fontSize: "0.875rem", color: "var(--domus-charcoal)", borderBottom: "1px solid rgba(45,41,38,0.04)" };
 
-type Submission = { id: number; primaryName: string; email: string; targetCity: string[] | null; arrivalDate: string | null; submittedAt: Date; advisorBriefSent: number; clientPreviewSent: number; clientPreviewPublished: number; assignedAdvisor: string | null; };
+type Submission = { id: number; primaryName: string; email: string; targetCity: string[] | null; arrivalDate: string | null; submittedAt: Date; advisorBriefSent: number; clientPreviewSent: number; clientPreviewPublished: number; assignedAdvisor: string | null; previewReadAt: Date | null; };
 
 function IntakeDetail({ id, onBack }: { id: number; onBack: () => void }) {
   const { data: form, isLoading, refetch } = trpc.intake.getSubmission.useQuery({ id });
@@ -134,7 +134,7 @@ function IntakePanel({ jumpToId }: { jumpToId?: number | null }) {
       {isLoading ? <p>Loading...</p> : submissions.length === 0 ? <p style={{ color: "rgba(45,41,38,0.5)" }}>No submissions yet.</p> : (
         <div style={{ overflowX: "auto" }}>
           <table style={{ width: "100%", borderCollapse: "collapse" }}>
-            <thead><tr><th style={TH}>Name</th><th style={TH}>Email</th><th style={TH}>Target City</th><th style={TH}>Submitted</th><th style={TH}>Brief</th><th style={TH}>Preview</th><th style={TH}></th></tr></thead>
+            <thead><tr><th style={TH}>Name</th><th style={TH}>Email</th><th style={TH}>Target City</th><th style={TH}>Submitted</th><th style={TH}>Brief</th><th style={TH}>Preview</th><th style={TH}>Preview Read</th><th style={TH}></th></tr></thead>
             <tbody>
               {submissions.map((s: Submission) => (
                 <tr key={s.id} style={{ cursor: "pointer" }} onClick={() => setSelectedId(s.id)} onMouseEnter={e => (e.currentTarget as HTMLElement).style.background = "#faf8f5"} onMouseLeave={e => (e.currentTarget as HTMLElement).style.background = ""}>
@@ -144,6 +144,7 @@ function IntakePanel({ jumpToId }: { jumpToId?: number | null }) {
                   <td style={{ ...TD, color: "rgba(45,41,38,0.6)" }}>{fmt(s.submittedAt)}</td>
                   <td style={TD}><StatusBadge active={s.advisorBriefSent} label="Brief" /></td>
                   <td style={TD}><StatusBadge active={s.clientPreviewPublished} label="Published" /></td>
+                  <td style={{ ...TD, color: s.previewReadAt ? "#177245" : "rgba(45,41,38,0.55)" }}>{s.previewReadAt ? `Read ${fmt(s.previewReadAt)}` : "Not yet read"}</td>
                   <td style={{ ...TD, color: "var(--domus-gold)", fontWeight: 500 }}>View</td>
                 </tr>
               ))}

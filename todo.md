@@ -280,7 +280,7 @@
 - [x] Intake detail view: add preview text editor panel (admin can review and lightly edit before publishing)
 - [x] Intake detail view: "Publish to Client Dashboard" action retained for manual control, though normal account linking auto publishes
 - [x] Intake detail view: show published status and clientPreviewReadAt
-- [ ] Submissions table: add a Preview Read column showing read timestamp or not yet read
+- [x] Submissions table: add a Preview Read column showing read timestamp or not yet read
 
 ### Phase 5: Confirmation Screen
 - [x] After submit, server returns { emailExists: boolean, submittedEmail: string }
