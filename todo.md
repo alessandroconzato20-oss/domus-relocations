@@ -34,6 +34,7 @@
 
 ## Private Relocation Packages
 - [x] Add a premium no pricing packages section for Essential, Elevate, and Thrive
+- [x] Move the private packages section directly below the homepage hero
 
 
 ## Email & Notifications (COMPLETE & VERIFIED)

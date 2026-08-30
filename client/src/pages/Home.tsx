@@ -52,6 +52,7 @@ export default function Home() {
       {/* Page sections */}
       <main>
         <HeroSection />
+        <PrivatePackagesSection />
         <CoreValuesSection />
         <DomusCompassSection />
         <DomusMeridianSection />
@@ -59,7 +60,6 @@ export default function Home() {
         <DomusNetworkSection />
         <InternationalStudentsSection />
         <ServicesSection />
-        <PrivatePackagesSection />
         <QuizCTABanner />
         <MilanSection />
         <TestimonialSection />
