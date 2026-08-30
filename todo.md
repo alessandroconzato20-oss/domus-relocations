@@ -39,6 +39,13 @@
 ## Core Values Refresh
 - [x] Redesign the Core Values section with a distinct premium layout aligned with the private packages presentation
 
+## Public Website Editorial Refresh
+- [x] Refresh the remaining public website sections and pages with a cohesive high end editorial design system
+- [x] Preserve the DOMUS Compass and DOMUS Meridian sections without changes
+- [x] Refresh the Milan destination section with the shared editorial system
+- [x] Refresh the private services section with the shared editorial system
+- [x] Refine the contact section and footer layout to match the shared editorial system
+
 
 ## Email & Notifications (COMPLETE & VERIFIED)
 - [x] Replace Login/Signup buttons on homepage with single Inquire button (mailto link)

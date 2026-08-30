@@ -706,6 +706,1079 @@
     }
   }
 
+  /* International students: editorial rows in place of generic feature cards */
+  .domus-students-section {
+    background: #faf8f4;
+  }
+
+  .domus-students-intro {
+    display: grid;
+    grid-template-columns: minmax(180px, 0.6fr) minmax(0, 1.4fr);
+    gap: clamp(2rem, 7vw, 7.5rem);
+    padding: clamp(5rem, 10vw, 8.5rem) 0 clamp(3rem, 6vw, 5rem);
+    align-items: start;
+  }
+
+  .domus-students-rule {
+    display: block;
+    width: 42px;
+    height: 1px;
+    margin-top: 1.15rem;
+    background: var(--domus-gold);
+  }
+
+  .domus-students-intro h2,
+  .domus-students-service-layout h2,
+  .domus-students-journey-heading h2 {
+    margin: 0;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(2.4rem, 4.3vw, 4rem);
+    font-weight: 300;
+    line-height: 1.08;
+  }
+
+  .domus-students-intro h2 {
+    color: var(--domus-charcoal);
+  }
+
+  .domus-students-intro h2 em {
+    color: var(--domus-gold);
+  }
+
+  .domus-students-intro p {
+    max-width: 560px;
+    margin: 1.6rem 0 0;
+    color: var(--domus-grey);
+    font-size: 0.97rem;
+    line-height: 1.82;
+  }
+
+  .domus-students-problems {
+    display: grid;
+    grid-template-columns: minmax(220px, 0.7fr) minmax(0, 1.3fr);
+    gap: clamp(2.5rem, 7vw, 7.5rem);
+    padding-bottom: clamp(5rem, 10vw, 8.5rem);
+  }
+
+  .domus-students-problems-heading {
+    padding-top: 1rem;
+  }
+
+  .domus-students-problems-heading > span {
+    color: var(--domus-charcoal);
+    font-size: 0.63rem;
+    font-weight: 600;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+  }
+
+  .domus-students-problems-heading p {
+    max-width: 250px;
+    margin: 1.1rem 0 0;
+    color: var(--domus-grey);
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.35rem;
+    font-style: italic;
+    line-height: 1.35;
+  }
+
+  .domus-students-problems-list {
+    border-top: 1px solid rgba(26, 24, 20, 0.15);
+  }
+
+  .domus-student-problem {
+    display: grid;
+    grid-template-columns: 58px minmax(0, 1fr);
+    gap: 1.4rem;
+    padding: 1.75rem 0;
+    border-bottom: 1px solid rgba(26, 24, 20, 0.15);
+  }
+
+  .domus-student-problem > span,
+  .domus-student-service > span {
+    color: var(--domus-gold);
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.55rem;
+    font-style: italic;
+    line-height: 1;
+  }
+
+  .domus-student-problem h3,
+  .domus-student-service h3 {
+    margin: 0;
+    font-size: 1.5rem;
+    font-weight: 400;
+    line-height: 1.1;
+  }
+
+  .domus-student-problem h3 {
+    color: var(--domus-charcoal);
+  }
+
+  .domus-student-problem p,
+  .domus-student-service p {
+    margin: 0.65rem 0 0;
+    font-size: 0.86rem;
+    line-height: 1.72;
+  }
+
+  .domus-student-problem p {
+    color: var(--domus-grey);
+  }
+
+  .domus-students-service-band {
+    padding: clamp(5rem, 10vw, 8.5rem) 0;
+    background: var(--domus-charcoal);
+  }
+
+  .domus-students-service-layout {
+    display: grid;
+    grid-template-columns: minmax(240px, 0.75fr) minmax(0, 1.25fr);
+    gap: clamp(2.5rem, 7vw, 7.5rem);
+    align-items: start;
+  }
+
+  .domus-students-service-layout h2 {
+    margin-top: 1.75rem;
+    color: var(--domus-ivory);
+  }
+
+  .domus-students-service-layout header > p {
+    max-width: 400px;
+    margin: 1.5rem 0 0;
+    color: rgba(245, 240, 232, 0.62);
+    font-size: 0.9rem;
+    line-height: 1.8;
+  }
+
+  .domus-students-service-list {
+    border-top: 1px solid rgba(232, 213, 163, 0.26);
+  }
+
+  .domus-student-service {
+    display: grid;
+    grid-template-columns: 48px minmax(0, 1fr);
+    gap: 1.15rem;
+    padding: 1.42rem 0;
+    border-bottom: 1px solid rgba(232, 213, 163, 0.16);
+  }
+
+  .domus-student-service h3 {
+    color: var(--domus-ivory);
+    font-size: 1.36rem;
+  }
+
+  .domus-student-service p {
+    color: rgba(245, 240, 232, 0.62);
+  }
+
+  .domus-students-journey-wrap {
+    padding-top: clamp(5rem, 10vw, 8.5rem);
+    padding-bottom: clamp(5rem, 10vw, 8.5rem);
+  }
+
+  .domus-students-journey-heading {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 2rem;
+    margin-bottom: clamp(2.5rem, 5vw, 4rem);
+  }
+
+  .domus-students-journey-heading h2 {
+    color: var(--domus-charcoal);
+    text-align: right;
+  }
+
+  .domus-students-journey {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    border-top: 1px solid rgba(26, 24, 20, 0.18);
+  }
+
+  .domus-student-journey-step {
+    position: relative;
+    padding: 2rem 1.6rem 0 0;
+  }
+
+  .domus-student-journey-step + .domus-student-journey-step {
+    padding-left: 1.6rem;
+    border-left: 1px solid rgba(26, 24, 20, 0.14);
+  }
+
+  .domus-student-journey-number {
+    color: var(--domus-gold);
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.6rem;
+    font-style: italic;
+  }
+
+  .domus-student-journey-line {
+    position: absolute;
+    top: -4px;
+    left: 0;
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: var(--domus-gold);
+  }
+
+  .domus-student-journey-step h3 {
+    margin: 1.5rem 0 0;
+    color: var(--domus-charcoal);
+    font-size: 1.7rem;
+    font-weight: 400;
+  }
+
+  .domus-student-journey-timeframe {
+    margin: 0.4rem 0 0;
+    color: var(--domus-gold);
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1rem;
+    font-style: italic;
+  }
+
+  .domus-student-journey-step ul {
+    display: flex;
+    flex-direction: column;
+    gap: 0.65rem;
+    padding: 0;
+    margin: 1.25rem 0 0;
+    list-style: none;
+  }
+
+  .domus-student-journey-step li {
+    position: relative;
+    padding-left: 0.9rem;
+    color: var(--domus-grey);
+    font-size: 0.78rem;
+    line-height: 1.52;
+  }
+
+  .domus-student-journey-step li::before {
+    position: absolute;
+    top: 0.44rem;
+    left: 0;
+    width: 3px;
+    height: 3px;
+    border-radius: 50%;
+    background: var(--domus-gold);
+    content: "";
+  }
+
+  .domus-students-cta {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 2rem;
+    margin-top: clamp(3rem, 6vw, 5rem);
+    padding-top: 1.8rem;
+    border-top: 1px solid rgba(26, 24, 20, 0.16);
+  }
+
+  .domus-students-cta p {
+    margin: 0;
+    color: var(--domus-grey);
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.25rem;
+    font-style: italic;
+  }
+
+  @media (max-width: 767px) {
+    .domus-students-intro,
+    .domus-students-problems,
+    .domus-students-service-layout {
+      grid-template-columns: 1fr;
+      gap: 2.4rem;
+    }
+
+    .domus-students-journey-heading,
+    .domus-students-cta {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+
+    .domus-students-journey-heading h2 {
+      text-align: left;
+    }
+
+    .domus-students-journey {
+      grid-template-columns: 1fr;
+    }
+
+    .domus-student-journey-step,
+    .domus-student-journey-step + .domus-student-journey-step {
+      padding: 1.75rem 0 1.75rem 1.5rem;
+      border-bottom: 1px solid rgba(26, 24, 20, 0.14);
+      border-left: none;
+    }
+
+    .domus-student-journey-line {
+      top: 2.18rem;
+      left: 0;
+    }
+
+    .domus-students-cta .btn-luxury {
+      width: 100%;
+    }
+  }
+
+  /* Our story: quiet, image led editorial rhythm */
+  .domus-story-section {
+    padding: clamp(5rem, 10vw, 9rem) 0;
+    background: var(--domus-ivory);
+  }
+
+  .domus-story-intro {
+    display: grid;
+    grid-template-columns: minmax(155px, 0.54fr) minmax(0, 1.15fr) minmax(240px, 0.82fr);
+    gap: clamp(2rem, 5vw, 5.25rem);
+    align-items: end;
+    margin-bottom: clamp(3rem, 7vw, 6.5rem);
+  }
+
+  .domus-story-mark {
+    display: flex;
+    flex-direction: column;
+    gap: 1.15rem;
+    align-items: flex-start;
+  }
+
+  .domus-story-mark img {
+    width: clamp(92px, 9vw, 130px);
+    height: auto;
+    opacity: 0.84;
+  }
+
+  .domus-story-mark span {
+    color: var(--domus-charcoal);
+    font-size: 0.6rem;
+    font-weight: 600;
+    letter-spacing: 0.17em;
+    text-transform: uppercase;
+  }
+
+  .domus-story-rule {
+    display: block;
+    width: 42px;
+    height: 1px;
+    margin: 1.15rem 0 1.65rem;
+    background: var(--domus-gold);
+  }
+
+  .domus-story-intro h2 {
+    max-width: 480px;
+    margin: 0;
+    color: var(--domus-charcoal);
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(2.5rem, 4.6vw, 4.35rem);
+    font-weight: 300;
+    line-height: 1.03;
+  }
+
+  .domus-story-intro h2 em {
+    color: var(--domus-gold);
+  }
+
+  .domus-story-intro > p {
+    max-width: 335px;
+    margin: 0 0 0.35rem;
+    color: var(--domus-grey);
+    font-size: 0.92rem;
+    line-height: 1.82;
+  }
+
+  .domus-story-feature {
+    display: grid;
+    grid-template-columns: minmax(0, 1.12fr) minmax(260px, 0.72fr);
+    gap: clamp(2.25rem, 7vw, 7.5rem);
+    align-items: center;
+  }
+
+  .domus-story-image {
+    position: relative;
+    margin: 0;
+  }
+
+  .domus-story-image img {
+    display: block;
+    width: 100%;
+    min-height: 400px;
+    max-height: 660px;
+    object-fit: cover;
+  }
+
+  .domus-story-image figcaption {
+    position: absolute;
+    right: 1.35rem;
+    bottom: 1.35rem;
+    max-width: min(80%, 385px);
+    padding: 1.25rem 1.45rem;
+    background: rgba(26, 24, 20, 0.88);
+    color: var(--domus-gold-light);
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.15rem;
+    font-style: italic;
+    line-height: 1.38;
+  }
+
+  .domus-story-copy {
+    display: flex;
+    flex-direction: column;
+    gap: 1.35rem;
+  }
+
+  .domus-story-copy p {
+    margin: 0;
+    color: var(--domus-grey);
+    font-size: 0.93rem;
+    line-height: 1.85;
+  }
+
+  .domus-story-link {
+    display: inline-flex;
+    width: fit-content;
+    margin-top: 1.1rem;
+    padding-bottom: 0.38rem;
+    border-bottom: 1px solid var(--domus-gold);
+    color: var(--domus-charcoal);
+    font-size: 0.62rem;
+    font-weight: 600;
+    letter-spacing: 0.15em;
+    text-decoration: none;
+    text-transform: uppercase;
+  }
+
+  .domus-story-journey {
+    display: grid;
+    grid-template-columns: minmax(175px, 0.55fr) minmax(0, 1.45fr);
+    gap: clamp(2rem, 6vw, 7rem);
+    align-items: center;
+    margin-top: clamp(4rem, 8vw, 7rem);
+    padding-top: 1.8rem;
+    border-top: 1px solid rgba(26, 24, 20, 0.16);
+  }
+
+  .domus-story-journey > div > p {
+    margin: 0.85rem 0 0;
+    color: var(--domus-grey);
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.24rem;
+    font-style: italic;
+    line-height: 1.35;
+  }
+
+  .domus-story-journey ol {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 1rem;
+    padding: 0;
+    margin: 0;
+    list-style: none;
+  }
+
+  .domus-story-journey li {
+    display: flex;
+    flex-direction: column;
+    min-height: 108px;
+    padding-left: 1rem;
+    border-left: 1px solid rgba(26, 24, 20, 0.16);
+  }
+
+  .domus-story-journey li > span {
+    color: var(--domus-gold);
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.35rem;
+    font-style: italic;
+  }
+
+  .domus-story-journey strong {
+    margin-top: 0.9rem;
+    color: var(--domus-charcoal);
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.32rem;
+    font-weight: 400;
+  }
+
+  .domus-story-journey em {
+    margin-top: 0.23rem;
+    color: var(--domus-grey);
+    font-size: 0.68rem;
+    font-style: normal;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+  }
+
+  @media (max-width: 900px) {
+    .domus-story-intro,
+    .domus-story-feature,
+    .domus-story-journey {
+      grid-template-columns: 1fr;
+    }
+
+    .domus-story-intro {
+      gap: 1.8rem;
+    }
+
+    .domus-story-mark {
+      flex-direction: row;
+      align-items: center;
+    }
+
+    .domus-story-intro > p {
+      max-width: 520px;
+    }
+
+    .domus-story-journey ol {
+      max-width: 700px;
+    }
+  }
+
+  @media (max-width: 600px) {
+    .domus-story-image img {
+      min-height: 370px;
+    }
+
+    .domus-story-image figcaption {
+      right: 1rem;
+      bottom: 1rem;
+      max-width: calc(100% - 2rem);
+      font-size: 1rem;
+    }
+
+    .domus-story-journey ol {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      row-gap: 1.5rem;
+    }
+  }
+
+  /* DOMUS Network: a curated directory rather than a conventional card grid */
+  .domus-network-section {
+    padding: clamp(5rem, 10vw, 9rem) 0;
+    background: #faf8f4;
+  }
+
+  .domus-network-intro {
+    display: grid;
+    grid-template-columns: minmax(180px, 0.6fr) minmax(0, 1.4fr);
+    gap: clamp(2.5rem, 8vw, 8rem);
+    align-items: end;
+    margin-bottom: clamp(4rem, 8vw, 7.5rem);
+  }
+
+  .domus-network-rule {
+    display: block;
+    width: 42px;
+    height: 1px;
+    margin-top: 1.15rem;
+    background: var(--domus-gold);
+  }
+
+  .domus-network-intro h2,
+  .domus-network-ongoing h2 {
+    margin: 0;
+    color: var(--domus-charcoal);
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(2.45rem, 4.5vw, 4.2rem);
+    font-weight: 300;
+    line-height: 1.04;
+  }
+
+  .domus-network-intro h2 em,
+  .domus-network-ongoing h2 em {
+    color: var(--domus-gold);
+  }
+
+  .domus-network-intro p {
+    max-width: 500px;
+    margin: 1.5rem 0 0;
+    color: var(--domus-grey);
+    font-size: 0.96rem;
+    line-height: 1.82;
+  }
+
+  .domus-network-group {
+    display: grid;
+    grid-template-columns: minmax(190px, 0.52fr) minmax(0, 1.48fr);
+    gap: clamp(2.25rem, 6vw, 6.5rem);
+    padding: clamp(3.8rem, 7vw, 6.5rem) 0;
+    border-top: 1px solid rgba(26, 24, 20, 0.15);
+  }
+
+  .domus-network-group-heading {
+    padding-top: 0.45rem;
+  }
+
+  .domus-network-group-heading > span {
+    color: var(--domus-gold);
+    font-size: 0.66rem;
+    font-weight: 600;
+    letter-spacing: 0.17em;
+    text-transform: uppercase;
+  }
+
+  .domus-network-group-heading p {
+    max-width: 235px;
+    margin: 1rem 0 0;
+    color: var(--domus-charcoal);
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.35rem;
+    font-style: italic;
+    line-height: 1.32;
+  }
+
+  .domus-network-feature-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1.1rem;
+  }
+
+  .domus-network-feature {
+    display: grid;
+    grid-template-columns: minmax(155px, 0.53fr) minmax(0, 1.47fr);
+    width: 100%;
+    padding: 0;
+    overflow: hidden;
+    border: 1px solid rgba(26, 24, 20, 0.13);
+    background: rgba(255, 255, 255, 0.48);
+    color: inherit;
+    cursor: pointer;
+    text-align: left;
+    transition: transform 180ms var(--ease-out, ease-out), border-color 180ms var(--ease-out, ease-out);
+  }
+
+  .domus-network-feature:hover {
+    border-color: rgba(201, 168, 76, 0.72);
+    transform: translateY(-2px);
+  }
+
+  .domus-network-logo-panel {
+    display: flex;
+    min-height: 225px;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+    background: rgba(245, 240, 232, 0.55);
+    border-right: 1px solid rgba(26, 24, 20, 0.1);
+  }
+
+  .domus-network-logo-panel img {
+    max-width: 100%;
+    max-height: 112px;
+    object-fit: contain;
+  }
+
+  .domus-network-monogram {
+    color: var(--domus-gold);
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 4.5rem;
+    font-style: italic;
+  }
+
+  .domus-network-feature-copy {
+    padding: clamp(1.6rem, 3.4vw, 2.5rem);
+  }
+
+  .domus-network-feature-topline {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    color: var(--domus-gold);
+    font-size: 0.59rem;
+    font-weight: 600;
+    letter-spacing: 0.13em;
+    text-transform: uppercase;
+  }
+
+  .domus-network-feature-copy h3 {
+    margin: 1.4rem 0 0;
+    color: var(--domus-charcoal);
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(1.8rem, 3vw, 2.45rem);
+    font-weight: 400;
+    line-height: 1.05;
+  }
+
+  .domus-network-feature-copy > p {
+    max-width: 620px;
+    margin: 0.9rem 0 0;
+    color: var(--domus-grey);
+    font-size: 0.85rem;
+    line-height: 1.72;
+  }
+
+  .domus-network-feature-copy blockquote {
+    margin: 1.2rem 0 0;
+    padding-left: 1rem;
+    border-left: 1px solid var(--domus-gold);
+    color: var(--domus-grey);
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1rem;
+    font-style: italic;
+    line-height: 1.42;
+  }
+
+  .domus-network-detail-link {
+    display: inline-block;
+    margin-top: 1.5rem;
+    padding-bottom: 0.35rem;
+    border-bottom: 1px solid var(--domus-gold);
+    color: var(--domus-charcoal);
+    font-size: 0.59rem;
+    font-weight: 600;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+  }
+
+  .domus-network-rows {
+    grid-column: 2;
+    margin-top: 1.15rem;
+    border-top: 1px solid rgba(26, 24, 20, 0.13);
+  }
+
+  .domus-network-row {
+    display: grid;
+    grid-template-columns: 45px minmax(0, 1fr) auto;
+    width: 100%;
+    gap: 1rem;
+    align-items: center;
+    padding: 1.4rem 0;
+    border: none;
+    border-bottom: 1px solid rgba(26, 24, 20, 0.13);
+    background: none;
+    color: inherit;
+    cursor: pointer;
+    text-align: left;
+  }
+
+  .domus-network-row > span:first-child {
+    color: var(--domus-gold);
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.3rem;
+    font-style: italic;
+  }
+
+  .domus-network-row p {
+    margin: 0;
+    color: var(--domus-gold);
+    font-size: 0.58rem;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+  }
+
+  .domus-network-row h3 {
+    margin: 0.45rem 0 0;
+    color: var(--domus-charcoal);
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.38rem;
+    font-weight: 400;
+  }
+
+  .domus-network-row-action {
+    color: var(--domus-grey);
+    font-size: 0.58rem;
+    font-weight: 600;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+  }
+
+  .domus-network-group-dark {
+    position: relative;
+    grid-template-columns: minmax(190px, 0.52fr) minmax(0, 1.48fr);
+    margin: 0 calc(50% - 50vw);
+    padding-right: max(1.5rem, calc((100vw - 1440px) / 2 + 4rem));
+    padding-left: max(1.5rem, calc((100vw - 1440px) / 2 + 4rem));
+    background: #ede7dc;
+  }
+
+  .domus-network-ongoing {
+    display: grid;
+    grid-template-columns: minmax(200px, 0.65fr) minmax(0, 1.35fr);
+    gap: clamp(2.5rem, 8vw, 8.5rem);
+    padding: clamp(5rem, 10vw, 8rem) 0;
+  }
+
+  .domus-network-ongoing h2 {
+    margin-top: 1.3rem;
+  }
+
+  .domus-network-ongoing-list {
+    border-top: 1px solid rgba(26, 24, 20, 0.15);
+  }
+
+  .domus-network-ongoing-list article {
+    display: grid;
+    grid-template-columns: 56px minmax(0, 1fr);
+    gap: 1.2rem;
+    padding: 1.55rem 0;
+    border-bottom: 1px solid rgba(26, 24, 20, 0.13);
+  }
+
+  .domus-network-ongoing-list article > span {
+    color: var(--domus-gold);
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.5rem;
+    font-style: italic;
+  }
+
+  .domus-network-ongoing-list h3 {
+    margin: 0;
+    color: var(--domus-charcoal);
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.47rem;
+    font-weight: 400;
+  }
+
+  .domus-network-ongoing-list p {
+    margin: 0.6rem 0 0;
+    color: var(--domus-grey);
+    font-size: 0.84rem;
+    line-height: 1.68;
+  }
+
+  .domus-network-closing {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 2rem;
+    padding-top: 1.8rem;
+    border-top: 1px solid rgba(26, 24, 20, 0.15);
+  }
+
+  .domus-network-closing p {
+    margin: 0;
+    color: var(--domus-charcoal);
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.4rem;
+    font-style: italic;
+  }
+
+  .domus-network-closing a {
+    padding-bottom: 0.35rem;
+    border-bottom: 1px solid var(--domus-gold);
+    color: var(--domus-charcoal);
+    font-size: 0.62rem;
+    font-weight: 600;
+    letter-spacing: 0.14em;
+    text-decoration: none;
+    text-transform: uppercase;
+  }
+
+  @media (max-width: 800px) {
+    .domus-network-intro,
+    .domus-network-group,
+    .domus-network-ongoing {
+      grid-template-columns: 1fr;
+      gap: 2.5rem;
+    }
+
+    .domus-network-rows {
+      grid-column: auto;
+    }
+
+    .domus-network-group-dark {
+      padding-right: 1.5rem;
+      padding-left: 1.5rem;
+    }
+  }
+
+  @media (max-width: 540px) {
+    .domus-network-feature {
+      grid-template-columns: 1fr;
+    }
+
+    .domus-network-logo-panel {
+      min-height: 155px;
+      border-right: none;
+      border-bottom: 1px solid rgba(26, 24, 20, 0.1);
+    }
+
+    .domus-network-feature-topline {
+      align-items: flex-start;
+      flex-direction: column;
+    }
+
+    .domus-network-closing {
+      align-items: flex-start;
+      flex-direction: column;
+    }
+  }
+
+  /* Corporate Meridian: shared DOMUS editorial system */
+  .domus-meridian-page {
+    min-height: 100vh;
+    background: #faf8f4;
+    color: var(--domus-charcoal);
+  }
+
+  .domus-meridian-nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1.5rem;
+    padding: 1.25rem clamp(1.5rem, 5vw, 4rem);
+    border-bottom: 1px solid rgba(26, 24, 20, 0.12);
+    background: rgba(250, 248, 244, 0.94);
+  }
+
+  .domus-meridian-wordmark {
+    color: var(--domus-charcoal);
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.32rem;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    text-decoration: none;
+  }
+
+  .domus-meridian-wordmark span { color: var(--domus-gold); font-weight: 400; }
+  .domus-meridian-nav > div { display: flex; align-items: center; gap: 1.5rem; }
+  .domus-meridian-private-link, .domus-meridian-nav-action { color: var(--domus-charcoal); font-size: 0.6rem; font-weight: 600; letter-spacing: 0.14em; text-decoration: none; text-transform: uppercase; }
+  .domus-meridian-nav-action { padding: 0.65rem 0.9rem; border: 1px solid var(--domus-gold); }
+
+  .domus-meridian-hero {
+    padding: clamp(5rem, 10vw, 9.5rem) 0;
+    background: var(--domus-charcoal);
+  }
+
+  .domus-meridian-hero-layout {
+    display: grid;
+    grid-template-columns: minmax(0, 1.3fr) minmax(250px, 0.7fr);
+    gap: clamp(3rem, 11vw, 11rem);
+    align-items: end;
+  }
+
+  .domus-meridian-rule { display: block; width: 42px; height: 1px; margin: 1.2rem 0 1.8rem; background: var(--domus-gold); }
+  .domus-meridian-hero h1, .domus-meridian-capabilities h2, .domus-meridian-enquire h2 { margin: 0; font-family: 'Cormorant Garamond', serif; font-size: clamp(3rem, 6vw, 5.8rem); font-weight: 300; line-height: 0.98; }
+  .domus-meridian-hero h1 { max-width: 730px; color: var(--domus-ivory); }
+  .domus-meridian-hero h1 em, .domus-meridian-capabilities h2 em, .domus-meridian-enquire h2 em { color: var(--domus-gold-light); }
+  .domus-meridian-hero > .container > div > p { max-width: 615px; margin: 2rem 0 0; color: rgba(245, 240, 232, 0.64); font-size: 1rem; line-height: 1.85; }
+
+  .domus-meridian-hero-actions { display: flex; flex-wrap: wrap; gap: 1.15rem; margin-top: 2.5rem; }
+  .domus-meridian-hero-primary, .domus-meridian-hero-secondary { display: inline-flex; align-items: center; gap: 0.65rem; padding: 0.95rem 1.2rem; color: var(--domus-ivory); font-size: 0.62rem; font-weight: 600; letter-spacing: 0.15em; text-decoration: none; text-transform: uppercase; }
+  .domus-meridian-hero-primary { background: var(--domus-gold); color: var(--domus-charcoal); }
+  .domus-meridian-hero-secondary { border-bottom: 1px solid rgba(232, 213, 163, 0.65); }
+
+  .domus-meridian-hero-aside { padding-top: 1.35rem; border-top: 1px solid rgba(232, 213, 163, 0.35); }
+  .domus-meridian-hero-aside > span { color: var(--domus-gold); font-size: 0.6rem; font-weight: 600; letter-spacing: 0.15em; text-transform: uppercase; }
+  .domus-meridian-hero-aside dl { margin: 1.35rem 0 0; }
+  .domus-meridian-hero-aside dl > div { padding: 1.1rem 0; border-top: 1px solid rgba(245, 240, 232, 0.12); }
+  .domus-meridian-hero-aside dt { color: var(--domus-ivory); font-family: 'Cormorant Garamond', serif; font-size: 1.34rem; }
+  .domus-meridian-hero-aside dd { margin: 0.4rem 0 0; color: rgba(245, 240, 232, 0.58); font-size: 0.82rem; line-height: 1.6; }
+
+  .domus-meridian-capabilities { padding: clamp(5rem, 10vw, 9rem) 0; }
+  .domus-meridian-capabilities header { display: grid; grid-template-columns: minmax(180px, 0.64fr) minmax(0, 1.36fr); gap: 2.5rem; align-items: end; margin-bottom: clamp(3rem, 6vw, 5.5rem); }
+  .domus-meridian-capabilities h2 { max-width: 700px; color: var(--domus-charcoal); font-size: clamp(2.5rem, 4.6vw, 4.3rem); }
+  .domus-meridian-capabilities h2 em { color: var(--domus-gold); }
+  .domus-meridian-capability-list { border-top: 1px solid rgba(26, 24, 20, 0.15); }
+  .domus-meridian-capability-list article { display: grid; grid-template-columns: 64px minmax(190px, 0.75fr) minmax(0, 1.25fr); gap: clamp(1rem, 3vw, 3rem); align-items: start; padding: 1.85rem 0; border-bottom: 1px solid rgba(26, 24, 20, 0.15); }
+  .domus-meridian-capability-list article > span { color: var(--domus-gold); font-family: 'Cormorant Garamond', serif; font-size: 1.55rem; font-style: italic; }
+  .domus-meridian-capability-list h3 { margin: 0; color: var(--domus-charcoal); font-size: 1.5rem; font-weight: 400; line-height: 1.1; }
+  .domus-meridian-capability-list p { margin: 0.65rem 0 0; color: var(--domus-grey); font-size: 0.86rem; line-height: 1.68; }
+
+  .domus-meridian-enquire { padding: clamp(5rem, 10vw, 9rem) 0; background: #ede7dc; }
+  .domus-meridian-enquire-layout { display: grid; grid-template-columns: minmax(220px, 0.72fr) minmax(0, 1.28fr); gap: clamp(2.5rem, 9vw, 9rem); align-items: start; }
+  .domus-meridian-enquire h2 { color: var(--domus-charcoal); font-size: clamp(2.55rem, 4.3vw, 4.15rem); }
+  .domus-meridian-enquire h2 em { color: var(--domus-gold); }
+  .domus-meridian-enquire header > p { max-width: 400px; margin: 1.65rem 0 0; color: var(--domus-grey); font-size: 0.92rem; line-height: 1.82; }
+  .domus-meridian-form-panel { padding: clamp(1.5rem, 4vw, 3.2rem); border: 1px solid rgba(26, 24, 20, 0.16); background: rgba(250, 248, 244, 0.68); }
+  .domus-meridian-form { display: flex; flex-direction: column; gap: 1.3rem; }
+  .domus-meridian-form-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1.3rem; }
+  .domus-meridian-form label { display: flex; flex-direction: column; gap: 0.55rem; color: var(--domus-charcoal); font-size: 0.61rem; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; }
+  .domus-meridian-form label span { color: var(--domus-gold); }
+  .domus-meridian-form input, .domus-meridian-form select, .domus-meridian-form textarea { min-height: 44px; border: 1px solid rgba(26, 24, 20, 0.2); border-radius: 0; background: transparent; color: var(--domus-charcoal); font-family: 'Jost', sans-serif; font-size: 0.86rem; font-weight: 300; letter-spacing: 0; text-transform: none; }
+  .domus-meridian-form textarea { min-height: 110px; padding: 0.8rem; resize: vertical; }
+  .domus-meridian-submit { display: inline-flex; align-self: flex-start; height: 45px; padding: 0 1.25rem; border-radius: 0; background: var(--domus-charcoal); color: var(--domus-ivory); font-size: 0.61rem; font-weight: 600; letter-spacing: 0.15em; text-transform: uppercase; }
+  .domus-meridian-submit:hover { background: var(--domus-gold); color: var(--domus-charcoal); }
+  .domus-meridian-form-note { margin: 0.25rem 0 0; color: var(--domus-grey); font-size: 0.75rem; }
+  .domus-meridian-form-note a { color: var(--domus-charcoal); text-decoration-color: var(--domus-gold); text-underline-offset: 3px; }
+  .domus-meridian-success { padding: 3.5rem 1rem; color: var(--domus-charcoal); text-align: center; }
+  .domus-meridian-success svg { color: var(--domus-gold); }
+  .domus-meridian-success h3 { margin: 1rem 0 0; font-size: 2rem; font-weight: 400; }
+  .domus-meridian-success p { max-width: 330px; margin: 0.8rem auto 0; color: var(--domus-grey); font-size: 0.86rem; line-height: 1.7; }
+  .domus-meridian-footer { display: flex; align-items: center; justify-content: space-between; gap: 1.5rem; padding: 1.5rem clamp(1.5rem, 5vw, 4rem); background: var(--domus-dark); color: rgba(245, 240, 232, 0.42); font-size: 0.65rem; }
+  .domus-meridian-footer p { margin: 0; }
+  .domus-meridian-footer a { color: var(--domus-gold-light); font-size: 0.6rem; letter-spacing: 0.1em; text-decoration: none; text-transform: uppercase; }
+
+  @media (max-width: 800px) {
+    .domus-meridian-hero-layout, .domus-meridian-capabilities header, .domus-meridian-enquire-layout { grid-template-columns: 1fr; gap: 3rem; }
+    .domus-meridian-capability-list article { grid-template-columns: 52px minmax(0, 1fr); gap: 0.8rem 1rem; }
+    .domus-meridian-capability-list article p { grid-column: 2; margin-top: 0; }
+  }
+
+  @media (max-width: 560px) {
+    .domus-meridian-nav > div { gap: 0.75rem; }
+    .domus-meridian-private-link { display: none; }
+    .domus-meridian-form-grid { grid-template-columns: 1fr; }
+    .domus-meridian-footer { align-items: flex-start; flex-direction: column; }
+  }
+
+  /* Shared introductory treatment for dedicated public pages */
+  .domus-secondary-page { min-height: 100vh; background: var(--domus-ivory); }
+  .domus-secondary-hero { padding: clamp(8rem, 13vw, 11.5rem) 0 clamp(4.5rem, 9vw, 8.5rem); background: #ede7dc; border-bottom: 1px solid rgba(26, 24, 20, 0.13); }
+  .domus-secondary-hero-layout { display: grid; grid-template-columns: minmax(0, 1.15fr) minmax(270px, 0.85fr); gap: clamp(3rem, 9vw, 9rem); align-items: end; }
+  .domus-secondary-rule { display: block; width: 42px; height: 1px; margin: 1.2rem 0 1.8rem; background: var(--domus-gold); }
+  .domus-secondary-hero h1 { max-width: 720px; margin: 0; color: var(--domus-charcoal); font-family: 'Cormorant Garamond', serif; font-size: clamp(3rem, 5.8vw, 5.4rem); font-weight: 300; line-height: 1.01; }
+  .domus-secondary-hero h1 em { color: var(--domus-gold); }
+  .domus-secondary-hero-layout > div > p { max-width: 430px; margin: 0; color: var(--domus-grey); font-size: 0.97rem; line-height: 1.85; }
+  .domus-secondary-hero-actions { display: flex; flex-wrap: wrap; gap: 1rem; margin-top: 2rem; }
+  .domus-secondary-hero-actions a { display: inline-flex; align-items: center; min-height: 42px; padding: 0.78rem 1rem; border: 1px solid var(--domus-gold); color: var(--domus-charcoal); font-size: 0.6rem; font-weight: 600; letter-spacing: 0.14em; text-decoration: none; text-transform: uppercase; }
+  .domus-secondary-hero-actions a:first-child { background: var(--domus-charcoal); border-color: var(--domus-charcoal); color: var(--domus-ivory); }
+  .domus-secondary-hero-dark { background: var(--domus-charcoal); border-color: rgba(232, 213, 163, 0.18); }
+  .domus-secondary-hero-dark h1 { color: var(--domus-ivory); }
+  .domus-secondary-hero-dark h1 em { color: var(--domus-gold-light); }
+  .domus-secondary-hero-dark .domus-secondary-hero-layout > div > p { color: rgba(245, 240, 232, 0.62); }
+  .domus-secondary-hero-dark .domus-secondary-hero-actions a { color: var(--domus-ivory); border-color: rgba(232, 213, 163, 0.58); }
+  .domus-secondary-hero-dark .domus-secondary-hero-actions a:first-child { background: var(--domus-gold); border-color: var(--domus-gold); color: var(--domus-charcoal); }
+
+  @media (max-width: 767px) {
+    .domus-secondary-hero-layout { grid-template-columns: 1fr; gap: 2.5rem; }
+    .domus-secondary-hero-actions a { flex: 1; justify-content: center; }
+  }
+
+  /* DOMUS promise: an editorial close without simulated client testimony */
+  .domus-promise-section { position: relative; overflow: hidden; padding: clamp(5rem, 10vw, 9rem) 0; background: var(--domus-charcoal); }
+  .domus-promise-layout { display: grid; grid-template-columns: minmax(90px, 0.28fr) minmax(0, 1.25fr) minmax(210px, 0.72fr); gap: clamp(2rem, 6vw, 6.5rem); align-items: end; }
+  .domus-promise-mark { align-self: start; color: rgba(232, 213, 163, 0.1); font-family: 'Cormorant Garamond', serif; font-size: clamp(7rem, 16vw, 15rem); font-style: italic; font-weight: 300; line-height: 0.72; }
+  .domus-promise-rule { display: block; width: 42px; height: 1px; margin: 1.2rem 0 1.75rem; background: var(--domus-gold); }
+  .domus-promise-section blockquote { max-width: 770px; margin: 0; color: var(--domus-ivory); font-family: 'Cormorant Garamond', serif; font-size: clamp(2.1rem, 4.3vw, 4.2rem); font-style: italic; font-weight: 300; line-height: 1.08; }
+  .domus-promise-layout > p { max-width: 310px; margin: 0 0 0.25rem; color: rgba(245, 240, 232, 0.6); font-size: 0.9rem; line-height: 1.8; }
+  @media (max-width: 800px) { .domus-promise-layout { grid-template-columns: 1fr; gap: 2rem; } .domus-promise-mark { font-size: 6rem; } .domus-promise-layout > p { max-width: 480px; } }
+
+  /* Private services: a wider editorial cadence for the detailed service list */
+  .domus-services-section { padding-top: clamp(5rem, 10vw, 9rem) !important; padding-bottom: clamp(5rem, 10vw, 9rem) !important; }
+  .domus-services-header { display: grid; grid-template-columns: minmax(180px, 0.58fr) minmax(0, 1.42fr); gap: clamp(2rem, 7vw, 7rem); align-items: end; }
+  .domus-services-header h2 { max-width: 680px !important; }
+  .domus-services-list { max-width: 1120px; margin-left: auto; }
+  .domus-service-row { padding: clamp(2rem, 4vw, 3.4rem) clamp(1rem, 3vw, 3rem) clamp(2rem, 4vw, 3.4rem) clamp(4.6rem, 8vw, 7rem) !important; }
+  .domus-service-row:hover { background: rgba(201, 168, 76, 0.06) !important; }
+  @media (max-width: 767px) { .domus-services-header { grid-template-columns: 1fr; gap: 1.5rem; } .domus-services-list { max-width: none; } .domus-service-row { padding: 2.15rem 0 2.15rem 3.8rem !important; } }
+
+  /* Milan: image, intelligence, and a more composed sense of place */
+  .domus-milan-section { padding-top: clamp(5rem, 10vw, 9rem) !important; padding-bottom: clamp(5rem, 10vw, 9rem) !important; }
+  .domus-milan-layout { max-width: 1210px; margin-right: auto; margin-left: auto; gap: clamp(3rem, 9vw, 9rem) !important; }
+  .domus-milan-image { aspect-ratio: 4 / 5 !important; }
+  .domus-milan-image img { filter: saturate(0.87) contrast(1.03); }
+  .domus-milan-stat { top: auto !important; right: -2.25rem !important; bottom: 2rem; min-width: 180px !important; padding: 1.6rem 1.9rem !important; }
+  .domus-milan-copy { padding-top: 2rem; border-top: 1px solid rgba(26, 24, 20, 0.15); }
+  .domus-milan-copy h2 { max-width: 480px; }
+  .domus-milan-copy .body-text { max-width: 500px; }
+  @media (max-width: 767px) { .domus-milan-layout { gap: 3.2rem !important; margin-bottom: 0 !important; } .domus-milan-copy { padding-top: 0; border-top: none; } }
+
+  /* Contact and footer: a quiet final movement for the public site */
+  .domus-contact-section { padding-top: clamp(5rem, 10vw, 9rem) !important; padding-bottom: clamp(4rem, 8vw, 7rem) !important; }
+  .domus-contact-grid { max-width: 1200px; margin: 0 auto; gap: clamp(3rem, 9vw, 9rem) !important; align-items: start; }
+  .domus-contact-copy { max-width: 480px; padding-top: 1rem; }
+  .domus-contact-copy h2 { max-width: 440px; }
+  .domus-contact-form-shell { padding: clamp(1.5rem, 3vw, 3rem); border-top: 1px solid rgba(232, 213, 163, 0.45); border-bottom: 1px solid rgba(232, 213, 163, 0.2); }
+  .domus-contact-form { max-width: 500px; }
+  .domus-contact-form-shell .btn-luxury-dark { align-self: flex-start; }
+  .domus-site-footer { padding-top: clamp(3rem, 5vw, 5rem) !important; padding-bottom: 2.3rem !important; }
+  .domus-site-footer-inner { max-width: 940px; margin: 0 auto; }
+  @media (min-width: 768px) { .domus-contact-grid { grid-template-columns: minmax(0, 0.82fr) minmax(0, 1.18fr) !important; } }
+  @media (max-width: 767px) { .domus-contact-form-shell { padding: 1.25rem 0 0; border-bottom: none; } .domus-contact-form-shell .btn-luxury-dark { width: 100%; justify-content: center; } }
+
   /* Service card */
   .service-card {
     position: relative;

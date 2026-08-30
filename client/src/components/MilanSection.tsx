@@ -51,6 +51,7 @@ export default function MilanSection() {
   return (
     <section
       id="milan"
+      className="domus-milan-section"
       style={{
         background: "var(--domus-ivory)",
         paddingTop: "8rem",
@@ -68,11 +69,11 @@ export default function MilanSection() {
             marginBottom: "7rem",
             alignItems: "center",
           }}
-          className="md-grid-2"
+          className="md-grid-2 domus-milan-layout"
         >
           {/* Image */}
-          <div ref={leftRef} className="fade-up" style={{ position: "relative" }}>
-            <div style={{ position: "relative", overflow: "hidden", aspectRatio: "3/4" }}>
+          <div ref={leftRef} className="fade-up domus-milan-image-wrap" style={{ position: "relative" }}>
+            <div className="domus-milan-image" style={{ position: "relative", overflow: "hidden", aspectRatio: "3/4" }}>
               <img
                 src={MILAN_IMAGE}
                 alt="An elegant Milanese street at golden hour"
@@ -106,7 +107,7 @@ export default function MilanSection() {
                 padding: "1.5rem 2rem",
                 minWidth: "160px",
               }}
-              className="hidden-mobile"
+              className="hidden-mobile domus-milan-stat"
             >
               <div
                 style={{
@@ -136,7 +137,7 @@ export default function MilanSection() {
           </div>
 
           {/* Text */}
-          <div ref={rightRef} className="fade-up">
+          <div ref={rightRef} className="fade-up domus-milan-copy">
             <span className="section-label" style={{ display: "block", marginBottom: "1rem" }}>
               Milano
             </span>
@@ -153,8 +154,8 @@ export default function MilanSection() {
                 marginBottom: "1.75rem",
               }}
             >
-              The city that rewards<br />
-              <em style={{ color: "var(--domus-gold)" }}>those who know it well.</em>
+              A city best understood<br />
+              <em style={{ color: "var(--domus-gold)" }}>from within.</em>
             </h2>
 
             <p className="body-text" style={{ marginBottom: "1.5rem" }}>
@@ -162,7 +163,7 @@ export default function MilanSection() {
             </p>
 
             <p className="body-text" style={{ marginBottom: "2.5rem" }}>
-              We chose Milan not as a destination, but as a home. We know its rhythms, its best-kept addresses, and the communities that make it one of Europe's most compelling cities for international families. That knowledge is what we offer you.
+              We chose Milan not as a destination, but as a home. We know its rhythms, its most considered addresses, and the communities that make it one of Europe's most compelling cities for international families. That knowledge is what we offer you.
             </p>
 
             <button

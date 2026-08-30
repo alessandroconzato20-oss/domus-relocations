@@ -78,6 +78,7 @@ export default function ContactSection({ onQuizOpen: _onQuizOpen }: ContactSecti
       {/* Contact Section */}
       <section
         id="contact"
+        className="domus-contact-section"
         style={{
           background: "var(--domus-charcoal)",
           paddingTop: "8rem",
@@ -91,12 +92,12 @@ export default function ContactSection({ onQuizOpen: _onQuizOpen }: ContactSecti
               gridTemplateColumns: "1fr",
               gap: "5rem",
             }}
-            className="contact-grid"
+            className="contact-grid domus-contact-grid"
           >
             {/* Left: CTA text */}
-            <div ref={headerRef} className="fade-up">
+            <div ref={headerRef} className="fade-up domus-contact-copy">
               <span className="section-label" style={{ color: "var(--domus-gold)", display: "block", marginBottom: "1rem" }}>
-                Begin Your Journey
+                Private consultation
               </span>
               <span className="gold-rule" style={{ display: "block", marginBottom: "2rem" }} />
 
@@ -126,7 +127,7 @@ export default function ContactSection({ onQuizOpen: _onQuizOpen }: ContactSecti
                   marginBottom: "2.5rem",
                 }}
               >
-                Every engagement begins with a private, no-obligation consultation. We listen first, then we plan. Reach out to begin a conversation about your move to Milan.
+                Every engagement begins with a private, no obligation consultation. We listen first, then we plan. Reach out to begin a considered conversation about your move to Milan.
               </p>
 
               <a href="/intake" className="btn-luxury" style={{ borderColor: "rgba(201, 168, 76, 0.5)", color: "rgba(245, 240, 232, 0.8)", marginBottom: "3rem", textDecoration: "none", display: "inline-block" }}>
@@ -194,9 +195,10 @@ export default function ContactSection({ onQuizOpen: _onQuizOpen }: ContactSecti
             </div>
 
             {/* Right: Contact form */}
-            <div ref={formRef} className="fade-up">
+            <div ref={formRef} className="fade-up domus-contact-form-shell">
               {!submitted ? (
                 <form
+                  className="domus-contact-form"
                   onSubmit={handleSubmit}
                   aria-label="Contact DOMUS Relocations — Begin Your Private Relocation"
                   data-mcp-form="contact"
@@ -410,6 +412,7 @@ export default function ContactSection({ onQuizOpen: _onQuizOpen }: ContactSecti
 
       {/* Footer */}
       <footer
+        className="domus-site-footer"
         style={{
           background: "var(--domus-dark)",
           borderTop: "1px solid rgba(245, 240, 232, 0.05)",
@@ -425,7 +428,7 @@ export default function ContactSection({ onQuizOpen: _onQuizOpen }: ContactSecti
               alignItems: "center",
               gap: "2rem",
             }}
-            className="footer-inner"
+            className="footer-inner domus-site-footer-inner"
           >
             {/* Logo */}
             <img

@@ -220,7 +220,13 @@ export default function PartnerDetail() {
               justifyContent: "center",
             }}
           >
-            {partner.logo}
+            {typeof partner.logo === "string" && partner.logo.startsWith("/") ? (
+              <img
+                src={partner.logo}
+                alt={`${partner.name} logo`}
+                style={{ maxWidth: "140px", maxHeight: "90px", objectFit: "contain" }}
+              />
+            ) : partner.logo}
           </div>
 
           {/* Content */}
@@ -277,7 +283,7 @@ export default function PartnerDetail() {
                   fontStyle: "italic",
                 }}
               >
-                To be introduced to {partner.name}, please reach out to your DOMUS advisor directly — all partner introductions are made personally and with full context of your relocation.
+                To be introduced to {partner.name}, please reach out to your DOMUS adviser directly. Every introduction is made personally and with full context of your relocation.
               </p>
               <a
                 href="mailto:milano@domusrelocations.com"

@@ -1,51 +1,33 @@
-/*
- * DOMUS Relocations — /services
- * Dedicated SEO page for DOMUS private relocation services.
- */
 import { useEffect } from "react";
+import ContactSection from "@/components/ContactSection";
 import Navigation from "@/components/Navigation";
 import ServicesSection from "@/components/ServicesSection";
-import ContactSection from "@/components/ContactSection";
 
 export default function Services() {
   useEffect(() => {
     document.title = "Private Relocation Services Milan | DOMUS Relocations";
-    const desc = document.querySelector('meta[name="description"]');
-    if (desc) desc.setAttribute("content", "DOMUS Relocations offers private relocation advisory, school placement, property search, tax and residency advisory, and the DOMUS Compass AI Intelligence Brief for families and executives moving to Milan.");
+    const description = document.querySelector('meta[name="description"]');
+    if (description) description.setAttribute("content", "DOMUS Relocations offers private relocation advisory, school placement, property search, tax and residency advisory, and the DOMUS Compass AI Intelligence Brief for families and executives moving to Milan.");
     const canonical = document.querySelector('link[rel="canonical"]');
     if (canonical) canonical.setAttribute("href", "https://www.domusrelocations.com/services");
   }, []);
 
   return (
-    <div style={{ background: "var(--domus-ivory)", minHeight: "100vh" }}>
+    <div className="domus-secondary-page">
       <Navigation />
-      <section
-        style={{
-          paddingTop: "8rem",
-          paddingBottom: "4rem",
-          background: "var(--domus-ivory)",
-          borderBottom: "1px solid rgba(201,168,76,0.15)",
-        }}
-      >
-        <div style={{ maxWidth: "900px", margin: "0 auto", padding: "0 2rem" }}>
-          <p style={{ fontSize: "0.7rem", letterSpacing: "0.2em", textTransform: "uppercase", color: "var(--domus-gold)", marginBottom: "1.5rem", fontFamily: "'Jost', sans-serif" }}>
-            Private Services
-          </p>
-          <h1 style={{ fontFamily: "'Cormorant Garamond', Georgia, serif", fontSize: "clamp(2.5rem, 6vw, 4.5rem)", fontWeight: 300, fontStyle: "italic", lineHeight: 1.1, color: "var(--domus-charcoal)", marginBottom: "2rem" }}>
-            Every detail of your move to Milan, handled.
-          </h1>
-          <p style={{ fontFamily: "'Jost', sans-serif", fontSize: "1.05rem", fontWeight: 300, lineHeight: 1.85, color: "#4A4540", maxWidth: "680px" }}>
-            From the first conversation to the first months settled in Milan, DOMUS Relocations provides
-            a complete private relocation service for internationally mobile families and executives.
-            Five core services. One point of contact. No detail left to chance.
-          </p>
-          <div style={{ marginTop: "2.5rem", display: "flex", gap: "1rem", flexWrap: "wrap" }}>
-            <a href="/intake" style={{ display: "inline-block", padding: "0.875rem 2.25rem", background: "var(--domus-gold)", color: "var(--domus-charcoal)", fontFamily: "'Jost', sans-serif", fontSize: "0.7rem", fontWeight: 500, letterSpacing: "0.15em", textTransform: "uppercase", textDecoration: "none", border: "1px solid var(--domus-gold)" }}>
-              Begin Your Private Relocation
-            </a>
-            <a href="mailto:milano@domusrelocations.com" style={{ display: "inline-block", padding: "0.875rem 2.25rem", background: "transparent", color: "var(--domus-charcoal)", fontFamily: "'Jost', sans-serif", fontSize: "0.7rem", fontWeight: 500, letterSpacing: "0.15em", textTransform: "uppercase", textDecoration: "none", border: "1px solid rgba(26,24,20,0.3)" }}>
-              Contact Us
-            </a>
+      <section className="domus-secondary-hero">
+        <div className="container domus-secondary-hero-layout">
+          <div>
+            <span className="section-label">Private services</span>
+            <span className="domus-secondary-rule" aria-hidden="true" />
+            <h1>Every detail of your move, <em>thoughtfully held.</em></h1>
+          </div>
+          <div>
+            <p>From a first conversation through the first months of life in Milan, DOMUS provides a private, considered relocation service for internationally mobile families and executives.</p>
+            <div className="domus-secondary-hero-actions">
+              <a href="/intake">Begin a private consultation</a>
+              <a href="mailto:milano@domusrelocations.com">Contact DOMUS</a>
+            </div>
           </div>
         </div>
       </section>

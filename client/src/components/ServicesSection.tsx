@@ -28,12 +28,12 @@ const services = [
     label: "School Advisory",
     title: "The right school, chosen with certainty.",
     description:
-      "Choosing the right school for your children is one of the most consequential decisions of any relocation. We begin with a thorough assessment of your family's needs, then provide curated introductions to selected international schools in Milan. We guide you through the entire application and admission process and offer something truly rare: a 1-to-1 insider student conversation, giving you the unfiltered truth of a school's environment in a single conversation, rather than having to discover it the hard way.",
+      "Choosing the right school for your children is one of the most consequential decisions of any relocation. We begin with a thorough assessment of your family's needs, then provide curated introductions to selected international schools in Milan. We guide you through the entire application and admission process and offer something truly rare: an insider student conversation, giving you an unfiltered view of a school's environment before a decision is made.",
     details: [
       "Assessment of family needs and educational priorities",
       "Introductions to selected international schools",
       "Guidance through application and admission",
-      "1-to-1 insider student talk for genuine insight",
+      "Insider student conversation for genuine insight",
     ],
   },
   {
@@ -67,13 +67,13 @@ const services = [
     label: "DOMUS Compass: AI Intelligence Brief",
     title: "Your move, understood before it begins.",
     description:
-      "Included with every DOMUS engagement, the DOMUS Compass is our proprietary AI-powered Pre-Moving Intelligence Brief, the first of its kind in private relocation. Before your first advisor call, our AI analyses your intake questionnaire in depth and generates a personalised intelligence document mapping your risks, fiscal deadlines, school admission windows, neighbourhood fit, and a 30/60/90-day integration roadmap. No other relocation brand does this. Your advisor arrives at your first conversation already knowing your situation, ready to act.",
+      "Included with every DOMUS engagement, the DOMUS Compass is our proprietary AI powered pre moving intelligence brief, the first of its kind in private relocation. Before your first adviser call, our AI analyses your intake questionnaire in depth and generates a personalised intelligence document mapping your risks, fiscal deadlines, school admission windows, neighbourhood fit, and a 30, 60, and 90 day integration roadmap. Your adviser arrives at the first conversation already knowing your situation and ready to act.",
     details: [
       "AI analysis of your full family and lifestyle profile",
       "Risk mapping: fiscal deadlines, permit timelines, school windows",
-      "Personalised 30/60/90-day Milan integration roadmap",
-      "Parallel advisor brief in English, every call starts informed",
-      "Delivered in your preferred language, included at no extra cost",
+      "Personalised 30, 60, and 90 day Milan integration roadmap",
+      "Parallel adviser brief in English, so every call starts informed",
+      "Delivered in your preferred language and included at no extra cost",
     ],
   },
 ];
@@ -101,7 +101,7 @@ function ServiceCard({ service, index }: { service: typeof services[0]; index: n
   return (
     <div
       ref={ref}
-      className="fade-up service-card-dark"
+      className="fade-up service-card-dark domus-service-row"
       style={{
         position: "relative",
         padding: "3.5rem 3rem 3.5rem 5rem",
@@ -216,7 +216,7 @@ function ServiceCard({ service, index }: { service: typeof services[0]; index: n
                       lineHeight: 1.6,
                     }}
                   >
-                    <span style={{ color: "var(--domus-gold)", marginTop: "0.3rem", flexShrink: 0 }}>—</span>
+                    <span style={{ color: "var(--domus-gold)", marginTop: "0.3rem", flexShrink: 0 }}>•</span>
                     {detail}
                   </li>
                 ))}
@@ -280,6 +280,7 @@ export default function ServicesSection() {
   return (
     <section
       id="services"
+      className="domus-services-section"
       style={{
         position: "relative",
         background: "var(--domus-charcoal)",
@@ -302,9 +303,9 @@ export default function ServicesSection() {
 
       <div className="container" style={{ position: "relative", zIndex: 1 }}>
         {/* Header */}
-        <div ref={headerRef} className="fade-up" style={{ marginBottom: "5rem" }}>
+        <div ref={headerRef} className="fade-up domus-services-header" style={{ marginBottom: "5rem" }}>
           <span className="section-label" style={{ color: "var(--domus-gold)", marginBottom: "1rem", display: "block" }}>
-            Our Services
+            Private relocation
           </span>
           <span className="gold-rule" style={{ display: "block", marginBottom: "2rem" }} />
           <h2
@@ -318,13 +319,12 @@ export default function ServicesSection() {
               maxWidth: "600px",
             }}
           >
-            Every detail of your<br />
-            <em style={{ color: "var(--domus-gold)" }}>new life, considered.</em>
+            A private move, <em style={{ color: "var(--domus-gold)" }}>considered in full.</em>
           </h2>
         </div>
 
         {/* Services list */}
-        <div style={{ borderTop: "1px solid rgba(245, 240, 232, 0.08)" }}>
+        <div className="domus-services-list" style={{ borderTop: "1px solid rgba(245, 240, 232, 0.08)" }}>
           {services.map((service, i) => (
             <ServiceCard key={i} service={service} index={i} />
           ))}

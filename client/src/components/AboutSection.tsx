@@ -1,285 +1,75 @@
-/*
- * DOMUS Relocations — About Section
- * Design: Asymmetric layout — large logo left, title and text right
- * Family story, editorial feel, gold rule accents
- */
-
-import { useEffect, useRef } from "react";
-
 const ABOUT_IMAGE = "https://d2xsxph8kpxj0f.cloudfront.net/310519663449035187/5G96cC5HiLZMXbLbP234aP/domus-about-family-NdyPxWzYNXMoRBruwRrPJ2.webp";
+const DOMUS_LOGO = "https://d2xsxph8kpxj0f.cloudfront.net/310519663449035187/5G96cC5HiLZMXbLbP234aP/DomusRelocationsLogo_506fe4bc.png";
 
-function useScrollReveal(threshold = 0.15) {
-  const ref = useRef<HTMLDivElement>(null);
-  useEffect(() => {
-    const el = ref.current;
-    if (!el) return;
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          el.classList.add("visible");
-          observer.unobserve(el);
-        }
-      },
-      { threshold }
-    );
-    observer.observe(el);
-    return () => observer.disconnect();
-  }, [threshold]);
-  return ref;
-}
-
-const journeyPoints = [
-  { city: "Tokyo", years: "6 years", flag: "🇯🇵" },
-  { city: "Hong Kong", years: "3 years", flag: "🇭🇰" },
-  { city: "Shanghai", years: "3 years", flag: "🇨🇳" },
-  { city: "Milano", years: "Since 2022", flag: "🇮🇹" },
+const journey = [
+  ["Tokyo", "Six years"],
+  ["Hong Kong", "Three years"],
+  ["Shanghai", "Three years"],
+  ["Milano", "Since 2022"],
 ];
 
 export default function AboutSection() {
-  const labelRef = useScrollReveal();
-  const contentRef = useScrollReveal(0.1);
-  const imageRef = useScrollReveal(0.1);
-  const journeyRef = useScrollReveal(0.1);
-
   return (
-    <section
-      id="about"
-      style={{
-        background: "var(--domus-ivory)",
-        paddingTop: "8rem",
-        paddingBottom: "8rem",
-        overflow: "hidden",
-      }}
-    >
+    <section id="about" className="domus-story-section">
       <div className="container">
-        {/* Asymmetric header: logo left, title + text right */}
-        <style>{`
-          .about-header-asymmetric {
-            display: grid;
-            grid-template-columns: 1fr 1.2fr;
-            gap: 4rem;
-            align-items: flex-start;
-            margin-bottom: 5rem;
-          }
-          
-          @media (max-width: 768px) {
-            .about-header-asymmetric {
-              grid-template-columns: 1fr;
-              gap: 2rem;
-            }
-          }
-        `}</style>
-        
-        <div ref={labelRef} className="fade-up about-header-asymmetric">
-          {/* Left: Large logo in container */}
-          <div style={{ 
-            display: "flex", 
-            alignItems: "center", 
-            justifyContent: "center",
-            padding: "2rem",
-            background: "rgba(201, 168, 76, 0.04)",
-            border: "1px solid rgba(201, 168, 76, 0.15)",
-            minHeight: "400px"
-          }}>
+        <header className="domus-story-intro">
+          <div className="domus-story-mark">
+            <img src={DOMUS_LOGO} alt="DOMUS Relocations" loading="lazy" decoding="async" />
+            <span>Our story</span>
+          </div>
+          <div>
+            <span className="section-label">A life lived internationally</span>
+            <span className="domus-story-rule" aria-hidden="true" />
+            <h2>A story we know <em>by heart.</em></h2>
+          </div>
+          <p>
+            DOMUS was shaped by a family who have lived the realities of international relocation, from school choices and new homes to the quieter work of creating a life in an unfamiliar city.
+          </p>
+        </header>
+
+        <div className="domus-story-feature">
+          <figure className="domus-story-image">
             <img
-              src="https://d2xsxph8kpxj0f.cloudfront.net/310519663449035187/5G96cC5HiLZMXbLbP234aP/DomusRelocationsLogo_506fe4bc.png"
-              alt="DOMUS Relocations"
+              src={ABOUT_IMAGE}
+              alt="A family looking out over Milan from their new home"
               loading="lazy"
               decoding="async"
-              style={{ maxWidth: "clamp(180px, 28vw, 320px)", width: "100%", height: "auto", objectFit: "contain", filter: "drop-shadow(0 4px 16px rgba(0,0,0,0.08))" }}
+              width="800"
+              height="1000"
             />
-          </div>
+            <figcaption>“For us, relocation is not simply a service. It is a story we know by heart.”</figcaption>
+          </figure>
 
-          {/* Right: Title and philosophy text */}
-          <div style={{ paddingTop: "0" }}>
-            <span className="section-label" style={{ fontSize: "0.85rem", display: "block", marginBottom: "0.75rem", textAlign: "left", letterSpacing: "0.15em", color: "#C9A84C" }}>Our Story</span>
-            <span className="gold-rule" style={{ display: "block", width: "60px", height: "2px", background: "#C9A84C", marginBottom: "2rem" }} />
-            <p style={{ fontFamily: "'Jost', sans-serif", fontWeight: 300, fontSize: "0.95rem", lineHeight: 1.8, color: "rgba(45, 41, 38, 0.7)", maxWidth: "400px" }}>
-              The DOMUS philosophy: proficiency in every detail, fidelity to your interests, and genuine care for the people behind the move. Crafted by a family who knows relocation by heart.
+          <div className="domus-story-copy">
+            <p>
+              Our own path took us across Asia: six years in Tokyo, three in Hong Kong, and three in Shanghai, before we chose Milano in 2022. In every place, we experienced the high stakes of finding the right school, home, support, and community.
             </p>
+            <p>
+              That experience taught us that a move should never be treated as a checklist. It is a deeply personal transition that deserves discretion, precision, and a steady hand through every decision.
+            </p>
+            <p>
+              Today, DOMUS brings that perspective to every client. We listen closely, anticipate what is next, and create a seamless beginning for families who expect thoughtful care in every detail.
+            </p>
+            <a href="/intake" className="domus-story-link">Start a private conversation</a>
           </div>
         </div>
 
-        {/* Main grid */}
-        <div
-          style={{
-            display: "grid",
-            gridTemplateColumns: "1fr",
-            gap: "4rem",
-          }}
-          className="about-grid"
-        >
-          {/* Text column */}
+        <div className="domus-story-journey">
           <div>
-            <div ref={contentRef} className="fade-up" style={{ marginBottom: "2.5rem" }}>
-              <h2
-                style={{
-                  fontFamily: "'Cormorant Garamond', serif",
-                  fontWeight: 300,
-                  fontStyle: "italic",
-                  fontSize: "clamp(2.5rem, 4vw, 3.75rem)",
-                  lineHeight: 1.1,
-                  color: "var(--domus-charcoal)",
-                  marginBottom: "2rem",
-                }}
-              >
-                A story we know<br />
-                <em style={{ color: "var(--domus-gold)" }}>by heart.</em>
-              </h2>
-
-              <p className="body-text" style={{ marginBottom: "1.5rem" }}>
-                DOMUS Relocations was born from our own journey as a family who have spent a lifetime moving across the world, experiencing relocation not as a service, but as a deeply personal and often complex transition.
-              </p>
-
-              <p className="body-text" style={{ marginBottom: "1.5rem" }}>
-                As a family of four, we lived for years across Asia: over six years in Tokyo, three in Hong Kong, and three in Shanghai, before choosing Milano in 2022. Throughout these years, we experienced relocation at a high level, navigating international schools, premium housing, and the expectations that come with a global, fast-paced lifestyle.
-              </p>
-
-              <p className="body-text" style={{ marginBottom: "1.5rem" }}>
-                With every move, we came to understand that true relocation is not just about efficiency; it is about discretion, precision, and a seamless transition where every detail is handled with care. We learned how important it is to feel supported, understood, and guided when entering a new environment, especially when standards and expectations are high.
-              </p>
-
-              <p className="body-text" style={{ marginBottom: "2.5rem" }}>
-                DOMUS Relocations was created to reflect exactly that. We offer a highly personalised, discreet, and detail-oriented approach designed for clients who value excellence and peace of mind. For us, relocation isn't just a service: it's a story we know by heart.
-              </p>
-
-              <span className="gold-rule" />
-            </div>
-
-            {/* Journey timeline */}
-            <div ref={journeyRef} className="fade-up" style={{ marginTop: "2.5rem" }}>
-              <p className="section-label" style={{ marginBottom: "1.5rem" }}>Our Journey</p>
-              <div style={{ display: "grid", gridTemplateColumns: "repeat(2, 1fr)", gap: "1rem" }}>
-                {journeyPoints.map((point, i) => (
-                  <div
-                    key={i}
-                    style={{
-                      padding: "1.25rem 1.5rem",
-                      border: "1px solid rgba(201, 168, 76, 0.2)",
-                      background: i === 3 ? "rgba(201, 168, 76, 0.06)" : "transparent",
-                    }}
-                  >
-                    <div style={{ fontSize: "1.5rem", marginBottom: "0.5rem" }}>{point.flag}</div>
-                    <div
-                      style={{
-                        fontFamily: "'Cormorant Garamond', serif",
-                        fontWeight: 400,
-                        fontSize: "1.25rem",
-                        color: "var(--domus-charcoal)",
-                        marginBottom: "0.25rem",
-                      }}
-                    >
-                      {point.city}
-                    </div>
-                    <div
-                      style={{
-                        fontFamily: "'Jost', sans-serif",
-                        fontWeight: 400,
-                        fontSize: "0.75rem",
-                        letterSpacing: "0.1em",
-                        color: i === 3 ? "var(--domus-gold)" : "var(--domus-grey)",
-                        textTransform: "uppercase",
-                      }}
-                    >
-                      {point.years}
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
+            <span className="section-label">Our journey</span>
+            <p>Global experience, brought home to Italy.</p>
           </div>
-
-          {/* Image column */}
-          <div
-            ref={imageRef}
-            className="fade-up"
-            style={{
-              position: "relative",
-              minHeight: "400px",
-            }}
-          >
-            <div
-              style={{
-                position: "sticky",
-                top: "8rem",
-              }}
-            >
-              {/* Main image */}
-              <div
-                style={{
-                  position: "relative",
-                  overflow: "hidden",
-                  aspectRatio: "4/5",
-                }}
-              >
-                <img
-                  src={ABOUT_IMAGE}
-                  alt="A family looking out over Milan from their new home"
-                  loading="lazy"
-                  decoding="async"
-                  width="800"
-                  height="1000"
-                  style={{
-                    width: "100%",
-                    height: "100%",
-                    objectFit: "cover",
-                    objectPosition: "center",
-                    display: "block",
-                  }}
-                />
-                {/* Gold corner accent */}
-                <div
-                  style={{
-                    position: "absolute",
-                    bottom: "1.5rem",
-                    left: "1.5rem",
-                    right: "1.5rem",
-                    padding: "1.25rem 1.5rem",
-                    background: "rgba(15, 13, 11, 0.7)",
-                    backdropFilter: "blur(8px)",
-                  }}
-                >
-                  <p
-                    style={{
-                      fontFamily: "'Cormorant Garamond', serif",
-                      fontWeight: 300,
-                      fontStyle: "italic",
-                      fontSize: "1.1rem",
-                      color: "var(--domus-gold-light)",
-                      lineHeight: 1.5,
-                      margin: 0,
-                    }}
-                  >
-                    "For us, relocation isn't just a service: it's a story we know by heart."
-                  </p>
-                </div>
-              </div>
-
-              {/* Decorative gold border element */}
-              <div
-                style={{
-                  position: "absolute",
-                  top: "-1rem",
-                  right: "-1rem",
-                  width: "60%",
-                  height: "60%",
-                  border: "1px solid rgba(201, 168, 76, 0.25)",
-                  zIndex: -1,
-                  pointerEvents: "none",
-                }}
-              />
-            </div>
-          </div>
+          <ol>
+            {journey.map(([city, years], index) => (
+              <li key={city}>
+                <span>0{index + 1}</span>
+                <strong>{city}</strong>
+                <em>{years}</em>
+              </li>
+            ))}
+          </ol>
         </div>
       </div>
-
-      <style>{`
-        @media (min-width: 1024px) {
-          .about-grid {
-            grid-template-columns: 1fr 1fr;
-          }
-        }
-      `}</style>
     </section>
   );
 }
